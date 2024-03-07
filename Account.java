@@ -5,10 +5,10 @@ public class Account {
   protected String accountId;
   protected String name;
   protected String password;
-  protected Date registerDate;
+  protected String registerDate;
 
   //constructor
-  public Account(String accountId, String name, String password, Date registerDate) {
+  public Account(String accountId, String name, String password, String registerDate) {
     this.accountId = accountId;
     this.name = name;
     this.password = password;

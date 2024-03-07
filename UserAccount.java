@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
+import java.text.SimpleDateFormat;
 
 public class UserAccount extends Account{
  //instance variables
@@ -7,19 +9,37 @@ public class UserAccount extends Account{
  private ArrayList<Booking> bookings;
 
  //constructor
- public UserAccount(String accountId, String name, String password, Date registerDate, ArrayList<Booking> bookings) {
+ public UserAccount(String accountId, String name, String password, String registerDate) {
     super(accountId, name, password, registerDate);
     this.bookings = new ArrayList<Booking>();
  }
 
  //instance method
- public void login()
+ public static void login()
  {
 
  }
 
- public void register()
+ public static UserAccount register()
  {
+   //entering details
+   Scanner input = new Scanner(System.in);
+   System.out.print("Enter your account ID: ");
+   String id = input.next();
+   input.nextLine(); //eliminate whitespace
+   System.out.print("Enter your name: ");
+   String username = input.nextLine();
+   System.out.print("Enter your password: ");
+   String pass = input.next();
+   input.close();
 
+   //generating simple date formate in string
+   Date date = new Date();
+   SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+   String dateString = simpleDateFormat.format(date);
+
+   UserAccount user = new UserAccount(id, username, pass, dateString);
+
+   return user;
  }
 }
