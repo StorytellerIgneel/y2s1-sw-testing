@@ -14,11 +14,23 @@ public class Booking
     private String time;
     private Date date;
 
-    public Booking(){
-
+    // public constructor booking
+    public Booking(
+        String movieId,
+        String accountId,
+        String cinemaLocation, 
+        int quantityAdult, 
+        int quantityChildren)
+    {   
+        this.movieId = movieId;
+        this.cinemaLocation = cinemaLocation;
+        this.quantityAdult = quantityAdult;
+        this.quantityChildren = quantityChildren;
     }
 
-    public void cancel(){
-        
+    // public cancel method
+    public void cancel()
+    {
+
     }
 }
