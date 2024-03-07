@@ -20,6 +20,7 @@ public class Booking
     public Booking(
         String movieId,
         String accountId,
+        String cinemaName,
         String cinemaLocation, 
         int quantityAdult, 
         int quantityChildren)
@@ -27,6 +28,7 @@ public class Booking
         // set variables
         this.bookingId = UUID.randomUUID().toString();
         this.movieId = movieId;
+        this.cinemaName = cinemaName;
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
