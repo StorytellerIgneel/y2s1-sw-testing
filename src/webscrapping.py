@@ -1,6 +1,10 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+import os
+
+os.system("pip install requests BeautifulSoup4")
+os.system("cls")
 
 url = "https://www.gsc.com.my/movies"
 
