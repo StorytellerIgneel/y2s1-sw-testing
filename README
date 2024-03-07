@@ -1,0 +1,11 @@
+Notes from Wei Hong:
+
+when running my file, please manually run it in terminal with the following commands:
+javac -cp ".;../lib/gson-2.2.2.jar" {your attempt to run java file}
+java -cp ".;../lib/gson-2.2.2.jar" {class of java file attempt to run}
+
+example: 
+javac -cp ".;../lib/gson-2.2.2.jar" testing.java
+java -cp ".;../lib/gson-2.2.2.jar" testing
+
+so that the gson lib is included.
