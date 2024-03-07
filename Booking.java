@@ -13,7 +13,7 @@ public class Booking
     private int quantityChildren;
     private double priceAdult = 12.90;
     private double priceChildren = 6.90;
-    private Date date;
+    private String date;
     private String time;
 
     // public constructor booking
@@ -32,8 +32,9 @@ public class Booking
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
-        this.date = new Date();
-        this.time = new SimpleDateFormat("HH:mm:ss").format(this.date);
+        unformatted_date = new Date();
+        this.date = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
+        this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
     }
 
     // public cancel method
