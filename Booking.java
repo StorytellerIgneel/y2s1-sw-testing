@@ -13,4 +13,12 @@ public class Booking
     private double priceChildren = 6.90;
     private String time;
     private Date date;
+
+    public Booking(){
+
+    }
+
+    public void cancel(){
+        
+    }
 }
