@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UserAccount extends Account{
@@ -8,7 +9,7 @@ public class UserAccount extends Account{
  //constructor
  public UserAccount(String accountId, String name, String password, Date registerDate, ArrayList<Booking> bookings) {
     super(accountId, name, password, registerDate);
-    this.bookings = bookings;
+    this.bookings = new ArrayList<Booking>();
  }
 
  //instance method
@@ -19,6 +20,6 @@ public class UserAccount extends Account{
 
  public void register()
  {
-  
+
  }
 }
