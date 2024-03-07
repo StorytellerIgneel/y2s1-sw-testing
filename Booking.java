@@ -1,5 +1,6 @@
 import java.util.Date;
 import java.util.UUID;
+import java.text.SimpleDateFormat;
 
 public class Booking
 {
@@ -28,6 +29,7 @@ public class Booking
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
+        this.date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());;
     }
 
     // public cancel method
