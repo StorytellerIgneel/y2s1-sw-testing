@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.UUID;
 
 public class Booking
 {
@@ -22,6 +23,7 @@ public class Booking
         int quantityAdult, 
         int quantityChildren)
     {   
+        this.bookingId = UUID.randomUUID().toString();
         this.movieId = movieId;
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
