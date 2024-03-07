@@ -24,12 +24,15 @@ public class Booking
         int quantityAdult, 
         int quantityChildren)
     {   
+        unformatted_date = new Date();
+
         this.bookingId = UUID.randomUUID().toString();
         this.movieId = movieId;
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
-        this.date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());;
+        this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
+        this.date = new SimpleDateFormat("dd-MM-yyyy").format(unformatted_date);
     }
 
     // public cancel method
