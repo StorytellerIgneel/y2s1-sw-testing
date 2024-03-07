@@ -33,7 +33,7 @@ public class Booking
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
         unformatted_date = new Date();
-        this.date = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
+        this.date = new SimpleDateFormat("dd-MM-yyyy").format(unformatted_date);
         this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
     }
 
