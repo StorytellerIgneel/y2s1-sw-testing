@@ -8,5 +8,8 @@ public class Main
         //user choose to register
         // call register method
         users.add(UserAccount.register());
+
+        //user choose to login
+        //after sucessfully login go into the main page
     }
 }

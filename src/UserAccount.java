@@ -14,10 +14,22 @@ public class UserAccount extends Account{
     this.bookings = new ArrayList<Booking>();
  }
 
- //instance method
- public static void login()
+ //static methods
+ public static void login(ArrayList<UserAccount> accounts)
  {
-
+   boolean success;
+   do
+   {
+    //entering details
+    Scanner input = new Scanner(System.in);
+    System.out.println("Enter your account ID: ");
+    String id = input.next();
+    System.out.println("Enter your password: ");
+    String pass = input.next();
+    input.close();
+    success = verifyLogin(accounts, id, pass);
+   }while (!success);
+   
  }
 
  public static UserAccount register()
