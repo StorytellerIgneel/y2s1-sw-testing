@@ -9,3 +9,9 @@ javac -cp ".;../lib/gson-2.2.2.jar" testing.java
 java -cp ".;../lib/gson-2.2.2.jar" testing
 
 so that the gson lib is included.
+
+and also for the python part to run, please do ensure that the libraries are installed
+1) requests (http requests)
+2) BeautifulSoup4 (html content parsing)
+
+it shall be installed automatically when you run the py file, but if it doesnt, please tell me and ill try to solve it
