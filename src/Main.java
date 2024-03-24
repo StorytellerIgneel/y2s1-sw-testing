@@ -4,6 +4,7 @@ public class Main
 {
     public static void main(String[] args)
     {
+        CommonIcon.printHeader();
         ArrayList<UserAccount> users = new ArrayList<UserAccount>();
         //user choose to register
         // call register method
