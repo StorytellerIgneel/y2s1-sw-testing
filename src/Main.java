@@ -1,16 +1,12 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        CommonIcon.printHeader();
-        ArrayList<UserAccount> users = new ArrayList<UserAccount>();
-        //user choose to register
-        // call register method
-        users.add(UserAccount.register());
-
-        //user choose to login
-        //after sucessfully login go into the main page
+        Scanner input = new Scanner(System.in);
+        LoginPage.printChoice();
+        LoginPage.chooseChoice(input);
     }
 }
