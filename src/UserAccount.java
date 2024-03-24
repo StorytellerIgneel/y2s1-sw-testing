@@ -15,7 +15,9 @@ public class UserAccount extends Account{
  }
 
  //static methods
- public static void login(ArrayList<UserAccount> accounts)
+
+  
+ public static void login(ArrayList<Account> accounts)
  {
    boolean success;
    do

@@ -16,10 +16,10 @@ public class Account {
     this.registerDate = registerDate;
   }
 
-  //instance variables
-  public static boolean verifyLogin(ArrayList<UserAccount> accounts, String id, String pass)
+  //static methods
+  public static boolean verifyLogin(ArrayList<Account> accounts, String id, String pass)
   {
-    for(UserAccount account : accounts)
+    for(Account account : accounts)
     {
       if(account.getAccountId().equals(id) && account.getPassword().equals(pass))
       {
@@ -28,6 +28,7 @@ public class Account {
     }
     return false;
   }
+  
 
   //getter methods
   public String getAccountId() {
