@@ -32,14 +32,15 @@ public class Booking
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
-        unformatted_date = new Date();
+        Date unformatted_date = new Date();
         this.date = new SimpleDateFormat("dd-MM-yyyy").format(unformatted_date);
         this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
     }
 
+    
+    // TODO Implement cancel method
     // public cancel method
     public void cancel()
     {
-
     }
 }
