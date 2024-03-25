@@ -1,3 +1,4 @@
+package booking;
 import java.util.Date;
 import java.util.UUID;
 import java.text.SimpleDateFormat;
@@ -11,8 +12,8 @@ public class Booking
     private String accountId;
     private int quantityAdult;
     private int quantityChildren;
-    private double priceAdult = 12.90;
-    private double priceChildren = 6.90;
+    public final double priceAdult = 12.90;
+    public final double priceChildren = 6.90;
     private String date;
     private String time;
 
@@ -37,10 +38,15 @@ public class Booking
         this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
     }
 
-    
-    // TODO Implement cancel method
-    // public cancel method
-    public void cancel()
+    // booking_id accessor
+    public String getBookingId()
     {
+        return bookingId;
+    }
+    
+    // calculate total price
+    public double calculateTotalPrice()
+    {
+        return quantityAdult * priceAdult + quantityChildren * priceChildren;
     }
 }

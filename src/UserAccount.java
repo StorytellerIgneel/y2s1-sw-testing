@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+
+import booking.Booking;
+
 import java.text.SimpleDateFormat;
 
 public class UserAccount extends Account{
