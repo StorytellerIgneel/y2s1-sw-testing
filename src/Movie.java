@@ -1,19 +1,21 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Movie {
     private String movieId;
     private String title;
     private String description;
-    private Date[] showtimes;
-    private String[] languages;
+    private ArrayList<String> showtimes;
+    private ArrayList<String> languages;
     private String releaseDate;
-    private String[] genre;
-    private double priceAdult;
-    private double priceChildren;
+    private String genre;
+    private Double priceAdult;
+    private Double priceChildren;
 
     // Constructor
-    public Movie(String movieId, String title, String description, Date[] showtimes, String[] languages, String releaseDate, String[] genre, double priceAdult, double priceChildren) {
+    public Movie(){};
+
+    public Movie(String movieId, String title, String description, ArrayList<String> showtimes, ArrayList<String> languages, String releaseDate, String genre, Double priceAdult, Double priceChildren) {
         this.movieId = movieId;
         this.title = title;
         this.description = description;
@@ -50,19 +52,19 @@ public class Movie {
         this.description = description;
     }
 
-    public Date[] getShowtimes() {
+    public ArrayList<String> getShowtimes() {
         return showtimes;
     }
 
-    public void setShowtimes(Date[] showtimes) {
+    public void setShowtimes(ArrayList<String> showtimes) {
         this.showtimes = showtimes;
     }
 
-    public String[] getLanguages() {
+    public ArrayList<String> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(String[] languages) {
+    public void setLanguages(ArrayList<String> languages) {
         this.languages = languages;
     }
 
@@ -74,11 +76,11 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public String[] getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(String[] genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
@@ -101,13 +103,13 @@ public class Movie {
     //other methods
     public String viewInformation() {
         StringBuilder movie_info = new StringBuilder();
-        movie_info.append("\n\nMovie ID: ").append(movieId).append("\n");
+        movie_info.append("Movie ID: ").append(movieId).append("\n");
         movie_info.append("Title: ").append(title).append("\n");
         movie_info.append("Description: ").append(description).append("\n");
-        movie_info.append("Showtimes: ").append(Arrays.toString(showtimes)).append("\n");
-        movie_info.append("Languages: ").append(Arrays.toString(languages)).append("\n");
+        movie_info.append("Showtimes: ").append(showtimes.toString()).append("\n");
+        movie_info.append("Languages: ").append(languages.toString()).append("\n");
         movie_info.append("Release Date: ").append(releaseDate).append("\n");
-        movie_info.append("Genre: ").append(Arrays.toString(genre)).append("\n");
+        movie_info.append("Genre: ").append(genre.toString()).append("\n");
         movie_info.append("Price (Adult): $").append(priceAdult).append("\n");
         movie_info.append("Price (Children): $").append(priceChildren).append("\n");
         return movie_info.toString();
