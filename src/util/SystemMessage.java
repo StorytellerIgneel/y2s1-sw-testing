@@ -8,13 +8,16 @@ public class SystemMessage {
         Scanner scanner = new Scanner(inputStream);
         switch(errorIndex) {
             case 1:
-                System.out.println("Please enter a valid number");
+                System.out.println("Please enter a valid number"); //used
                 break;
             case 2:
-                System.out.println("Please enter a valid index. This index is not available.");
+                System.out.println("Please enter a valid index. This index is not available."); //used
                 break;
             case 3:
-                System.out.println("The file movieData.txt is not present in the current directory.");
+                System.out.println("The file movieData.txt is not present in the current directory."); //used
+                break;
+            case 4:
+                System.out.println("The file user.txt is not found");
                 break;
         }
         System.out.println("Press Enter to continue...");

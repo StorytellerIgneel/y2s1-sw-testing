@@ -85,11 +85,10 @@ public class UserAccount extends Account{
   try
   {
     File userFile = new File("users.txt");
-    Scanner inFile = new Scanner(userFile);
   }
-  catch(IOException e)
-  {
-    SystemMessage.errorMessage(7);
-  }
+   
+
+ 
+
  }
 }
