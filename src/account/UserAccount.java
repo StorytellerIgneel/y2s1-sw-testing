@@ -1,3 +1,4 @@
+package account;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -8,18 +9,29 @@ import java.text.SimpleDateFormat;
 
 public class UserAccount extends Account{
  //instance variables
-//  private Booking[] bookings;
  private ArrayList<Booking> bookings;
+ public ArrayList<Booking> getBookings()
+ {
+  return bookings;
+ }
 
- //constructor
+ public void setBookings(ArrayList<Booking> bookings)
+ {
+  this.bookings = bookings;
+ }
+
+ //overloaded constructor
  public UserAccount(String accountId, String name, String password, String registerDate) {
     super(accountId, name, password, registerDate);
     this.bookings = new ArrayList<Booking>();
  }
 
- //static methods
+ public UserAccount(String accountId, String name, String password, String registerDate, ArrayList<Booking> bookings) {
+  super(accountId, name, password, registerDate);
+  setBookings(bookings);
+}
 
-  
+ //static methods
  public static void login(ArrayList<Account> accounts)
  {
    boolean success;

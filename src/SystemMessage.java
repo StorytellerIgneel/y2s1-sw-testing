@@ -31,6 +31,9 @@ public class SystemMessage {
             case 9:
                 System.out.println("Please enter a valid account name");
                 break;
+            case 10:
+                System.out.println("Please enter a number.");
+                break;
         }
         System.out.println("Press Enter to continue...");
         scanner.nextLine();

@@ -25,14 +25,14 @@ public class LoginPage {
                 choice = input.nextInt();
                 if(choice < 1 || choice > 4)
                 {
-                    System.out.println("Invalid Choice Received, Please Try Again.");
+                    SystemMessage.errorMessage(1);
                 }
                 else
                     isValid = true;
             }
             catch(InputMismatchException e)
             {
-                System.out.println("Invalid Choice Received, Please Try Again.");
+                SystemMessage.errorMessage(10);
                 input.nextLine();
             }
         }while(!isValid);
