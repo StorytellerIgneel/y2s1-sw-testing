@@ -1,5 +1,9 @@
-package GeneralSRC;
+package ui;
 import java.util.Scanner;
+
+import util.CommonIcon;
+import util.SystemMessage;
+
 import java.util.InputMismatchException;
 
 public class LoginPage {

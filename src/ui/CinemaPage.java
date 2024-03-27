@@ -1,3 +1,7 @@
+package ui;
+import cinema.Cinema;
+import util.CommonIcon;
+
 public class CinemaPage 
 {
     private static Cinema[] cinemas = Cinema.getCinemaLocation();

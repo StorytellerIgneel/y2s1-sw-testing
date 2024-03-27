@@ -1,4 +1,8 @@
+package ui;
 import java.util.ArrayList;
+
+import movie.Movie;
+import util.SystemMessage;
 
 public class MovieDeletePage implements MovieCRUD {
     public void deleteMovie (ArrayList<Movie> movieList) {

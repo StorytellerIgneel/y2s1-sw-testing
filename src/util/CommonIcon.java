@@ -1,4 +1,4 @@
-package GeneralSRC;
+package util;
 public class CommonIcon {
     public static void printHeader()
     {

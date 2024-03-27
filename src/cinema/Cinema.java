@@ -1,3 +1,6 @@
+package cinema;
+
+import movie.Movie;
 import java.util.ArrayList;
 
 public class Cinema 
