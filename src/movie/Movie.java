@@ -1,8 +1,3 @@
-<<<<<<< HEAD:src/GeneralSRC/Movie.java
-package GeneralSRC;
-=======
-package movie;
->>>>>>> de02b6f2023db24b66cd0ee64525621f85e4c359:src/movie/Movie.java
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,14 +8,14 @@ public class Movie {
     private ArrayList<String> showtimes;
     private ArrayList<String> languages;
     private String releaseDate;
-    private String genre;
+    private ArrayList<String> genre;
     private Double priceAdult;
     private Double priceChildren;
 
     // Constructor
     public Movie(){};
 
-    public Movie(String movieId, String title, String description, ArrayList<String> showtimes, ArrayList<String> languages, String releaseDate, String genre, Double priceAdult, Double priceChildren) {
+    public Movie(String movieId, String title, String description, ArrayList<String> showtimes, ArrayList<String> languages, String releaseDate, ArrayList<String> genre, Double priceAdult, Double priceChildren) {
         this.movieId = movieId;
         this.title = title;
         this.description = description;
@@ -81,11 +76,11 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public String getGenre() {
+    public ArrayList<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(ArrayList<String> genre) {
         this.genre = genre;
     }
 
