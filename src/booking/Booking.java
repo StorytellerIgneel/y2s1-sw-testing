@@ -4,13 +4,16 @@ import java.util.Date;
 import java.util.UUID;
 import java.text.SimpleDateFormat;
 
-// TODO Replace cinemaName and cinemaLocation with Cinema object
+/** 
+ * This class represents a booking made by a user.
+ * 
+ */
 public class Booking
 {
     public final static double priceAdult = 12.90;
     public final static double priceChildren = 6.90;
     public final String bookingId;
-    public final String movieId;
+    public final String movieName;
     public final String accountId;
     private String cinemaName;
     private String cinemaLocation;
@@ -20,8 +23,17 @@ public class Booking
     private String time;
 
     /* Constructor */
+    /**
+     * This constructor creates a new booking.
+     * @param movieName
+     * @param accountId
+     * @param cinemaName
+     * @param cinemaLocation
+     * @param quantityAdult
+     * @param quantityChildren
+     */
     public Booking(
-        String movieId,
+        String movieName,
         String accountId,
         String cinemaName,
         String cinemaLocation,
@@ -29,7 +41,7 @@ public class Booking
         int quantityChildren)
     {   
         this.bookingId = UUID.randomUUID().toString();
-        this.movieId = movieId;
+        this.movieName = movieName;
         this.accountId = accountId;
         this.cinemaName = cinemaName;
         this.cinemaLocation = cinemaLocation;
@@ -45,6 +57,11 @@ public class Booking
     {
         return bookingId;
     }
+
+    public String getMovieName()
+    {
+        return movieName;
+    }
     
     public int getQuantityAdult()
     {
@@ -56,6 +73,25 @@ public class Booking
         return quantityChildren;
     }
 
+    public String getCinemaName()
+    {
+        return cinemaName;
+    }
+
+    public String getCinemaLocation()
+    {
+        return cinemaLocation;
+    }
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public String getTime()
+    {
+        return time;
+    }
 
     /* Mutators */
     public void setQuantityAdult(int quantityAdult)
