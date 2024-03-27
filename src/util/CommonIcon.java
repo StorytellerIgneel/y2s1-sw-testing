@@ -1,10 +1,8 @@
-<<<<<<< HEAD:src/GeneralSRC/CommonIcon.java
-package GeneralSRC;
-import java.util.ArrayList;
-
-=======
 package util;
->>>>>>> de02b6f2023db24b66cd0ee64525621f85e4c359:src/util/CommonIcon.java
+
+import java.util.ArrayList;
+import movie.Movie;
+
 public class CommonIcon {
     public static void printHeader()
     {

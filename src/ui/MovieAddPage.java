@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/GeneralSRC/MovieAddPage.java
-package GeneralSRC;
-=======
 package ui;
->>>>>>> de02b6f2023db24b66cd0ee64525621f85e4c359:src/ui/MovieAddPage.java
 import java.util.ArrayList;
 import java.util.Scanner;
 

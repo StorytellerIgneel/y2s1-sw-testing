@@ -1,5 +1,7 @@
-package GeneralSRC;
+package ui;
+
 import java.util.ArrayList;
+import movie.Movie;
 
 public class CreateBookingPage {
     public static void printSearchedMovies(String searchName, ArrayList<Movie> movies)
