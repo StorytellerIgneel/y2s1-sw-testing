@@ -54,7 +54,6 @@ public class LoginPage {
 
         }while(!isValid);
         
-        input.close();
         return choice;
     }
 }
