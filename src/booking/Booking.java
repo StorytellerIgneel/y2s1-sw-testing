@@ -19,6 +19,7 @@ public class Booking
     private String cinemaLocation;
     private int quantityAdult;
     private int quantityChildren;
+    private String showtime;
     private String date;
     private String time;
 
@@ -38,7 +39,9 @@ public class Booking
         String cinemaName,
         String cinemaLocation,
         int quantityAdult, 
-        int quantityChildren)
+        int quantityChildren,
+        String showtime
+        )
     {   
         this.bookingId = UUID.randomUUID().toString();
         this.movieName = movieName;
@@ -47,6 +50,7 @@ public class Booking
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
+        this.showtime = showtime;
         Date unformatted_date = new Date();
         this.date = new SimpleDateFormat("dd-MM-yyyy").format(unformatted_date);
         this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
@@ -81,6 +85,11 @@ public class Booking
     public String getCinemaLocation()
     {
         return cinemaLocation;
+    }
+
+    public String getShowtime()
+    {
+        return showtime;
     }
 
     public String getDate()
