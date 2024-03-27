@@ -1,6 +1,6 @@
 {
   "java.project.sourcePaths": ["src"],
   "java.project.outputPath": "bin",
-  "java.project.referencedLibraries": ["**/*.jar"],
+  "java.project.referencedLibraries": ["lib/**/*.jar"],
   "editor.tabSize": 4
 }
