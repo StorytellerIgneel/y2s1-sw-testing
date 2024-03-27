@@ -12,7 +12,7 @@ public class BookingPage {
         this.user = user;
     }
 
-    // TODO change booking to Booking Array
+    // TODO change booking to Booking Array from user
     public void printBookingDetails(Booking booking)
     {
         System.out.println(red + "1. \tMovie: " + lime + booking.getMovieName());
@@ -26,7 +26,7 @@ public class BookingPage {
         System.out.print(reset);
     }
 
-    // TODO change booking to Booking Array
+    // TODO remove after booking array implemented
     public void display(Booking booking)
     {
         System.out.println(reset + "Welcome, " + user.getName() + "!\n");
