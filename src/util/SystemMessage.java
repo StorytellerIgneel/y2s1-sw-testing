@@ -16,27 +16,6 @@ public class SystemMessage {
             case 3:
                 System.out.println("The file movieData.txt is not present in the current directory.");
                 break;
-            case 4:
-                System.out.println("Your account ID/password is incorrect.");
-                break;
-            case 5:
-                System.out.println("Please enter a valid password");
-                break;
-            case 6:
-                System.out.println("Please enter a valid account name");
-                break;
-            case 7:
-                System.out.println("The file users.txt is not found");
-                break;
-            case 8:
-                System.out.println("Please enter a valid password");
-                break;
-            case 9:
-                System.out.println("Please enter a valid account name");
-                break;
-            case 10:
-                System.out.println("Please enter a number.");
-                break;
         }
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
