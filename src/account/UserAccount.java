@@ -1,18 +1,16 @@
 package account;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import booking.Booking;
-import util.SystemMessage;
 import java.text.SimpleDateFormat;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.io.*;
 
-
-
-
+import booking.Booking;
+import util.SystemMessage;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class UserAccount extends Account{
   //instance variables
@@ -26,7 +24,7 @@ public class UserAccount extends Account{
  {
   this.bookings = bookings;
  }
-
+ 
  //overloaded constructor
  public UserAccount(String accountId, String name, String password, String registerDate) {
     super(accountId, name, password, registerDate);
@@ -108,9 +106,4 @@ public class UserAccount extends Account{
    ArrayList<UserAccount> userList = gson.fromJson(line, type);
    return userList;
  }
-
- 
- 
- 
- 
 }
