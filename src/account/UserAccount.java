@@ -2,10 +2,9 @@ package account;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-
 import booking.Booking;
-
 import java.text.SimpleDateFormat;
+import GeneralSRC.SystemMessage;
 
 public class UserAccount extends Account{
  //instance variables
@@ -34,7 +33,7 @@ public class UserAccount extends Account{
  //static methods
  public static void login(ArrayList<Account> accounts)
  {
-   boolean success;
+   boolean success = false;
    do
    {
     //entering details
@@ -45,6 +44,11 @@ public class UserAccount extends Account{
     String pass = input.next();
     input.close();
     success = verifyLogin(accounts, id, pass);
+    if (!success)
+      SystemMessage.errorMessage(4);
+    else
+      SystemMessage.successMessage(4);
+
    }while (!success);
    
  }

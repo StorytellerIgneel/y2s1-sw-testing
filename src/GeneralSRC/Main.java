@@ -1,3 +1,4 @@
+package GeneralSRC;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,5 +9,6 @@ public class Main
         Scanner input = new Scanner(System.in);
         LoginPage.printChoice();
         LoginPage.chooseChoice(input);
+        
     }
 }

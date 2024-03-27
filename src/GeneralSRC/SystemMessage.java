@@ -1,3 +1,4 @@
+package GeneralSRC;
 import java.util.Scanner;
 
 public class SystemMessage {
@@ -14,7 +15,7 @@ public class SystemMessage {
                 System.out.println("The file movieData.txt is not present in the current directory.");
                 break;
             case 4:
-                System.out.println("Please enter a valid account id");
+                System.out.println("Your account ID/password is incorrect.");
                 break;
             case 5:
                 System.out.println("Please enter a valid password");
@@ -53,6 +54,11 @@ public class SystemMessage {
             case 3:
                 System.out.println("Account deleted successfully");
                 break;
+            case 4:
+                System.out.println("Login Success.");
+                break;
+            
+        
         }
         System.out.println("Press Enter to continue...");
         scanner.nextLine();

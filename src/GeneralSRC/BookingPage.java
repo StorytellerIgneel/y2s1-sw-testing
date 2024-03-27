@@ -1,3 +1,4 @@
+package GeneralSRC;
 import account.Account;
 import booking.Booking;
 import color.Color;
