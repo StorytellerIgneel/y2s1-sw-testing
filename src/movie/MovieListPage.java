@@ -1,4 +1,4 @@
-//package Movie;
+package movie;
 
 import java.util.ArrayList;
 import java.util.Scanner;

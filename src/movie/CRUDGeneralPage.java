@@ -1,14 +1,14 @@
-//package Movie;
+package movie;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import util.Validation;
 
 public class CRUDGeneralPage{
     ArrayList<Movie> movieList;

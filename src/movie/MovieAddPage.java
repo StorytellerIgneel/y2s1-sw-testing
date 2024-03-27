@@ -1,6 +1,7 @@
-//package Movie;
+package movie;
 import java.util.ArrayList;
 import java.util.Scanner;
+import util.Validation;
 
 public class MovieAddPage implements MovieCRUD {
     MovieAddPage(){};
@@ -28,23 +29,39 @@ public class MovieAddPage implements MovieCRUD {
                 step += 1;
                 if (Validation.isBack(movieId))
                     return;
+                else if (Validation.isQuit(movieId))
+                    System.exit(0);
+                else
+                    step += 1;
+                step += 1;
             }
             if(step == 2){  
                 System.out.print("Enter Title: ");
                 title = input.nextLine();
-                step += (title == ":q"? -1: 1);
+                if (Validation.isBack(title))
+                    return;
+                else if (Validation.isQuit(title))
+                    System.exit(0);
+                else
+                    step += 1;
             }
 
             if(step == 3){  
                 System.out.print("Enter Description: ");
                 description = input.nextLine();
-                step += (title == ":q"? -1: 1);
+                if (Validation.isBack(description))
+                    return;
+                else if (Validation.isQuit(description))
+                    System.exit(0);
+                else
+                    step += 1;
             }
 
             if(step == 4){  
                 System.out.print("Enter Showtimes in 24hour format (separated by spaces): ");
                 String[] showtimesArray = input.nextLine().split(" ");
                 for (String showtime : showtimesArray) {
+                    if (!is)
                     showtimes.add(showtime.trim());
                 }
                 step += (title == ":q"? -1: 1);
