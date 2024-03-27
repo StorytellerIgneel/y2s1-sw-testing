@@ -1,7 +1,8 @@
-package GeneralSRC;
+package ui;
 import account.Account;
 import booking.Booking;
 import color.Color;
+import util.CommonIcon;
 
 public class BookingPage {
     private Account user;

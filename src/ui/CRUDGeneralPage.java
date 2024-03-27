@@ -1,8 +1,13 @@
-package GeneralSRC;
+package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import movie.Movie;
+import util.SystemMessage;
+import util.Validation;
+
 import java.lang.reflect.Type;
 import java.io.File;
 import java.io.FileNotFoundException;

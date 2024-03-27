@@ -1,4 +1,10 @@
+<<<<<<< HEAD:src/GeneralSRC/Cinema.java
 package GeneralSRC;
+=======
+package cinema;
+
+import movie.Movie;
+>>>>>>> de02b6f2023db24b66cd0ee64525621f85e4c359:src/cinema/Cinema.java
 import java.util.ArrayList;
 
 public class Cinema 

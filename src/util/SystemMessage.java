@@ -1,4 +1,4 @@
-package GeneralSRC;
+package util;
 import java.util.Scanner;
 
 public class SystemMessage {

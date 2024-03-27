@@ -1,6 +1,10 @@
-package GeneralSRC;
+package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import movie.Movie;
+import util.SystemMessage;
+import util.Validation;
 
 public class MovieUpdatePage implements MovieCRUD{
     MovieUpdatePage(){};
