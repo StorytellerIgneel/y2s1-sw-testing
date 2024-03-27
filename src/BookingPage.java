@@ -20,7 +20,6 @@ public class BookingPage {
         System.out.println(Color.red + "\tChildren: " + Color.lime + booking.getQuantityChildren());
         System.out.println(Color.red + "\tAdults: " + Color.lime + booking.getQuantityAdult());
         System.out.println(Color.red + "\tTotal Price: " + Color.lime + "RM " + booking.calculateTotalPrice());
-        System.out.print(Color.reset);
     }
 
     // TODO remove after booking array implemented
@@ -30,6 +29,9 @@ public class BookingPage {
         System.out.println(Color.reset + "Welcome, " + user.getName() + "!\n");
         System.out.println(Color.red + "Your Bookings:");
         printBookingDetails(booking);
+        System.out.println("\n");
+        System.out.println(Color.lime + "What would you like to do with your bookings?"); // TODO add booking controller
+        System.out.print(Color.reset);
     }
 
     // TODO remove test method below
