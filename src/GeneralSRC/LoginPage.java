@@ -1,6 +1,7 @@
 package GeneralSRC;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 
 public class LoginPage {
 
@@ -13,8 +14,9 @@ public class LoginPage {
         System.out.println("4. Exit"); 
     }
 
-    public static int chooseChoice(Scanner input)
+    public static int chooseChoice()
     {
+        Scanner input = new Scanner(System.in);
         boolean isValid = false;
         int choice = 0;
         
@@ -24,19 +26,31 @@ public class LoginPage {
             try
             {
                 choice = input.nextInt();
+                
                 if(choice < 1 || choice > 4)
                 {
-                    SystemMessage.errorMessage(1);
+                    System.out.println("Invalid");
+                    // SystemMessage.errorMessage(1);
                 }
                 else
-                    isValid = true;
+                isValid = true;
             }
             catch(InputMismatchException e)
             {
                 SystemMessage.errorMessage(10);
+            }
+            catch (NoSuchElementException e)
+            {
+                System.out.println("No such element");
+            }
+            finally
+            {
                 input.nextLine();
             }
+
         }while(!isValid);
+        
+        input.close();
         return choice;
     }
 }

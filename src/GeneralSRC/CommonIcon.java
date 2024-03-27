@@ -1,4 +1,6 @@
 package GeneralSRC;
+import java.util.ArrayList;
+
 public class CommonIcon {
     public static void printHeader()
     {
@@ -14,5 +16,24 @@ public class CommonIcon {
             System.out.print(ch);
         }
         System.out.println();
+    }
+
+    public static void printTrend(ArrayList<Movie> movies)
+    {
+        System.out.println("#Trending Now");
+        for(Movie movie : movies)
+        {
+            System.out.println(movie.getTitle());
+        }
+
+    }
+    
+    public static void printLatest(ArrayList<Movie> movies)
+    {
+        System.out.println("#Latest Release");
+        for(Movie movie : movies)
+        {
+            System.out.println(movie.getTitle());
+        }
     }
 }

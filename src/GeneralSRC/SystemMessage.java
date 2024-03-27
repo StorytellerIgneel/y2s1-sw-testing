@@ -2,7 +2,7 @@ package GeneralSRC;
 import java.util.Scanner;
 
 public class SystemMessage {
-    public static void errorMessage(int errorIndex){
+    public static void errorMessage(int errorIndex ){
         Scanner scanner = new Scanner(System.in);
         switch(errorIndex) {
             case 1:
@@ -24,7 +24,7 @@ public class SystemMessage {
                 System.out.println("Please enter a valid account name");
                 break;
             case 7:
-                System.out.println("Please enter a valid account id");
+                System.out.println("The file users.txt is not found");
                 break;
             case 8:
                 System.out.println("Please enter a valid password");

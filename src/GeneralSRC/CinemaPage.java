@@ -1,3 +1,4 @@
+package GeneralSRC;
 public class CinemaPage 
 {
     private static Cinema[] cinemas = Cinema.getCinemaLocation();

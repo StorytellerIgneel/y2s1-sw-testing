@@ -1,3 +1,4 @@
+package GeneralSRC;
 import java.util.ArrayList;
 
 public class Cinema 
