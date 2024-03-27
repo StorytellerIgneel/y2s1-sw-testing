@@ -36,8 +36,8 @@ public class CRUDGeneralPage{
             Integer mainPageChoiceInt = 0;
 
             try{
-                Process process = Runtime.getRuntime().exec("clear");
-            } catch (IOException error){
+                clearConsole();
+            } catch (IOException | InterruptedException error){
                 error.printStackTrace();
             }
             System.out.println("\nCRUD Options for Movie:");
@@ -54,11 +54,7 @@ public class CRUDGeneralPage{
             {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5)
-                {
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
-                    System.out.println("Exeucted");
-                }
-                    
                 else if (mainPageChoiceInt == 5)
                     return;
                 else
@@ -81,7 +77,7 @@ public class CRUDGeneralPage{
         String line = "";
 
         try{
-            File file = new File("movieData.txt");
+            File file = new File("movieData.json");
             Scanner inputFile = new Scanner(file);
             while(inputFile.hasNextLine())
                 line = inputFile.nextLine();
@@ -129,7 +125,6 @@ public class CRUDGeneralPage{
         {
             System.out.printf("Enter the index of the movie you wish to %s (Enter :q to quit): ", action);
             index = input.nextLine();
-            input.close();
             if (Validation.isNumber(index))
             {
                 int indexInt = Integer.parseInt(index);
@@ -152,5 +147,14 @@ public class CRUDGeneralPage{
         System.out.println("Press Enter to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine(); // Wait for the user to press Enter
+    }
+
+    public static void clearConsole() throws IOException, InterruptedException {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("windows")) {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } else {
+            new ProcessBuilder("clear").inheritIO().start().waitFor();
+        }
     }
 }
