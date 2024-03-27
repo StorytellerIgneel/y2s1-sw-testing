@@ -1,4 +1,5 @@
 package ui;
+
 import cinema.Cinema;
 import util.CommonIcon;
 

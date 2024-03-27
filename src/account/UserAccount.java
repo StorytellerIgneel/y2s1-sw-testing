@@ -6,6 +6,8 @@ import booking.Booking;
 import util.SystemMessage;
 
 import java.text.SimpleDateFormat;
+import GeneralSRC.SystemMessage;
+import java.io.*;
 
 public class UserAccount extends Account{
  //instance variables
@@ -44,6 +46,7 @@ public class UserAccount extends Account{
     System.out.println("Enter your password: ");
     String pass = input.next();
     input.close();
+
     success = verifyLogin(accounts, id, pass);
     if (!success)
       SystemMessage.errorMessage(4);
@@ -75,5 +78,17 @@ public class UserAccount extends Account{
    UserAccount user = new UserAccount(id, username, pass, dateString);
 
    return user;
+ }
+
+ public static ArrayList<UserAccount> getUsers()
+ {
+  try
+  {
+    File userFile = new File("users.txt");
+  }
+   
+
+ 
+
  }
 }

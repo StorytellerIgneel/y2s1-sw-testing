@@ -1,4 +1,4 @@
-package util;
+//package Movie;
 public class Validation {
     public static boolean isNumber(String value) {
         try{
@@ -39,11 +39,6 @@ public class Validation {
     }
 
     public static boolean isBack(String value){
-        return (value == ":b");
-    } 
-
-    public static boolean isQuit(String value)
-    {
         return (value == ":q");
-    }
+    }  
 }
