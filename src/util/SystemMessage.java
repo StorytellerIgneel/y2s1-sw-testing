@@ -1,9 +1,11 @@
 package util;
+import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 public class SystemMessage {
     public static void errorMessage(int errorIndex ){
-        Scanner scanner = new Scanner(System.in);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("10\n".getBytes());
+        Scanner scanner = new Scanner(inputStream);
         switch(errorIndex) {
             case 1:
                 System.out.println("Please enter a valid number");
@@ -43,7 +45,8 @@ public class SystemMessage {
     }
 
     public static void successMessage(int successIndex) {
-        Scanner scanner = new Scanner(System.in);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("10\n".getBytes());
+        Scanner scanner = new Scanner(inputStream);
         switch(successIndex) {
             case 1:
                 System.out.println("Movie Added Successfully!");

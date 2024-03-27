@@ -26,5 +26,6 @@ public class Main
             case 3:
             case 4:
         }
+        LoginPage.chooseChoice(input);
     }
 }
