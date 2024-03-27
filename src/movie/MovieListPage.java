@@ -10,7 +10,6 @@ public class MovieListPage implements MovieCRUD {
         
         CRUDGeneralPage.showAllMovie(movieList); 
         input.nextLine();
-        input.close();
         return;
     }
 }

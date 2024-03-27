@@ -124,7 +124,6 @@ public class MovieAddPage implements MovieCRUD {
         Movie movie = new Movie(movieId, title, description, showtimes, languages, releaseDate, genre, priceAdultDouble, priceChildrenDouble);
         movieList.add(movie);
         SystemMessage.successMessage(1);
-        input.close();
         return;
     }
 }

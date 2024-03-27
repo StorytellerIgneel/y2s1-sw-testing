@@ -39,8 +39,6 @@ public class SystemMessage {
             case 4:
                 System.out.println("Login Success.");
                 break;
-            
-        
         }
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
