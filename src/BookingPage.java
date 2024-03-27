@@ -12,6 +12,7 @@ public class BookingPage {
         this.user = user;
     }
 
+    // TODO change booking to Booking Array
     public void printBookingDetails(Booking booking)
     {
         System.out.println(red + "1. \tMovie: " + lime + booking.getMovieName());
