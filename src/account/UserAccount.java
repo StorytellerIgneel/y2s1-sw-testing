@@ -4,13 +4,18 @@ import java.util.Date;
 import java.util.Scanner;
 import booking.Booking;
 import util.SystemMessage;
-
 import java.text.SimpleDateFormat;
-import GeneralSRC.SystemMessage;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.io.*;
 
+
+
+
+
 public class UserAccount extends Account{
- //instance variables
+  //instance variables
  private ArrayList<Booking> bookings;
  public ArrayList<Booking> getBookings()
  {
@@ -82,13 +87,29 @@ public class UserAccount extends Account{
 
  public static ArrayList<UserAccount> getUsers()
  {
-  try
-  {
-    File userFile = new File("users.txt");
-  }
-   
+   Gson gson = new Gson();
+   Type type = new TypeToken<ArrayList<UserAccount>>() {}.getType();
+
+   String line = "";
+   try
+   {
+    File inFile = new File("user.json");
+    Scanner inputFile = new Scanner(inFile);
+    while(inputFile.hasNextLine())
+    {
+      line = inputFile.nextLine();
+    }
+    inputFile.close();
+   }catch(IOException e)
+   {
+    SystemMessage.errorMessage(4);
+   }
+
+   ArrayList<UserAccount> userList = gson.fromJson(line, type);
+   return userList;
+ }
 
  
-
- }
+ 
+ 
 }
