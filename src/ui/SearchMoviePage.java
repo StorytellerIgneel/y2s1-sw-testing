@@ -1,6 +1,11 @@
-package GeneralSRC;
+package ui;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import movie.Movie;
+import util.CommonIcon;
+import util.Validation;
 
 public class SearchMoviePage {
     public static void printMovies(ArrayList<Movie> trendMovies, ArrayList<Movie> latestMovies)

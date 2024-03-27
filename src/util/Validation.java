@@ -1,8 +1,5 @@
-<<<<<<< HEAD:src/GeneralSRC/Validation.java
-package GeneralSRC;
-=======
 package util;
->>>>>>> de02b6f2023db24b66cd0ee64525621f85e4c359:src/util/Validation.java
+
 public class Validation {
     public static boolean isNumber(String value) {
         try{

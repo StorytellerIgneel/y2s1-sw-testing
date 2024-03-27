@@ -1,11 +1,8 @@
-<<<<<<< HEAD:src/GeneralSRC/CinemaPage.java
-package GeneralSRC;
-=======
 package ui;
+
 import cinema.Cinema;
 import util.CommonIcon;
 
->>>>>>> de02b6f2023db24b66cd0ee64525621f85e4c359:src/ui/CinemaPage.java
 public class CinemaPage 
 {
     private static Cinema[] cinemas = Cinema.getCinemaLocation();

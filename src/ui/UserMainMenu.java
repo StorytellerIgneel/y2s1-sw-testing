@@ -1,6 +1,12 @@
-package GeneralSRC;
+package ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import movie.Movie;
+import util.CommonIcon;
+import util.SystemMessage;
+import util.Validation;
 
 public class UserMainMenu {
 
