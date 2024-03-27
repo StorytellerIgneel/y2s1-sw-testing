@@ -14,7 +14,6 @@ public class Main
     public static void main(String[] args)
     {
         ArrayList<UserAccount> users = UserAccount.getUsers();
-        CommonIcon.printHeader();
         LoginPage.printChoice();
         int choice = LoginPage.chooseChoice();
         switch(choice)
