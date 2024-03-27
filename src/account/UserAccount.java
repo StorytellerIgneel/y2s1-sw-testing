@@ -24,7 +24,7 @@ public class UserAccount extends Account{
  {
   this.bookings = bookings;
  }
-
+ 
  //overloaded constructor
  public UserAccount(String accountId, String name, String password, String registerDate) {
     super(accountId, name, password, registerDate);
@@ -106,9 +106,4 @@ public class UserAccount extends Account{
    ArrayList<UserAccount> userList = gson.fromJson(line, type);
    return userList;
  }
-
- 
- 
- 
- 
 }
