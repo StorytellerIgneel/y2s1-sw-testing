@@ -7,8 +7,7 @@ import util.CommonIcon;
 public class BookingPage {
     private Account user;
 
-    // TODO ask team if possible to add Booking Array to user account
-    BookingPage(Account user) 
+    public BookingPage(Account user) 
     {
         this.user = user;
     }
@@ -35,14 +34,5 @@ public class BookingPage {
         System.out.println("\n");
         System.out.println(Color.lime + "What would you like to do with your bookings?"); // TODO add booking controller
         System.out.print(Color.reset);
-    }
-
-    // TODO remove test method below
-    public static void main(String[] args)
-    {
-        Account user = new Account("John", "Doe", "password", "01-01-2021");
-        Booking booking = new Booking("Avengers: Endgame", "John", "TVG Cheras Selatan", "Cheras", 2, 1, "03-01-2024 10:00:00");
-        BookingPage bookingPage = new BookingPage(user);
-        bookingPage.display(booking);
-    }
+    }    
 }

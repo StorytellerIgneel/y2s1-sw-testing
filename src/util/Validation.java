@@ -1,4 +1,5 @@
 package util;
+
 public class Validation {
     public static boolean isNumber(String value) {
         try{
