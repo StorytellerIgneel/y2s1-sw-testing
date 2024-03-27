@@ -10,7 +10,6 @@ public class Main
     {
         ArrayList<UserAccount> users;
         LoginPage.printChoice();
-<<<<<<< HEAD:src/GeneralSRC/Main.java
         int choice = LoginPage.chooseChoice();
 
         switch(choice)
@@ -27,8 +26,5 @@ public class Main
             case 3:
             case 4:
         }
-=======
-        LoginPage.chooseChoice(input);
->>>>>>> de02b6f2023db24b66cd0ee64525621f85e4c359:src/Main.java
     }
 }
