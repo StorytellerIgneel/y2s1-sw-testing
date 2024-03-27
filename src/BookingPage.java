@@ -1,5 +1,6 @@
 import booking.Booking;
 import color.Color;
+
 public class BookingPage {
     private Account user;
 
@@ -24,7 +25,8 @@ public class BookingPage {
 
     // TODO remove after booking array implemented
     public void display(Booking booking)
-    {
+    {   
+        CommonIcon.printHeader();
         System.out.println(Color.reset + "Welcome, " + user.getName() + "!\n");
         System.out.println(Color.red + "Your Bookings:");
         printBookingDetails(booking);
