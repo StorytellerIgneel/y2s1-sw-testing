@@ -77,7 +77,7 @@ public class CRUDGeneralPage{
         String line = "";
 
         try{
-            File file = new File("movieData.json");
+            File file = new File("../resource/movieData.json");
             Scanner inputFile = new Scanner(file);
             while(inputFile.hasNextLine())
                 line = inputFile.nextLine();
