@@ -6,7 +6,7 @@ import booking.Booking;
 import util.SystemMessage;
 
 import java.text.SimpleDateFormat;
-import GeneralSRC.SystemMessage;
+import util.SystemMessage;
 import java.io.*;
 
 public class UserAccount extends Account{
