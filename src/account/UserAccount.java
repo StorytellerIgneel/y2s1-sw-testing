@@ -91,7 +91,7 @@ public class UserAccount extends Account{
    String line = "";
    try
    {
-    File inFile = new File("./resource/user.json");
+    File inFile = new File("../resource/user.json");
     Scanner inputFile = new Scanner(inFile);
     while(inputFile.hasNextLine())
     {
