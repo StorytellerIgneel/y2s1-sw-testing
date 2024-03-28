@@ -48,7 +48,6 @@ public class UserAccount extends Account{
     String id = input.next();
     System.out.println("Enter your password: ");
     String pass = input.next();
-    input.close();
 
     success = verifyLogin(accounts, id, pass);
     if (!success)
@@ -71,7 +70,6 @@ public class UserAccount extends Account{
    String username = input.nextLine();
    System.out.print("Enter your password: ");
    String pass = input.next();
-   input.close();
 
    //generating simple date formate in string
    Date date = new Date();
@@ -85,25 +83,37 @@ public class UserAccount extends Account{
 
  public static ArrayList<UserAccount> getUsers()
  {
-   Gson gson = new Gson();
-   Type type = new TypeToken<ArrayList<UserAccount>>() {}.getType();
+    Gson gson = new Gson();
+    Type type = new TypeToken<ArrayList<UserAccount>>() {}.getType();
 
+<<<<<<< HEAD
    String line = "";
    try
    {
     File inFile = new File("../resource/user.json");
     Scanner inputFile = new Scanner(inFile);
     while(inputFile.hasNextLine())
+=======
+    String line = "";
+    try
+>>>>>>> 624f9a88a98a599f7afe074eb3f273b001465d94
     {
-      line = inputFile.nextLine();
+      File inFile = new File("./resource/user.json");
+      Scanner inputFile = new Scanner(inFile);
+      while(inputFile.hasNextLine())
+      {
+        line = inputFile.nextLine();
+      }
+      inputFile.close();
+    }catch(IOException e)
+    {
+      SystemMessage.errorMessage(4);
     }
-    inputFile.close();
-   }catch(IOException e)
-   {
-    SystemMessage.errorMessage(4);
-   }
 
-   ArrayList<UserAccount> userList = gson.fromJson(line, type);
+    ArrayList<UserAccount> userList = gson.fromJson(line, type);
+    if (userList == null) {
+        userList = new ArrayList<UserAccount>();
+    }
    return userList;
  }
 }
