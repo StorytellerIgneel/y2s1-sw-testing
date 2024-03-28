@@ -29,6 +29,7 @@ public class Main
             case 2:
                 UserAccount user = UserAccount.register();
                 users.add(user);
+                UserAccount.saveUsers(users);
                 break;
         }
 

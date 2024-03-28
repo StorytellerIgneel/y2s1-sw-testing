@@ -51,7 +51,7 @@ public class UserAccount extends Account{
 
     success = verifyLogin(accounts, id, pass);
     if (!success)
-      SystemMessage.errorMessage(4);
+      SystemMessage.errorMessage(5);
     else
       SystemMessage.successMessage(4);
 
@@ -86,19 +86,10 @@ public class UserAccount extends Account{
     Gson gson = new Gson();
     Type type = new TypeToken<ArrayList<UserAccount>>() {}.getType();
 
-<<<<<<< HEAD
-   String line = "";
-   try
-   {
-    File inFile = new File("../resource/user.json");
-    Scanner inputFile = new Scanner(inFile);
-    while(inputFile.hasNextLine())
-=======
     String line = "";
     try
->>>>>>> 624f9a88a98a599f7afe074eb3f273b001465d94
     {
-      File inFile = new File("./resource/user.json");
+      File inFile = new File("src\\resource\\user.json");
       Scanner inputFile = new Scanner(inFile);
       while(inputFile.hasNextLine())
       {
@@ -115,5 +106,23 @@ public class UserAccount extends Account{
         userList = new ArrayList<UserAccount>();
     }
    return userList;
+ }
+
+ public static void saveUsers(ArrayList<UserAccount> users)
+ {
+   Gson gson = new Gson();
+   String toWrite = gson.toJson(users);
+
+   try
+   {
+     File outFile = new File("src\\resource\\user.json");
+     PrintWriter outputFile = new PrintWriter(outFile);
+     outputFile.println(toWrite);
+     outputFile.close();
+   }catch(FileNotFoundException error)
+   {
+     SystemMessage.errorMessage(4);
+   }
+
  }
 }

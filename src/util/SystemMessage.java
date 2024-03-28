@@ -18,7 +18,10 @@ public class SystemMessage {
                 System.out.println("The file movieData.txt is not present in the current directory."); //used
                 break;
             case 4:
-                System.out.println("The file user.json is not found");
+                System.out.println("The file user.json is not found");//used
+                break;
+            case 5:
+                System.out.println("Login failed");//used
                 break;
         }
         System.out.println("Press Enter to continue...");
