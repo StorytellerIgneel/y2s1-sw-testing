@@ -46,9 +46,9 @@ public class BookingPage {
         for (int i = 0; i < user.getBookings().size(); i++)
         {
             printBookingDetails(i, user.getBookings().get(i));
+            System.out.println();
         }
 
-        System.out.println();
         System.out.println(Color.reset + "What would you like to do with your bookings?"); // TODO add booking controller
         System.out.println(Color.red + "1. " + Color.lime + "Create Bookings");
         System.out.println(Color.red + "2. " + Color.lime + "Update Bookings");

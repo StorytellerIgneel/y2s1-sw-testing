@@ -9,7 +9,7 @@ public class BookingPageTest {
     {
         UserAccount user = new UserAccount("John", "Doe", "password", "01-01-2021");
         Booking booking = new Booking("Avengers: Endgame", "TVG Cheras Selatan", "Cheras", 2, 1, "03-01-2024 10:00:00");
-        Booking booking2 = new Booking("Avengers: Endgame", "TVG Cheras Selatan", "Cheras", 2, 1, "03-01-2024 10:00:00");
+        Booking booking2 = new Booking("Kung Fu Panda 4", "TVG Gurney Drive", "George Town", 2, 0, "05-02-2024 22:30:00");
         
         ArrayList<Booking> bookings = new ArrayList<Booking>();
         bookings.add(booking);
