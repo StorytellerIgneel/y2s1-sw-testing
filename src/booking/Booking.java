@@ -14,7 +14,6 @@ public class Booking
     public final static double priceChildren = 6.90;
     public final String bookingId;
     public final String movieName;
-    public final String accountId;
     private String cinemaName;
     private String cinemaLocation;
     private int quantityAdult;
@@ -27,7 +26,6 @@ public class Booking
     /**
      * This constructor creates a new booking.
      * @param movieName
-     * @param accountId
      * @param cinemaName
      * @param cinemaLocation
      * @param quantityAdult
@@ -35,7 +33,6 @@ public class Booking
      */
     public Booking(
         String movieName,
-        String accountId,
         String cinemaName,
         String cinemaLocation,
         int quantityAdult, 
@@ -45,7 +42,6 @@ public class Booking
     {   
         this.bookingId = UUID.randomUUID().toString();
         this.movieName = movieName;
-        this.accountId = accountId;
         this.cinemaName = cinemaName;
         this.cinemaLocation = cinemaLocation;
         this.quantityAdult = quantityAdult;
