@@ -89,7 +89,7 @@ public class UserAccount extends Account{
     String line = "";
     try
     {
-      File inFile = new File("src\\resource\\user.json");
+      File inFile = new File("src\\resources\\user.json");
       Scanner inputFile = new Scanner(inFile);
       while(inputFile.hasNextLine())
       {
@@ -115,7 +115,7 @@ public class UserAccount extends Account{
 
    try
    {
-     File outFile = new File("src\\resource\\user.json");
+     File outFile = new File("src\\resources\\user.json");
      PrintWriter outputFile = new PrintWriter(outFile);
      outputFile.println(toWrite);
      outputFile.close();
