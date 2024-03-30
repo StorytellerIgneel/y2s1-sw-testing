@@ -8,9 +8,10 @@ import java.lang.reflect.Type;
 import java.io.*;
 
 import booking.Booking;
-import util.SystemMessage;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import util.*;
 
 public class UserAccount extends Account{
   //instance variables
@@ -40,13 +41,14 @@ public class UserAccount extends Account{
  public static void login(ArrayList<Account> accounts)
  {
    boolean success = false;
+   CommonIcon.printHeader();
    do
    {
     //entering details
     Scanner input = new Scanner(System.in);
-    System.out.println("Enter your account ID: ");
+    System.out.print("Enter your account ID: ");
     String id = input.next();
-    System.out.println("Enter your password: ");
+    System.out.print("Enter your password: ");
     String pass = input.next();
 
     success = verifyLogin(accounts, id, pass);
@@ -61,6 +63,7 @@ public class UserAccount extends Account{
 
  public static UserAccount register()
  {
+   CommonIcon.printHeader();
    //entering details
    Scanner input = new Scanner(System.in);
    System.out.print("Enter your account ID: ");

@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import account.*;
-
+import movie.CRUDGeneralPage;
 import booking.Booking;
 
 import ui.LoginPage;
@@ -19,6 +19,18 @@ public class Main
         switch(choice)
         {
             case 1:
+                try
+                {
+                    CRUDGeneralPage.clearConsole();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+                catch(InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
                 ArrayList<Account> accounts = new ArrayList<Account>();
                 for(int i = 0; i < users.size(); i++) //convert UserAccount to Account type
                 {
@@ -27,6 +39,18 @@ public class Main
                 UserAccount.login(accounts);
                 break;
             case 2:
+                try
+                {
+                    CRUDGeneralPage.clearConsole();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+                catch(InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
                 UserAccount user = UserAccount.register();
                 users.add(user);
                 UserAccount.saveUsers(users);
