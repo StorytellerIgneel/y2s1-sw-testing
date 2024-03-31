@@ -24,6 +24,20 @@ public class BookingPage {
         this.bookingController = new BookingController(user);
     }
 
+    public void getChoice()
+    {
+        System.out.println(Color.reset + "What would you like to do with your bookings?");
+        System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
+        System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");
+        System.out.println(Color.red + "3) " + Color.lime + "Delete Bookings");
+        System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
+        System.out.println();
+        System.out.print(Color.reset + "Enter your choice: ");
+
+        // TODO - Add functionality to create, update, delete bookings
+        String choice = scanner.nextLine();
+    }
+
     /**
      * Displays the booking page
      */
@@ -37,14 +51,7 @@ public class BookingPage {
         // Prints all booking details
         bookingController.printAllBookings();
 
-        System.out.println(Color.reset + "What would you like to do with your bookings?"); // TODO add booking controller
-        System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
-        System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");
-        System.out.println(Color.red + "3) " + Color.lime + "Delete Bookings");
-        System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
-        System.out.println();
-        System.out.print(Color.reset + "Enter your choice: ");
-        
-        // TODO Call the booking controller
-    }    
+        // Get user choice
+        getChoice();
+        }    
 }
