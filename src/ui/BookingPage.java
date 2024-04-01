@@ -182,7 +182,7 @@ public class BookingPage {
             // Get user choice for cinema location
             System.out.print(Color.reset + "Select the cinema you would like to book: ");
             if (scanner.hasNextInt()) {
-                choice = scanner.nextInt(); // TODO Fix out of bounds error, and for bewlo functions too
+                choice = scanner.nextInt(); // TODO Fix out of bounds error, and for below functions too
                 validInput = true;
             } else {
                 System.out.println("Invalid input. Please enter a number.");
