@@ -15,6 +15,7 @@ public class BookingController {
     /**
      * Constructor for BookingController
      * @param user
+     * TODO Add administrator functionality
      */
     public BookingController(UserAccount user) {
         this.user = user;

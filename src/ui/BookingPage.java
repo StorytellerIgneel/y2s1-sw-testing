@@ -1,11 +1,14 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import account.UserAccount;
 import booking.BookingController;
 import color.Color;
+import movie.Movie;
 import util.CommonIcon;
+import cinema.Cinema;
 
 public class BookingPage {
     private UserAccount user;
@@ -34,8 +37,29 @@ public class BookingPage {
         System.out.println();
         System.out.print(Color.reset + "Enter your choice: ");
 
-        // TODO - Add functionality to create, update, delete bookings
-        String choice = scanner.nextLine();
+        try {
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    displayCreateBookingPage();
+                    break; // Break is unnecessary here in Java, but it's good practice to include it
+                case 2:
+                    // TODO - Add functionality to update bookings
+                    break;
+                case 3:
+                    // TODO - Add functionality to delete bookings
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
+                    getChoice();
+                    break;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+            getChoice();
+        }
     }
 
     /**
@@ -53,5 +77,14 @@ public class BookingPage {
 
         // Get user choice
         getChoice();
-        }    
+    }
+
+    public void displayCreateBookingPage()
+    {   
+        ArrayList<Movie> movieList = ui.CRUDGeneralPage.getMovieList();
+        Cinema[] cinemaList = Cinema.getCinemaLocation();
+        System.out.println(Color.reset + "Create a Booking");
+        System.out.println();
+        System.out.println(Color.red + "Select a movie to book:");
+    }
 }

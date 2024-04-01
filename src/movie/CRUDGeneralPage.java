@@ -70,7 +70,7 @@ public class CRUDGeneralPage{
         }    
     }
 
-    public ArrayList<Movie> getMovieList()
+    public static ArrayList<Movie> getMovieList()
     {
         Gson gson = new Gson();
         Type movieListType = new TypeToken<ArrayList<Movie>>(){}.getType();
