@@ -46,11 +46,11 @@ public class UserMainMenu {
             if(Validation.isNumber(choice)) //checking its a number or not
             {
                 choiceInt = Integer.parseInt(choice);
-                if(choiceInt == 5)
-                {
-                    isValid = true;
-                    System.exit(0);
-                }
+                // if(choiceInt == 5)
+                // {
+                //     isValid = true;
+                //     System.exit(0);
+                // }
                 if(choiceInt < 1 || choiceInt > 5) //checkings its a valid number or not
                     SystemMessage.errorMessage(1);
                 else

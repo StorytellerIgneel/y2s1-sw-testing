@@ -42,8 +42,14 @@ public class Main
                 }
                 userIdx = UserAccount.login(accounts);
                 // UserMainMenu.printMovies(null, null);
+                CommonIcon.printHeader();
+                CommonIcon.printUserStatus(userIdx, users);
                 UserMainMenu.printUserAction();
                 choice = UserMainMenu.chooseUserAction(); // -1 means re-run main
+                if(choice == 5) //exit the program
+                    resume = false;
+                else if(choice == -1) //re-run main
+                    ;
             }
             else if(choice == 2)
             {
