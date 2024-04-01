@@ -23,6 +23,9 @@ public class SystemMessage {
             case 5:
                 System.out.println("Login failed");//used
                 break;
+            case 6:
+                System.out.println("Please enter a number");//used
+                break;
         }
         System.out.println("Press Enter to continue...");
         scanner.nextLine();

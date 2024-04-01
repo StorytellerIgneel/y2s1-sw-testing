@@ -13,10 +13,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-public class CRUDGeneralPage{
+public class UICRUDGeneralPage{
     ArrayList<Movie> movieList;
     
-    CRUDGeneralPage(){}
+    UICRUDGeneralPage(){}
 
     public void MainPage()
     {

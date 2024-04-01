@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
 import java.io.*;
 
 import booking.Booking;
-import movie.CRUDGeneralPage;
+import movie.MovieCRUDGeneralPage;
 import ui.UserMainMenu;
 
 import com.google.gson.Gson;
@@ -63,7 +63,7 @@ public class UserAccount extends Account{
    
    try
     {
-        CRUDGeneralPage.clearConsole();
+        Util.clearConsole();
     }
     catch(IOException e)
     {

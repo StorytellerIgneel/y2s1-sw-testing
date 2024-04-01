@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import util.Validation;
 
-public class CRUDGeneralPage{
+public class MovieCRUDGeneralPage{
     ArrayList<Movie> movieList;
     
-    CRUDGeneralPage(){}
+    MovieCRUDGeneralPage(){}
 
     public void MainPage()
     {
@@ -149,12 +149,12 @@ public class CRUDGeneralPage{
         scanner.nextLine(); // Wait for the user to press Enter
     }
 
-    public static void clearConsole() throws IOException, InterruptedException {
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("windows")) {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } else {
-            new ProcessBuilder("clear").inheritIO().start().waitFor();
-        }
-    }
+    // public static void clearConsole() throws IOException, InterruptedException {
+    //     String os = System.getProperty("os.name").toLowerCase();
+    //     if (os.contains("windows")) {
+    //         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+    //     } else {
+    //         new ProcessBuilder("clear").inheritIO().start().waitFor();
+    //     }
+    // }
 }
