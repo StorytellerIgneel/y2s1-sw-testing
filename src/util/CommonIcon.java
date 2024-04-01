@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import movie.Movie;
+import account.*;
 
 public class CommonIcon {
     public static void printHeader()
@@ -37,5 +38,13 @@ public class CommonIcon {
         {
             System.out.println(movie.getTitle());
         }
+    }
+
+    public static void printUserStatus(int index, ArrayList<UserAccount> users)
+    {
+        // printChar('-', 60);
+        System.out.print("Username  : "+users.get(index).getName());
+        System.out.println("\t\tUserID    : "+users.get(index).getAccountId());
+        printChar('-', 60);
     }
 }
