@@ -18,11 +18,11 @@ public class Account {
   }
 
   //static methods
-  public static boolean verifyLogin(ArrayList<Account> accounts, String id, String pass)
+  public static boolean verifyLogin(ArrayList<Account> accounts, String name, String pass)
   {
     for(Account account : accounts)
     {
-      if(account.getAccountId().equals(id) && account.getPassword().equals(pass))
+      if(account.getName().equals(name) && account.getPassword().equals(pass))
       {
         return true;
       }

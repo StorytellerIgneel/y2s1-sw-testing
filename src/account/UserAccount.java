@@ -8,6 +8,8 @@ import java.lang.reflect.Type;
 import java.io.*;
 
 import booking.Booking;
+import movie.CRUDGeneralPage;
+import ui.UserMainMenu;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -46,12 +48,12 @@ public class UserAccount extends Account{
    {
     //entering details
     Scanner input = new Scanner(System.in);
-    System.out.print("Enter your account ID: ");
-    String id = input.next();
+    System.out.print("Enter your username: ");
+    String name = input.nextLine();
     System.out.print("Enter your password: ");
     String pass = input.next();
 
-    success = verifyLogin(accounts, id, pass);
+    success = verifyLogin(accounts, name, pass);
     if (!success)
       SystemMessage.errorMessage(5);
     else
@@ -59,6 +61,18 @@ public class UserAccount extends Account{
 
    }while (!success);
    
+   try
+    {
+        CRUDGeneralPage.clearConsole();
+    }
+    catch(IOException e)
+    {
+        e.printStackTrace();
+    }
+    catch(InterruptedException e)
+    {
+        e.printStackTrace();
+    }
  }
 
  public static UserAccount register()

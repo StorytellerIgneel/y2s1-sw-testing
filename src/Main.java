@@ -5,9 +5,8 @@ import java.util.Scanner;
 import account.*;
 import movie.CRUDGeneralPage;
 import booking.Booking;
-
-import ui.LoginPage;
-import util.CommonIcon;
+import ui.*;
+import util.*;
 
 public class Main
 {
@@ -37,6 +36,9 @@ public class Main
                     accounts.add(users.get(i));
                 }
                 UserAccount.login(accounts);
+
+                UserMainMenu.printMovies(null, null);
+                UserMainMenu.printUserAction();
                 break;
             case 2:
                 try
