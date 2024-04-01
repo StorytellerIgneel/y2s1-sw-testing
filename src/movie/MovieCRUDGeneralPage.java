@@ -77,7 +77,7 @@ public class MovieCRUDGeneralPage{
         String line = "";
 
         try{
-            File file = new File("../resource/movieData.json");
+            File file = new File("./src/resources/movieData.json");
             Scanner inputFile = new Scanner(file);
             while(inputFile.hasNextLine())
                 line = inputFile.nextLine();
