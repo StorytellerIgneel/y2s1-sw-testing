@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import account.*;
-import movie.MovieCRUDGeneralPage;
+import movie.*;
 import booking.Booking;
 import ui.*;
 import util.*;
@@ -14,6 +14,10 @@ public class Main
     public static void main(String[] args)
     {
         ArrayList<UserAccount> users = UserAccount.getUsers();
+        ArrayList<Movie> trend = MovieCRUDGeneralPage.getMovieList(); //to be modified
+        ArrayList<Movie> latest = MovieCRUDGeneralPage.getMovieList(); //to be modified
+        ArrayList<Movie> movieList = MovieCRUDGeneralPage.getMovieList(); //to be modified
+
         boolean resume = true;
         int userIdx;
         while(resume)
@@ -27,29 +31,30 @@ public class Main
                 {
                     Util.clearConsole();
                 }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
-                catch(InterruptedException e)
+                catch(IOException | InterruptedException e)
                 {
                     e.printStackTrace();
                 }
                 ArrayList<Account> accounts = new ArrayList<Account>();
-                for(int i = 0; i < users.size(); i++) //convert UserAccount to Account type
+                for(int i = 0; i < users.size(); i++) //convert UserAccount to Account type for verifying users
                 {
                     accounts.add(users.get(i));
                 }
                 userIdx = UserAccount.login(accounts);
-                // UserMainMenu.printMovies(null, null);
-                CommonIcon.printHeader();
-                CommonIcon.printUserStatus(userIdx, users);
+
+                UserMainMenu.printMovies(trend, latest, userIdx, users); // to be modified
                 UserMainMenu.printUserAction();
                 choice = UserMainMenu.chooseUserAction(); // -1 means re-run main
+
                 if(choice == 5) //exit the program
                     resume = false;
                 else if(choice == -1) //re-run main
                     ;
+                else if(choice == 1)
+                {
+                    UserMainMenu.printMovies(trend, latest, userIdx, users);
+                    SearchMoviePage.searchMovie(movieList, userIdx, users);
+                }
             }
             else if(choice == 2)
             {
@@ -57,11 +62,7 @@ public class Main
                 {
                     Util.clearConsole();
                 }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
-                catch(InterruptedException e)
+                catch(IOException | InterruptedException e)
                 {
                     e.printStackTrace();
                 }
@@ -82,11 +83,7 @@ public class Main
         {
             Util.clearConsole();
         }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-        catch(InterruptedException e)
+        catch(IOException | InterruptedException e)
         {
             e.printStackTrace();
         }

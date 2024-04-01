@@ -3,7 +3,7 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import account.*;
 import movie.Movie;
 import util.*;
 import movie.*;
@@ -12,11 +12,14 @@ import movie.*;
 
 public class UserMainMenu {
 
-    public static void printMovies(ArrayList<Movie> trendMovies, ArrayList<Movie> latestMovies)
+    public static void printMovies(ArrayList<Movie> trendMovies, ArrayList<Movie> latestMovies, int index, ArrayList<UserAccount> users)
     {
         CommonIcon.printHeader();
+        CommonIcon.printUserStatus(index, users);
         CommonIcon.printTrend(trendMovies);
+        System.out.println();
         CommonIcon.printLatest(latestMovies);
+        CommonIcon.printChar('-', 60);
     }
 
     public static void printUserAction()

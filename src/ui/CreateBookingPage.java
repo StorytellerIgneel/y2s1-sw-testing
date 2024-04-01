@@ -1,22 +1,40 @@
 package ui;
 
+import account.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import movie.Movie;
+import util.CommonIcon;
+import util.Util;
 
 public class CreateBookingPage {
-    public static void printSearchedMovies(String searchName, ArrayList<Movie> movies)
+    public static void printSearchedMovies(ArrayList<Movie> result, int userIdx, ArrayList<UserAccount> users) 
     {
-        for(int i = 0; i < movies.size(); i++) //displays all the related movies
+        try
         {
-            if(movies.get(i).getTitle().toLowerCase().contains(searchName.toLowerCase()))
-            {
-                System.out.println((i+1) + movies.get(i).getTitle());
-            }
+            Util.clearConsole();
         }
+        catch(IOException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        CommonIcon.printHeader();
+        CommonIcon.printUserStatus(userIdx, users);
+        for(int i = 0; i < result.size(); i++)
+        {
+            System.out.println((i+1) + ") " + result.get(i).getTitle());
+        }
+        CommonIcon.printChar('-', 60);
+        chooseMovie();
     }
 
     public static void chooseMovie()
     {
-        System.out.println("Select a movie: ");
+        int choice;
+        System.out.print("Select a movie: ");
+        Scanner input = new Scanner(System.in);
+        choice = input.nextInt();
+
     }
 }

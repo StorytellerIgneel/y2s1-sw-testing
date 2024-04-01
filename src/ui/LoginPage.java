@@ -28,6 +28,7 @@ public class LoginPage {
         System.out.println("2. Register");
         System.out.println("3. Login as Administrator");
         System.out.println("4. Exit"); 
+        CommonIcon.printChar('-', 60);
     }
 
     public static int chooseChoice()
