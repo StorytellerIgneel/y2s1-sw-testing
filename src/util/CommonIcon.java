@@ -43,8 +43,8 @@ public class CommonIcon {
     public static void printUserStatus(int index, ArrayList<UserAccount> users)
     {
         // printChar('-', 60);
-        System.out.println("\t\t\t\t\tUsername  : "+users.get(index).getName());
-        System.out.println("\t\t\t\t\tUserID    : "+users.get(index).getAccountId());
+        System.out.print("Username  : "+users.get(index).getName());
+        System.out.println("\t\tUserID    : "+users.get(index).getAccountId());
         printChar('-', 60);
     }
 }
