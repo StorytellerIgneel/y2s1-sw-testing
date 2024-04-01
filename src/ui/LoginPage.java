@@ -1,9 +1,9 @@
 package ui;
 import java.util.Scanner;
 
-import util.CommonIcon;
-import util.SystemMessage;
+import util.*;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
@@ -11,6 +11,18 @@ public class LoginPage {
 
     public static void printChoice()
     {
+        try
+        {
+            Util.clearConsole();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch(InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         CommonIcon.printHeader();
         System.out.println("1. Login");
         System.out.println("2. Register");

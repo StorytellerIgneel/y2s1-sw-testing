@@ -42,6 +42,7 @@ public class UserMainMenu {
 
             if(Validation.isBack(choice))
                 return -1;
+            
             if(Validation.isNumber(choice)) //checking its a number or not
             {
                 choiceInt = Integer.parseInt(choice);

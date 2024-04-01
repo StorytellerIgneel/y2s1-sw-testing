@@ -40,9 +40,9 @@ public class UserAccount extends Account{
 }
 
  //static methods
- public static void login(ArrayList<Account> accounts)
+ public static int login(ArrayList<Account> accounts)
  {
-   boolean success = false;
+   int index = 0;
    CommonIcon.printHeader();
    do
    {
@@ -53,13 +53,13 @@ public class UserAccount extends Account{
     System.out.print("Enter your password: ");
     String pass = input.next();
 
-    success = verifyLogin(accounts, name, pass);
-    if (!success)
+    index = verifyLogin(accounts, name, pass);
+    if (index == -1)
       SystemMessage.errorMessage(5);
     else
       SystemMessage.successMessage(4);
 
-   }while (!success);
+   }while (index == -1);
    
    try
     {
@@ -73,6 +73,7 @@ public class UserAccount extends Account{
     {
         e.printStackTrace();
     }
+    return index; //return the user index for tracking user activities
  }
 
  public static UserAccount register()
