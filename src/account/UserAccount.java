@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
 import java.io.*;
 
 import booking.Booking;
-import movie.MovieCRUDGeneralPage;
+import ui.MovieCRUDGeneralPage;
 import ui.UserMainMenu;
 
 import com.google.gson.Gson;

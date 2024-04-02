@@ -12,7 +12,7 @@ public class Validation {
 
     public static boolean isTime(String[] showtimes) {
         for (String time : showtimes){
-            if (!time.matches("[0-1][0-9]|2[0-3][0-59]"))
+            if (!time.matches("[0-1][0-9][0-5][0-9]") && !time.matches("2[0-3][0-5][0-9]"))
                 return false;
         }
         return true;
@@ -20,6 +20,7 @@ public class Validation {
 
     public static boolean isLanguage(String[] languages){
         for (String language : languages){
+            System.out.println(language);
             if (!language.matches("[a-zA-Z]+"))
                 return false;
         }

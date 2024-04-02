@@ -9,7 +9,7 @@ public class SystemMessage {
         Scanner scanner = new Scanner(inputStream);
         switch(errorIndex) {
             case 1:
-                System.out.println("Please enter a valid number"); //used
+                System.out.println("Please enter a valid number."); //used
                 break;
             case 2:
                 System.out.println("Please enter a valid index. This index is not available."); //used
@@ -18,13 +18,19 @@ public class SystemMessage {
                 System.out.println("The file movieData.txt is not present in the current directory."); //used
                 break;
             case 4:
-                System.out.println("The file user.json is not found");//used
+                System.out.println("The file user.json is not found.");//used
                 break;
             case 5:
-                System.out.println("Login failed");//used
+                System.out.println("Login failed.");//used
                 break;
             case 6:
-                System.out.println("Please enter a number");//used
+                System.out.println("Please enter a number.");//used
+                break;
+            case 7:
+                System.out.println("Please enter a valid string of characters.");
+                break;
+            case 8:
+                System.out.println("Please enter a valid time.");
                 break;
         }
         System.out.println("Press Enter to continue...");

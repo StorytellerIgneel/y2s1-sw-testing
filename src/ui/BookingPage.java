@@ -98,11 +98,11 @@ public class BookingPage {
      */
     public void displayCreateBookingPage() throws IllegalArgumentException
     {   
-        if (movie.MovieCRUDGeneralPage.getMovieList() == null || movie.MovieCRUDGeneralPage.getMovieList().isEmpty()) {
+        if (ui.MovieCRUDGeneralPage.getMovieList() == null || ui.MovieCRUDGeneralPage.getMovieList().isEmpty()) {
             System.out.println("No movies available for booking.");
             throw new IllegalArgumentException("No movies available for booking.");
         }
-        ArrayList<Movie> movieList = movie.MovieCRUDGeneralPage.getMovieList();
+        ArrayList<Movie> movieList = ui.MovieCRUDGeneralPage.getMovieList();
         Cinema[] cinemaList = Cinema.getCinemaLocation();
 
         // Search for movie

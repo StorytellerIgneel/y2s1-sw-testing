@@ -3,18 +3,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import movie.Movie;
-import util.SystemMessage;
+import movie.MovieCRUD;
 import util.Validation;
+import util.SystemMessage;
 
 public class MovieUpdatePage implements MovieCRUD{
     MovieUpdatePage(){};
 
-    public void updateMovie(ArrayList<Movie> movieList)
+    @Override
+    public void execute(ArrayList<Movie> movieList)
     {
         int movieIndex = 0;
 
-        UICRUDGeneralPage.showAllMovie(movieList);
-        movieIndex = UICRUDGeneralPage.getMovieIndex(movieList, "update");
+        MovieCRUDGeneralPage.showAllMovie(movieList);
+        movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "update");
         Scanner input = new Scanner(System.in);
 
         System.out.println("Current Movie Information:");
@@ -37,6 +39,7 @@ public class MovieUpdatePage implements MovieCRUD{
 
         System.out.print("Enter the new value (Enter :q to quit): ");
         String newValue = input.nextLine();
+        input.close();
         if(Validation.isBack(newValue))
             return;
         // Update the chosen attribute
@@ -52,7 +55,7 @@ public class MovieUpdatePage implements MovieCRUD{
                 break;
             case 4:
                 // Assuming showtimes are provided as a comma-separated string
-                String[] showtimes = newValue.split(",");
+                String[] showtimes = newValue.split(" ");
                 ArrayList<String> showtimesList = new ArrayList<>();
                 for (String time : showtimes) {
                     showtimesList.add(time.trim());
@@ -72,7 +75,12 @@ public class MovieUpdatePage implements MovieCRUD{
                 movieList.get(movieIndex).setReleaseDate(newValue);
                 break;
             case 7:
-                movieList.get(movieIndex).setGenre(newValue);
+                String[] genres = newValue.split(" ");
+                ArrayList<String> genreList = new ArrayList<>();
+                for (String genre : genres) {
+                    genreList.add(genre.trim());
+                }
+                movieList.get(movieIndex).setGenre(genreList);
                 break;
             case 8:
                 movieList.get(movieIndex).setPriceAdult(Double.parseDouble(newValue));
@@ -83,13 +91,6 @@ public class MovieUpdatePage implements MovieCRUD{
             default:
                 SystemMessage.errorMessage(2);
         }
-        input.close();
-        return;
-    }
-
-    public void execute(ArrayList<Movie> movieList)
-    {
-        updateMovie(movieList);
         return;
     }
 }
