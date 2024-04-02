@@ -12,7 +12,7 @@ public class Validation {
 
     public static boolean isTime(String[] showtimes) {
         for (String time : showtimes){
-            if (!time.matches("\\d{4}"))
+            if (!time.matches("[0-1][0-9]|2[0-3][0-59]"))
                 return false;
         }
         return true;
