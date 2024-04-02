@@ -10,8 +10,8 @@ public class MovieUpdatePage implements MovieCRUD{
     {
         int movieIndex = 0;
 
-        CRUDGeneralPage.showAllMovie(movieList);
-        movieIndex = CRUDGeneralPage.getMovieIndex(movieList, "update");
+        MovieCRUDGeneralPage.showAllMovie(movieList);
+        movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "update");
         Scanner input = new Scanner(System.in);
 
         System.out.println("Current Movie Information:");

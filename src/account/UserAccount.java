@@ -8,9 +8,12 @@ import java.lang.reflect.Type;
 import java.io.*;
 
 import booking.Booking;
-import util.SystemMessage;
+import movie.MovieCRUDGeneralPage;
+import ui.UserMainMenu;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import util.*;
 
 public class UserAccount extends Account{
   //instance variables
@@ -37,31 +40,45 @@ public class UserAccount extends Account{
 }
 
  //static methods
- public static void login(ArrayList<Account> accounts)
+ public static int login(ArrayList<Account> accounts)
  {
-   boolean success = false;
+   int index = 0;
+   CommonIcon.printHeader();
    do
    {
     //entering details
     Scanner input = new Scanner(System.in);
-    System.out.println("Enter your account ID: ");
-    String id = input.next();
-    System.out.println("Enter your password: ");
+    System.out.print("Enter your username: ");
+    String name = input.nextLine();
+    System.out.print("Enter your password: ");
     String pass = input.next();
-    input.close();
 
-    success = verifyLogin(accounts, id, pass);
-    if (!success)
-      SystemMessage.errorMessage(4);
+    index = verifyLogin(accounts, name, pass);
+    if (index == -1)
+      SystemMessage.errorMessage(5);
     else
       SystemMessage.successMessage(4);
 
-   }while (!success);
+   }while (index == -1);
    
+   try
+    {
+        Util.clearConsole();
+    }
+    catch(IOException e)
+    {
+        e.printStackTrace();
+    }
+    catch(InterruptedException e)
+    {
+        e.printStackTrace();
+    }
+    return index; //return the user index for tracking user activities
  }
 
  public static UserAccount register()
  {
+   CommonIcon.printHeader();
    //entering details
    Scanner input = new Scanner(System.in);
    System.out.print("Enter your account ID: ");
@@ -71,7 +88,6 @@ public class UserAccount extends Account{
    String username = input.nextLine();
    System.out.print("Enter your password: ");
    String pass = input.next();
-   input.close();
 
    //generating simple date formate in string
    Date date = new Date();
@@ -85,25 +101,46 @@ public class UserAccount extends Account{
 
  public static ArrayList<UserAccount> getUsers()
  {
-   Gson gson = new Gson();
-   Type type = new TypeToken<ArrayList<UserAccount>>() {}.getType();
+    Gson gson = new Gson();
+    Type type = new TypeToken<ArrayList<UserAccount>>() {}.getType();
 
-   String line = "";
+    String line = "";
+    try
+    {
+      File inFile = new File("src\\resources\\user.json");
+      Scanner inputFile = new Scanner(inFile);
+      while(inputFile.hasNextLine())
+      {
+        line = inputFile.nextLine();
+      }
+      inputFile.close();
+    }catch(IOException e)
+    {
+      SystemMessage.errorMessage(4);
+    }
+
+    ArrayList<UserAccount> userList = gson.fromJson(line, type);
+    if (userList == null) {
+        userList = new ArrayList<UserAccount>();
+    }
+   return userList;
+ }
+
+ public static void saveUsers(ArrayList<UserAccount> users)
+ {
+   Gson gson = new Gson();
+   String toWrite = gson.toJson(users);
+
    try
    {
-    File inFile = new File("./resource/user.json");
-    Scanner inputFile = new Scanner(inFile);
-    while(inputFile.hasNextLine())
-    {
-      line = inputFile.nextLine();
-    }
-    inputFile.close();
-   }catch(IOException e)
+     File outFile = new File("src\\resources\\user.json");
+     PrintWriter outputFile = new PrintWriter(outFile);
+     outputFile.println(toWrite);
+     outputFile.close();
+   }catch(FileNotFoundException error)
    {
-    SystemMessage.errorMessage(4);
+     SystemMessage.errorMessage(4);
    }
 
-   ArrayList<UserAccount> userList = gson.fromJson(line, type);
-   return userList;
  }
 }

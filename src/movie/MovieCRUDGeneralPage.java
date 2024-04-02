@@ -9,12 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import util.Validation;
-import util.Util;
 
-public class CRUDGeneralPage{
+public class MovieCRUDGeneralPage{
     ArrayList<Movie> movieList;
     
-    CRUDGeneralPage(){}
+    MovieCRUDGeneralPage(){}
 
     public void MainPage()
     {
@@ -37,7 +36,7 @@ public class CRUDGeneralPage{
             Integer mainPageChoiceInt = 0;
 
             try{
-                Util.clearConsole();
+                util.clearConsole();
             } catch (IOException | InterruptedException error){
                 error.printStackTrace();
             }
@@ -71,14 +70,14 @@ public class CRUDGeneralPage{
         }    
     }
 
-    public ArrayList<Movie> getMovieList()
+    public static ArrayList<Movie> getMovieList()
     {
         Gson gson = new Gson();
         Type movieListType = new TypeToken<ArrayList<Movie>>(){}.getType();
         String line = "";
 
         try{
-            File file = new File("../resource/movieData.json");
+            File file = new File("./src/resources/movieData.json");
             Scanner inputFile = new Scanner(file);
             while(inputFile.hasNextLine())
                 line = inputFile.nextLine();

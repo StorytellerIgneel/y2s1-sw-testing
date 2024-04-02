@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import movie.Movie;
+import account.*;
 
 public class CommonIcon {
     public static void printHeader()
@@ -23,9 +24,9 @@ public class CommonIcon {
     public static void printTrend(ArrayList<Movie> movies)
     {
         System.out.println("#Trending Now");
-        for(Movie movie : movies)
+        for(int i = 0; i < movies.size(); i++)
         {
-            System.out.println(movie.getTitle());
+            System.out.println("  " + (i+1) + ") " + movies.get(i).getTitle());
         }
 
     }
@@ -33,9 +34,17 @@ public class CommonIcon {
     public static void printLatest(ArrayList<Movie> movies)
     {
         System.out.println("#Latest Release");
-        for(Movie movie : movies)
+        for(int i = 0; i < movies.size(); i++)
         {
-            System.out.println(movie.getTitle());
+            System.out.println("  " + (i+1) + ") " + movies.get(i).getTitle());
         }
+
+    }
+
+    public static void printUserStatus(int index, ArrayList<UserAccount> users)
+    {
+        System.out.print("Username  : "+users.get(index).getName());
+        System.out.println("\t\tUserID    : "+users.get(index).getAccountId());
+        printChar('-', 60);
     }
 }

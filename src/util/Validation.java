@@ -40,11 +40,11 @@ public class Validation {
     }
 
     public static boolean isBack(String value){
-        return (value == ":b");
+        return (value.equals(":b"));
     } 
 
     public static boolean isQuit(String value)
     {
-        return (value == ":q");
+        return (value.equals(":q"));
     }
 }

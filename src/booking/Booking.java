@@ -4,53 +4,52 @@ import java.util.Date;
 import java.util.UUID;
 import java.text.SimpleDateFormat;
 
+import cinema.Cinema;
+import movie.Movie;
+
+
 /** 
  * This class represents a booking made by a user.
  * 
  */
 public class Booking
 {
-    public final static double priceAdult = 12.90;
-    public final static double priceChildren = 6.90;
     public final String bookingId;
-    public final String movieName;
-    public final String accountId;
-    private String cinemaName;
-    private String cinemaLocation;
+    private Movie movie;
+    private Cinema cinema;
+    private String showtime;
     private int quantityAdult;
     private int quantityChildren;
-    private String showtime;
     private String date;
     private String time;
 
     /* Constructor */
     /**
      * This constructor creates a new booking.
-     * @param movieName
-     * @param accountId
-     * @param cinemaName
-     * @param cinemaLocation
+     * @param movie
+     * @param cinema
+     * @param showtime
      * @param quantityAdult
      * @param quantityChildren
      */
     public Booking(
-        String movieName,
-        String accountId,
-        String cinemaName,
-        String cinemaLocation,
+        Movie movie,
+        Cinema cinema,
+        String showtime,
         int quantityAdult, 
-        int quantityChildren,
-        String showtime
+        int quantityChildren
         )
     {   
         this.bookingId = UUID.randomUUID().toString();
-        this.movieName = movieName;
-        this.accountId = accountId;
-        this.cinemaName = cinemaName;
-        this.cinemaLocation = cinemaLocation;
+        this.movie = movie;
+        this.cinema = cinema;
+        if (!movie.getShowtimes().contains(showtime))
+        {
+            throw new IllegalArgumentException("Selected showtime not available for this movie.");
+        }
+        this.showtime = showtime;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
-        this.showtime = showtime;
         Date unformatted_date = new Date();
         this.date = new SimpleDateFormat("dd-MM-yyyy").format(unformatted_date);
         this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
@@ -64,7 +63,7 @@ public class Booking
 
     public String getMovieName()
     {
-        return movieName;
+        return movie.getTitle();
     }
     
     public int getQuantityAdult()
@@ -79,12 +78,12 @@ public class Booking
 
     public String getCinemaName()
     {
-        return cinemaName;
+        return cinema.getCinemaName();
     }
 
-    public String getCinemaLocation()
+    public String getCinemaAddress()
     {
-        return cinemaLocation;
+        return cinema.getCinemaAddress();
     }
 
     public String getShowtime()
@@ -113,6 +112,25 @@ public class Booking
         this.quantityChildren = quantityChildren;
     }
 
+    public void setShowtime(String showtime)
+    {
+        if (!movie.getShowtimes().contains(showtime))
+        {
+            throw new IllegalArgumentException("Selected showtime not available for this movie.");
+        }
+        this.showtime = showtime;
+    }
+
+    public void setCinema(Cinema cinema)
+    {
+        this.cinema = cinema;
+    }
+
+    public void setMovie(Movie movie)
+    {
+        this.movie = movie;
+    }
+
     /** 
      * This method returns the total price of the booking.
      * 
@@ -120,6 +138,6 @@ public class Booking
      */
     public double calculateTotalPrice()
     {
-        return quantityAdult * priceAdult + quantityChildren * priceChildren;
+        return quantityAdult * movie.getPriceAdult() + quantityChildren * movie.getPriceChildren();
     }
 }

@@ -18,16 +18,23 @@ public class Account {
   }
 
   //static methods
-  public static boolean verifyLogin(ArrayList<Account> accounts, String id, String pass)
+  public static int verifyLogin(ArrayList<Account> accounts, String name, String pass)
   {
-    for(Account account : accounts)
+    // for(Account account : accounts)
+    // {
+    //   if(account.getName().equals(name) && account.getPassword().equals(pass))
+    //   {
+    //     return true;
+    //   }
+    // }
+    // return false;
+
+    for(int i = 0; i < accounts.size(); i++)
     {
-      if(account.getAccountId().equals(id) && account.getPassword().equals(pass))
-      {
-        return true;
-      }
+      if(accounts.get(i).getName().equals(name) && accounts.get(i).getPassword().equals(pass))
+        return i;
     }
-    return false;
+    return -1;
   }
   
 

@@ -8,7 +8,7 @@ public class MovieListPage implements MovieCRUD {
     public void execute(ArrayList<Movie> movieList) {
         Scanner input = new Scanner(System.in);
         
-        CRUDGeneralPage.showAllMovie(movieList); 
+        MovieCRUDGeneralPage.showAllMovie(movieList); 
         input.nextLine();
         return;
     }
