@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import util.Validation;
+import util.Util;
 
 public class CRUDGeneralPage{
     ArrayList<Movie> movieList;
@@ -36,7 +37,7 @@ public class CRUDGeneralPage{
             Integer mainPageChoiceInt = 0;
 
             try{
-                clearConsole();
+                Util.clearConsole();
             } catch (IOException | InterruptedException error){
                 error.printStackTrace();
             }
@@ -147,14 +148,5 @@ public class CRUDGeneralPage{
         System.out.println("Press Enter to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine(); // Wait for the user to press Enter
-    }
-
-    public static void clearConsole() throws IOException, InterruptedException {
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("windows")) {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } else {
-            new ProcessBuilder("clear").inheritIO().start().waitFor();
-        }
     }
 }
