@@ -24,7 +24,6 @@ public class SystemMessage {
                 System.out.println("Login failed.");//used
                 break;
             case 6:
-                System.out.println("Please enter a number.");//used
                 break;
             case 7:
                 System.out.println("Please enter a valid string of characters.");

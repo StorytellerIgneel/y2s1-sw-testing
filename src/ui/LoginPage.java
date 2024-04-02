@@ -44,21 +44,14 @@ public class LoginPage {
             {
                 choice = input.nextInt();
                 
-                if(choice < 1 || choice > 4)
-                {
-                    System.out.println("Invalid");
-                    // SystemMessage.errorMessage(1);
-                }
+                if(choice < 1 || choice > 4)   
+                    SystemMessage.errorMessage(2);
                 else
-                isValid = true;
+                    isValid = true;
             }
             catch(InputMismatchException e)
             {
-                SystemMessage.errorMessage(10);
-            }
-            catch (NoSuchElementException e)
-            {
-                System.out.println("No such element");
+                SystemMessage.errorMessage(1);
             }
             finally
             {
