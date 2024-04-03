@@ -47,6 +47,7 @@ public class BookingPage {
         return;
     }
 
+    
     /**
      * Gets user choice for booking
      * @throws IllegalArgumentException
@@ -137,7 +138,6 @@ public class BookingPage {
 
             // Skip to next iteration if no results found
             if (resultCount == 0){
-                System.out.print("\033\143"); // TODO Modify or test thoroughly, this shouldn't work perfectly on Windows
                 System.out.println("No movies found. Please try again.");
                 continue;
             }
@@ -304,7 +304,7 @@ public class BookingPage {
         return;
     }
 
-    
+
     /**
      * Displays the update booking page
      * @throws IllegalArgumentException
