@@ -77,26 +77,26 @@ public class BookingPage {
             }
         }
         
-        switch (choice) {
-            case 1:
-            try {
-                displayCreateBookingPage();
-            } catch (IllegalArgumentException e) {
-                getChoice();
+        try {
+            switch (choice) {
+                case 1: // Create bookings
+                    displayCreateBookingPage();
+                    break;                      // Break is unnecessary here in Java, but it's good practice to include it
+                case 2: // Update bookings
+                    displayUpdateBookingPage();
+                    break;
+                case 3: // Delete bookings
+                    displayDeleteBookingPage();
+                    break;
+                case 4: // Back to main menu
+                    return;
+                default:
+                    System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
+                    getChoice();
+                    break;
             }
-                break; // Break is unnecessary here in Java, but it's good practice to include it
-            case 2:
-                // TODO - Add functionality to update bookings
-                break;
-            case 3:
-                // TODO - Add functionality to delete bookings
-                break;
-            case 4:
-                return;
-            default:
-                System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
-                getChoice();
-                break;
+        } catch (IllegalArgumentException e) {
+            getChoice();
         }
     }
 
@@ -302,5 +302,26 @@ public class BookingPage {
             throw new IllegalArgumentException("Booking cancelled.");
         }
         return;
+    }
+
+    
+    /**
+     * Displays the update booking page
+     * @throws IllegalArgumentException
+     */
+    public void displayUpdateBookingPage() throws IllegalArgumentException
+    {
+        // TODO - Add functionality to update bookings
+
+    }
+
+
+    /**
+     * Displays the delete booking page
+     * @throws IllegalArgumentException
+     */
+    public void displayDeleteBookingPage() throws IllegalArgumentException
+    {
+        // TODO - Add functionality to delete bookings
     }
 }
