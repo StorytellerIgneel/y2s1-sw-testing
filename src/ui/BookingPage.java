@@ -41,7 +41,6 @@ public class BookingPage {
         
         // Prints all booking details
         bookingController.printAllBookings();
-        
 
         // Show booking menu
         getChoice();
@@ -52,43 +51,52 @@ public class BookingPage {
      * Gets user choice for booking
      * @throws IllegalArgumentException
      */
-    public void getChoice() throws IllegalArgumentException // TODO - Refactor error validation
+    public void getChoice()
     {
-        System.out.println(Color.reset + "What would you like to do with your bookings?");
-        System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
-        System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");
-        System.out.println(Color.red + "3) " + Color.lime + "Delete Bookings");
-        System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
-        System.out.println();
-        System.out.print(Color.reset + "Enter your choice: ");
-
-        try {
-            String input = scanner.nextLine();
-            int choice = Integer.parseInt(input);
-            switch (choice) {
-                case 1:
-                try {
-                    displayCreateBookingPage();
-                } catch (IllegalArgumentException e) {
-                    getChoice();
-                }
-                    break; // Break is unnecessary here in Java, but it's good practice to include it
-                case 2:
-                    // TODO - Add functionality to update bookings
-                    break;
-                case 3:
-                    // TODO - Add functionality to delete bookings
-                    break;
-                case 4:
-                    return;
-                default:
+        int choice = 0;
+        boolean validInput = false;
+        while(!validInput)
+        {
+            System.out.println(Color.reset + "What would you like to do with your bookings?");
+            System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
+            System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");
+            System.out.println(Color.red + "3) " + Color.lime + "Delete Bookings");
+            System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
+            System.out.println();
+            System.out.print(Color.reset + "Enter your choice: ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice < 1 || choice > 4) {
                     System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
-                    getChoice();
-                    break;
+                    continue;
+                }
+                validInput = true;
+            } else {
+                System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+                scanner.next(); // Discard the invalid input
             }
-        } catch (NumberFormatException e) {
-            System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
-            getChoice();
+        }
+        
+        switch (choice) {
+            case 1:
+            try {
+                displayCreateBookingPage();
+            } catch (IllegalArgumentException e) {
+                getChoice();
+            }
+                break; // Break is unnecessary here in Java, but it's good practice to include it
+            case 2:
+                // TODO - Add functionality to update bookings
+                break;
+            case 3:
+                // TODO - Add functionality to delete bookings
+                break;
+            case 4:
+                return;
+            default:
+                System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
+                getChoice();
+                break;
         }
     }
 
