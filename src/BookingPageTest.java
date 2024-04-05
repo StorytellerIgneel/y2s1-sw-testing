@@ -6,7 +6,7 @@ import account.UserAccount;
 import booking.Booking;
 import cinema.Cinema;
 import movie.Movie;
-import ui.BookingPage;
+import ui.booking.BookingPage;
 
 public class BookingPageTest {
     public static void main(String[] args)
