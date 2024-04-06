@@ -45,11 +45,6 @@ public class MovieCRUDGeneralPage {
             String mainPageChoice;
             Integer mainPageChoiceInt = 0;
 
-            try {
-                Util.clearConsole();
-            } catch (IOException | InterruptedException error) {
-                error.printStackTrace();
-            }
             movieList = getMovieList();
             System.out.println("\nCRUD Options for Movie:");
             System.out.println("1. Add a Movie");
@@ -84,8 +79,8 @@ public class MovieCRUDGeneralPage {
 
     public static ArrayList<Movie> getMovieList() {
         Gson gson = new Gson();
-        Type movieListType = new TypeToken<ArrayList<Movie>>() {
-        }.getType();
+        Type movieListType = new TypeToken<ArrayList<Movie>>() {}.getType();
+        ArrayList<Movie> movieList = new ArrayList<Movie>();
         String line = "";
 
         try {
@@ -98,22 +93,28 @@ public class MovieCRUDGeneralPage {
             error.printStackTrace();
         }
 
-        ArrayList<Movie> movieList = gson.fromJson(line, movieListType);
-        return movieList;
+        movieList = gson.fromJson(line, movieListType);
+
+        if (line != "")
+            return movieList;
+        else
+            return (new ArrayList<Movie>());
     }
 
     public void exportMovieData(ArrayList<Movie> movieList) {
         Gson gson = new Gson();
+        showAllMovie(movieList);
+        Util.waitForEnter();
         String toWrite = gson.toJson(movieList);
 
         try {
-            PrintWriter outputFile = new PrintWriter("movieData.txt");
+            PrintWriter outputFile = new PrintWriter("./src/resources/movieData.json");
             outputFile.println(toWrite);
             outputFile.close();
         } catch (FileNotFoundException error) {
             SystemMessage.errorMessage(3);
         }
-
+        
         return;
     }
 
@@ -146,11 +147,5 @@ public class MovieCRUDGeneralPage {
                     SystemMessage.errorMessage(1);
             }
         }
-    }
-
-    public static void waitForEnter() {
-        System.out.println("Press Enter to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine(); // Wait for the user to press Enter
     }
 }

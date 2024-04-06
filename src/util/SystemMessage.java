@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class SystemMessage {
     public static void errorMessage(int errorIndex ){
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("10\n".getBytes());
-        Scanner scanner = new Scanner(inputStream);
         switch(errorIndex) {
             case 1:
                 System.out.println("Please enter a valid number."); //used
@@ -33,15 +31,11 @@ public class SystemMessage {
                 System.out.println("Please enter a valid time.");
                 break;
         }
-        System.out.println("Press Enter to continue...");
-        scanner.nextLine();
-        scanner.close();
+        Util.waitForEnter();
         return;
     }
 
     public static void successMessage(int successIndex) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("10\n".getBytes());
-        Scanner scanner = new Scanner(inputStream);
         switch(successIndex) {
             case 1:
                 System.out.println("Movie Added Successfully!");
@@ -56,9 +50,7 @@ public class SystemMessage {
                 System.out.println("Login Success.");
                 break;
         }
-        System.out.println("Press Enter to continue...");
-        scanner.nextLine();
-        scanner.close();
+        Util.waitForEnter();
         return;
     }
 }

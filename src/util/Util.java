@@ -1,6 +1,7 @@
 package util;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Util {
     Util(){};
@@ -10,5 +11,11 @@ public class Util {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         else
             new ProcessBuilder("clear").inheritIO().start().waitFor();
+    }
+
+    public static void waitForEnter() {
+        System.out.println("Press Enter to continue...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine(); // Wait for the user to press Enter
     }
 }
