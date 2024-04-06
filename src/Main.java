@@ -8,20 +8,24 @@ import booking.Booking;
 import ui.*;
 import util.*;
 
+
 public class Main
 {
     
     public static void main(String[] args)
     {
+        Scanner input = new Scanner(System.in);
         ArrayList<UserAccount> users = UserAccount.getUsers();
         ArrayList<Movie> trend = MovieCRUDGeneralPage.getMovieList(); //to be modified
         ArrayList<Movie> latest = MovieCRUDGeneralPage.getMovieList(); //to be modified
         ArrayList<Movie> movieList = MovieCRUDGeneralPage.getMovieList(); //to be modified
 
-        boolean resume = true;
+        boolean resumeProgram = true;
         int userIdx;
-        while(resume)
+        while(resumeProgram)
         {
+            
+            boolean resumeMainMenu = true;
             LoginPage.printChoice();
             int choice = LoginPage.chooseChoice(); 
             
@@ -42,19 +46,43 @@ public class Main
                 }
                 userIdx = UserAccount.login(accounts);
 
-                UserMainMenu.printMovies(trend, latest, userIdx, users); // to be modified
-                UserMainMenu.printUserAction();
-                choice = UserMainMenu.chooseUserAction(); // -1 means re-run main
-
-                if(choice == 5) //exit the program
-                    resume = false;
-                else if(choice == -1) //re-run main
-                    ;
-                else if(choice == 1)
+                while(resumeMainMenu)
                 {
-                    UserMainMenu.printMovies(trend, latest, userIdx, users);
-                    SearchMoviePage.searchMovie(movieList, userIdx, users);
+                    try
+                    {
+                        Util.clearConsole();
+                    }
+                    catch(IOException | InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    UserMainMenu.printMovies(trend, latest, userIdx, users); // to be modified
+                    UserMainMenu.printUserAction();
+                    choice = UserMainMenu.chooseUserAction(); // -1 means re-run main
+
+                    if(choice == 5) //exit the program
+                    {
+                        resumeMainMenu = false;
+                        resumeProgram = false;
+                    }
+                    else if(choice == -1) //go back login page
+                    {
+                        resumeMainMenu = false;
+                        userIdx = 0;
+                    }
+                    else if(choice == 1)
+                    {
+                        UserMainMenu.printMovies(trend, latest, userIdx, users);
+                        SearchMoviePage searchMoviePage = new SearchMoviePage(users, userIdx, input);
+                        searchMoviePage.searchMovie();
+                    }
+                    else if(choice == 2)
+                    {
+                        BookingPage bookingPage = new BookingPage(users, userIdx, input);
+                        bookingPage.display();
+                    }
                 }
+                
             }
             else if(choice == 2)
             {
@@ -75,7 +103,7 @@ public class Main
                 
             }
             else if(choice ==4)    
-                resume = false;
+                resumeProgram = false;
             
         }
 

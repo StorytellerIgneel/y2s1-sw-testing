@@ -8,19 +8,35 @@ import util.CommonIcon;
 import util.Validation;
 
 public class SearchMoviePage {
-    public static void searchMovie(ArrayList<Movie> movies, int userIdx, ArrayList<UserAccount> users)
+    private int userIdx;
+    private ArrayList<UserAccount> users;
+    private ArrayList<Movie> movies = MovieCRUDGeneralPage.getMovieList();
+    private ArrayList<Movie> result = new ArrayList<Movie>();
+    private Scanner input;
+    private String searchName;
+    
+    public SearchMoviePage(ArrayList<UserAccount> users, int userIdx, Scanner input)
     {
-        ArrayList<Movie> result = new ArrayList<Movie>();
+        this.users = users;
+        this.userIdx = userIdx;
+        this.input = input;
+    }
+    public void searchMovie()
+    {
         System.out.print("Search for Movies (':q' to quit ':b to back'):");
-        Scanner input = new Scanner(System.in);
-        String searchName = input.nextLine();
+        searchName = input.nextLine();
+        if(Validation.isBack(searchName))
+            return;
 
         for(int i = 0; i < movies.size(); i++)
         {
             if(movies.get(i).getTitle().toLowerCase().contains(searchName.toLowerCase()))
                 result.add(movies.get(i));
         }
-        CreateBookingPage.printSearchedMovies(result,userIdx, users);
+        
+        ViewMovieInfoPage movieInfoPage = new ViewMovieInfoPage(result,userIdx,users,input);
+        movieInfoPage.printSearchedMovies();
+        movieInfoPage.viewMovieInfo();
     }
 
  

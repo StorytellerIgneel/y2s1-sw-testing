@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,11 +8,14 @@ import account.UserAccount;
 import booking.BookingController;
 import color.Color;
 import movie.Movie;
-import util.CommonIcon;
+import util.*;
+
 import cinema.Cinema;
 
 public class BookingPage {
-    private UserAccount user;
+    // private UserAccount user;
+    private int userIdx;
+    private ArrayList<UserAccount> users;
     private Scanner scanner;
     private BookingController bookingController;
 
@@ -20,11 +24,13 @@ public class BookingPage {
      * @param user
      * @param scanner
      */
-    public BookingPage(UserAccount user, Scanner scanner) 
+    public BookingPage(ArrayList<UserAccount> users, int userIdx, Scanner scanner) 
     {
-        this.user = user;
+        // this.user = user;
+        this.users = users;
+        this.userIdx = userIdx;
         this.scanner = scanner;
-        this.bookingController = new BookingController(user);
+        this.bookingController = new BookingController(users, userIdx);
     }
 
     
@@ -34,60 +40,78 @@ public class BookingPage {
      */
     public void display()
     {   
+        try
+        {
+            Util.clearConsole();
+        }
+        catch(IOException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         CommonIcon.printHeader();
-        System.out.println();
-        System.out.println(Color.reset + "Welcome, " + user.getName() + "!\n");
+        CommonIcon.printUserStatus(userIdx, users);
+        // System.out.println();
+        // System.out.println(Color.reset + "Welcome, " + user.getName() + "!\n");
         System.out.println(Color.reset + "Your Bookings:");
         
         // Prints all booking details
         bookingController.printAllBookings();
-        
 
         // Show booking menu
         getChoice();
         return;
     }
 
+    
     /**
      * Gets user choice for booking
      * @throws IllegalArgumentException
      */
-    public void getChoice() throws IllegalArgumentException
+    public void getChoice()
     {
-        System.out.println(Color.reset + "What would you like to do with your bookings?");
-        System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
-        System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");
-        System.out.println(Color.red + "3) " + Color.lime + "Delete Bookings");
-        System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
-        System.out.println();
-        System.out.print(Color.reset + "Enter your choice: ");
-
-        try {
-            String input = scanner.nextLine();
-            int choice = Integer.parseInt(input);
-            switch (choice) {
-                case 1:
-                try {
-                    displayCreateBookingPage();
-                } catch (IllegalArgumentException e) {
-                    getChoice();
+        int choice = 0;
+        boolean validInput = false;
+        while(!validInput)
+        {
+            System.out.println(Color.reset + "What would you like to do with your bookings?");
+            System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
+            System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");
+            System.out.println(Color.red + "3) " + Color.lime + "Delete Bookings");
+            System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
+            System.out.println();
+            System.out.print(Color.reset + "Enter your choice: ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice < 1 || choice > 4) {
+                    System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
+                    continue;
                 }
-                    break; // Break is unnecessary here in Java, but it's good practice to include it
-                case 2:
-                    // TODO - Add functionality to update bookings
+                validInput = true;
+            } else {
+                System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+                scanner.next(); // Discard the invalid input
+            }
+        }
+        
+        try {
+            switch (choice) {
+                case 1: // Create bookings
+                    displayCreateBookingPage();
+                    break;                      // Break is unnecessary here in Java, but it's good practice to include it
+                case 2: // Update bookings
+                    displayUpdateBookingPage();
                     break;
-                case 3:
-                    // TODO - Add functionality to delete bookings
+                case 3: // Delete bookings
+                    displayDeleteBookingPage();
                     break;
-                case 4:
+                case 4: // Back to main menu
                     return;
                 default:
                     System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
                     getChoice();
                     break;
             }
-        } catch (NumberFormatException e) {
-            System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+        } catch (IllegalArgumentException e) {
             getChoice();
         }
     }
@@ -129,7 +153,6 @@ public class BookingPage {
 
             // Skip to next iteration if no results found
             if (resultCount == 0){
-                System.out.print("\033\143"); // TODO Modify or test thoroughly, this shouldn't work perfectly on Windows
                 System.out.println("No movies found. Please try again.");
                 continue;
             }
@@ -152,7 +175,7 @@ public class BookingPage {
             System.out.print(Color.reset + "Select the movie you would like to book: ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
-                if (choice > 0 && choice <= movieSearchResults.size()) {
+                if (choice <= 0 || choice > movieSearchResults.size()) { // 1-based index
                     System.out.println("Movie out of bounds. Please enter a number between 1 and " + movieSearchResults.size() + ".");
                     continue;
                 }
@@ -174,7 +197,7 @@ public class BookingPage {
         while (!validInput) {
             // Print cinema locations
             System.out.println(Color.red + "Select a cinema location:");
-            for (int i = 0; i < cinemaList.length; i++) {
+            for (int i = 0; i < cinemaList.length; i++) { // 1-based index
                 System.out.println(Color.red + (i+1) + ") \t" + Color.lime + cinemaList[i].getCinemaName() + Color.reset);
                 System.out.println("\t" + Color.lime + cinemaList[i].getCinemaAddress() + Color.reset);
             }
@@ -182,7 +205,11 @@ public class BookingPage {
             // Get user choice for cinema location
             System.out.print(Color.reset + "Select the cinema you would like to book: ");
             if (scanner.hasNextInt()) {
-                choice = scanner.nextInt(); // TODO Fix out of bounds error, and for below functions too
+                choice = scanner.nextInt();
+                if (choice <= 0 || choice > cinemaList.length) {
+                    System.out.println("Cinema out of bounds. Please enter a number between 1 and " + movieSearchResults.size() + ".");
+                    continue;
+                }
                 validInput = true;
             } else {
                 System.out.println("Invalid input. Please enter a number.");
@@ -200,13 +227,17 @@ public class BookingPage {
         validInput = false;
         while (!validInput)
         {
-            System.out.println(Color.red + "Select a showtime:");
             System.out.println("Available showtimes:");
             for (int i = 0; i < selectedMovie.getShowtimes().size(); i++) {
                 System.out.println(Color.red + (i+1) + ") \t" + Color.lime + selectedMovie.getShowtimes().get(i) + Color.reset);
             }
+            System.out.print(Color.reset + "Select a showtime: " + Color.reset);
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
+                if (choice <= 0 || choice > selectedMovie.getShowtimes().size()) { // 1-based index
+                    System.out.println("Showtime out of bounds. Please enter a number between 1 and " + movieSearchResults.size() + ".");
+                    continue;
+                }
                 validInput = true;
             } else {
                 System.out.println("Invalid input. Please enter a number.");
@@ -226,9 +257,14 @@ public class BookingPage {
             System.out.print(Color.reset + "Enter number of adult tickets: ");
             if (scanner.hasNextInt()) {
                 quantityAdult = scanner.nextInt();
+                if (quantityAdult < 0 || quantityAdult > 1000) 
+                {
+                    System.out.println("Invalid input. Please enter a positive number.");
+                    continue;
+                }
                 validInput = true;
             } else {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("Invalid input. Please enter a whole number.");
                 scanner.next(); // Discard the invalid input
             }
         }
@@ -239,6 +275,10 @@ public class BookingPage {
             System.out.print(Color.reset + "Enter number of child tickets: ");
             if (scanner.hasNextInt()) {
                 quantityChildren = scanner.nextInt();
+                if (quantityChildren < 0 || quantityChildren > 1000) {
+                    System.out.println("Invalid input. Please enter a positive number.");
+                    continue;
+                }
                 validInput = true;
             } else {
                 System.out.println("Invalid input. Please enter a number.");
@@ -249,15 +289,19 @@ public class BookingPage {
         System.out.println("Child tickets: " + quantityChildren);
 
         // Confirm booking
-        System.out.println(Color.red + "Confirm booking?");
-        System.out.println(Color.red + "1) " + Color.lime + "Yes"); 
-        System.out.println(Color.red + "2) " + Color.lime + "No");
-        System.out.print(Color.reset + "Enter your choice: ");
         choice = 0;
         validInput = false;
         while (!validInput) {
+            System.out.println(Color.red + "Confirm booking?");
+            System.out.println(Color.red + "1) " + Color.lime + "Yes"); 
+            System.out.println(Color.red + "2) " + Color.lime + "No");
+            System.out.print(Color.reset + "Enter your choice: ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
+                if (choice < 1 || choice > 2) {
+                    System.out.println("Invalid choice. Please enter 1 or 2.");
+                    continue;
+                }
                 validInput = true;
             } else {
                 System.out.println("Invalid input. Please enter a number.");
@@ -267,11 +311,33 @@ public class BookingPage {
         if (choice == 1) {
             // Create booking
             bookingController.createBooking(selectedMovie, selectedCinema, selectedShowtime, quantityAdult, quantityChildren);
+            UserAccount.saveUsers(users);
             System.out.println("Booking created successfully.");
         } else {
             System.out.println("Booking cancelled.");
             throw new IllegalArgumentException("Booking cancelled.");
         }
         return;
+    }
+
+
+    /**
+     * Displays the update booking page
+     * @throws IllegalArgumentException
+     */
+    public void displayUpdateBookingPage() throws IllegalArgumentException
+    {
+        // TODO - Add functionality to update bookings
+
+    }
+
+
+    /**
+     * Displays the delete booking page
+     * @throws IllegalArgumentException
+     */
+    public void displayDeleteBookingPage() throws IllegalArgumentException
+    {
+        // TODO - Add functionality to delete bookings
     }
 }
