@@ -14,13 +14,15 @@ public class SearchMoviePage {
         System.out.print("Search for Movies (':q' to quit ':b to back'):");
         Scanner input = new Scanner(System.in);
         String searchName = input.nextLine();
+        if(Validation.isBack(searchName))
+            return;
 
         for(int i = 0; i < movies.size(); i++)
         {
             if(movies.get(i).getTitle().toLowerCase().contains(searchName.toLowerCase()))
                 result.add(movies.get(i));
         }
-        CreateBookingPage.printSearchedMovies(result,userIdx, users);
+        ViewMovieInfoPage.printSearchedMovies(result,userIdx, users);
     }
 
  

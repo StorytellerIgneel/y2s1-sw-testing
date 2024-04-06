@@ -9,7 +9,8 @@ import movie.Movie;
 
 public class BookingController {
     // Attributes
-    private UserAccount user;
+    private ArrayList<UserAccount> users;
+    private int userIdx;
     private ArrayList<Booking>bookings = new ArrayList<Booking>();
 
     /**
@@ -17,9 +18,9 @@ public class BookingController {
      * @param user
      * TODO Add administrator functionality
      */
-    public BookingController(UserAccount user) {
-        this.user = user;
-        bookings = user.getBookings();
+    public BookingController(ArrayList<UserAccount> users, int userIdx) {
+        this.users = users;
+        bookings = users.get(userIdx).getBookings();
     }
 
     /**
@@ -38,14 +39,14 @@ public class BookingController {
         int quantityChildren
         ) throws IllegalArgumentException
     {
-        bookings = user.getBookings();
+        bookings = users.get(userIdx).getBookings();
         Booking booking = new Booking(movie, cinema, showtime, quantityAdult, quantityChildren);
         if (bookings.contains(booking))
         {
             throw new IllegalArgumentException("Booking already exists.");
         }
         bookings.add(booking);
-        user.setBookings(bookings);
+        users.get(userIdx).setBookings(bookings);
     }
 
     /**
@@ -66,7 +67,7 @@ public class BookingController {
         int quantityChildren
         )
     {
-        bookings = user.getBookings();
+        bookings = users.get(userIdx).getBookings();
         Booking booking = bookings.get(index);
         booking.setMovie(movie);
         booking.setCinema(cinema);
@@ -74,7 +75,7 @@ public class BookingController {
         booking.setQuantityAdult(quantityAdult);
         booking.setQuantityChildren(quantityChildren);
         bookings.set(index, booking);
-        user.setBookings(bookings);
+        users.get(userIdx).setBookings(bookings);
     }
 
     /**
@@ -98,9 +99,9 @@ public class BookingController {
      */
     public void printAllBookings()
     {
-        for (int i = 0; i < user.getBookings().size(); i++)
+        for (int i = 0; i < users.get(userIdx).getBookings().size(); i++)
         {
-            printBookingDetails(i, user.getBookings().get(i));
+            printBookingDetails(i, users.get(userIdx).getBookings().get(i));
             System.out.println();
         }
     }
@@ -111,12 +112,12 @@ public class BookingController {
      */
     public void deleteBooking(int index) throws IllegalArgumentException
     {
-        bookings = user.getBookings();
+        bookings = users.get(userIdx).getBookings();
         if (index < 0 || index >= bookings.size())
         {
             throw new IllegalArgumentException("Index out of bounds.");
         }
         bookings.remove(index);
-        user.setBookings(bookings);
+        users.get(userIdx).setBookings(bookings);
     }
 }

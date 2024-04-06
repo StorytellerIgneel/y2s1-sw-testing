@@ -47,4 +47,10 @@ public class CommonIcon {
         System.out.println("\t\tUserID    : "+users.get(index).getAccountId());
         printChar('-', 60);
     }
+    // public static void printUserStatus(UserAccount user)
+    // {
+    //     System.out.print("Username  : "+user.getName());
+    //     System.out.println("\t\tUserID    : "+user.getAccountId());
+    //     printChar('-', 60);
+    // }
 }

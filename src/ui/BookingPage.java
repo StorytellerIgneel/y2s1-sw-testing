@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,11 +8,14 @@ import account.UserAccount;
 import booking.BookingController;
 import color.Color;
 import movie.Movie;
-import util.CommonIcon;
+import util.*;
+
 import cinema.Cinema;
 
 public class BookingPage {
-    private UserAccount user;
+    // private UserAccount user;
+    private int userIdx;
+    private ArrayList<UserAccount> users;
     private Scanner scanner;
     private BookingController bookingController;
 
@@ -20,11 +24,13 @@ public class BookingPage {
      * @param user
      * @param scanner
      */
-    public BookingPage(UserAccount user, Scanner scanner) 
+    public BookingPage(ArrayList<UserAccount> users, int userIdx, Scanner scanner) 
     {
-        this.user = user;
+        // this.user = user;
+        this.users = users;
+        this.userIdx = userIdx;
         this.scanner = scanner;
-        this.bookingController = new BookingController(user);
+        this.bookingController = new BookingController(users, userIdx);
     }
 
     
@@ -34,9 +40,18 @@ public class BookingPage {
      */
     public void display()
     {   
+        try
+        {
+            Util.clearConsole();
+        }
+        catch(IOException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         CommonIcon.printHeader();
-        System.out.println();
-        System.out.println(Color.reset + "Welcome, " + user.getName() + "!\n");
+        CommonIcon.printUserStatus(userIdx, users);
+        // System.out.println();
+        // System.out.println(Color.reset + "Welcome, " + user.getName() + "!\n");
         System.out.println(Color.reset + "Your Bookings:");
         
         // Prints all booking details
@@ -296,6 +311,7 @@ public class BookingPage {
         if (choice == 1) {
             // Create booking
             bookingController.createBooking(selectedMovie, selectedCinema, selectedShowtime, quantityAdult, quantityChildren);
+            UserAccount.saveUsers(users);
             System.out.println("Booking created successfully.");
         } else {
             System.out.println("Booking cancelled.");
