@@ -9,7 +9,22 @@ import util.CommonIcon;
 import util.Util;
 
 public class ViewMovieInfoPage {
-    public static void printSearchedMovies(ArrayList<Movie> result, int userIdx, ArrayList<UserAccount> users) 
+
+    private ArrayList<Movie> searchedMovieList;
+    private int userIdx;
+    private ArrayList<UserAccount> users;
+    private int choice;
+    private Scanner input;
+
+    public ViewMovieInfoPage(ArrayList<Movie> searchedMovieList, int userIdx, ArrayList<UserAccount> users, Scanner input)
+    {
+        this.searchedMovieList = searchedMovieList;
+        this.userIdx = userIdx;
+        this.users = users;
+        this.input = input;
+    }
+
+    public void printSearchedMovies() 
     {
         try
         {
@@ -21,25 +36,38 @@ public class ViewMovieInfoPage {
         }
         CommonIcon.printHeader();
         CommonIcon.printUserStatus(userIdx, users);
-        for(int i = 0; i < result.size(); i++)
+        for(int i = 0; i < searchedMovieList.size(); i++)
         {
-            System.out.println((i+1) + ") " + result.get(i).getTitle());
+            System.out.println((i+1) + ") " + searchedMovieList.get(i).getTitle());
         }
         CommonIcon.printChar('-', 60);
-        chooseMovie(result);
+        chooseMovie();
     }
 
-    public static void chooseMovie(ArrayList<Movie> result) 
+    public void chooseMovie() 
     {
-        int choice;
         System.out.print("Select a movie: ");
-        Scanner input = new Scanner(System.in);
         choice = input.nextInt();
-        String movieInfo = result.get(choice-1).viewInformation();
+    }
+
+    public void viewMovieInfo()
+    {
+        try
+        {
+            Util.clearConsole();
+        }
+        catch(IOException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        CommonIcon.printHeader();
+        CommonIcon.printUserStatus(userIdx, users);
+        String movieInfo = searchedMovieList.get(choice-1).viewInformation();
         System.out.println(movieInfo);
         CommonIcon.printChar('-', 60);
-        System.out.println("Press enter to continue...");
+        System.out.println("Press enter to go back...");
         input.nextLine();
         input.nextLine();
     }
+    
 }

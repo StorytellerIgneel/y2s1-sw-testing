@@ -48,6 +48,14 @@ public class Main
 
                 while(resumeMainMenu)
                 {
+                    try
+                    {
+                        Util.clearConsole();
+                    }
+                    catch(IOException | InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
                     UserMainMenu.printMovies(trend, latest, userIdx, users); // to be modified
                     UserMainMenu.printUserAction();
                     choice = UserMainMenu.chooseUserAction(); // -1 means re-run main
@@ -65,7 +73,8 @@ public class Main
                     else if(choice == 1)
                     {
                         UserMainMenu.printMovies(trend, latest, userIdx, users);
-                        SearchMoviePage.searchMovie(movieList, userIdx, users);
+                        SearchMoviePage searchMoviePage = new SearchMoviePage(users, userIdx, input);
+                        searchMoviePage.searchMovie();
                     }
                     else if(choice == 2)
                     {
