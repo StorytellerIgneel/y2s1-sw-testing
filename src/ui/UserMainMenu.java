@@ -25,7 +25,7 @@ public class UserMainMenu {
     public static void printUserAction()
     {
         System.out.println("Choose an action:");
-        System.out.println("1. Search movies");
+        System.out.println("1. View movies info");
         System.out.println("2. View bookings");
         System.out.println("3. View profile");
         System.out.println("4. View cinema locations");

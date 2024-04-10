@@ -8,13 +8,17 @@ public class Account {
   protected String name;
   protected String password;
   protected String registerDate;
+  protected String email;
+  protected String phoneNo;
 
   //constructor
-  public Account(String accountId, String name, String password, String registerDate) {
+  public Account(String accountId, String name, String password, String registerDate, String email, String phoneNo) {
     this.accountId = accountId;
     this.name = name;
     this.password = password;
     this.registerDate = registerDate;
+    this.email = email;
+    this.phoneNo = phoneNo;
   }
 
   //static methods
@@ -53,5 +57,29 @@ public class Account {
 
   public String getRegisterDate() {
     return registerDate;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getPhoneNo() {
+    return phoneNo;
+  }
+
+  //setter methoids
+  public void setName(String name)
+  {
+    this.name = name;
+  }
+
+  public void setEmail(String email)
+  {
+    this.email = email;
+  }
+
+  public void setPhoneNo(String phoneNo)
+  {
+    this.phoneNo = phoneNo;
   }
 }

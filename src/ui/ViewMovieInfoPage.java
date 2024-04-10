@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import movie.Movie;
-import util.CommonIcon;
-import util.Util;
+import util.*;
 
 public class ViewMovieInfoPage {
 
@@ -15,6 +14,7 @@ public class ViewMovieInfoPage {
     private ArrayList<UserAccount> users;
     private int choice;
     private Scanner input;
+    
 
     public ViewMovieInfoPage(ArrayList<Movie> searchedMovieList, int userIdx, ArrayList<UserAccount> users, Scanner input)
     {
@@ -26,6 +26,7 @@ public class ViewMovieInfoPage {
 
     public void printSearchedMovies() 
     {
+        
         try
         {
             Util.clearConsole();
@@ -36,15 +37,17 @@ public class ViewMovieInfoPage {
         }
         CommonIcon.printHeader();
         CommonIcon.printUserStatus(userIdx, users);
+        System.out.println(searchedMovieList.size() + " Movie Found: ");
         for(int i = 0; i < searchedMovieList.size(); i++)
         {
-            System.out.println((i+1) + ") " + searchedMovieList.get(i).getTitle());
+            System.out.println("\t"+(i+1) + ") " + searchedMovieList.get(i).getTitle());
         }
         CommonIcon.printChar('-', 60);
         chooseMovie();
+        
     }
 
-    public void chooseMovie() 
+    public void chooseMovie()
     {
         System.out.print("Select a movie: ");
         choice = input.nextInt();
