@@ -14,7 +14,9 @@ public class ViewMovieInfoPage {
     private int userIdx;
     private ArrayList<UserAccount> users;
     private int choice;
+    private String choiceStr;
     private Scanner input;
+    private boolean isValid;
     
 
     public ViewMovieInfoPage(ArrayList<Movie> searchedMovieList, int userIdx, ArrayList<UserAccount> users, Scanner input)
@@ -50,8 +52,28 @@ public class ViewMovieInfoPage {
 
     public void chooseMovie()
     {
-        System.out.print("Select a movie: ");
-        choice = input.nextInt();
+        do
+        {
+            System.out.print("Select a movie: ");
+            choiceStr = input.next();
+            if(Validation.isNumber(choiceStr))
+            {
+                choice = Integer.parseInt(choiceStr);
+                if(choice < 1 || choice > searchedMovieList.size())
+                {
+                    isValid = false;
+                    SystemMessage.errorMessage(2);
+                }
+                else
+                    isValid = true;
+            }
+            else
+            {
+                isValid = false;
+                SystemMessage.errorMessage(1);
+            }
+        }while(!isValid);
+
     }
 
     public void viewMovieInfo()

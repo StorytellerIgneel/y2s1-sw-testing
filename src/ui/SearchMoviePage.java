@@ -1,8 +1,10 @@
 package ui;
 
 import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
 import account.*;
+import color.Color;
 import movie.Movie;
 import util.*;
 
@@ -31,7 +33,26 @@ public class SearchMoviePage {
             searchName = input.nextLine();
             if(Validation.isBack(searchName))
                 return;
-    
+            if(Validation.isQuit(searchName))
+            {
+                try
+                {
+                    Util.clearConsole();
+                }
+                catch(IOException | InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                CommonIcon.printHeader();
+                input.close();
+                System.out.print(Color.lime);
+                System.out.println("Thank you for using TVG Cinemas.");
+                System.out.println("Vist Us Next Time.");
+                System.out.print(Color.reset);
+                System.exit(0);
+            }
+
+
             for(int i = 0; i < movies.size(); i++)
             {
                 if(movies.get(i).getTitle().toLowerCase().contains(searchName.toLowerCase()))

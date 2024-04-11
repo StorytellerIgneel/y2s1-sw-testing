@@ -47,8 +47,10 @@ public class Main
                 }
                 userIdx = UserAccount.login(accounts);
 
-                if(userIdx == -1)
+                if(userIdx == -1) //back
                     continue;
+                else if(userIdx == -2) //quit
+                    break;
 
                 while(resumeMainMenu)
                 {
@@ -76,22 +78,54 @@ public class Main
                     }
                     else if(choice == 1) //view movie info
                     {
+                        try
+                        {
+                            Util.clearConsole();
+                        }
+                        catch(IOException | InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         UserMainMenu.printMovies(trend, latest, userIdx, users);
                         SearchMoviePage searchMoviePage = new SearchMoviePage(users, userIdx, input);
                         searchMoviePage.searchMovie();
                     }
                     else if(choice == 2) //view bookings
                     {
+                        try
+                        {
+                            Util.clearConsole();
+                        }
+                        catch(IOException | InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         BookingPage bookingPage = new BookingPage(users, userIdx, input);
                         bookingPage.display();
                     }
                     else if(choice == 3) //view user profile
                     {
+                        try
+                        {
+                            Util.clearConsole();
+                        }
+                        catch(IOException | InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         UserProfilePage profile = new UserProfilePage(users, userIdx, input);
                         profile.printUserInfo();
                     }
                     else if(choice == 4) //view cinema location
                     {
+                        try
+                        {
+                            Util.clearConsole();
+                        }
+                        catch(IOException | InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         CinemaLocationPage cinema = new CinemaLocationPage(userIdx, users, input);
                         cinema.printCinema();
                     }
@@ -109,9 +143,12 @@ public class Main
                     e.printStackTrace();
                 }
                 UserAccount user = UserAccount.register();
-                users.add(user);
-                UserAccount.saveUsers(users);
-                SystemMessage.successMessage(5);
+                if(user != null)
+                {
+                    users.add(user);
+                    UserAccount.saveUsers(users);
+                    SystemMessage.successMessage(5);
+                }
             }
             else if (choice == 3) //login as admin
             {

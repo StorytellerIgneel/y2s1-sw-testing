@@ -1,14 +1,17 @@
 package ui;
+import java.io.IOException;
 import java.util.ArrayList;
 import account.*;
 import util.*;
 import java.util.Scanner;
+import color.Color;
 
 public class UserProfilePage {
     private ArrayList<UserAccount> users;
     private int userIdx;
     private Scanner input;
     private String choice;
+    private boolean isValid;
 
     public UserProfilePage(ArrayList<UserAccount> users, int userIdx, Scanner input) {
         this.users = users;
@@ -18,29 +21,44 @@ public class UserProfilePage {
 
     public void printUserInfo()
     {
-        CommonIcon.printHeader();
-        CommonIcon.printUserStatus(userIdx, users);
-        System.out.println("#Profile Information");
-        System.out.println();
-        System.out.println("Username    : " + users.get(userIdx).getName());
-        System.out.println("Email       : " + users.get(userIdx).getEmail());
-        System.out.println("Phone Number: " + users.get(userIdx).getPhoneNo());
-        CommonIcon.printChar('-', 60);
-        System.out.print("Do you want to update your profile? (y/n): ");
-        choice = input.next();
-
-        if(choice.equals("y") || choice.equals("Y"))
-        {
-            updateProfile();
-        }
-        else if(choice.equals("n")|| choice.equals("N"))
-        {
-            return;
-        }
-        else 
-        {
-            ;
-        }
+        do
+        {   
+            try
+            {
+                Util.clearConsole();
+            }
+            catch(IOException | InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            CommonIcon.printHeader();
+            CommonIcon.printUserStatus(userIdx, users);
+            System.out.println("#Profile Information");
+            System.out.println();
+            System.out.println(Color.red + "Username    : " + Color.lime + users.get(userIdx).getName());
+            System.out.println(Color.red + "Email       : " + Color.lime + users.get(userIdx).getEmail());
+            System.out.println(Color.red + "Phone Number: " + Color.lime + users.get(userIdx).getPhoneNo());
+            System.out.print(Color.reset);
+            CommonIcon.printChar('-', 60);
+            System.out.print("Do you want to update your profile? (y/n): ");
+            choice = input.next();
+            input.nextLine();
+            if(choice.equals("y") || choice.equals("Y"))
+            {
+                isValid = true;
+                updateProfile();
+            }
+            else if(choice.equals("n")|| choice.equals("N"))
+            {
+                isValid = true;
+                return;
+            }
+            else 
+            {
+                isValid = false;
+                SystemMessage.errorMessage(11);;
+            }
+        }while(!isValid);
     }
 
     public void updateProfile()
@@ -50,9 +68,10 @@ public class UserProfilePage {
         {
             System.out.println();
             System.out.println("Choose what to update: ");
-            System.out.println("1) Username");
-            System.out.println("2) Email");
-            System.out.println("3) Phone Number");
+            System.out.println(Color.red + "1)" + Color.lime + " Username");
+            System.out.println(Color.red + "2)" + Color.lime + " Email");
+            System.out.println(Color.red + "3)" + Color.lime + " Phone Number");
+            System.out.print(Color.reset);
     
             System.out.print("Enter your choice (':b' to back): ");
             choice = input.next();

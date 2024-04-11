@@ -29,6 +29,7 @@ public class LoginPage {
         System.out.println(Color.red + "2. " + Color.lime + "Register" + Color.reset);
         System.out.println(Color.red + "3. " + Color.lime + "Login as Administrator" + Color.reset);
         System.out.println(Color.red + "4. " + Color.lime + "Exit" + Color.reset);
+
         CommonIcon.printChar('-', 60);
     }
 

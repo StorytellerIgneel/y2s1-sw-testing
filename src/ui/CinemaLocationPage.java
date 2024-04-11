@@ -6,6 +6,7 @@ import account.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import color.Color;
 
 
 public class CinemaLocationPage {
@@ -34,12 +35,12 @@ public class CinemaLocationPage {
         System.out.println("Available cinema locations:");
         for(int i = 0; i < Cinema.getCinemaLocation().length; i++)
         {
-            System.out.println((i+1) + ") " + Cinema.getCinemaLocation()[i].getCinemaName());
-            System.out.println(Cinema.getCinemaLocation()[i].getCinemaAddress());
-            System.out.println(); //add a new line for layout
+            System.out.println(Color.red + (i+1) + ") " + Cinema.getCinemaLocation()[i].getCinemaName());
+            System.out.println(Color.lime + Cinema.getCinemaLocation()[i].getCinemaAddress());
+            System.out.print(Color.reset);
         }
         CommonIcon.printChar('-', 60);
-        System.out.println("Press enter to go back...");
+        System.out.print("Press enter to go back...");
         input.nextLine();
         
     }

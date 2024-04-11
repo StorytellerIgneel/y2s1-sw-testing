@@ -30,7 +30,7 @@ public class UserMainMenu {
         System.out.println(Color.red + "2." + Color.lime + " View bookings" + Color.reset);
         System.out.println(Color.red + "3." + Color.lime + " View profile" + Color.reset);
         System.out.println(Color.red + "4." + Color.lime + " View cinema location" + Color.reset);
-        System.out.println(Color.red + "5." + Color.lime + " Exit" + Color.reset);
+        // System.out.println(Color.red + "5." + Color.lime + " Exit" + Color.reset);
     }
 
     public static int chooseUserAction()
@@ -41,16 +41,17 @@ public class UserMainMenu {
         int choiceInt = 0;
         do
         {
-            System.out.print("Your selection (':b' to back): ");
+            System.out.print("Your selection (':b' to back, ':q' to quit): ");
             choice = input.next();
 
             if(Validation.isBack(choice))
                 return -1;
-            
+            if(Validation.isQuit(choice))
+                return 5;
             if(Validation.isNumber(choice)) //checking its a number or not
             {
                 choiceInt = Integer.parseInt(choice);
-                if(choiceInt < 1 || choiceInt > 5) 
+                if(choiceInt < 1 || choiceInt > 4) 
                     SystemMessage.errorMessage(2);
                 else
                     isValid = true;

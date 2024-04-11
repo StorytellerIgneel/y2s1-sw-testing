@@ -37,6 +37,9 @@ public class SystemMessage {
             case 10:
                 System.out.println("Null value detected. Please enter something.");
                 break;
+            case 11:
+                System.out.println("Please enter valid input.");
+                break;
         }
         Util.waitForEnter();
         System.out.print(Color.reset);
