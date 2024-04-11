@@ -1,8 +1,11 @@
 package util;
 
+import color.Color;
+
 public class SystemMessage {
     public static void errorMessage(int errorIndex ){
         System.out.println();
+        System.out.print(Color.red);
         switch(errorIndex) {
             case 1:
                 System.out.println("Please enter a valid number."); //used
@@ -32,10 +35,13 @@ public class SystemMessage {
                 System.out.println("There was an error when attempting to clear the console screen. Please try again.");
         }
         Util.waitForEnter();
+        System.out.print(Color.reset);
         return;
     }
 
     public static void successMessage(int successIndex) {
+        System.out.println();
+        System.out.print(Color.lime);
         switch(successIndex) {
             case 1:
                 System.out.println("Movie Added Successfully!");
@@ -53,6 +59,7 @@ public class SystemMessage {
                 System.out.println("Account registered successfully");
         }
         Util.waitForEnter();
+        System.out.print(Color.reset);
         return;
     }
 }
