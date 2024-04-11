@@ -20,7 +20,7 @@ public class SystemMessage {
                 System.out.println("Login failed.");//used
                 break;
             case 6:
-                System.out.println("A problem was encountered when attempting to clean the console screen. Please contact the technical team.");
+                System.out.println("No movies found. Please try again.");//used
                 break;
             case 7:
                 System.out.println("Please enter a valid string of characters.");
@@ -28,6 +28,8 @@ public class SystemMessage {
             case 8:
                 System.out.println("Please enter a valid time.");
                 break;
+            case 9:
+                System.out.println("There was an error when attempting to clear the console screen. Please try again.");
         }
         Util.waitForEnter();
         return;
@@ -47,6 +49,8 @@ public class SystemMessage {
             case 4:
                 System.out.println("Login Success.");
                 break;
+            case 5:
+                System.out.println("Account registered successfully");
         }
         Util.waitForEnter();
         return;

@@ -29,7 +29,7 @@ public class Main
             LoginPage.printChoice();
             int choice = LoginPage.chooseChoice(); 
             
-            if(choice == 1)
+            if(choice == 1) //login
             {
                 try
                 {
@@ -40,11 +40,14 @@ public class Main
                     e.printStackTrace();
                 }
                 ArrayList<Account> accounts = new ArrayList<Account>();
-                for(int i = 0; i < users.size(); i++) //convert UserAccount to Account type for verifying users
+                for(int i = 0; i < users.size(); i++) //convert UserAccount to Account type for verifying users because it only accept account type
                 {
                     accounts.add(users.get(i));
                 }
                 userIdx = UserAccount.login(accounts);
+
+                if(userIdx == -1)
+                    continue;
 
                 while(resumeMainMenu)
                 {
@@ -70,21 +73,31 @@ public class Main
                         resumeMainMenu = false;
                         userIdx = 0;
                     }
-                    else if(choice == 1)
+                    else if(choice == 1) //view movie info
                     {
                         UserMainMenu.printMovies(trend, latest, userIdx, users);
                         SearchMoviePage searchMoviePage = new SearchMoviePage(users, userIdx, input);
                         searchMoviePage.searchMovie();
                     }
-                    else if(choice == 2)
+                    else if(choice == 2) //view bookings
                     {
                         BookingPage bookingPage = new BookingPage(users, userIdx, input);
                         bookingPage.display();
                     }
+                    else if(choice == 3) //view user profile
+                    {
+                        UserProfilePage profile = new UserProfilePage(users, userIdx, input);
+                        profile.printUserInfo();
+                    }
+                    else if(choice == 4) //view cinema location
+                    {
+                        CinemaLocationPage cinema = new CinemaLocationPage(userIdx, users, input);
+                        cinema.printCinema();
+                    }
                 }
                 
             }
-            else if(choice == 2)
+            else if(choice == 2) // register
             {
                 try
                 {
@@ -97,12 +110,13 @@ public class Main
                 UserAccount user = UserAccount.register();
                 users.add(user);
                 UserAccount.saveUsers(users);
+                SystemMessage.successMessage(5);
             }
-            else if (choice == 3) 
+            else if (choice == 3) //login as admin
             {
                 
             }
-            else if(choice ==4)    
+            else if(choice ==4)   //exit
                 resumeProgram = false;
             
         }
@@ -116,6 +130,7 @@ public class Main
             e.printStackTrace();
         }
         CommonIcon.printHeader();
+        input.close();
         System.out.println("Thank you for using TVG Cinemas.");
         System.out.println("Vist Us Next Time.");
     }

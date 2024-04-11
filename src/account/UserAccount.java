@@ -29,13 +29,13 @@ public class UserAccount extends Account{
  }
  
  //overloaded constructor
- public UserAccount(String accountId, String name, String password, String registerDate) {
-    super(accountId, name, password, registerDate);
+ public UserAccount(String accountId, String name, String password, String registerDate, String email, String phoneNo) {
+    super(accountId, name, password, registerDate, email, phoneNo);
     this.bookings = new ArrayList<Booking>();
  }
 
- public UserAccount(String accountId, String name, String password, String registerDate, ArrayList<Booking> bookings) {
-  super(accountId, name, password, registerDate);
+ public UserAccount(String accountId, String name, String password, String registerDate, ArrayList<Booking> bookings, String email, String phoneNo) {
+  super(accountId, name, password, registerDate, email, phoneNo);
   setBookings(bookings);
 }
 
@@ -48,10 +48,17 @@ public class UserAccount extends Account{
    {
     //entering details
     Scanner input = new Scanner(System.in);
-    System.out.print("Enter your username: ");
+    System.out.print("Enter your username (':b' to back): ");
     String name = input.nextLine();
-    System.out.print("Enter your password: ");
+
+    if(Validation.isBack(name))
+      return -1;
+
+    System.out.print("Enter your password (':b' to back): ");
     String pass = input.next();
+
+    if(Validation.isBack(pass))
+      return -1;
 
     index = verifyLogin(accounts, name, pass);
     if (index == -1)
@@ -88,13 +95,17 @@ public class UserAccount extends Account{
    String username = input.nextLine();
    System.out.print("Enter your password: ");
    String pass = input.next();
+   System.out.print("Enter your email: ");
+   String email = input.next();
+   System.out.print("Enter your phone number: ");
+   String phoneNo = input.next();
 
    //generating simple date formate in string
    Date date = new Date();
    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
    String dateString = simpleDateFormat.format(date);
 
-   UserAccount user = new UserAccount(id, username, pass, dateString);
+   UserAccount user = new UserAccount(id, username, pass, dateString, email, phoneNo);
 
    return user;
  }
