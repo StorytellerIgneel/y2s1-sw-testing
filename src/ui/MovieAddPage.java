@@ -12,11 +12,11 @@ public class MovieAddPage implements MovieCRUD {
     @Override
     public void execute(ArrayList<Movie> movieList) {
         int step = 1;
-        Scanner input = new Scanner(System.in);
         
         String movieId = null;
         String title = null;
         String description = null;
+        String showtimeString = null;
         ArrayList<String> showtimes = new ArrayList<>();
         ArrayList<String> languages = new ArrayList<>();
         String releaseDate = null;
@@ -27,8 +27,7 @@ public class MovieAddPage implements MovieCRUD {
         while(true)
         {
             if(step == 1){    
-                System.out.print("Enter Movie ID: ");
-                movieId = input.nextLine(); // Consume newline character
+                movieId = Util.getInput("Enter Movie ID: ");
                 if (Validation.isBack(movieId))
                     return;
                 else if (Validation.isQuit(movieId))
@@ -37,8 +36,7 @@ public class MovieAddPage implements MovieCRUD {
                     step += 1;
             }
             if(step == 2){  
-                System.out.print("Enter Title: ");
-                title = input.nextLine();
+                title = Util.getInput("Enter Title: ");
                 if (Validation.isBack(title))
                     return;
                 else if (Validation.isQuit(title))
@@ -47,9 +45,8 @@ public class MovieAddPage implements MovieCRUD {
                     step += 1;
             }
 
-            if(step == 3){  
-                System.out.print("Enter Description: ");
-                description = input.nextLine();
+            if(step == 3){
+                description = Util.getInput("Enter Description: ");
                 if (Validation.isBack(description))
                     return;
                 else if (Validation.isQuit(description))
@@ -61,8 +58,7 @@ public class MovieAddPage implements MovieCRUD {
             if(step == 4){ 
                 while(true)
                 {
-                    System.out.print("Enter Showtimes in 24hour format (separated by spaces): ");
-                    String[] showtimesArray = input.nextLine().split(" ");
+                    String[] showtimesArray = Util.getInput("Enter Showtimes in 24hour format (separated by spaces): ").split(" ");
                     if(Validation.isTime(showtimesArray))
                     {
                         for (String showtime : showtimesArray)
@@ -81,8 +77,7 @@ public class MovieAddPage implements MovieCRUD {
             
             if (step == 5){
                 while(true){
-                    System.out.print("Enter Languages (separated by spaces): ");
-                    String[] languagesArray = input.nextLine().split(" ");
+                    String[] languagesArray = Util.getInput("Enter Languages (separated by spaces): ").split(" ");;
                     if (Validation.isLanguage(languagesArray))
                     {
                         if (Validation.isBack(description))
@@ -102,14 +97,12 @@ public class MovieAddPage implements MovieCRUD {
             }
             
             if (step == 6){
-                System.out.print("Enter Release Date (DD/MM/YYYY): ");
-                releaseDate = input.nextLine();
+                releaseDate = Util.getInput("Enter Release Date (DD/MM/YYYY): ");
                 step += (title == ":q"? -1: 1);
             }
             
             if (step == 7){
-                System.out.print("Enter Genre (seperated by spaces): ");
-                String[] genreList = input.nextLine().split(" ");
+                String[] genreList = Util.getInput("Enter Genre (seperated by spaces): ").split(" ");
                 for (String inputGenre : genreList)
                     genre.add(inputGenre.trim());
                 step += (title == ":q"? -1: 1);
@@ -118,8 +111,7 @@ public class MovieAddPage implements MovieCRUD {
             if (step == 8){
                 while(true)
                 {
-                    System.out.print("Enter Price for Adults: ");
-                    String priceAdult = input.nextLine();
+                    String priceAdult = Util.getInput("Enter Price for Adults: ");
                     if (Validation.isDouble(priceAdult)){
                         priceAdultDouble = Double.parseDouble(priceAdult);
                         step += 1;
@@ -138,8 +130,7 @@ public class MovieAddPage implements MovieCRUD {
             
             if (step == 9){
                 while(true){
-                    System.out.print("Enter Price for Children: ");
-                    String priceChildren = input.nextLine();
+                    String priceChildren = Util.getInput("Enter Price for Children: ");
                     if (Validation.isDouble(priceChildren)){
                         priceChildrenDouble = Double.parseDouble(priceChildren);
                         step += 1;

@@ -33,6 +33,10 @@ public class SystemMessage {
                 break;
             case 9:
                 System.out.println("There was an error when attempting to clear the console screen. Please try again.");
+                break;
+            case 10:
+                System.out.println("Null value detected. Please enter something.");
+                break;
         }
         Util.waitForEnter();
         System.out.print(Color.reset);
