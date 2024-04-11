@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import movie.Movie;
 import movie.MovieCRUD;
+import util.Util;
 
 public class MovieListPage implements MovieCRUD {
     @Override
@@ -12,7 +13,7 @@ public class MovieListPage implements MovieCRUD {
         Scanner input = new Scanner(System.in);
         
         MovieCRUDGeneralPage.showAllMovie(movieList); 
-        input.nextLine();
+        Util.waitForEnter();
         return;
     }
 }

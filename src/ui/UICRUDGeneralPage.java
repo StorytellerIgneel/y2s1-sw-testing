@@ -84,8 +84,7 @@ public class UICRUDGeneralPage{
     public static void showAllMovie(ArrayList<Movie> movieList)
     {
         int counter = 1;
-        for (Movie movie : movieList)
-        {
+        for (Movie movie : movieList){
             System.out.println("\n\nMovie index: " + counter);
             System.out.println(movie.viewInformation());
         }
@@ -96,21 +95,18 @@ public class UICRUDGeneralPage{
         Scanner input = new Scanner(System.in);
         String index = "";
         
-        while(true)
-        {
+        while(true){
             System.out.printf("Enter the index of the movie you wish to %s (Enter :q to quit): ", action);
             index = input.nextLine();
             input.close();
-            if (Validation.isNumber(index))
-            {
+            if (Validation.isNumber(index)){
                 int indexInt = Integer.parseInt(index);
                 if (indexInt > 0 && indexInt <= movieList.size() - 1)
                     return indexInt;
                 else
                     SystemMessage.errorMessage(2);
             }
-            else
-            {
+            else{
                 if (Validation.isBack(index))
                     return -1;
                 else

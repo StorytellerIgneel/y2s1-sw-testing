@@ -45,6 +45,11 @@ public class MovieCRUDGeneralPage {
             String mainPageChoice;
             Integer mainPageChoiceInt = 0;
 
+            try {
+                Util.clearConsole();
+            } catch (Exception e) {
+                SystemMessage.errorMessage(6);
+            }
             movieList = getMovieList();
             System.out.println("\nCRUD Options for Movie:");
             System.out.println("1. Add a Movie");
@@ -58,8 +63,14 @@ public class MovieCRUDGeneralPage {
             mainPageChoice = input.nextLine();
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
-                if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5)
+                if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
+                    try {
+                        Util.clearConsole();
+                    } catch (Exception e) {
+                        SystemMessage.errorMessage(6);
+                    }
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
+                }
                 else if (mainPageChoiceInt == 5){
                     exportMovieData(movieList);
                     return;
@@ -103,8 +114,6 @@ public class MovieCRUDGeneralPage {
 
     public void exportMovieData(ArrayList<Movie> movieList) {
         Gson gson = new Gson();
-        showAllMovie(movieList);
-        Util.waitForEnter();
         String toWrite = gson.toJson(movieList);
 
         try {
@@ -137,7 +146,7 @@ public class MovieCRUDGeneralPage {
             if (Validation.isNumber(index)) {
                 int indexInt = Integer.parseInt(index);
                 if (indexInt > 0 && indexInt <= movieList.size())
-                    return indexInt;
+                    return indexInt - 1;
                 else
                     SystemMessage.errorMessage(2);
             } else {

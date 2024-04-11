@@ -1,10 +1,8 @@
 package util;
 
-import java.io.ByteArrayInputStream;
-import java.util.Scanner;
-
 public class SystemMessage {
     public static void errorMessage(int errorIndex ){
+        System.out.println();
         switch(errorIndex) {
             case 1:
                 System.out.println("Please enter a valid number."); //used
@@ -22,6 +20,7 @@ public class SystemMessage {
                 System.out.println("Login failed.");//used
                 break;
             case 6:
+                System.out.println("A problem was encountered when attempting to clean the console screen. Please contact the technical team.");
                 break;
             case 7:
                 System.out.println("Please enter a valid string of characters.");
