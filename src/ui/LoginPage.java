@@ -5,6 +5,7 @@ import util.*;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
+import color.Color;
 import java.util.NoSuchElementException;
 
 public class LoginPage {
@@ -24,10 +25,10 @@ public class LoginPage {
             e.printStackTrace();
         }
         CommonIcon.printHeader();
-        System.out.println("1. Login");
-        System.out.println("2. Register");
-        System.out.println("3. Login as Administrator");
-        System.out.println("4. Exit"); 
+        System.out.println(Color.red + "1. " + Color.lime + "Login" + Color.reset);
+        System.out.println(Color.red + "2. " + Color.lime + "Register" + Color.reset);
+        System.out.println(Color.red + "3. " + Color.lime + "Login as Administrator" + Color.reset);
+        System.out.println(Color.red + "4. " + Color.lime + "Exit" + Color.reset);
         CommonIcon.printChar('-', 60);
     }
 

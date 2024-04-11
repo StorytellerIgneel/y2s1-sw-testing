@@ -7,6 +7,7 @@ import movie.*;
 import booking.Booking;
 import ui.*;
 import util.*;
+import color.Color;
 
 
 public class Main
@@ -131,7 +132,9 @@ public class Main
         }
         CommonIcon.printHeader();
         input.close();
+        System.out.print(Color.lime);
         System.out.println("Thank you for using TVG Cinemas.");
         System.out.println("Vist Us Next Time.");
+        System.out.print(Color.reset);
     }
 }

@@ -1,5 +1,6 @@
 package movie;
 import java.util.ArrayList;
+import color.Color;
 
 public class Movie {
     private String movieId;
@@ -103,15 +104,15 @@ public class Movie {
     //other methods
     public String viewInformation() {
         StringBuilder movie_info = new StringBuilder();
-        movie_info.append("Movie ID: ").append(movieId).append("\n");
-        movie_info.append("Title: ").append(title).append("\n");
-        movie_info.append("Description: ").append(description).append("\n");
-        movie_info.append("Showtimes: ").append(showtimes.toString()).append("\n");
-        movie_info.append("Languages: ").append(languages.toString()).append("\n");
-        movie_info.append("Release Date: ").append(releaseDate).append("\n");
-        movie_info.append("Genre: ").append(genre.toString()).append("\n");
-        movie_info.append("Price (Adult): $").append(priceAdult).append("\n");
-        movie_info.append("Price (Children): $").append(priceChildren).append("\n");
+        movie_info.append(Color.red + "Movie ID: " + Color.lime).append(movieId).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Title: " + Color.lime).append(title).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Description: " + Color.lime).append(description).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Showtimes: " + Color.lime).append(showtimes.toString()).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Languages: " + Color.lime).append(languages.toString()).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Release Date: " + Color.lime).append(releaseDate).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Genre: " + Color.lime).append(genre.toString()).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Price (Adult): " + Color.lime + "$").append(priceAdult).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Price (Children): "+ Color.lime +"$").append(priceChildren).append("\n").append(Color.reset);
         return movie_info.toString();
     }
 }
