@@ -35,7 +35,7 @@ public class UserProfilePage {
         }
         else if(choice.equals("n")|| choice.equals("N"))
         {
-            ;
+            return;
         }
         else 
         {
@@ -96,7 +96,7 @@ public class UserProfilePage {
             }
             else if(Validation.isBack(choice))
             {
-                
+                return;
             }
         }while(resume);
     }

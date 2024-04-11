@@ -29,7 +29,7 @@ public class Main
             LoginPage.printChoice();
             int choice = LoginPage.chooseChoice(); 
             
-            if(choice == 1)
+            if(choice == 1) //login
             {
                 try
                 {
@@ -89,10 +89,15 @@ public class Main
                         UserProfilePage profile = new UserProfilePage(users, userIdx, input);
                         profile.printUserInfo();
                     }
+                    else if(choice == 4) //view cinema location
+                    {
+                        CinemaLocationPage cinema = new CinemaLocationPage(userIdx, users, input);
+                        cinema.printCinema();
+                    }
                 }
                 
             }
-            else if(choice == 2)
+            else if(choice == 2) // register
             {
                 try
                 {
@@ -107,11 +112,11 @@ public class Main
                 UserAccount.saveUsers(users);
                 SystemMessage.successMessage(5);
             }
-            else if (choice == 3) 
+            else if (choice == 3) //login as admin
             {
                 
             }
-            else if(choice ==4)    
+            else if(choice ==4)   //exit
                 resumeProgram = false;
             
         }
