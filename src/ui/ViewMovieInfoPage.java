@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import movie.Movie;
 import util.*;
+import color.Color;
 
 public class ViewMovieInfoPage {
 
@@ -40,7 +41,7 @@ public class ViewMovieInfoPage {
         System.out.println(searchedMovieList.size() + " Movie Found: ");
         for(int i = 0; i < searchedMovieList.size(); i++)
         {
-            System.out.println("\t"+(i+1) + ") " + searchedMovieList.get(i).getTitle());
+            System.out.println("\t"+ Color.red +(i+1) + ") " + Color.lime + searchedMovieList.get(i).getTitle() + Color.reset);
         }
         CommonIcon.printChar('-', 60);
         chooseMovie();

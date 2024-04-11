@@ -3,6 +3,7 @@ package util;
 import java.util.ArrayList;
 import movie.Movie;
 import account.*;
+import color.Color;
 
 public class CommonIcon {
     public static void printHeader()
@@ -26,7 +27,7 @@ public class CommonIcon {
         System.out.println("#Trending Now");
         for(int i = 0; i < movies.size(); i++)
         {
-            System.out.println("  " + (i+1) + ") " + movies.get(i).getTitle());
+            System.out.println(Color.red + "  " + (i+1) + ") " + Color.lime + movies.get(i).getTitle() + Color.reset);
         }
 
     }
@@ -36,7 +37,7 @@ public class CommonIcon {
         System.out.println("#Latest Release");
         for(int i = 0; i < movies.size(); i++)
         {
-            System.out.println("  " + (i+1) + ") " + movies.get(i).getTitle());
+            System.out.println( Color.red + "  " + (i+1) + ") " + Color.lime + movies.get(i).getTitle() + Color.reset);
         }
 
     }

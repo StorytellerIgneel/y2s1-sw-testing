@@ -7,6 +7,7 @@ import account.*;
 import movie.Movie;
 import util.*;
 import movie.*;
+import color.Color;
 
 
 
@@ -25,11 +26,11 @@ public class UserMainMenu {
     public static void printUserAction()
     {
         System.out.println("Choose an action:");
-        System.out.println("1. View movies info");
-        System.out.println("2. View bookings");
-        System.out.println("3. View profile");
-        System.out.println("4. View cinema locations");
-        System.out.println("5. Exit");
+        System.out.println(Color.red + "1." + Color.lime + " View movies info" + Color.reset);
+        System.out.println(Color.red + "2." + Color.lime + " View bookings" + Color.reset);
+        System.out.println(Color.red + "3." + Color.lime + " View profile" + Color.reset);
+        System.out.println(Color.red + "4." + Color.lime + " View cinema location" + Color.reset);
+        System.out.println(Color.red + "5." + Color.lime + " Exit" + Color.reset);
     }
 
     public static int chooseUserAction()
