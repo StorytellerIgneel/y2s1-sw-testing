@@ -1,6 +1,9 @@
 package account;
 // import java.util.Date;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.*;
+import util.*;
 
 public class Account {
   //instance variables to be inherited
@@ -41,6 +44,53 @@ public class Account {
     return -1;
   }
   
+  public static int login(ArrayList<Account> accounts)
+ {
+   int index = 0;
+   CommonIcon.printHeader();
+   System.out.println("Login: \n");
+   do
+   {
+    //entering details
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter your username (':b' to back, ':q' to quit): ");
+    String name = input.nextLine();
+
+    if(Validation.isBack(name))
+      return -1;
+    if(Validation.isQuit(name))
+      return -2;
+
+    System.out.print("Enter your password (':b' to back, ':q to quit'): ");
+    String pass = input.next();
+
+    if(Validation.isBack(pass))
+      return -1;
+    if(Validation.isQuit(pass))
+      return -2;
+
+    index = verifyLogin(accounts, name, pass);
+    if (index == -1)
+      SystemMessage.errorMessage(5);
+    else
+      SystemMessage.successMessage(4);
+
+   }while (index == -1);
+   
+   try
+    {
+        Util.clearConsole();
+    }
+    catch(IOException e)
+    {
+        e.printStackTrace();
+    }
+    catch(InterruptedException e)
+    {
+        e.printStackTrace();
+    }
+    return index; //return the user index for tracking user activities
+ }
 
   //getter methods
   public String getAccountId() {

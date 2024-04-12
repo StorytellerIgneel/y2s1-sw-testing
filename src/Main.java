@@ -17,6 +17,7 @@ public class Main
     {
         Scanner input = new Scanner(System.in);
         ArrayList<UserAccount> users = UserAccount.getUsers();
+        ArrayList<SystemAdminAccount> admins = SystemAdminAccount.getAdmins();
         ArrayList<Movie> trend = MovieCRUDGeneralPage.getMovieList(); //to be modified
         ArrayList<Movie> latest = MovieCRUDGeneralPage.getMovieList(); //to be modified
         ArrayList<Movie> movieList = MovieCRUDGeneralPage.getMovieList(); //to be modified
@@ -152,7 +153,58 @@ public class Main
             }
             else if (choice == 3) //login as admin
             {
+                try
+                {
+                    Util.clearConsole();
+                }
+                catch(IOException | InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                ArrayList<Account> accounts = new ArrayList<Account>();
+                for(int i = 0; i < admins.size(); i++) //convert SystemAdminAccount to Account type for verifying admins because it only accept account type
+                {
+                    accounts.add(admins.get(i));
+                }
+                userIdx = SystemAdminAccount.login(accounts);
+
+                if(userIdx == -1) //back
+                    continue;
+                else if(userIdx == -2) //quit
+                    break;
                 
+                while(resumeMainMenu)
+                {
+                    // admin page
+                    resumeMainMenu = false;
+                    resumeProgram = false; // temporary break :D
+                    if (choice == 5)
+                    {
+                        resumeMainMenu = false;
+                        resumeProgram = false;
+                    }
+                    else if (choice == -1)
+                    {
+                        resumeMainMenu = false;
+                        userIdx = 0;
+                    }
+                    else if (choice == 1)
+                    {
+                        // Manage movies
+                    }
+                    else if (choice == 2)
+                    {
+                        // Manage User Accounts
+                    }
+                    else if (choice == 3)
+                    {
+                        //Manage Bookings
+                    }
+                    else if (choice == 4)
+                    {
+                        // Generate Report
+                    }
+                }
             }
             else if(choice ==4)   //exit
                 resumeProgram = false;
