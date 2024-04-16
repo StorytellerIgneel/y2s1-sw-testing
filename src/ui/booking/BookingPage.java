@@ -6,9 +6,11 @@ import account.UserAccount;
 import booking.BookingController;
 import color.Color;
 import util.CommonIcon;
+import java.util.ArrayList;
 
 public class BookingPage implements Page{
-    private UserAccount user;
+    private ArrayList<UserAccount> users;
+    private int user_index;
     private Scanner scanner;
     private BookingController bookingController;
 
@@ -17,11 +19,12 @@ public class BookingPage implements Page{
      * @param user
      * @param scanner
      */
-    public BookingPage(UserAccount user, Scanner scanner) 
+    public BookingPage(ArrayList<UserAccount> users, int user_index, Scanner scanner) 
     {
-        this.user = user;
+        this.users = users;
         this.scanner = scanner;
-        this.bookingController = new BookingController(user);
+        this.user_index = user_index;
+        this.bookingController = new BookingController(users, user_index);
     }
 
     
@@ -33,7 +36,7 @@ public class BookingPage implements Page{
     {   
         CommonIcon.printHeader();
         System.out.println();
-        System.out.println(Color.reset + "Welcome, " + user.getName() + "!\n");
+        System.out.println(Color.reset + "Welcome, " + users.get(user_index).getName() + "!\n");
         System.out.println(Color.reset + "Your Bookings:");
         
         // Prints all booking details
