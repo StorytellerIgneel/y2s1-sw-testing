@@ -94,71 +94,17 @@ public class CreateBookingPage implements Page{
         System.out.println("You have selected: " + selectedMovie.getTitle());
         System.out.println(); // Add a newline for layout
 
-        Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);
+        // Get cinema location from user
+        Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);   
 
-        // Get showtime
-        choice = 0;
-        validInput = false;
-        while (!validInput)
-        {
-            System.out.println("Available showtimes:");
-            for (int i = 0; i < selectedMovie.getShowtimes().size(); i++) {
-                System.out.println(Color.red + (i+1) + ") \t" + Color.lime + selectedMovie.getShowtimes().get(i) + Color.reset);
-            }
-            System.out.print(Color.reset + "Select a showtime: " + Color.reset);
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                if (choice <= 0 || choice > selectedMovie.getShowtimes().size()) { // 1-based index
-                    System.out.println("Showtime out of bounds. Please enter a number between 1 and " + movieSearchResults.size() + ".");
-                    continue;
-                }
-                validInput = true;
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Discard the invalid input
-            }
-        }
-
-        // Get selected showtime
-        String selectedShowtime = selectedMovie.getShowtimes().get(choice - 1); // Adjust for 0-based index
-        System.out.println("Showtime selected: " + selectedShowtime);
-        System.out.println(); // Add a newline for layout
+        // Get showtime from user
+        String selectedShowtime = BookingUtils.getShowtimeInput(scanner, selectedMovie);
 
         // Get Adult and Child ticket quantity
-        int quantityAdult = 0;
-        validInput = false;
-        while (!validInput) {
-            System.out.print(Color.reset + "Enter number of adult tickets: ");
-            if (scanner.hasNextInt()) {
-                quantityAdult = scanner.nextInt();
-                if (quantityAdult < 0 || quantityAdult > 1000) 
-                {
-                    System.out.println("Invalid input. Please enter a positive number.");
-                    continue;
-                }
-                validInput = true;
-            } else {
-                System.out.println("Invalid input. Please enter a whole number.");
-                scanner.next(); // Discard the invalid input
-            }
-        }
+        int quantityAdult = BookingUtils.getTicketQuantityInput(scanner, "adult");
+        int quantityChildren = BookingUtils.getTicketQuantityInput(scanner, "child");
 
-        int quantityChildren = 0;
-        validInput = false;
-        while (!validInput) {
-            System.out.print(Color.reset + "Enter number of child tickets: ");
-            if (scanner.hasNextInt()) {
-                quantityChildren = scanner.nextInt();
-                if (quantityChildren < 0 || quantityChildren > 1000) {
-                    System.out.println("Invalid input. Please enter a positive number.");
-                    continue;
-                }
-                validInput = true;
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Discard the invalid input
-            }
-        }
+        // Print ticket quantity
         System.out.println("Adult tickets: " + quantityAdult);
         System.out.println("Child tickets: " + quantityChildren);
 

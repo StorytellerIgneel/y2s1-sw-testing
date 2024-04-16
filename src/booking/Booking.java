@@ -65,6 +65,11 @@ public class Booking
     {
         return movie.getTitle();
     }
+
+    public Movie getMovie()
+    {
+        return movie;
+    }
     
     public int getQuantityAdult()
     {

@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 import booking.Booking;
 import booking.BookingController;
+import cinema.Cinema;
 import color.Color;
+import util.BookingUtils;
 
 public class UpdateBookingPage implements Page {
     private BookingController bookingController;
@@ -29,7 +31,7 @@ public class UpdateBookingPage implements Page {
         // Get user choice for booking to update
         int choice = -1;
         boolean validInput = false;
-        Booking chosenBooking = null;
+        int chosenBookingIndex;
         while(!validInput || choice < 0 || choice > bookingController.getBookings().size()) {
             System.out.println(Color.reset + "Your Bookings:");
             bookingController.printAllBookings();   // Display all bookings, listed as 1-indexed
@@ -51,7 +53,7 @@ public class UpdateBookingPage implements Page {
                 return; // Go back to main menu
             }
         }
-        chosenBooking = bookingController.getBookings().get(choice - 1); // Convert to 0-indexed
+        chosenBookingIndex = choice - 1; // Convert to 0-indexed
 
         // Choose what to update
         choice = -1;
@@ -83,17 +85,61 @@ public class UpdateBookingPage implements Page {
                 case 0:
                     return;
                 case 1:
-                    //updateDate(chosenBooking);
+                    updateCinema(chosenBookingIndex);
                     break;
                 case 2:
-                    //pdateTime(chosenBooking);
+                    updateShowtime(chosenBookingIndex);
                     break;
                 case 3:
-                    //updateTickets(chosenBooking);
+                    updateTickets(chosenBookingIndex);
                     break;
             }
         } catch (IllegalArgumentException e) {
             System.out.println(Color.red + e.getMessage() + Color.reset);
         }
+        return;
+    }
+
+    /**
+     * Updates the cinema location of the booking
+     * @param booking The booking to update
+     */
+    private void updateCinema(int chosenBookingIndex) {
+        Booking booking = bookingController.getBookings().get(chosenBookingIndex);
+        System.out.println(Color.reset + "Current Cinema: " + booking.getCinemaName());
+        System.out.println(Color.reset + "Current Location: " + booking.getCinemaAddress());
+        System.out.print(Color.reset + "Change to a new cinema location: ");
+        Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);
+        bookingController.updateBooking(chosenBookingIndex, selectedCinema);
+        return;
+    }
+
+    /**
+     * Updates the showtime of the booking
+     * @param booking The booking to update
+     */
+    private void updateShowtime(int chosenBookingIndex) {
+        Booking booking = bookingController.getBookings().get(chosenBookingIndex);
+        System.out.println(Color.reset + "Current Showtime: " + booking.getCinemaName());
+        System.out.print(Color.reset + "Change to a new showtime: ");
+        String selectedShowtime = BookingUtils.getShowtimeInput(scanner, booking.getMovie());
+        bookingController.updateBooking(chosenBookingIndex, selectedShowtime);
+        return;
+    }
+
+    /**
+     * Updates the number of tickets of the booking
+     * @param booking The booking to update
+     */
+    private void updateTickets(int chosenBookingIndex) {
+        Booking booking = bookingController.getBookings().get(chosenBookingIndex);
+        System.out.println(Color.reset + "Current Adult Tickets: " + booking.getQuantityAdult());
+        System.out.println(Color.reset + "Current Child Tickets: " + booking.getQuantityChildren());
+        System.out.print(Color.reset + "Enter new number of adult tickets: ");
+        int quantityAdult = BookingUtils.getTicketQuantityInput(scanner, "adult");
+        System.out.print(Color.reset + "Enter new number of child tickets: ");
+        int quantityChildren = BookingUtils.getTicketQuantityInput(scanner, "child");
+        bookingController.updateBooking(chosenBookingIndex, quantityAdult, quantityChildren);
+        return;
     }
 }

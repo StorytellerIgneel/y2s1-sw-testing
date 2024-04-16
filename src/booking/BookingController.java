@@ -81,6 +81,65 @@ public class BookingController {
     }
 
     /**
+     * Overloaded method
+     * Updates the booking cinema only
+     * @param index is 0-indexed
+     * @param cinema
+     */
+    public void updateBooking(
+        int index,
+        Cinema cinema
+        )
+    {
+        bookings = users.get(userIdx).getBookings();
+        Booking booking = bookings.get(index);
+        booking.setCinema(cinema);
+        bookings.set(index, booking);
+        users.get(userIdx).setBookings(bookings);
+        UserAccount.saveUsers(users);
+    }
+    
+    /**
+     * Overloaded method
+     * Updates the booking showtime only
+     * @param index is 0-indexed
+     * @param showtime
+     */
+    public void updateBooking(
+        int index,
+        String showtime
+        )
+    {
+        bookings = users.get(userIdx).getBookings();
+        Booking booking = bookings.get(index);
+        booking.setShowtime(showtime);
+        bookings.set(index, booking);
+        users.get(userIdx).setBookings(bookings);
+        UserAccount.saveUsers(users);
+    }
+
+    /**
+     * Updates the booking details
+     * @param index is 0-indexed
+     * @param quantityAdult
+     * @param quantityChildren
+     */
+    public void updateBooking(
+        int index,
+        int quantityAdult, 
+        int quantityChildren
+        )
+    {
+        bookings = users.get(userIdx).getBookings();
+        Booking booking = bookings.get(index);
+        booking.setQuantityAdult(quantityAdult);
+        booking.setQuantityChildren(quantityChildren);
+        bookings.set(index, booking);
+        users.get(userIdx).setBookings(bookings);
+        UserAccount.saveUsers(users);
+    }
+
+    /**
      * Prints the details of a booking
      * @param index is 0-indexed
      * @param booking
