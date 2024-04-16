@@ -141,7 +141,7 @@ public class MovieCRUDGeneralPage {
         String index = "";
 
         while (true) {
-            System.out.printf("Enter the index of the movie you wish to %s (Enter :q to quit): ", action);
+            System.out.printf("Enter the index of the movie you wish to %s: ", action);
             index = input.nextLine();
             if (Validation.isNumber(index)) {
                 int indexInt = Integer.parseInt(index);

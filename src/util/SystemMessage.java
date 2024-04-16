@@ -40,6 +40,9 @@ public class SystemMessage {
             case 11:
                 System.out.println("Please enter valid input.");
                 break;
+            case 12:
+                System.out.println("Please enter a valid Movie ID (E.g: MOV0000001): ");
+                break;
         }
         Util.waitForEnter();
         System.out.print(Color.reset);

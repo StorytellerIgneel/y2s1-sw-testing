@@ -107,10 +107,10 @@ public class Movie {
         movie_info.append(Color.red + "Movie ID: " + Color.lime).append(movieId).append("\n").append(Color.reset);
         movie_info.append(Color.red + "Title: " + Color.lime).append(title).append("\n").append(Color.reset);
         movie_info.append(Color.red + "Description: " + Color.lime).append(description).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Showtimes: " + Color.lime).append(showtimes.toString()).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Languages: " + Color.lime).append(languages.toString()).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Showtimes: " + Color.lime).append(showtimes.toString().substring(1, showtimes.toString().length()-1)).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Languages: " + Color.lime).append(languages.toString().substring(1, languages.toString().length()-1)).append("\n").append(Color.reset);
         movie_info.append(Color.red + "Release Date: " + Color.lime).append(releaseDate).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Genre: " + Color.lime).append(genre.toString()).append("\n").append(Color.reset);
+        movie_info.append(Color.red + "Genre: " + Color.lime).append(genre.toString().substring(1, genre.toString().length()-1)).append("\n").append(Color.reset);
         movie_info.append(Color.red + "Price (Adult): " + Color.lime + "$").append(priceAdult).append("\n").append(Color.reset);
         movie_info.append(Color.red + "Price (Children): "+ Color.lime +"$").append(priceChildren).append("\n").append(Color.reset);
         return movie_info.toString();

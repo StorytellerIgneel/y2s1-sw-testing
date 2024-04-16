@@ -12,7 +12,8 @@ public class MovieDeletePage implements MovieCRUD {
 
         MovieCRUDGeneralPage.showAllMovie(movieList);
         movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "delete");
-
+        if (movieIndex == -1)
+            return;
         movieList.remove(movieIndex);
         SystemMessage.successMessage(2);
         return;
