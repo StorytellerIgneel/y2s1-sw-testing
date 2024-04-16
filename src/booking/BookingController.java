@@ -47,6 +47,7 @@ public class BookingController {
         }
         bookings.add(booking);
         users.get(userIdx).setBookings(bookings);
+        UserAccount.saveUsers(users);
     }
 
     /**
@@ -76,6 +77,7 @@ public class BookingController {
         booking.setQuantityChildren(quantityChildren);
         bookings.set(index, booking);
         users.get(userIdx).setBookings(bookings);
+        UserAccount.saveUsers(users);
     }
 
     /**
@@ -119,6 +121,7 @@ public class BookingController {
         }
         bookings.remove(index);
         users.get(userIdx).setBookings(bookings);
+        UserAccount.saveUsers(users);
     }
 
     /**

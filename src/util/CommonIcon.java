@@ -9,7 +9,8 @@ public class CommonIcon {
     public static void printHeader()
     {
         printChar('-', 60);
-        System.out.println("TVG Cinemas");
+        System.out.println("▀█▀░█░█░█▀▀░ ░█▀▀░█░█▄░█░█▀▀░█▀▄▀█░▄▀█░█▀");
+        System.out.println("░█░░▀▄▀░█▄█░ ░█▄▄░█░█░▀█░██▄░█░▀░█░█▀█░▄█");
         printChar('-', 60);
     }
 
