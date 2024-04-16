@@ -119,4 +119,13 @@ public class BookingController {
         bookings.remove(index);
         user.setBookings(bookings);
     }
+
+    /**
+     * Getter for bookings
+     * @return ArrayList of bookings
+     */
+    public ArrayList<Booking> getBookings()
+    {
+        return bookings;
+    }
 }

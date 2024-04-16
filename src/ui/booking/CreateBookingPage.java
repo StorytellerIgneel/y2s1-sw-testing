@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import cinema.Cinema;
 import color.Color;
 import movie.Movie;
+import util.BookingUtils;
 import booking.BookingController;
 import java.util.Scanner;
 
-public class CreateBookingPage {
+public class CreateBookingPage implements Page{
     private BookingController bookingController;
     private Scanner scanner;
 
@@ -28,8 +29,8 @@ public class CreateBookingPage {
             throw new IllegalArgumentException("No movies available for booking.");
         }
         ArrayList<Movie> movieList = ui.MovieCRUDGeneralPage.getMovieList();
-        Cinema[] cinemaList = Cinema.getCinemaLocation();
-
+        
+        
         // Search for movie
         int resultCount = 0;
         ArrayList<Movie> movieSearchResults = new ArrayList<Movie>();
@@ -91,36 +92,7 @@ public class CreateBookingPage {
         System.out.println("You have selected: " + selectedMovie.getTitle());
         System.out.println(); // Add a newline for layout
 
-        // Get cinema location
-        choice = 0;
-        validInput = false;
-        while (!validInput) {
-            // Print cinema locations
-            System.out.println(Color.red + "Select a cinema location:");
-            for (int i = 0; i < cinemaList.length; i++) { // 1-based index
-                System.out.println(Color.red + (i+1) + ") \t" + Color.lime + cinemaList[i].getCinemaName() + Color.reset);
-                System.out.println("\t" + Color.lime + cinemaList[i].getCinemaAddress() + Color.reset);
-            }
-
-            // Get user choice for cinema location
-            System.out.print(Color.reset + "Select the cinema you would like to book: ");
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                if (choice <= 0 || choice > cinemaList.length) {
-                    System.out.println("Cinema out of bounds. Please enter a number between 1 and " + movieSearchResults.size() + ".");
-                    continue;
-                }
-                validInput = true;
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Discard the invalid input
-            }
-        }
-
-        // Get selected cinema
-        Cinema selectedCinema = cinemaList[choice - 1]; // Adjust for 0-based index
-        System.out.println("You have selected: " + selectedCinema.getCinemaName());
-        System.out.println(); // Add a newline for layout
+        Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);
 
         // Get showtime
         choice = 0;
@@ -214,7 +186,7 @@ public class CreateBookingPage {
             System.out.println("Booking created successfully.");
         } else {
             System.out.println("Booking cancelled.");
-            throw new IllegalArgumentException("Booking cancelled.");
+            return;
         }
         return;
     }

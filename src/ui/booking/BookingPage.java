@@ -1,16 +1,13 @@
 package ui.booking;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import account.UserAccount;
 import booking.BookingController;
 import color.Color;
-import movie.Movie;
 import util.CommonIcon;
-import cinema.Cinema;
 
-public class BookingPage {
+public class BookingPage implements Page{
     private UserAccount user;
     private Scanner scanner;
     private BookingController bookingController;
@@ -56,7 +53,7 @@ public class BookingPage {
     {
         int choice = 0;
         boolean validInput = false;
-        while(!validInput)
+        while(!validInput || choice != 4)
         {
             System.out.println(Color.reset + "What would you like to do with your bookings?");
             System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
@@ -65,7 +62,7 @@ public class BookingPage {
             System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
             System.out.println();
             System.out.print(Color.reset + "Enter your choice: ");
-            if (scanner.hasNextInt()) {
+            if (scanner.hasNextInt()) { // Check if input is an integer
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
                 if (choice < 1 || choice > 4) {
@@ -76,42 +73,39 @@ public class BookingPage {
             } else {
                 System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
                 scanner.next(); // Discard the invalid input
+                continue;
+            }
+
+            // Switch statements
+            try {
+                switch (choice) {
+                    case 1: // Create bookings
+                        CreateBookingPage createBookingPage = new CreateBookingPage(bookingController, scanner);
+                        createBookingPage.display();
+                        break;
+                    case 2: // Update bookings
+                        UpdateBookingPage updateBookingPage = new UpdateBookingPage(bookingController, scanner);
+                        updateBookingPage.display();
+                        break;
+                    case 3: // Delete bookings
+                        displayDeleteBookingPage();
+                        break;
+                    case 4: // Back to main menu
+                        System.out.println(Color.reset + "Returning to main menu...");
+                        return;
+                    default:
+                        System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println(Color.red + "An unexpected error occured:" + e.getMessage() + Color.reset);
+                getChoice();
+            } finally {
+                validInput = false;
+                choice = 0;
             }
         }
         
-        try {
-            switch (choice) {
-                case 1: // Create bookings
-                    CreateBookingPage createBookingPage = new CreateBookingPage(bookingController, scanner);
-                    createBookingPage.display();
-                    break;                      // Break is unnecessary here in Java, but it's good practice to include it
-                case 2: // Update bookings
-                    displayUpdateBookingPage();
-                    break;
-                case 3: // Delete bookings
-                    displayDeleteBookingPage();
-                    break;
-                case 4: // Back to main menu
-                    return;
-                default:
-                    System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
-                    getChoice();
-                    break;
-            }
-        } catch (IllegalArgumentException e) {
-            getChoice();
-        }
-    }
-
-
-    /**
-     * Displays the update booking page
-     * @throws IllegalArgumentException
-     */
-    public void displayUpdateBookingPage() throws IllegalArgumentException
-    {
-        // TODO - Add functionality to update bookings
-
     }
 
 
