@@ -91,7 +91,8 @@ public class BookingPage implements Page{
                         updateBookingPage.display();
                         break;
                     case 3: // Delete bookings
-                        displayDeleteBookingPage();
+                        DeleteBookingPage deleteBookingPage = new DeleteBookingPage(bookingController, scanner);
+                        deleteBookingPage.display();
                         break;
                     case 4: // Back to main menu
                         System.out.println(Color.reset + "Returning to main menu...");
@@ -109,15 +110,5 @@ public class BookingPage implements Page{
             }
         }
         
-    }
-
-
-    /**
-     * Displays the delete booking page
-     * @throws IllegalArgumentException
-     */
-    public void displayDeleteBookingPage() throws IllegalArgumentException
-    {
-        // TODO - Add functionality to delete bookings
     }
 }

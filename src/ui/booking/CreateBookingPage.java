@@ -9,8 +9,6 @@ import util.BookingUtils;
 import booking.BookingController;
 import java.util.Scanner;
 
-import account.UserAccount;
-
 public class CreateBookingPage implements Page{
     private BookingController bookingController;
     private Scanner scanner;

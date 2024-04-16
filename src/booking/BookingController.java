@@ -156,7 +156,8 @@ public class BookingController {
     }
 
     /**
-     * Prints all bookings
+     * Prints all bookings of the user
+     * List is 1-indexed
      */
     public void printAllBookings()
     {

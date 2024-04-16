@@ -110,6 +110,4 @@ public class BookingUtils {
         }
         return ticketQuantity;
     }
-
-
 }
