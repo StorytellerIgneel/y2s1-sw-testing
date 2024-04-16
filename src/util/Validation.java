@@ -20,7 +20,6 @@ public class Validation {
 
     public static boolean isLanguage(String[] languages){
         for (String language : languages){
-            System.out.println(language);
             if (!language.matches("[a-zA-Z]+"))
                 return false;
         }

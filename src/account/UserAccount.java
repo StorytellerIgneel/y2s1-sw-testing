@@ -14,6 +14,7 @@ import ui.UserMainMenu;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import util.*;
+import color.Color;
 
 public class UserAccount extends Account{
   //instance variables
@@ -29,74 +30,152 @@ public class UserAccount extends Account{
  }
  
  //overloaded constructor
- public UserAccount(String accountId, String name, String password, String registerDate) {
-    super(accountId, name, password, registerDate);
+ public UserAccount(String accountId, String name, String password, String registerDate, String email, String phoneNo) {
+    super(accountId, name, password, registerDate, email, phoneNo);
     this.bookings = new ArrayList<Booking>();
  }
 
- public UserAccount(String accountId, String name, String password, String registerDate, ArrayList<Booking> bookings) {
-  super(accountId, name, password, registerDate);
+ public UserAccount(String accountId, String name, String password, String registerDate, ArrayList<Booking> bookings, String email, String phoneNo) {
+  super(accountId, name, password, registerDate, email, phoneNo);
   setBookings(bookings);
 }
 
  //static methods
- public static int login(ArrayList<Account> accounts)
- {
-   int index = 0;
-   CommonIcon.printHeader();
-   do
-   {
-    //entering details
-    Scanner input = new Scanner(System.in);
-    System.out.print("Enter your username: ");
-    String name = input.nextLine();
-    System.out.print("Enter your password: ");
-    String pass = input.next();
-
-    index = verifyLogin(accounts, name, pass);
-    if (index == -1)
-      SystemMessage.errorMessage(5);
-    else
-      SystemMessage.successMessage(4);
-
-   }while (index == -1);
-   
-   try
-    {
-        Util.clearConsole();
-    }
-    catch(IOException e)
-    {
-        e.printStackTrace();
-    }
-    catch(InterruptedException e)
-    {
-        e.printStackTrace();
-    }
-    return index; //return the user index for tracking user activities
- }
-
  public static UserAccount register()
  {
-   CommonIcon.printHeader();
-   //entering details
-   Scanner input = new Scanner(System.in);
-   System.out.print("Enter your account ID: ");
-   String id = input.next();
-   input.nextLine(); //eliminate whitespace
-   System.out.print("Enter your name: ");
-   String username = input.nextLine();
-   System.out.print("Enter your password: ");
-   String pass = input.next();
+    CommonIcon.printHeader();
+    System.out.println("Register: \n");
+    //entering details
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter your account ID (':b' to back, ':q to quit'): ");
+    String id = input.next();
 
-   //generating simple date formate in string
-   Date date = new Date();
-   SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-   String dateString = simpleDateFormat.format(date);
+    if(Validation.isBack(id))
+      return null;
+    if(Validation.isQuit(id))
+    {
+      try
+      {
+          Util.clearConsole();
+      }
+      catch(IOException | InterruptedException e)
+      {
+          e.printStackTrace();
+      }
+      CommonIcon.printHeader();
+      input.close();
+      System.out.print(Color.lime);
+      System.out.println("Thank you for using TVG Cinemas.");
+      System.out.println("Vist Us Next Time.");
+      System.out.print(Color.reset);
+      System.exit(0);
+    }
 
-   UserAccount user = new UserAccount(id, username, pass, dateString);
+    input.nextLine(); //eliminate whitespace
+    System.out.print("Enter your name (':b' to back, ':q to quit'): ");
+    String username = input.nextLine();
 
-   return user;
+    if(Validation.isBack(username))
+      return null;
+    if(Validation.isQuit(username))
+    {
+      try
+      {
+          Util.clearConsole();
+      }
+      catch(IOException | InterruptedException e)
+      {
+          e.printStackTrace();
+      }
+      CommonIcon.printHeader();
+      input.close();
+      System.out.print(Color.lime);
+      System.out.println("Thank you for using TVG Cinemas.");
+      System.out.println("Vist Us Next Time.");
+      System.out.print(Color.reset);
+      System.exit(0);
+    }
+
+    System.out.print("Enter your password (':b' to back, ':q to quit'): ");
+    String pass = input.next();
+
+    if(Validation.isBack(pass))
+      return null;
+    if(Validation.isQuit(pass))
+    {
+      try
+      {
+          Util.clearConsole();
+      }
+      catch(IOException | InterruptedException e)
+      {
+          e.printStackTrace();
+      }
+      CommonIcon.printHeader();
+      input.close();
+      System.out.print(Color.lime);
+      System.out.println("Thank you for using TVG Cinemas.");
+      System.out.println("Vist Us Next Time.");
+      System.out.print(Color.reset);
+      System.exit(0);
+    }
+
+    System.out.print("Enter your email (':b' to back, ':q to quit'): ");
+    String email = input.next();
+
+    if(Validation.isBack(email))
+      return null;
+    if(Validation.isQuit(email))
+    {
+      try
+      {
+          Util.clearConsole();
+      }
+      catch(IOException | InterruptedException e)
+      {
+          e.printStackTrace();
+      }
+      CommonIcon.printHeader();
+      input.close();
+      System.out.print(Color.lime);
+      System.out.println("Thank you for using TVG Cinemas.");
+      System.out.println("Vist Us Next Time.");
+      System.out.print(Color.reset);
+      System.exit(0);
+    }
+
+    System.out.print("Enter your phone number (':b' to back, ':q to quit'): ");
+    String phoneNo = input.next();
+
+    if(Validation.isBack(phoneNo))
+      return null;
+    if(Validation.isQuit(phoneNo))
+    {
+      try
+      {
+          Util.clearConsole();
+      }
+      catch(IOException | InterruptedException e)
+      {
+          e.printStackTrace();
+      }
+      CommonIcon.printHeader();
+      input.close();
+      System.out.print(Color.lime);
+      System.out.println("Thank you for using TVG Cinemas.");
+      System.out.println("Vist Us Next Time.");
+      System.out.print(Color.reset);
+      System.exit(0);
+    }
+
+    //generating simple date formate in string
+    Date date = new Date();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    String dateString = simpleDateFormat.format(date);
+
+    UserAccount user = new UserAccount(id, username, pass, dateString, email, phoneNo);
+
+    return user;
  }
 
  public static ArrayList<UserAccount> getUsers()

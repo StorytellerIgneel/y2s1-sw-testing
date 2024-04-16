@@ -47,8 +47,8 @@ public class MovieCRUDGeneralPage {
 
             try {
                 Util.clearConsole();
-            } catch (IOException | InterruptedException error) {
-                error.printStackTrace();
+            } catch (Exception e) {
+                SystemMessage.errorMessage(6);
             }
             movieList = getMovieList();
             System.out.println("\nCRUD Options for Movie:");
@@ -63,8 +63,14 @@ public class MovieCRUDGeneralPage {
             mainPageChoice = input.nextLine();
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
-                if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5)
+                if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
+                    try {
+                        Util.clearConsole();
+                    } catch (Exception e) {
+                        SystemMessage.errorMessage(6);
+                    }
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
+                }
                 else if (mainPageChoiceInt == 5){
                     exportMovieData(movieList);
                     return;
@@ -84,8 +90,8 @@ public class MovieCRUDGeneralPage {
 
     public static ArrayList<Movie> getMovieList() {
         Gson gson = new Gson();
-        Type movieListType = new TypeToken<ArrayList<Movie>>() {
-        }.getType();
+        Type movieListType = new TypeToken<ArrayList<Movie>>() {}.getType();
+        ArrayList<Movie> movieList = new ArrayList<Movie>();
         String line = "";
 
         try {
@@ -98,8 +104,12 @@ public class MovieCRUDGeneralPage {
             error.printStackTrace();
         }
 
-        ArrayList<Movie> movieList = gson.fromJson(line, movieListType);
-        return movieList;
+        movieList = gson.fromJson(line, movieListType);
+
+        if (line != "")
+            return movieList;
+        else
+            return (new ArrayList<Movie>());
     }
 
     public void exportMovieData(ArrayList<Movie> movieList) {
@@ -107,13 +117,13 @@ public class MovieCRUDGeneralPage {
         String toWrite = gson.toJson(movieList);
 
         try {
-            PrintWriter outputFile = new PrintWriter("movieData.txt");
+            PrintWriter outputFile = new PrintWriter("./src/resources/movieData.json");
             outputFile.println(toWrite);
             outputFile.close();
         } catch (FileNotFoundException error) {
             SystemMessage.errorMessage(3);
         }
-
+        
         return;
     }
 
@@ -136,7 +146,7 @@ public class MovieCRUDGeneralPage {
             if (Validation.isNumber(index)) {
                 int indexInt = Integer.parseInt(index);
                 if (indexInt > 0 && indexInt <= movieList.size())
-                    return indexInt;
+                    return indexInt - 1;
                 else
                     SystemMessage.errorMessage(2);
             } else {
@@ -146,11 +156,5 @@ public class MovieCRUDGeneralPage {
                     SystemMessage.errorMessage(1);
             }
         }
-    }
-
-    public static void waitForEnter() {
-        System.out.println("Press Enter to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine(); // Wait for the user to press Enter
     }
 }

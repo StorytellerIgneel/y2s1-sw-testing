@@ -39,7 +39,6 @@ public class MovieUpdatePage implements MovieCRUD{
 
         System.out.print("Enter the new value (Enter :q to quit): ");
         String newValue = input.nextLine();
-        input.close();
         if(Validation.isBack(newValue))
             return;
         // Update the chosen attribute

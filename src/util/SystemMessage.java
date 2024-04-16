@@ -1,12 +1,11 @@
 package util;
 
-import java.io.ByteArrayInputStream;
-import java.util.Scanner;
+import color.Color;
 
 public class SystemMessage {
     public static void errorMessage(int errorIndex ){
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("10\n".getBytes());
-        Scanner scanner = new Scanner(inputStream);
+        System.out.println();
+        System.out.print(Color.red);
         switch(errorIndex) {
             case 1:
                 System.out.println("Please enter a valid number."); //used
@@ -24,6 +23,7 @@ public class SystemMessage {
                 System.out.println("Login failed.");//used
                 break;
             case 6:
+                System.out.println("No movies found. Please try again.");//used
                 break;
             case 7:
                 System.out.println("Please enter a valid string of characters.");
@@ -31,16 +31,24 @@ public class SystemMessage {
             case 8:
                 System.out.println("Please enter a valid time.");
                 break;
+            case 9:
+                System.out.println("There was an error when attempting to clear the console screen. Please try again.");
+                break;
+            case 10:
+                System.out.println("Null value detected. Please enter something.");
+                break;
+            case 11:
+                System.out.println("Please enter valid input.");
+                break;
         }
-        System.out.println("Press Enter to continue...");
-        scanner.nextLine();
-        scanner.close();
+        Util.waitForEnter();
+        System.out.print(Color.reset);
         return;
     }
 
     public static void successMessage(int successIndex) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("10\n".getBytes());
-        Scanner scanner = new Scanner(inputStream);
+        System.out.println();
+        System.out.print(Color.lime);
         switch(successIndex) {
             case 1:
                 System.out.println("Movie Added Successfully!");
@@ -54,10 +62,11 @@ public class SystemMessage {
             case 4:
                 System.out.println("Login Success.");
                 break;
+            case 5:
+                System.out.println("Account registered successfully");
         }
-        System.out.println("Press Enter to continue...");
-        scanner.nextLine();
-        scanner.close();
+        Util.waitForEnter();
+        System.out.print(Color.reset);
         return;
     }
 }
