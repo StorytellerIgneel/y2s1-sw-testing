@@ -37,10 +37,6 @@ public class BookingPage implements Page{
         CommonIcon.printHeader();
         System.out.println();
         System.out.println(Color.reset + "Welcome, " + users.get(user_index).getName() + "!\n");
-        System.out.println(Color.reset + "Your Bookings:");
-        
-        // Prints all booking details
-        bookingController.printAllBookings();
 
         // Show booking menu
         getChoice();
@@ -58,6 +54,12 @@ public class BookingPage implements Page{
         boolean validInput = false;
         while(!validInput || choice != 4)
         {
+            System.out.println(Color.reset + "Your Bookings:");
+        
+            // Prints all booking details
+            bookingController.printAllBookings();
+
+            // Print booking menu
             System.out.println(Color.reset + "What would you like to do with your bookings?");
             System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
             System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");

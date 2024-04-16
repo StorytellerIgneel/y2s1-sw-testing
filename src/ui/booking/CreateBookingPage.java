@@ -130,6 +130,7 @@ public class CreateBookingPage implements Page{
             // Create booking
             bookingController.createBooking(selectedMovie, selectedCinema, selectedShowtime, quantityAdult, quantityChildren);
             System.out.println("Booking created successfully.");
+            System.out.println(); // Add a newline for layout
         } else {
             System.out.println("Booking cancelled.");
             return;
