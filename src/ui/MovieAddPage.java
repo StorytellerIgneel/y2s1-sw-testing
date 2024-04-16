@@ -16,7 +16,6 @@ public class MovieAddPage implements MovieCRUD {
         String movieId = null;
         String title = null;
         String description = null;
-        String showtimeString = null;
         ArrayList<String> showtimes = new ArrayList<>();
         ArrayList<String> languages = new ArrayList<>();
         String releaseDate = null;
@@ -27,14 +26,21 @@ public class MovieAddPage implements MovieCRUD {
         while(true)
         {
             if(step == 1){    
-                movieId = Util.getInput("Enter Movie ID: ");
-                if (Validation.isBack(movieId))
-                    return;
-                else if (Validation.isQuit(movieId))
-                    System.exit(0);
-                else
-                    step += 1;
+                while(true){
+                    movieId = Util.getInput("Enter Movie ID (E.g: MOV000001): ");
+                    if (Validation.isMovie(movieId)){
+                        step += 1;
+                        break;
+                    }
+                    else if (Validation.isBack(movieId))
+                        return;
+                    else if (Validation.isQuit(movieId))
+                        System.exit(0);
+                    else
+                        SystemMessage.errorMessage(12);
+                }
             }
+
             if(step == 2){  
                 title = Util.getInput("Enter Title: ");
                 if (Validation.isBack(title))

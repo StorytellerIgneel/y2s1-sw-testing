@@ -35,16 +35,15 @@ public class Validation {
         }
     }
 
-    public static boolean isMovie(String value){
-        return value.matches("[a-zA-Z]+");
-    }
-
     public static boolean isBack(String value){
         return (value.equals(":b"));
     } 
 
-    public static boolean isQuit(String value)
-    {
+    public static boolean isQuit(String value){
         return (value.equals(":q"));
+    }
+
+    public static boolean isMovie(String value){
+        return value.matches("MOV[0-9][0-9][0-9][0-9][0-9][0-9]");
     }
 }
