@@ -50,36 +50,6 @@ public class BookingController {
     }
 
     /**
-     * Updates the booking details
-     * @param index is 0-indexed
-     * @param movie
-     * @param cinema
-     * @param showtime
-     * @param quantityAdult
-     * @param quantityChildren
-     */
-    public void updateBooking(
-        int index,
-        Movie movie,
-        Cinema cinema,
-        String showtime,
-        int quantityAdult, 
-        int quantityChildren
-        )
-    {
-        bookings = users.get(userIdx).getBookings();
-        Booking booking = bookings.get(index);
-        booking.setMovie(movie);
-        booking.setCinema(cinema);
-        booking.setShowtime(showtime);
-        booking.setQuantityAdult(quantityAdult);
-        booking.setQuantityChildren(quantityChildren);
-        bookings.set(index, booking);
-        users.get(userIdx).setBookings(bookings);
-        UserAccount.saveUsers(users);
-    }
-
-    /**
      * Overloaded method
      * Updates the booking cinema only
      * @param index is 0-indexed
