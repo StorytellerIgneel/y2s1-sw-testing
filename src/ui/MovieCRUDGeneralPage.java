@@ -116,7 +116,7 @@ public class MovieCRUDGeneralPage {
             return (new ArrayList<Movie>());
     }
 
-    public void exportMovieData(ArrayList<Movie> movieList) {
+    public static void exportMovieData(ArrayList<Movie> movieList) {
         Gson gson = new Gson();
         String toWrite = gson.toJson(movieList);
 

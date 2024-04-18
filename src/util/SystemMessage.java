@@ -43,6 +43,27 @@ public class SystemMessage {
             case 12:
                 System.out.println("Please enter a valid Movie ID (E.g: MOV0000001): ");
                 break;
+            case 13:
+                System.out.println("Please enter a valid showtime.");
+                break;
+            case 14:
+                System.out.println("The month you have entered does not have so many days.");
+                break;
+            case 15:
+                System.out.println("Sorry, but the system only supports showtime setting for the current year and the following year.");
+                break;
+            case 16:
+                System.out.println("Please enter a valid release date.");
+                break;
+            case 17:
+                System.out.println("The year entered has already passed, invalid year. Please try again.");
+                break;
+            case 18:
+                System.out.println("The month entered has already passed, invalid month. Please try again.");
+                break;
+            case 19:
+                System.out.println("The day entered has already passed, invalid day. Please try again.");
+                break;
         }
         Util.waitForEnter();
         System.out.print(Color.reset);

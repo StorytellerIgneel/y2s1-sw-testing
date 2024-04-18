@@ -1,14 +1,15 @@
 package movie;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 import color.Color;
 
 public class Movie {
     private String movieId;
     private String title;
     private String description;
-    private ArrayList<String> showtimes;
+    private ArrayList<LocalDateTime> showtimes;
     private ArrayList<String> languages;
-    private String releaseDate;
+    private LocalDateTime releaseDate;
     private ArrayList<String> genre;
     private Double priceAdult;
     private Double priceChildren;
@@ -16,7 +17,7 @@ public class Movie {
     // Constructor
     public Movie(){};
 
-    public Movie(String movieId, String title, String description, ArrayList<String> showtimes, ArrayList<String> languages, String releaseDate, ArrayList<String> genre, Double priceAdult, Double priceChildren) {
+    public Movie(String movieId, String title, String description, ArrayList<LocalDateTime> showtimes, ArrayList<String> languages, LocalDateTime releaseDate, ArrayList<String> genre, Double priceAdult, Double priceChildren) {
         this.movieId = movieId;
         this.title = title;
         this.description = description;
@@ -53,11 +54,11 @@ public class Movie {
         this.description = description;
     }
 
-    public ArrayList<String> getShowtimes() {
+    public ArrayList<LocalDateTime> getShowtimes() {
         return showtimes;
     }
 
-    public void setShowtimes(ArrayList<String> showtimes) {
+    public void setShowtimes(ArrayList<LocalDateTime> showtimes) {
         this.showtimes = showtimes;
     }
 
@@ -69,11 +70,11 @@ public class Movie {
         this.languages = languages;
     }
 
-    public String getReleaseDate() {
+    public LocalDateTime getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDateTime releaseDate) {
         this.releaseDate = releaseDate;
     }
 
