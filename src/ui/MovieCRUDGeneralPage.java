@@ -54,17 +54,14 @@ public class MovieCRUDGeneralPage {
                 SystemMessage.errorMessage(6);
             }
             movieList = getMovieList();
-
+                        
             CommonIcon.printHeader();
             System.out.println("Choose an action:");
             System.out.println(Color.red + "1." + Color.lime + " Add a Movie" + Color.reset);
             System.out.println(Color.red + "2." + Color.lime + " List all Movies" + Color.reset);
             System.out.println(Color.red + "3." + Color.lime + " Update a Movie" + Color.reset);
             System.out.println(Color.red + "4." + Color.lime + " Delete a Movie" + Color.reset);
-            System.out.print("Enter your choice (':b' to back, ':q to quit'): ");
-            
-            Scanner input = new Scanner(System.in);
-            mainPageChoice = input.nextLine();
+            mainPageChoice = Util.getInput("Enter your choice: ", false);
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
@@ -73,8 +70,6 @@ public class MovieCRUDGeneralPage {
                     } catch (Exception e) {
                         SystemMessage.errorMessage(6);
                     }
-                    System.out.println(movieList.size());
-                    Util.waitForEnter();
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
                 }
                 else if (mainPageChoiceInt == 5){
@@ -117,13 +112,12 @@ public class MovieCRUDGeneralPage {
 
         movieList = gson.fromJson(line, movieListType);
 
-        return (Validation.isNull(line))? movieList: (new ArrayList<Movie>());
+        return ((Validation.isNull(line))? (new ArrayList<Movie>()): movieList);
     }
 
     public static void exportMovieData(ArrayList<Movie> movieList) {
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create();
         String toWrite = gson.toJson(movieList);
-
         try {
             PrintWriter outputFile = new PrintWriter("./src/resources/movieData.json");
             outputFile.println(toWrite);
