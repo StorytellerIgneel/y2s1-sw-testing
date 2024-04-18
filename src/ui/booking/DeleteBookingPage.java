@@ -24,19 +24,19 @@ public class DeleteBookingPage implements Page
         boolean validInput = false;
         int chosenBookingIndex;
         while(!validInput || choice < 0 || choice > bookingController.getBookings().size()) {
-            System.out.println(Color.reset + "Your Bookings:");
+            System.out.println(Color.RESET + "Your Bookings:");
             bookingController.printAllBookings();   // Display all bookings, listed as 1-indexed
-            System.out.println(Color.reset + "Which booking would you like to modify? (Enter 0 to go back)");
+            System.out.println(Color.RESET + "Which booking would you like to modify? (Enter 0 to go back)");
             System.out.print("Enter your choice: ");
             // Check for integer input
             if (!scanner.hasNextInt()) {
-                System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+                System.out.println(Color.RED + "Invalid input. Please enter a number." + Color.RESET);
                 continue;
             }
             choice = scanner.nextInt();
             // Check if input is out of bounds
             if (choice < 0 || choice > bookingController.getBookings().size()) {
-                System.out.println(Color.red + "Invalid input. Please enter a number between 0 and " + bookingController.getBookings().size() + Color.reset);
+                System.out.println(Color.RED + "Invalid input. Please enter a number between 0 and " + bookingController.getBookings().size() + Color.RESET);
                 continue;
             }
             validInput = true;
@@ -49,7 +49,7 @@ public class DeleteBookingPage implements Page
             bookingController.deleteBooking(chosenBookingIndex);
             System.out.println("Booking deleted successfully.");
         } catch (IllegalArgumentException e) {
-            System.out.println(Color.red + e.getMessage() + Color.reset);
+            System.out.println(Color.RED + e.getMessage() + Color.RESET);
         }
     }
 }

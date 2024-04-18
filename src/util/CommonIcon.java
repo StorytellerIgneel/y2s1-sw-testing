@@ -28,7 +28,7 @@ public class CommonIcon {
         System.out.println("#Trending Now");
         for(int i = 0; i < movies.size(); i++)
         {
-            System.out.println(Color.red + "  " + (i+1) + ") " + Color.lime + movies.get(i).getTitle() + Color.reset);
+            System.out.println(Color.RED + "  " + (i+1) + ") " + Color.LIME + movies.get(i).getTitle() + Color.RESET);
         }
 
     }
@@ -38,7 +38,7 @@ public class CommonIcon {
         System.out.println("#Latest Release");
         for(int i = 0; i < movies.size(); i++)
         {
-            System.out.println( Color.red + "  " + (i+1) + ") " + Color.lime + movies.get(i).getTitle() + Color.reset);
+            System.out.println( Color.RED + "  " + (i+1) + ") " + Color.LIME + movies.get(i).getTitle() + Color.RESET);
         }
 
     }

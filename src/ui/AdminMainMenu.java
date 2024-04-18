@@ -17,10 +17,10 @@ public class AdminMainMenu {
     public static void printAdminAction()
     {
         System.out.println("Choose an action:");
-        System.out.println(Color.red + "1." + Color.lime + " Manage movies" + Color.reset);
-        System.out.println(Color.red + "2." + Color.lime + " Manage user accounts" + Color.reset);
-        System.out.println(Color.red + "3." + Color.lime + " Manage bookings" + Color.reset);
-        System.out.println(Color.red + "4." + Color.lime + " Generate report" + Color.reset);
+        System.out.println(Color.RED + "1." + Color.LIME + " Manage movies" + Color.RESET);
+        System.out.println(Color.RED + "2." + Color.LIME + " Manage user accounts" + Color.RESET);
+        System.out.println(Color.RED + "3." + Color.LIME + " Manage bookings" + Color.RESET);
+        System.out.println(Color.RED + "4." + Color.LIME + " Generate report" + Color.RESET);
     }
 
     public static int chooseAdminAction()

@@ -25,10 +25,10 @@ public class LoginPage {
             e.printStackTrace();
         }
         CommonIcon.printHeader();
-        System.out.println(Color.red + "1. " + Color.lime + "Login" + Color.reset);
-        System.out.println(Color.red + "2. " + Color.lime + "Register" + Color.reset);
-        System.out.println(Color.red + "3. " + Color.lime + "Login as Administrator" + Color.reset);
-        System.out.println(Color.red + "4. " + Color.lime + "Exit" + Color.reset);
+        System.out.println(Color.RED + "1. " + Color.LIME + "Login" + Color.RESET);
+        System.out.println(Color.RED + "2. " + Color.LIME + "Register" + Color.RESET);
+        System.out.println(Color.RED + "3. " + Color.LIME + "Login as Administrator" + Color.RESET);
+        System.out.println(Color.RED + "4. " + Color.LIME + "Exit" + Color.RESET);
 
         CommonIcon.printChar('-', 60);
     }

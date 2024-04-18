@@ -20,14 +20,14 @@ public class BookingUtils {
         boolean validInput = false;
         while (!validInput) {
             // Print cinema locations
-            System.out.println(Color.red + "Select a cinema location:");
+            System.out.println(Color.RED + "Select a cinema location:");
             for (int i = 0; i < cinemaList.length; i++) { // 1-based index
-                System.out.println(Color.red + (i+1) + ") \t" + Color.lime + cinemaList[i].getCinemaName() + Color.reset);
-                System.out.println("\t" + Color.lime + cinemaList[i].getCinemaAddress() + Color.reset);
+                System.out.println(Color.RED + (i+1) + ") \t" + Color.LIME + cinemaList[i].getCinemaName() + Color.RESET);
+                System.out.println("\t" + Color.LIME + cinemaList[i].getCinemaAddress() + Color.RESET);
             }
 
             // Get user choice for cinema location
-            System.out.print(Color.reset + "Select the cinema you would like to book: ");
+            System.out.print(Color.RESET + "Select the cinema you would like to book: ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 if (choice <= 0 || choice > cinemaList.length) {
@@ -62,9 +62,9 @@ public class BookingUtils {
         {
             System.out.println("Available showtimes:");
             for (int i = 0; i < selectedMovie.getShowtimes().size(); i++) {
-                System.out.println(Color.red + (i+1) + ") \t" + Color.lime + selectedMovie.getShowtimes().get(i) + Color.reset);
+                System.out.println(Color.RED + (i+1) + ") \t" + Color.LIME + selectedMovie.getShowtimes().get(i) + Color.RESET);
             }
-            System.out.print(Color.reset + "Select a showtime: " + Color.reset);
+            System.out.print(Color.RESET + "Select a showtime: " + Color.RESET);
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 if (choice <= 0 || choice > selectedMovie.getShowtimes().size()) { // 1-based index
@@ -94,7 +94,7 @@ public class BookingUtils {
         int ticketQuantity = 0;
         boolean validInput = false;
         while (!validInput) {
-            System.out.print(Color.reset + "Enter number of "+ ticketType + " tickets: ");
+            System.out.print(Color.RESET + "Enter number of "+ ticketType + " tickets: ");
             if (scanner.hasNextInt()) {
                 ticketQuantity = scanner.nextInt();
                 if (ticketQuantity < 0 || ticketQuantity > 1000) 

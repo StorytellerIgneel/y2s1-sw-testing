@@ -115,13 +115,13 @@ public class BookingController {
      */
     public void printBookingDetails(int index, Booking booking)
     {
-        System.out.println(Color.red + (index + 1) + ". \tMovie: " + Color.lime + booking.getMovieName());
-        System.out.println(Color.red + "\tShowtime: " + Color.lime + booking.getShowtime());
-        System.out.println(Color.red + "\tCinema: " + Color.lime + booking.getCinemaName());
-        System.out.println(Color.red + "\tLocation: " + Color.lime + booking.getCinemaAddress());
-        System.out.println(Color.red + "\tChildren: " + Color.lime + booking.getQuantityChildren());
-        System.out.println(Color.red + "\tAdults: " + Color.lime + booking.getQuantityAdult());
-        System.out.println(Color.red + "\tTotal Price: " + Color.lime + "RM " + booking.calculateTotalPrice());
+        System.out.println(Color.RED + (index + 1) + ". \tMovie: " + Color.LIME + booking.getMovieName());
+        System.out.println(Color.RED + "\tShowtime: " + Color.LIME + booking.getShowtime());
+        System.out.println(Color.RED + "\tCinema: " + Color.LIME + booking.getCinemaName());
+        System.out.println(Color.RED + "\tLocation: " + Color.LIME + booking.getCinemaAddress());
+        System.out.println(Color.RED + "\tChildren: " + Color.LIME + booking.getQuantityChildren());
+        System.out.println(Color.RED + "\tAdults: " + Color.LIME + booking.getQuantityAdult());
+        System.out.println(Color.RED + "\tTotal Price: " + Color.LIME + "RM " + booking.calculateTotalPrice());
     }
 
     /**

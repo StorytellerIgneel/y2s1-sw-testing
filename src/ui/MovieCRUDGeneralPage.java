@@ -57,11 +57,22 @@ public class MovieCRUDGeneralPage {
                         
             CommonIcon.printHeader();
             System.out.println("Choose an action:");
+<<<<<<< HEAD
             System.out.println(Color.red + "1." + Color.lime + " Add a Movie" + Color.reset);
             System.out.println(Color.red + "2." + Color.lime + " List all Movies" + Color.reset);
             System.out.println(Color.red + "3." + Color.lime + " Update a Movie" + Color.reset);
             System.out.println(Color.red + "4." + Color.lime + " Delete a Movie" + Color.reset);
             mainPageChoice = Util.getInput("Enter your choice: ", false);
+=======
+            System.out.println(Color.RED + "1." + Color.LIME + " Add a Movie" + Color.RESET);
+            System.out.println(Color.RED + "2." + Color.LIME + " List all Movies" + Color.RESET);
+            System.out.println(Color.RED + "3." + Color.LIME + " Update a Movie" + Color.RESET);
+            System.out.println(Color.RED + "4." + Color.LIME + " Delete a Movie" + Color.RESET);
+            System.out.print("Enter your choice (':b' to back, ':q to quit'): ");
+            
+            Scanner input = new Scanner(System.in);
+            mainPageChoice = input.nextLine();
+>>>>>>> 40177927867ed2672144838e6df835218e44caf1
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){

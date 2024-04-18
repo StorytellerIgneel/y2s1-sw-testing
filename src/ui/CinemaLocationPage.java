@@ -35,9 +35,9 @@ public class CinemaLocationPage {
         System.out.println("Available cinema locations:");
         for(int i = 0; i < Cinema.getCinemaLocation().length; i++)
         {
-            System.out.println(Color.red + (i+1) + ") " + Cinema.getCinemaLocation()[i].getCinemaName());
-            System.out.println(Color.lime + Cinema.getCinemaLocation()[i].getCinemaAddress());
-            System.out.print(Color.reset);
+            System.out.println(Color.RED + (i+1) + ") " + Cinema.getCinemaLocation()[i].getCinemaName());
+            System.out.println(Color.LIME + Cinema.getCinemaLocation()[i].getCinemaAddress());
+            System.out.print(Color.RESET);
         }
         CommonIcon.printChar('-', 60);
         System.out.print("Press enter to go back...");

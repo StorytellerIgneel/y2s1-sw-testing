@@ -45,10 +45,10 @@ public class SearchMoviePage {
                 }
                 CommonIcon.printHeader();
                 input.close();
-                System.out.print(Color.lime);
+                System.out.print(Color.LIME);
                 System.out.println("Thank you for using TVG Cinemas.");
                 System.out.println("Vist Us Next Time.");
-                System.out.print(Color.reset);
+                System.out.print(Color.RESET);
                 System.exit(0);
             }
 

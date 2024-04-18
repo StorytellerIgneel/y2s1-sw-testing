@@ -31,12 +31,12 @@ public class Util {
         Scanner scanner = new Scanner(System.in);
         String input = null;
         while(true){
-            System.out.print(prompt + Color.yellow);
+            System.out.print(prompt + Color.YELLOW);
             if (allowSpaces.equals(false))
                 input = scanner.next();
             else
                 input = scanner.nextLine();
-            System.out.print(Color.reset);
+            System.out.print(Color.RESET);
             if (Validation.isNull(input))
                 SystemMessage.errorMessage(10);
             else
@@ -49,7 +49,7 @@ public class Util {
         Scanner scanner = new Scanner(System.in);
         String input = null;
         while(true){
-            System.out.print(prompt + Color.yellow);
+            System.out.print(prompt + Color.YELLOW);
             input = scanner.next();
             if (allowedInputs.contains(input))
                 break;
@@ -58,7 +58,7 @@ public class Util {
             else
                 SystemMessage.errorMessage(11);
         }
-        System.out.print(Color.reset);
+        System.out.print(Color.RESET);
         return input;
     }
 

@@ -26,10 +26,10 @@ public class UserMainMenu {
     public static void printUserAction()
     {
         System.out.println("Choose an action:");
-        System.out.println(Color.red + "1." + Color.lime + " View movies info" + Color.reset);
-        System.out.println(Color.red + "2." + Color.lime + " View bookings" + Color.reset);
-        System.out.println(Color.red + "3." + Color.lime + " View profile" + Color.reset);
-        System.out.println(Color.red + "4." + Color.lime + " View cinema location" + Color.reset);
+        System.out.println(Color.RED + "1." + Color.LIME + " View movies info" + Color.RESET);
+        System.out.println(Color.RED + "2." + Color.LIME + " View bookings" + Color.RESET);
+        System.out.println(Color.RED + "3." + Color.LIME + " View profile" + Color.RESET);
+        System.out.println(Color.RED + "4." + Color.LIME + " View cinema location" + Color.RESET);
         // System.out.println(Color.red + "5." + Color.lime + " Exit" + Color.reset);
     }
 
