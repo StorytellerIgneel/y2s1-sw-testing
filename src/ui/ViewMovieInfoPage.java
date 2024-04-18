@@ -43,7 +43,7 @@ public class ViewMovieInfoPage {
         System.out.println(searchedMovieList.size() + " Movie Found: ");
         for(int i = 0; i < searchedMovieList.size(); i++)
         {
-            System.out.println("\t"+ Color.red +(i+1) + ") " + Color.lime + searchedMovieList.get(i).getTitle() + Color.reset);
+            System.out.println("\t"+ Color.RED +(i+1) + ") " + Color.LIME + searchedMovieList.get(i).getTitle() + Color.RESET);
         }
         CommonIcon.printChar('-', 60);
         chooseMovie();

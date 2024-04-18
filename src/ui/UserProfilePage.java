@@ -35,10 +35,10 @@ public class UserProfilePage {
             CommonIcon.printUserStatus(userIdx, users);
             System.out.println("#Profile Information");
             System.out.println();
-            System.out.println(Color.red + "Username    : " + Color.lime + users.get(userIdx).getName());
-            System.out.println(Color.red + "Email       : " + Color.lime + users.get(userIdx).getEmail());
-            System.out.println(Color.red + "Phone Number: " + Color.lime + users.get(userIdx).getPhoneNo());
-            System.out.print(Color.reset);
+            System.out.println(Color.RED + "Username    : " + Color.LIME + users.get(userIdx).getName());
+            System.out.println(Color.RED + "Email       : " + Color.LIME + users.get(userIdx).getEmail());
+            System.out.println(Color.RED + "Phone Number: " + Color.LIME + users.get(userIdx).getPhoneNo());
+            System.out.print(Color.RESET);
             CommonIcon.printChar('-', 60);
             System.out.print("Do you want to update your profile? (y/n): ");
             choice = input.next();
@@ -68,10 +68,10 @@ public class UserProfilePage {
         {
             System.out.println();
             System.out.println("Choose what to update: ");
-            System.out.println(Color.red + "1)" + Color.lime + " Username");
-            System.out.println(Color.red + "2)" + Color.lime + " Email");
-            System.out.println(Color.red + "3)" + Color.lime + " Phone Number");
-            System.out.print(Color.reset);
+            System.out.println(Color.RED + "1)" + Color.LIME + " Username");
+            System.out.println(Color.RED + "2)" + Color.LIME + " Email");
+            System.out.println(Color.RED + "3)" + Color.LIME + " Phone Number");
+            System.out.print(Color.RESET);
     
             System.out.print("Enter your choice (':b' to back): ");
             choice = input.next();

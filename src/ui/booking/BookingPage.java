@@ -36,7 +36,7 @@ public class BookingPage implements Page{
     {   
         CommonIcon.printHeader();
         System.out.println();
-        System.out.println(Color.reset + "Welcome, " + users.get(user_index).getName() + "!\n");
+        System.out.println(Color.RESET + "Welcome, " + users.get(user_index).getName() + "!\n");
 
         // Show booking menu
         getChoice();
@@ -54,29 +54,29 @@ public class BookingPage implements Page{
         boolean validInput = false;
         while(!validInput || choice != 4)
         {
-            System.out.println(Color.reset + "Your Bookings:");
+            System.out.println(Color.RESET + "Your Bookings:");
         
             // Prints all booking details
             bookingController.printAllBookings();
 
             // Print booking menu
-            System.out.println(Color.reset + "What would you like to do with your bookings?");
-            System.out.println(Color.red + "1) " + Color.lime + "Create Bookings");
-            System.out.println(Color.red + "2) " + Color.lime + "Update Bookings");
-            System.out.println(Color.red + "3) " + Color.lime + "Delete Bookings");
-            System.out.println(Color.red + "4) " + Color.lime + "Back to Main Menu");
+            System.out.println(Color.RESET + "What would you like to do with your bookings?");
+            System.out.println(Color.RED + "1) " + Color.LIME + "Create Bookings");
+            System.out.println(Color.RED + "2) " + Color.LIME + "Update Bookings");
+            System.out.println(Color.RED + "3) " + Color.LIME + "Delete Bookings");
+            System.out.println(Color.RED + "4) " + Color.LIME + "Back to Main Menu");
             System.out.println();
-            System.out.print(Color.reset + "Enter your choice: ");
+            System.out.print(Color.RESET + "Enter your choice: ");
             if (scanner.hasNextInt()) { // Check if input is an integer
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
                 if (choice < 1 || choice > 4) {
-                    System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
+                    System.out.println(Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
                     continue;
                 }
                 validInput = true;
             } else {
-                System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+                System.out.println(Color.RED + "Invalid input. Please enter a number." + Color.RESET);
                 scanner.next(); // Discard the invalid input
                 continue;
             }
@@ -97,14 +97,14 @@ public class BookingPage implements Page{
                         deleteBookingPage.display();
                         break;
                     case 4: // Back to main menu
-                        System.out.println(Color.reset + "Returning to main menu...");
+                        System.out.println(Color.RESET + "Returning to main menu...");
                         return;
                     default:
-                        System.out.println(Color.red + "Invalid choice. Please enter a number between 1 and 4." + Color.reset);
+                        System.out.println(Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
                         break;
                 }
             } catch (Exception e) {
-                System.out.println(Color.red + "An unexpected error occured:" + e.getMessage() + Color.reset);
+                System.out.println(Color.RED + "An unexpected error occured:" + e.getMessage() + Color.RESET);
                 getChoice();
             } finally {
                 validInput = false;

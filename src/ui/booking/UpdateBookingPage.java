@@ -24,7 +24,7 @@ public class UpdateBookingPage implements Page {
     public void display() throws IllegalArgumentException{
         // Check if there are bookings to update
         if (bookingController.getBookings().size() == 0) {
-            System.out.println(Color.red + "You have no bookings to update." + Color.reset);
+            System.out.println(Color.RED + "You have no bookings to update." + Color.RESET);
             return;
         }
 
@@ -33,19 +33,19 @@ public class UpdateBookingPage implements Page {
         boolean validInput = false;
         int chosenBookingIndex;
         while(!validInput || choice < 0 || choice > bookingController.getBookings().size()) {
-            System.out.println(Color.reset + "Your Bookings:");
+            System.out.println(Color.RESET + "Your Bookings:");
             bookingController.printAllBookings();   // Display all bookings, listed as 1-indexed
-            System.out.println(Color.reset + "Which booking would you like to modify? (Enter 0 to go back)");
+            System.out.println(Color.RESET + "Which booking would you like to modify? (Enter 0 to go back)");
             System.out.print("Enter your choice: ");
             // Check for integer input
             if (!scanner.hasNextInt()) {
-                System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+                System.out.println(Color.RED + "Invalid input. Please enter a number." + Color.RESET);
                 continue;
             }
             choice = scanner.nextInt();
             // Check if input is out of bounds
             if (choice < 0 || choice > bookingController.getBookings().size()) {
-                System.out.println(Color.red + "Invalid input. Please enter a number between 0 and " + bookingController.getBookings().size() + Color.reset);
+                System.out.println(Color.RED + "Invalid input. Please enter a number between 0 and " + bookingController.getBookings().size() + Color.RESET);
                 continue;
             }
             validInput = true;
@@ -59,21 +59,21 @@ public class UpdateBookingPage implements Page {
         choice = -1;
         validInput = false;
         while(!validInput || choice < 0 || choice > 3) {
-            System.out.println(Color.reset + "What would you like to update?");
-            System.out.println(Color.red + "0) " + Color.lime + "Go back");
-            System.out.println(Color.red + "1) " + Color.lime + "Change Cinema Location");
-            System.out.println(Color.red + "2) " + Color.lime + "Update Showtime");
-            System.out.println(Color.red + "3) " + Color.lime + "Update Number of Tickets");
+            System.out.println(Color.RESET + "What would you like to update?");
+            System.out.println(Color.RED + "0) " + Color.LIME + "Go back");
+            System.out.println(Color.RED + "1) " + Color.LIME + "Change Cinema Location");
+            System.out.println(Color.RED + "2) " + Color.LIME + "Update Showtime");
+            System.out.println(Color.RED + "3) " + Color.LIME + "Update Number of Tickets");
             System.out.println();
-            System.out.print(Color.reset + "Enter your choice: ");
+            System.out.print(Color.RESET + "Enter your choice: ");
             if (!scanner.hasNextInt()) {
-                System.out.println(Color.red + "Invalid input. Please enter a number." + Color.reset);
+                System.out.println(Color.RED + "Invalid input. Please enter a number." + Color.RESET);
                 continue;
             }
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
             if (choice < 0 || choice > 3) {
-                System.out.println(Color.red + "Invalid input. Please enter a number between 1 and 3." + Color.reset);
+                System.out.println(Color.RED + "Invalid input. Please enter a number between 1 and 3." + Color.RESET);
                 continue;
             }
             validInput = true;
@@ -95,7 +95,7 @@ public class UpdateBookingPage implements Page {
                     break;
             }
         } catch (IllegalArgumentException e) {
-            System.out.println(Color.red + e.getMessage() + Color.reset);
+            System.out.println(Color.RED + e.getMessage() + Color.RESET);
         }
         return;
     }
@@ -106,9 +106,9 @@ public class UpdateBookingPage implements Page {
      */
     private void updateCinema(int chosenBookingIndex) {
         Booking booking = bookingController.getBookings().get(chosenBookingIndex);
-        System.out.println(Color.reset + "Current Cinema: " + booking.getCinemaName());
-        System.out.println(Color.reset + "Current Location: " + booking.getCinemaAddress());
-        System.out.print(Color.reset + "Change to a new cinema location: ");
+        System.out.println(Color.RESET + "Current Cinema: " + booking.getCinemaName());
+        System.out.println(Color.RESET + "Current Location: " + booking.getCinemaAddress());
+        System.out.print(Color.RESET + "Change to a new cinema location: ");
         Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);
         bookingController.updateBooking(chosenBookingIndex, selectedCinema);
         return;
@@ -120,8 +120,8 @@ public class UpdateBookingPage implements Page {
      */
     private void updateShowtime(int chosenBookingIndex) {
         Booking booking = bookingController.getBookings().get(chosenBookingIndex);
-        System.out.println(Color.reset + "Current Showtime: " + booking.getCinemaName());
-        System.out.print(Color.reset + "Change to a new showtime: ");
+        System.out.println(Color.RESET + "Current Showtime: " + booking.getCinemaName());
+        System.out.print(Color.RESET + "Change to a new showtime: ");
         String selectedShowtime = BookingUtils.getShowtimeInput(scanner, booking.getMovie());
         bookingController.updateBooking(chosenBookingIndex, selectedShowtime);
         return;
@@ -133,11 +133,11 @@ public class UpdateBookingPage implements Page {
      */
     private void updateTickets(int chosenBookingIndex) {
         Booking booking = bookingController.getBookings().get(chosenBookingIndex);
-        System.out.println(Color.reset + "Current Adult Tickets: " + booking.getQuantityAdult());
-        System.out.println(Color.reset + "Current Child Tickets: " + booking.getQuantityChildren());
-        System.out.print(Color.reset + "Enter new number of adult tickets: ");
+        System.out.println(Color.RESET + "Current Adult Tickets: " + booking.getQuantityAdult());
+        System.out.println(Color.RESET + "Current Child Tickets: " + booking.getQuantityChildren());
+        System.out.print(Color.RESET + "Enter new number of adult tickets: ");
         int quantityAdult = BookingUtils.getTicketQuantityInput(scanner, "adult");
-        System.out.print(Color.reset + "Enter new number of child tickets: ");
+        System.out.print(Color.RESET + "Enter new number of child tickets: ");
         int quantityChildren = BookingUtils.getTicketQuantityInput(scanner, "child");
         bookingController.updateBooking(chosenBookingIndex, quantityAdult, quantityChildren);
         return;

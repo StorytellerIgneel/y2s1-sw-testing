@@ -105,15 +105,15 @@ public class Movie {
     //other methods
     public String viewInformation() {
         StringBuilder movie_info = new StringBuilder();
-        movie_info.append(Color.red + "Movie ID: " + Color.lime).append(movieId).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Title: " + Color.lime).append(title).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Description: " + Color.lime).append(description).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Showtimes: " + Color.lime).append(showtimes.toString().substring(1, showtimes.toString().length()-1)).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Languages: " + Color.lime).append(languages.toString().substring(1, languages.toString().length()-1)).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Release Date: " + Color.lime).append(releaseDate).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Genre: " + Color.lime).append(genre.toString().substring(1, genre.toString().length()-1)).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Price (Adult): " + Color.lime + "$").append(priceAdult).append("\n").append(Color.reset);
-        movie_info.append(Color.red + "Price (Children): "+ Color.lime +"$").append(priceChildren).append("\n").append(Color.reset);
+        movie_info.append(Color.RED + "Movie ID: " + Color.LIME).append(movieId).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Description: " + Color.LIME).append(description).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Showtimes: " + Color.LIME).append(showtimes.toString().substring(1, showtimes.toString().length()-1)).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Languages: " + Color.LIME).append(languages.toString().substring(1, languages.toString().length()-1)).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Release Date: " + Color.LIME).append(releaseDate).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Genre: " + Color.LIME).append(genre.toString().substring(1, genre.toString().length()-1)).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Price (Adult): " + Color.LIME + "$").append(priceAdult).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Price (Children): "+ Color.LIME +"$").append(priceChildren).append("\n").append(Color.RESET);
         return movie_info.toString();
     }
 }

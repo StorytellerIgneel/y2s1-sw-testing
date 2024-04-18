@@ -37,10 +37,10 @@ public class CreateBookingPage implements Page{
         while(resultCount == 0)
         {
             // Get user query input
-            System.out.println(Color.reset + "Create a Booking");
-            System.out.print(Color.reset + "Search for movie title:");
+            System.out.println(Color.RESET + "Create a Booking");
+            System.out.print(Color.RESET + "Search for movie title:");
             String query = scanner.nextLine();
-            System.out.println(Color.reset + "Search results:");
+            System.out.println(Color.RESET + "Search results:");
             
             // Search for movie in movieList
                      
@@ -67,13 +67,13 @@ public class CreateBookingPage implements Page{
         boolean validInput = false;
         while (!validInput) {
             // Print search results
-            System.out.println(Color.red + "Search Results:");
+            System.out.println(Color.RED + "Search Results:");
             for (int i = 0; i < movieSearchResults.size(); i++){
-                System.out.println(Color.red + (i+1) + ") \t" + Color.lime + movieSearchResults.get(i).getTitle() + Color.reset);
+                System.out.println(Color.RED + (i+1) + ") \t" + Color.LIME + movieSearchResults.get(i).getTitle() + Color.RESET);
             }
 
             // Get user choice for movie
-            System.out.print(Color.reset + "Select the movie you would like to book: ");
+            System.out.print(Color.RESET + "Select the movie you would like to book: ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 if (choice <= 0 || choice > movieSearchResults.size()) { // 1-based index
@@ -110,10 +110,10 @@ public class CreateBookingPage implements Page{
         choice = 0;
         validInput = false;
         while (!validInput) {
-            System.out.println(Color.red + "Confirm booking?");
-            System.out.println(Color.red + "1) " + Color.lime + "Yes"); 
-            System.out.println(Color.red + "2) " + Color.lime + "No");
-            System.out.print(Color.reset + "Enter your choice: ");
+            System.out.println(Color.RED + "Confirm booking?");
+            System.out.println(Color.RED + "1) " + Color.LIME + "Yes"); 
+            System.out.println(Color.RED + "2) " + Color.LIME + "No");
+            System.out.print(Color.RESET + "Enter your choice: ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 if (choice < 1 || choice > 2) {
