@@ -7,18 +7,20 @@ import com.google.gson.reflect.TypeToken;
 
 import movie.Movie;
 import movie.MovieCRUD;
+import util.*;
+import color.*;
 
 import java.lang.reflect.Type;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import util.*;
 
 public class MovieCRUDGeneralPage {
     ArrayList<Movie> movieList;
 
-    MovieCRUDGeneralPage() {};
+    // constructor
+    public MovieCRUDGeneralPage() {};
 
     public void MainPage() {
         ArrayList<MovieCRUD> movieFunctions = new ArrayList<>();
@@ -52,14 +54,17 @@ public class MovieCRUDGeneralPage {
                 SystemMessage.errorMessage(6);
             }
             movieList = getMovieList();
-            System.out.println("\nCRUD Options for Movie:");
-            System.out.println("1. Add a Movie");
-            System.out.println("2. List all Movies");
-            System.out.println("3. Update a Movie");
-            System.out.println("4. Delete a Movie");
-            System.out.println("5. Exit");
 
-            mainPageChoice = Util.getInput("Enter your choice: ", false);
+            CommonIcon.printHeader();
+            System.out.println("Choose an action:");
+            System.out.println(Color.red + "1." + Color.lime + " Add a Movie" + Color.reset);
+            System.out.println(Color.red + "2." + Color.lime + " List all Movies" + Color.reset);
+            System.out.println(Color.red + "3." + Color.lime + " Update a Movie" + Color.reset);
+            System.out.println(Color.red + "4." + Color.lime + " Delete a Movie" + Color.reset);
+            System.out.print("Enter your choice (':b' to back, ':q to quit'): ");
+            
+            Scanner input = new Scanner(System.in);
+            mainPageChoice = input.nextLine();
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
@@ -71,8 +76,6 @@ public class MovieCRUDGeneralPage {
                     System.out.println(movieList.size());
                     Util.waitForEnter();
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
-                    System.out.println(movieList.size());
-                    Util.waitForEnter();
                 }
                 else if (mainPageChoiceInt == 5){
                     exportMovieData(movieList);
@@ -84,6 +87,11 @@ public class MovieCRUDGeneralPage {
             else {
                 if (Validation.isBack(mainPageChoice))
                     return;
+                else if (Validation.isQuit(mainPageChoice))
+                {
+                    exportMovieData(movieList);
+                    return;
+                }
                 else
                     SystemMessage.errorMessage(1);
             }

@@ -176,9 +176,19 @@ public class Main
                 
                 while(resumeMainMenu)
                 {
-                    // admin page
-                    resumeMainMenu = false;
-                    resumeProgram = false; // temporary break :D
+                    // admin page   
+                    try
+                    {
+                        Util.clearConsole();
+                    }
+                    catch(IOException | InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    AdminMainMenu.printAdminInfo(userIdx, admins);
+                    AdminMainMenu.printAdminAction();
+                    choice = AdminMainMenu.chooseAdminAction();
+
                     if (choice == 5)
                     {
                         resumeMainMenu = false;
@@ -191,19 +201,50 @@ public class Main
                     }
                     else if (choice == 1)
                     {
-                        // Manage movies
+                        // Manage Movies
+                        try
+                        {
+                            Util.clearConsole();
+                        }
+                        catch(IOException | InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        MovieCRUDGeneralPage movieCRUDGeneralPage = new MovieCRUDGeneralPage();
+                        movieCRUDGeneralPage.MainPage();
                     }
                     else if (choice == 2)
                     {
+                        try
+                        {
+                            Util.clearConsole();
+                        }
+                        catch(IOException | InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         // Manage User Accounts
+                        System.out.println("Manage User Accounts");
+                        if (choice == 1)
+                        {
+                            // View User Account
+                            System.out.println("View User Account");
+                        }
+                        else if (choice == 2)
+                        {
+                            // Update user account
+                            System.out.println("Update User Account");
+                        }
                     }
                     else if (choice == 3)
                     {
                         //Manage Bookings
+                        System.out.println("Manage Bookings");
                     }
                     else if (choice == 4)
                     {
                         // Generate Report
+                        System.out.println("Generate Report");
                     }
                 }
             }

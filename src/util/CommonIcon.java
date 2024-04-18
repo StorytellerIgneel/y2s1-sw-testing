@@ -55,4 +55,10 @@ public class CommonIcon {
     //     System.out.println("\t\tUserID    : "+user.getAccountId());
     //     printChar('-', 60);
     // }
+
+    public static void printAdminStatus(int index, ArrayList<SystemAdminAccount> admins)
+    {
+        System.out.print("Username : " + admins.get(index).getName());
+        System.out.println();
+    }
 }
