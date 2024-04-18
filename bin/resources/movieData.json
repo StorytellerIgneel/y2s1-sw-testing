@@ -1,1 +1,1 @@
-[{"movieId":"123","title":"Example Movie","description":"This is an example movie.","showtimes":[{"date":{"year":2024,"month":4,"day":18},"time":{"hour":14,"minute":0,"second":0,"nano":0}}],"languages":["English"],"releaseDate":{"date":{"year":2024,"month":4,"day":18},"time":{"hour":12,"minute":0,"second":0,"nano":0}},"genre":["Action"],"priceAdult":10.99,"priceChildren":6.99}]
+[{"movieId":"MOV111111","title":"f","description":"ww","showtimes":["2024-08-07T09:18"],"languages":["CH"],"releaseDate":"2024-05-07T00:00","genre":["FR"],"priceAdult":5.0,"priceChildren":1.0}]

@@ -2,6 +2,7 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import movie.Movie;
@@ -58,7 +59,7 @@ public class MovieCRUDGeneralPage {
             System.out.println("4. Delete a Movie");
             System.out.println("5. Exit");
 
-            mainPageChoice = Util.getInput("Enter your choice: ");
+            mainPageChoice = Util.getInput("Enter your choice: ", false);
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
@@ -67,7 +68,11 @@ public class MovieCRUDGeneralPage {
                     } catch (Exception e) {
                         SystemMessage.errorMessage(6);
                     }
+                    System.out.println(movieList.size());
+                    Util.waitForEnter();
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
+                    System.out.println(movieList.size());
+                    Util.waitForEnter();
                 }
                 else if (mainPageChoiceInt == 5){
                     exportMovieData(movieList);
@@ -87,10 +92,10 @@ public class MovieCRUDGeneralPage {
     }
 
     public static ArrayList<Movie> getMovieList() {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create();
         Type movieListType = new TypeToken<ArrayList<Movie>>() {}.getType();
         ArrayList<Movie> movieList = new ArrayList<Movie>();
-        String line = "";
+        String line = null;
 
         try {
             File file = new File("./src/resources/movieData.json");
@@ -104,14 +109,11 @@ public class MovieCRUDGeneralPage {
 
         movieList = gson.fromJson(line, movieListType);
 
-        if (line != "")
-            return movieList;
-        else
-            return (new ArrayList<Movie>());
+        return (Validation.isNull(line))? movieList: (new ArrayList<Movie>());
     }
 
     public static void exportMovieData(ArrayList<Movie> movieList) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create();
         String toWrite = gson.toJson(movieList);
 
         try {
@@ -121,7 +123,6 @@ public class MovieCRUDGeneralPage {
         } catch (FileNotFoundException error) {
             SystemMessage.errorMessage(3);
         }
-        
         return;
     }
 
@@ -132,15 +133,14 @@ public class MovieCRUDGeneralPage {
             System.out.println(movie.viewInformation());
             counter += 1;
         }
+        return;
     }
 
     public static int getMovieIndex(ArrayList<Movie> movieList, String action) {
-        Scanner input = new Scanner(System.in);
-        String index = "";
+        String index = null;
 
         while (true) {
-            System.out.printf("Enter the index of the movie you wish to %s: ", action);
-            index = input.nextLine();
+            index = Util.getInput("Enter the index of the movie you wish to " + action + ": ", false);
             if (Validation.isNumber(index)) {
                 int indexInt = Integer.parseInt(index);
                 if (indexInt > 0 && indexInt <= movieList.size())

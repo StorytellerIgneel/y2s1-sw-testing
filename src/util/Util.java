@@ -27,19 +27,38 @@ public class Util {
         scanner.nextLine(); // Wait for the user to press Enter
     }
 
-    public static String getInput(String prompt) {
+    public static String getInput(String prompt, Boolean allowSpaces) {
         Scanner scanner = new Scanner(System.in);
         String input = null;
-
-        while(true) {
+        while(true){
             System.out.print(prompt + Color.yellow);
-            input = scanner.nextLine();
+            if (allowSpaces.equals(false))
+                input = scanner.next();
+            else
+                input = scanner.nextLine();
             System.out.print(Color.reset);
-            if (input.equals(""))
+            if (Validation.isNull(input))
                 SystemMessage.errorMessage(10);
             else
                 break;
         }
+        return input.trim();
+    }
+
+    public static String getLimitedInput(String prompt, ArrayList<String> allowedInputs){
+        Scanner scanner = new Scanner(System.in);
+        String input = null;
+        while(true){
+            System.out.print(prompt + Color.yellow);
+            input = scanner.next();
+            if (allowedInputs.contains(input))
+                break;
+            else if (Validation.isQuit(input))
+                System.exit(0);
+            else
+                SystemMessage.errorMessage(11);
+        }
+        System.out.print(Color.reset);
         return input;
     }
 

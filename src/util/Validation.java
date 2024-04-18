@@ -60,19 +60,38 @@ public class Validation {
         LocalDateTime currentTime = LocalDateTime.now();
         ArrayList<Integer> times = new ArrayList<Integer>();
         int currentYear = currentTime.getYear();
+        int currentMonth = currentTime.getMonthValue();
+        int currentDay = currentTime.getDayOfMonth();
         int febDays = (currentYear % 4 == 0)? 29: 28; //check leap year
         ArrayList<Integer> daysInMonth = new ArrayList<>(List.of(0, 31, febDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)); 
 
         //it would like like: 2024 12 31 10 30
-        if (value.matches("[2024-9999][ ][1-12][ ][1-31][ ][0-23][ ][0-59]")){
+        if (value.matches("(2024|20[3-9][0-9]|2[1-9][0-9]{2}|[3-9][0-9]{3}) (0?[1-9]|1[0-2]) (0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]) ([0-5]?[0-9])")){
             String[] list = value.split(" ");
             for (String time : list)
                 times.add(Integer.parseInt(time));
-            if (times.get(0) > (currentYear + 1)){
+            int givenYear = times.get(0);
+            int givenMonth = times.get(1);
+            int givenDay = times.get(2);
+            if (givenYear > (currentYear + 1)){
                 SystemMessage.errorMessage(15);
                 return false;
             }
-            if(times.get(2) > daysInMonth.get(times.get(1))){
+            if (givenYear < currentYear){ //entered last year RD like 2023
+                SystemMessage.errorMessage(17);
+                return false;
+            }
+            if((givenYear <= currentYear) && (givenMonth < currentMonth)){ //last year or same year but previous months like 2024 3 20 
+                if (givenDay <= currentDay){
+                    SystemMessage.errorMessage(19);
+                    return false;
+                }
+                else{
+                    SystemMessage.errorMessage(18);
+                    return false;
+                }
+            }
+            if(givenDay > daysInMonth.get(givenMonth)){
                 SystemMessage.errorMessage(14);
                 return false;
             }
@@ -98,7 +117,7 @@ public class Validation {
         int febDays = (currentYear % 4 == 0)? 29: 28; //check leap year
         ArrayList<Integer> daysInMonth = new ArrayList<>(List.of(0, 31, febDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)); 
 
-        if (value.matches("[2024-9999] [0-12] [1-31]")){
+        if (value.matches("(2024|20[3-9][0-9]|2[1-9][0-9]{2}|[3-9][0-9]{3}) (0?[1-9]|1[0-2]) (0?[1-9]|[12][0-9]|3[01])")){
             String[] list = value.split(" ");
             for (String time : list)
                 times.add(Integer.parseInt(time));
@@ -124,7 +143,7 @@ public class Validation {
                     return false;
                 }
             }
-            if(times.get(3) > daysInMonth.get(times.get(2))){
+            if(givenDay > daysInMonth.get(givenMonth)){
                 SystemMessage.errorMessage(14);
                 return false;
             }
@@ -134,5 +153,9 @@ public class Validation {
             SystemMessage.errorMessage(16);
             return false;
         }
+    }
+
+    public static boolean isNull(String value){ 
+        return (value.equals(null) || value.equals(""));
     }
 }
