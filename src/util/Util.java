@@ -1,6 +1,7 @@
 package util;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import color.Color;
@@ -30,7 +31,7 @@ public class Util {
         Scanner scanner = new Scanner(System.in);
         String input = null;
 
-        while(input == null) {
+        while(true) {
             System.out.print(prompt + Color.yellow);
             input = scanner.nextLine();
             System.out.print(Color.reset);
@@ -40,5 +41,13 @@ public class Util {
                 break;
         }
         return input;
+    }
+
+    public static ArrayList<Integer> getTime(String dateString) {
+        String list[] = dateString.split(" ");
+        ArrayList<Integer> timeList = new ArrayList<Integer>();
+        for (String time : list)
+            timeList.add(Integer.parseInt(time));
+        return timeList;
     }
 }

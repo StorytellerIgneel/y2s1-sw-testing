@@ -57,10 +57,8 @@ public class MovieCRUDGeneralPage {
             System.out.println("3. Update a Movie");
             System.out.println("4. Delete a Movie");
             System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
 
-            Scanner input = new Scanner(System.in);
-            mainPageChoice = input.nextLine();
+            mainPageChoice = Util.getInput("Enter your choice: ");
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
@@ -112,7 +110,7 @@ public class MovieCRUDGeneralPage {
             return (new ArrayList<Movie>());
     }
 
-    public void exportMovieData(ArrayList<Movie> movieList) {
+    public static void exportMovieData(ArrayList<Movie> movieList) {
         Gson gson = new Gson();
         String toWrite = gson.toJson(movieList);
 
