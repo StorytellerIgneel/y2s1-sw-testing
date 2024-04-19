@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import cinema.Cinema;
 import color.Color;
 import movie.Movie;
-import util.BookingUtils;
+import utils.BookingUtils;
 import booking.BookingController;
 import java.util.Scanner;
 

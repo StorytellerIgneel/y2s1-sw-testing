@@ -9,8 +9,8 @@ import java.util.function.Function;
 import movie.Movie;
 import movie.MovieCRUD;
 import movie.Result;
+import utils.*;
 import movie.MovieInfoInput;
-import util.*;
 
 public class MovieAddPage implements MovieCRUD {
     MovieAddPage() {};

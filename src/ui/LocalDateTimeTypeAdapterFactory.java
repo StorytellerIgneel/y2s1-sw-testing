@@ -1,6 +1,5 @@
 package ui;
 
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -11,6 +10,7 @@ import com.google.gson.stream.JsonWriter;
 
 public class LocalDateTimeTypeAdapterFactory implements TypeAdapterFactory {
     @Override
+    @SuppressWarnings("unchecked")
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
         if (type.getRawType() == LocalDateTime.class) {
             return (TypeAdapter<T>) new LocalDateTimeTypeAdapter();

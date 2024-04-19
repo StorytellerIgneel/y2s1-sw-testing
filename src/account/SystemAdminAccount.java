@@ -5,10 +5,10 @@ import java.io.*;
 import java.util.Scanner;
 import java.lang.reflect.Type;
 
-import util.*;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken; 
+import com.google.gson.reflect.TypeToken;
+
+import utils.*; 
 
 public class SystemAdminAccount extends Account
 {

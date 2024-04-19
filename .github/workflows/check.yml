@@ -15,11 +15,12 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'oracle'
-          java-version: '17'
+          java-version: '21'
       
       - name: Build Java Program
         run: |
-          java -cp lib/gson-2.2.2.jar src/util/**/*.java src/**/*.java
+          javac -cp lib/gson-2.2.2.jar src/**/*.java
+          java -cp lib/gson-2.2.2.jar src/**/*.java
 
       - name: Verify Build Success
         run: |

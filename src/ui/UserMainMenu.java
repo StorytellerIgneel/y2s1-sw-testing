@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import account.*;
 import movie.Movie;
-import util.*;
-import movie.*;
+import utils.*;
 import color.Color;
 
 

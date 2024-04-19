@@ -5,7 +5,8 @@ import java.util.Scanner;
 import account.UserAccount;
 import booking.BookingController;
 import color.Color;
-import util.CommonIcon;
+import utils.CommonIcon;
+
 import java.util.ArrayList;
 
 public class BookingPage implements Page{

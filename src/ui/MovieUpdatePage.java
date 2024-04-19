@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import movie.*;
-import util.Validation;
-import util.SystemMessage;
+import util.*;
 import java.util.function.Function;
 
 public class MovieUpdatePage implements MovieCRUD{

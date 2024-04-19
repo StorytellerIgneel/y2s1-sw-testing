@@ -2,9 +2,10 @@ package account;
 // import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.*;
 
-import util.*;
+import utils.*;
+
+import java.io.*;
 
 public class Account {
   //instance variables to be inherited

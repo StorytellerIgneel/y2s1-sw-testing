@@ -1,13 +1,11 @@
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import account.*;
 import movie.*;
-import booking.Booking;
 import ui.*;
 import ui.booking.*;
-import util.*;
+import utils.*;
 import color.Color;
 
 

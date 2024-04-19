@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import movie.Movie;
 import movie.MovieCRUD;
-import util.*;
+import utils.*;
 
 public class MovieDeletePage implements MovieCRUD {
     @Override

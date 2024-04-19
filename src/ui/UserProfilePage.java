@@ -2,9 +2,10 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import account.*;
-import util.*;
+
 import java.util.Scanner;
 import color.Color;
+import utils.*;
 
 public class UserProfilePage {
     private ArrayList<UserAccount> users;

@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import movie.Movie;
 import movie.MovieCRUD;
-import util.*;
+import utils.*;
 import color.*;
 
 import java.lang.reflect.Type;

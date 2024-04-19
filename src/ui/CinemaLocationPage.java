@@ -1,12 +1,12 @@
 package ui;
 import cinema.Cinema;
-import util.*;
 import account.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import color.Color;
+import utils.*;
 
 
 public class CinemaLocationPage {
