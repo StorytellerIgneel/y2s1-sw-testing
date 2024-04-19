@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import movie.*;
 import util.*;
+import utils.Util;
+
 import java.util.function.Function;
 
 public class MovieUpdatePage implements MovieCRUD{
@@ -44,9 +46,8 @@ public class MovieUpdatePage implements MovieCRUD{
         System.out.println("8. Price (Adult)");
         System.out.println("9. Price (Children)");
 
+        String choiceString = Util.getInput(null, null)
         
-        System.out.print("Enter the new value (Enter :q to quit): ");
-        String newValue = input.nextLine();
         if(Validation.isBack(newValue))
             return;
         // Update the chosen attribute
