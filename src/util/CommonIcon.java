@@ -6,6 +6,9 @@ import account.*;
 import color.Color;
 
 public class CommonIcon {
+  /**
+   * The name of the system icon
+   */
     public static void printHeader()
     {
         printChar('-', 60);
@@ -13,7 +16,12 @@ public class CommonIcon {
         System.out.println("░█░░▀▄▀░█▄█░ ░█▄▄░█░█░▀█░██▄░█░▀░█░█▀█░▄█");
         printChar('-', 60);
     }
-
+    /**
+     * Prints a character a specified number of times.
+     * 
+     * @param ch the character to be printed
+     * @param times the number of times to print the character
+     */
     public static void printChar(char ch, int times)
     {
         for (int i = 0; i < times; i++)
@@ -22,7 +30,11 @@ public class CommonIcon {
         }
         System.out.println();
     }
-
+    /**
+     * Prints the trending movies.
+     * 
+     * @param movies the list of movie objects
+     */
     public static void printTrend(ArrayList<Movie> movies)
     {
         System.out.println("#Trending Now");
@@ -32,7 +44,11 @@ public class CommonIcon {
         }
 
     }
-    
+    /**
+     * Prints the latest movie releases.
+     * 
+     * @param movies the list of movie objects 
+     */
     public static void printLatest(ArrayList<Movie> movies)
     {
         System.out.println("#Latest Release");
@@ -42,20 +58,24 @@ public class CommonIcon {
         }
 
     }
-
+    /**
+     * Prints the user's status, including their username and user ID.
+     * 
+     * @param index the index of the user in the list of users
+     * @param users the list of user accounts
+     */
     public static void printUserStatus(int index, ArrayList<UserAccount> users)
     {
         System.out.print("Username  : "+users.get(index).getName());
         System.out.println("\t\tUserID    : "+users.get(index).getAccountId());
         printChar('-', 60);
     }
-    // public static void printUserStatus(UserAccount user)
-    // {
-    //     System.out.print("Username  : "+user.getName());
-    //     System.out.println("\t\tUserID    : "+user.getAccountId());
-    //     printChar('-', 60);
-    // }
-
+    /**
+ * Prints the admin's status, including their username.
+ * 
+ * @param index the index of the admin in the list of admins
+ * @param admins the list of admin accounts
+ */
     public static void printAdminStatus(int index, ArrayList<SystemAdminAccount> admins)
     {
         System.out.print("Username : " + admins.get(index).getName());
