@@ -1,9 +1,11 @@
-package utils;
+package util;
+
+import java.util.Scanner;
 
 import color.Color;
 
 public class SystemMessage {
-    public static void errorMessage(int errorIndex ){
+    public static void errorMessage(int errorIndex, Scanner input){
         System.out.println();
         System.out.print(Color.RED);
         switch(errorIndex) {
@@ -65,12 +67,12 @@ public class SystemMessage {
                 System.out.println("The day entered has already passed, invalid day. Please try again.");
                 break;
         }
-        Util.waitForEnter();
+        Util.waitForEnter(input);
         System.out.print(Color.RESET);
         return;
     }
 
-    public static void successMessage(int successIndex) {
+    public static void successMessage(int successIndex, Scanner input) {
         System.out.println();
         System.out.print(Color.LIME);
         switch(successIndex) {
@@ -89,7 +91,7 @@ public class SystemMessage {
             case 5:
                 System.out.println("Account registered successfully");
         }
-        Util.waitForEnter();
+        Util.waitForEnter(input);
         System.out.print(Color.RESET);
         return;
     }

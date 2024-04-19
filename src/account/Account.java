@@ -3,7 +3,7 @@ package account;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import utils.*;
+import util.*;
 
 import java.io.*;
 
@@ -48,13 +48,13 @@ public class Account {
   
   public static int login(ArrayList<Account> accounts)
  {
-   int index = 0;
-   CommonIcon.printHeader();
-   System.out.println("Login: \n");
-   do
-   {
-    //entering details
     Scanner input = new Scanner(System.in);
+    int index = 0;
+    CommonIcon.printHeader();
+    System.out.println("Login: \n");
+    do
+    {
+    //entering details
     System.out.print("Enter your username (':b' to back, ':q' to quit): ");
     String name = input.nextLine();
 
@@ -73,15 +73,15 @@ public class Account {
 
     index = verifyLogin(accounts, name, pass);
     if (index == -1)
-      SystemMessage.errorMessage(5);
+      SystemMessage.errorMessage(5, input);
     else
-      SystemMessage.successMessage(4);
+      SystemMessage.successMessage(4, input);
 
-   }while (index == -1);
-   
-   try
+    }while (index == -1);
+    
+    try
     {
-        Util.clearConsole();
+        Util.clearConsole(input);
     }
     catch(IOException e)
     {
@@ -92,7 +92,7 @@ public class Account {
         e.printStackTrace();
     }
     return index; //return the user index for tracking user activities
- }
+  }
 
   //getter methods
   public String getAccountId() {

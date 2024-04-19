@@ -2,10 +2,13 @@ package ui;
 import movie.Movie;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Scanner;
+// TODO remove file in production
 
 public class Main {
     public static void main(String[] args) {
         // Initialize a Movie object
+        Scanner scanner = new Scanner(System.in);
         Movie movie = new Movie();
         ArrayList<LocalDateTime> showtimes = new ArrayList<>();
         ArrayList<String> languages = new ArrayList<>();
@@ -31,6 +34,6 @@ public class Main {
         ArrayList<Movie> movies = new ArrayList<Movie>();
         movies.add(movie);
 
-        MovieCRUDGeneralPage.exportMovieData(movies);
+        MovieCRUDGeneralPage.exportMovieData(movies, scanner);
     }
 }

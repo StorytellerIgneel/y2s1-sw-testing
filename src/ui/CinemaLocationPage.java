@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import color.Color;
-import utils.*;
+import util.*;
 
 
 public class CinemaLocationPage {
@@ -24,7 +24,7 @@ public class CinemaLocationPage {
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {

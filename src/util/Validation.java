@@ -1,7 +1,8 @@
-package utils;
+package util;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Validation {
     public static boolean isNumber(String value) {
@@ -56,7 +57,7 @@ public class Validation {
         return value.matches("MOV[0-9][0-9][0-9][0-9][0-9][0-9]");
     }
 
-    public static boolean isShowtime(String value){
+    public static boolean isShowtime(String value, Scanner scanner){
         LocalDateTime currentTime = LocalDateTime.now();
         ArrayList<Integer> times = new ArrayList<Integer>();
         int currentYear = currentTime.getYear();
@@ -74,31 +75,31 @@ public class Validation {
             int givenMonth = times.get(1);
             int givenDay = times.get(2);
             if (givenYear > (currentYear + 1)){
-                SystemMessage.errorMessage(15);
+                SystemMessage.errorMessage(15, scanner);
                 return false;
             }
             if (givenYear < currentYear){ //entered last year RD like 2023
-                SystemMessage.errorMessage(17);
+                SystemMessage.errorMessage(17, scanner);
                 return false;
             }
             if((givenYear <= currentYear) && (givenMonth < currentMonth)){ //last year or same year but previous months like 2024 3 20 
                 if (givenDay <= currentDay){
-                    SystemMessage.errorMessage(19);
+                    SystemMessage.errorMessage(19, scanner);
                     return false;
                 }
                 else{
-                    SystemMessage.errorMessage(18);
+                    SystemMessage.errorMessage(18, scanner);
                     return false;
                 }
             }
             if(givenDay > daysInMonth.get(givenMonth)){
-                SystemMessage.errorMessage(14);
+                SystemMessage.errorMessage(14, scanner);
                 return false;
             }
             return true;
         }
         else{
-            SystemMessage.errorMessage(13);
+            SystemMessage.errorMessage(13, scanner);
             return false;
         }
     }
@@ -107,7 +108,7 @@ public class Validation {
         return value.matches("[0-1] [0-30] [0-24] [0-60]");
     }
 
-    public static boolean isReleaseDate(String value){ //remove time: month day hour minute
+    public static boolean isReleaseDate(String value, Scanner scanner){ //remove time: month day hour minute
         LocalDateTime currentTime = LocalDateTime.now();
         ArrayList<Integer> times = new ArrayList<Integer>();
         int currentYear = currentTime.getYear();
@@ -126,31 +127,31 @@ public class Validation {
             int givenDay = times.get(2);
 
             if (givenYear > (currentYear + 1)){
-                SystemMessage.errorMessage(15);
+                SystemMessage.errorMessage(15, scanner);
                 return false;
             }
             if (givenYear < currentYear){ //entered last year RD like 2023
-                SystemMessage.errorMessage(17);
+                SystemMessage.errorMessage(17, scanner);
                 return false;
             }
             if((givenYear <= currentYear) && (givenMonth < currentMonth)){ //last year or same year but previous months like 2024 3 20 
                 if (givenDay <= currentDay){
-                    SystemMessage.errorMessage(19);
+                    SystemMessage.errorMessage(19, scanner);
                     return false;
                 }
                 else{
-                    SystemMessage.errorMessage(18);
+                    SystemMessage.errorMessage(18, scanner);
                     return false;
                 }
             }
             if(givenDay > daysInMonth.get(givenMonth)){
-                SystemMessage.errorMessage(14);
+                SystemMessage.errorMessage(14, scanner);
                 return false;
             }
             return true;
         }
         else{
-            SystemMessage.errorMessage(16);
+            SystemMessage.errorMessage(16, scanner);
             return false;
         }
     }

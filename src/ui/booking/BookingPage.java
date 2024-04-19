@@ -5,7 +5,7 @@ import java.util.Scanner;
 import account.UserAccount;
 import booking.BookingController;
 import color.Color;
-import utils.CommonIcon;
+import util.CommonIcon;
 
 import java.util.ArrayList;
 

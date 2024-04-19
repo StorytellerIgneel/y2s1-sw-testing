@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import movie.Movie;
-import utils.*;
+import util.*;
 import color.Color;
 
 public class ViewMovieInfoPage {
@@ -32,7 +32,7 @@ public class ViewMovieInfoPage {
         
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {
@@ -62,7 +62,7 @@ public class ViewMovieInfoPage {
                 if(choice < 1 || choice > searchedMovieList.size())
                 {
                     isValid = false;
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, input);
                 }
                 else
                     isValid = true;
@@ -70,7 +70,7 @@ public class ViewMovieInfoPage {
             else
             {
                 isValid = false;
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1, input);
             }
         }while(!isValid);
 
@@ -80,7 +80,7 @@ public class ViewMovieInfoPage {
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {

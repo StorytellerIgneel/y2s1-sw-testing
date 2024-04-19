@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import color.Color;
 
 public class Util {
     Util(){};
-    public static void clearConsole() throws IOException, InterruptedException {
+    public static void clearConsole(Scanner scanner) throws IOException, InterruptedException {
         String os = System.getProperty("os.name").toLowerCase();
         try {
             if (os.contains("windows"))
@@ -16,19 +16,17 @@ public class Util {
             else
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
         } catch (Exception e) {
-            SystemMessage.errorMessage(9);
+            SystemMessage.errorMessage(9, scanner);
         }
         
     }
 
-    public static void waitForEnter() {
+    public static void waitForEnter(Scanner scanner) {
         System.out.println("Press Enter to continue...");
-        Scanner scanner = new Scanner(System.in);
         scanner.nextLine(); // Wait for the user to press Enter
     }
 
-    public static String getInput(String prompt, Boolean allowSpaces) {
-        Scanner scanner = new Scanner(System.in);
+    public static String getInput(String prompt, Boolean allowSpaces, Scanner scanner) {
         String input = null;
         while(true){
             System.out.print(prompt + Color.YELLOW);
@@ -38,15 +36,14 @@ public class Util {
                 input = scanner.nextLine();
             System.out.print(Color.RESET);
             if (Validation.isNull(input))
-                SystemMessage.errorMessage(10);
+                SystemMessage.errorMessage(10, scanner);
             else
                 break;
         }
         return input.trim();
     }
 
-    public static String getLimitedInput(String prompt, ArrayList<String> allowedInputs){
-        Scanner scanner = new Scanner(System.in);
+    public static String getLimitedInput(String prompt, ArrayList<String> allowedInputs, Scanner scanner){
         String input = null;
         while(true){
             System.out.print(prompt + Color.YELLOW);
@@ -56,7 +53,7 @@ public class Util {
             else if (Validation.isQuit(input))
                 System.exit(0);
             else
-                SystemMessage.errorMessage(11);
+                SystemMessage.errorMessage(11, scanner);
         }
         System.out.print(Color.RESET);
         return input;

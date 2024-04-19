@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.IOException;
 
 import color.Color;
-import utils.*;
+import util.*;
 import account.SystemAdminAccount;
 import java.util.ArrayList;
 
@@ -42,17 +42,17 @@ public class AdminMainMenu {
             {
                 choiceInt = Integer.parseInt(choice);
                 if(choiceInt < 1 || choiceInt > 4) 
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, input);
                 else
                     isValid = true;
             }
             else
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1,input);
         }while(!isValid);
         
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException e)
         {

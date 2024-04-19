@@ -3,17 +3,15 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import color.Color;
-import utils.*;
-
-import java.util.NoSuchElementException;
+import util.*;
 
 public class LoginPage {
 
-    public static void printChoice()
+    public static void printChoice(Scanner scanner)
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(scanner);
         }
         catch(IOException e)
         {
@@ -32,9 +30,8 @@ public class LoginPage {
         CommonIcon.printChar('-', 60);
     }
 
-    public static int chooseChoice()
+    public static int chooseChoice(Scanner input)
     {
-        Scanner input = new Scanner(System.in);
         boolean isValid = false;
         int choice = 0;
         
@@ -46,13 +43,13 @@ public class LoginPage {
                 choice = input.nextInt();
                 
                 if(choice < 1 || choice > 4)   
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, input);
                 else
                     isValid = true;
             }
             catch(InputMismatchException e)
             {
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1, input);
             }
             finally
             {
