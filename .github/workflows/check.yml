@@ -19,8 +19,8 @@ jobs:
       
       - name: Build Java Program
         run: |
-          javac -cp ../lib/gson-2.2.2.jar src/**/*.java
-          java -cp ../lib/gson-2.2.2.jar Main.java
+          javac -cp lib/gson-2.2.2.jar src/**/*.java
+          java -cp lib/gson-2.2.2.jar Main.java
 
       - name: Verify Build Success
         run: |
