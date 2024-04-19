@@ -6,7 +6,6 @@ import java.util.Scanner;
 import account.*;
 import movie.Movie;
 import utils.*;
-import movie.*;
 import color.Color;
 
 
