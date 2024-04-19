@@ -47,7 +47,7 @@ public class MovieUpdatePage implements MovieCRUD{
         System.out.println("8. Price (Adult)");
         System.out.println("9. Price (Children)");
 
-        String choiceString = Util.getInput(null, null)
+        String choiceString = Util.getInput("Enter your choice: ", false);
         
         if(Validation.isBack(newValue))
             return;
