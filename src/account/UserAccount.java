@@ -62,7 +62,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -87,7 +87,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -111,7 +111,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -135,7 +135,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -159,7 +159,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -186,6 +186,7 @@ public class UserAccount extends Account{
 
  public static ArrayList<UserAccount> getUsers()
  {
+    Scanner input = new Scanner(System.in);
     Gson gson = new GsonBuilder()
     .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
         @Override
@@ -208,7 +209,7 @@ public class UserAccount extends Account{
       inputFile.close();
     }catch(IOException e)
     {
-      SystemMessage.errorMessage(4);
+      SystemMessage.errorMessage(4, input);
     }
 
     ArrayList<UserAccount> userList = gson.fromJson(line, type);
@@ -220,19 +221,19 @@ public class UserAccount extends Account{
 
  public static void saveUsers(ArrayList<UserAccount> users)
  {
-   Gson gson = new Gson();
-   String toWrite = gson.toJson(users);
+    Scanner scanner = new Scanner(System.in);
+    Gson gson = new Gson();
+    String toWrite = gson.toJson(users);
 
-   try
-   {
-     File outFile = new File("src\\resources\\user.json");
-     PrintWriter outputFile = new PrintWriter(outFile);
-     outputFile.println(toWrite);
-     outputFile.close();
-   }catch(FileNotFoundException error)
-   {
-     SystemMessage.errorMessage(4);
-   }
-
- }
+    try
+    {
+      File outFile = new File("src\\resources\\user.json");
+      PrintWriter outputFile = new PrintWriter(outFile);
+      outputFile.println(toWrite);
+      outputFile.close();
+    }catch(FileNotFoundException error)
+    {
+      SystemMessage.errorMessage(4, scanner);
+    }
+  }
 }

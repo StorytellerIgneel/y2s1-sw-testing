@@ -7,11 +7,11 @@ import util.*;
 
 public class LoginPage {
 
-    public static void printChoice()
+    public static void printChoice(Scanner scanner)
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(scanner);
         }
         catch(IOException e)
         {
@@ -43,13 +43,13 @@ public class LoginPage {
                 choice = input.nextInt();
                 
                 if(choice < 1 || choice > 4)   
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, input);
                 else
                     isValid = true;
             }
             catch(InputMismatchException e)
             {
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1, input);
             }
             finally
             {

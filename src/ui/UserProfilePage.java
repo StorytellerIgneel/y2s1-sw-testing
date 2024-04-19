@@ -26,7 +26,7 @@ public class UserProfilePage {
         {   
             try
             {
-                Util.clearConsole();
+                Util.clearConsole(input);
             }
             catch(IOException | InterruptedException e)
             {
@@ -57,7 +57,7 @@ public class UserProfilePage {
             else 
             {
                 isValid = false;
-                SystemMessage.errorMessage(11);;
+                SystemMessage.errorMessage(11, input);
             }
         }while(!isValid);
     }

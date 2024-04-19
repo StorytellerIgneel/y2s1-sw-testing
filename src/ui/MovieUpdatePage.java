@@ -12,6 +12,7 @@ public class MovieUpdatePage implements MovieCRUD{
     @Override
     public void execute(ArrayList<Movie> movieList)
     {
+        Scanner scanner = new Scanner(System.in);
         int movieIndex = 0;
         Result result = new Result();
         MovieInfoInput input = new MovieInfoInput();
@@ -29,7 +30,7 @@ public class MovieUpdatePage implements MovieCRUD{
         functionList.add(input::getPriceChildren);
 
         MovieCRUDGeneralPage.showAllMovie(movieList);
-        movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "update");
+        movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "update", scanner);
 
         System.out.println("Current Movie Information:");
         System.out.println(movieList.get(movieIndex).viewInformation());

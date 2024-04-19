@@ -37,7 +37,7 @@ public class SearchMoviePage {
             {
                 try
                 {
-                    Util.clearConsole();
+                    Util.clearConsole(input);
                 }
                 catch(IOException | InterruptedException e)
                 {
@@ -68,7 +68,7 @@ public class SearchMoviePage {
             else
             {
                 found = false;
-                SystemMessage.errorMessage(6);
+                SystemMessage.errorMessage(6, input);
             }
         }while(!found);
     }

@@ -42,17 +42,17 @@ public class AdminMainMenu {
             {
                 choiceInt = Integer.parseInt(choice);
                 if(choiceInt < 1 || choiceInt > 4) 
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, input);
                 else
                     isValid = true;
             }
             else
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1,input);
         }while(!isValid);
         
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException e)
         {

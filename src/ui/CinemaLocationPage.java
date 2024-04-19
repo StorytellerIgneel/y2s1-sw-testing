@@ -24,7 +24,7 @@ public class CinemaLocationPage {
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {
