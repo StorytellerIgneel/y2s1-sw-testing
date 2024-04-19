@@ -20,6 +20,9 @@ public class UserProfilePage {
         this.input = input;
     }
 
+    /**
+    * Prints the user's profile information and prompts the user to update their profile.
+    */
     public void printUserInfo()
     {
         do
@@ -61,7 +64,10 @@ public class UserProfilePage {
             }
         }while(!isValid);
     }
-
+    /**
+    * Updates the user's profile information.
+    only 3 editable information which are username, email and phone number
+    */
     public void updateProfile()
     {
         boolean resume = true;
