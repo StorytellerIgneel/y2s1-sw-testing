@@ -16,13 +16,9 @@ jobs:
         with:
           distribution: 'oracle'
           java-version: '17'
-          
-      - name: Set working directory
-        uses: actions/runner
-        with:
-          working-directory: src
       
       - name: Build Java Program
+        working-directory: src
         run: |
           java -cp ../lib/gson-2.2.2.jar src/Main.java
 
