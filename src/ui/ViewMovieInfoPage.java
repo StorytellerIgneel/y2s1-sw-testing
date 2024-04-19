@@ -26,7 +26,9 @@ public class ViewMovieInfoPage {
         this.users = users;
         this.input = input;
     }
-
+    /**
+    * Prints the list of searched movies and prompts the user to select one.
+    */
     public void printSearchedMovies() 
     {
         
@@ -49,7 +51,9 @@ public class ViewMovieInfoPage {
         chooseMovie();
         
     }
-
+    /**
+    * Prompts the user to select a movie from the list of searched movies.
+    */
     public void chooseMovie()
     {
         do
@@ -75,7 +79,9 @@ public class ViewMovieInfoPage {
         }while(!isValid);
 
     }
-
+    /**
+ * Prints the information of the selected movie
+ */
     public void viewMovieInfo()
     {
         try
