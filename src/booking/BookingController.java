@@ -1,5 +1,6 @@
 package booking;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import account.UserAccount;
@@ -33,7 +34,7 @@ public class BookingController {
     public void createBooking(
         Movie movie,
         Cinema cinema,
-        String showtime,
+        LocalDateTime showtime,
         int quantityAdult, 
         int quantityChildren
         ) throws IllegalArgumentException
@@ -76,7 +77,7 @@ public class BookingController {
      */
     public void updateBooking(
         int index,
-        String showtime
+        LocalDateTime showtime
         )
     {
         bookings = users.get(userIdx).getBookings();

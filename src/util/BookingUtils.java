@@ -1,5 +1,6 @@
 package util;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import cinema.Cinema;
@@ -52,9 +53,9 @@ public class BookingUtils {
      * Get the showtime from user input
      * @param scanner Scanner object to get user input
      * @param showtimes Array of showtimes to choose from
-     * @return String representing the selected showtime
+     * @return LocalDateTime representing the selected showtime
      */
-    public static String getShowtimeInput(Scanner scanner, Movie selectedMovie){
+    public static LocalDateTime getShowtimeInput(Scanner scanner, Movie selectedMovie){
         // Get showtime
         int choice = 0;
         boolean validInput = false;
@@ -79,7 +80,7 @@ public class BookingUtils {
         }
 
         // Get selected showtime
-        String selectedShowtime = selectedMovie.getShowtimes().get(choice - 1); // Adjust for 0-based index
+        LocalDateTime selectedShowtime = selectedMovie.getShowtimes().get(choice - 1); // Adjust for 0-based index
         System.out.println("Showtime selected: " + selectedShowtime);
         System.out.println(); // Add a newline for layout
         return selectedShowtime;

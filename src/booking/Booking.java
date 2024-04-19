@@ -3,6 +3,7 @@ package booking;
 import java.util.Date;
 import java.util.UUID;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 import cinema.Cinema;
 import movie.Movie;
@@ -17,7 +18,7 @@ public class Booking
     public final String bookingId;
     private Movie movie;
     private Cinema cinema;
-    private String showtime;
+    private LocalDateTime showtime;
     private int quantityAdult;
     private int quantityChildren;
     private String date;
@@ -35,7 +36,7 @@ public class Booking
     public Booking(
         Movie movie,
         Cinema cinema,
-        String showtime,
+        LocalDateTime showtime,
         int quantityAdult, 
         int quantityChildren
         )
@@ -91,7 +92,7 @@ public class Booking
         return cinema.getCinemaAddress();
     }
 
-    public String getShowtime()
+    public LocalDateTime getShowtime()
     {
         return showtime;
     }
@@ -117,7 +118,7 @@ public class Booking
         this.quantityChildren = quantityChildren;
     }
 
-    public void setShowtime(String showtime)
+    public void setShowtime(LocalDateTime showtime)
     {
         if (!movie.getShowtimes().contains(showtime))
         {
@@ -138,7 +139,6 @@ public class Booking
 
     /** 
      * This method returns the total price of the booking.
-     * 
      * @return double
      */
     public double calculateTotalPrice()

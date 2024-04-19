@@ -1,5 +1,6 @@
 package ui.booking;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import booking.Booking;
@@ -122,7 +123,7 @@ public class UpdateBookingPage implements Page {
         Booking booking = bookingController.getBookings().get(chosenBookingIndex);
         System.out.println(Color.RESET + "Current Showtime: " + booking.getCinemaName());
         System.out.print(Color.RESET + "Change to a new showtime: ");
-        String selectedShowtime = BookingUtils.getShowtimeInput(scanner, booking.getMovie());
+        LocalDateTime selectedShowtime = BookingUtils.getShowtimeInput(scanner, booking.getMovie());
         bookingController.updateBooking(chosenBookingIndex, selectedShowtime);
         return;
     }

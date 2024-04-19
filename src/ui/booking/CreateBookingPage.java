@@ -1,5 +1,6 @@
 package ui.booking;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import cinema.Cinema;
@@ -96,7 +97,7 @@ public class CreateBookingPage implements Page{
         Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);   
 
         // Get showtime from user
-        String selectedShowtime = BookingUtils.getShowtimeInput(scanner, selectedMovie);
+        LocalDateTime selectedShowtime = BookingUtils.getShowtimeInput(scanner, selectedMovie);
 
         // Get Adult and Child ticket quantity
         int quantityAdult = BookingUtils.getTicketQuantityInput(scanner, "adult");
