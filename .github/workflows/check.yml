@@ -18,7 +18,7 @@ jobs:
           java-version: '17'
           
       - name: Set working directory
-        uses: actions/runner@v3
+        uses: actions/runner
         with:
           working-directory: src
       
