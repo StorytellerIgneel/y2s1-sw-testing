@@ -56,8 +56,10 @@ public class UserAccount extends Account{
     System.out.print("Enter your account ID (':b' to back, ':q to quit'): ");
     String id = input.next();
 
-    if(Validation.isBack(id))
+    if(Validation.isBack(id)){
+      input.close();
       return null;
+    }
     if(Validation.isQuit(id))
     {
       try

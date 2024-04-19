@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import movie.*;
 import util.*;
-import utils.Util;
+import util.Util;
 
 import java.util.function.Function;
 
@@ -47,7 +47,7 @@ public class MovieUpdatePage implements MovieCRUD{
         System.out.println("8. Price (Adult)");
         System.out.println("9. Price (Children)");
 
-        String choiceString = Util.getInput(null, null)
+        String choiceString = Util.getInput(null, null, scanner);
         
         if(Validation.isBack(newValue))
             return;

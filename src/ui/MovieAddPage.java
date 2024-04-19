@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.function.Function;
 
 import movie.Movie;
