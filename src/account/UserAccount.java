@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import booking.Booking;
-import utils.*;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,6 +20,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonDeserializationContext;
 
 import color.Color;
+import util.*;
 
 public class UserAccount extends Account{
   //instance variables

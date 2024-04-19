@@ -5,7 +5,7 @@ import account.*;
 
 import java.util.Scanner;
 import color.Color;
-import utils.*;
+import util.*;
 
 public class UserProfilePage {
     private ArrayList<UserAccount> users;

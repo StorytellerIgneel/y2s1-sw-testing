@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import color.Color;
-import utils.*;
+import util.*;
 
 import java.util.NoSuchElementException;
 

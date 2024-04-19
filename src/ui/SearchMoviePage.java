@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import account.*;
 import color.Color;
 import movie.Movie;
-import utils.*;
+import util.*;
 
 
 public class SearchMoviePage {

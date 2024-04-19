@@ -1,7 +1,7 @@
 package ui;
 
 import cinema.Cinema;
-import utils.CommonIcon;
+import util.CommonIcon;
 
 public class CinemaPage 
 {

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import movie.Movie;
-import utils.*;
+import util.*;
 import color.Color;
 
 public class ViewMovieInfoPage {
