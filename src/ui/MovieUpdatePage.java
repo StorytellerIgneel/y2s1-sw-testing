@@ -1,4 +1,5 @@
 package ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,18 +9,18 @@ import util.Util;
 
 import java.util.function.Function;
 
-public class MovieUpdatePage implements MovieCRUD{
-    MovieUpdatePage(){};
+public class MovieUpdatePage implements MovieCRUD {
+    MovieUpdatePage() {
+    };
 
     @Override
-    public void execute(ArrayList<Movie> movieList)
-    {
+    public void execute(ArrayList<Movie> movieList) {
         Scanner scanner = new Scanner(System.in);
         int movieIndex = 0;
         Result result = new Result();
         MovieInfoInput input = new MovieInfoInput();
 
-        ArrayList<Function<Result,Result>> functionList = new ArrayList<>();
+        ArrayList<Function<Result, Result>> functionList = new ArrayList<>();
         functionList.add(input::filler);
         functionList.add(input::getMovieId);
         functionList.add(input::getTitle);
@@ -47,9 +48,9 @@ public class MovieUpdatePage implements MovieCRUD{
         System.out.println("8. Price (Adult)");
         System.out.println("9. Price (Children)");
 
-        String choiceString = Util.getInput(null, null, scanner);
-        
-        if(Validation.isBack(newValue))
+        String choiceString = Util.getInput("Enter your choice: ", false);
+
+        if (Validation.isBack(newValue))
             return;
         // Update the chosen attribute
     }
