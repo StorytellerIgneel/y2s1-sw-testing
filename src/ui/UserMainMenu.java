@@ -9,6 +9,14 @@ import util.*;
 import color.Color;
 
 public class UserMainMenu {
+    /**
+     * Prints the movie lists and user status to the console.
+     * 
+     * @param trendMovies the list of trending movies
+     * @param latestMovies the list of latest movies
+     * @param index the index of the currently logged in user
+     * @param users the list of all users
+     */
     public static void printMovies(ArrayList<Movie> trendMovies, ArrayList<Movie> latestMovies, int index, ArrayList<UserAccount> users)
     {
         CommonIcon.printHeader();
