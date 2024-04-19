@@ -1,9 +1,9 @@
 package movie;
-import util.*;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
 import color.Color;
+import utils.*;
 
 public class MovieInfoInput {
     public Result filler(Result previousResult){ //memang just a filler

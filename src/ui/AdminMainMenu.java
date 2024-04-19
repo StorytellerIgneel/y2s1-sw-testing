@@ -3,9 +3,9 @@ import java.util.Scanner;
 import java.io.IOException;
 
 import color.Color;
+import utils.*;
 import account.SystemAdminAccount;
 import java.util.ArrayList;
-import util.*;
 
 public class AdminMainMenu {
     public static void printAdminInfo(int index, ArrayList<SystemAdminAccount> admins)

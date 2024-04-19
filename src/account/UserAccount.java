@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import booking.Booking;
 import ui.MovieCRUDGeneralPage;
 import ui.UserMainMenu;
+import utils.*;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,7 +21,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonDeserializationContext;
-import util.*;
+
 import color.Color;
 
 public class UserAccount extends Account{

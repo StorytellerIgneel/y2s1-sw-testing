@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import movie.Movie;
 import movie.MovieCRUD;
-import util.Util;
+import utils.Util;
 
 public class MovieListPage implements MovieCRUD {
     @Override

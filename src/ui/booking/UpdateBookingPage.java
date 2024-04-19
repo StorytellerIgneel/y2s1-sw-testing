@@ -7,7 +7,7 @@ import booking.Booking;
 import booking.BookingController;
 import cinema.Cinema;
 import color.Color;
-import util.BookingUtils;
+import utils.BookingUtils;
 
 public class UpdateBookingPage implements Page {
     private BookingController bookingController;

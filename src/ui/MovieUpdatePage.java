@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import movie.Movie;
 import movie.MovieCRUD;
-import util.Validation;
-import util.SystemMessage;
+import utils.SystemMessage;
+import utils.Validation;
 
 public class MovieUpdatePage implements MovieCRUD{
     MovieUpdatePage(){};

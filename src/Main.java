@@ -7,7 +7,7 @@ import movie.*;
 import booking.Booking;
 import ui.*;
 import ui.booking.*;
-import util.*;
+import utils.*;
 import color.Color;
 
 
