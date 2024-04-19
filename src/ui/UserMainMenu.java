@@ -26,7 +26,9 @@ public class UserMainMenu {
         CommonIcon.printLatest(latestMovies);
         CommonIcon.printChar('-', 60);
     }
-
+    /**
+     * Prints the user action menu to the console.
+     */
     public static void printUserAction()
     {
         System.out.println("Choose an action:");
@@ -35,8 +37,15 @@ public class UserMainMenu {
         System.out.println(Color.RED + "3." + Color.LIME + " View profile" + Color.RESET);
         System.out.println(Color.RED + "4." + Color.LIME + " View cinema location" + Color.RESET);
     }
-
-    public static int chooseUserAction(Scanner input)
+    /**
+     * Prompts the user to choose an action from a list of options.
+     * 
+     * @param input the scanner used for user input
+     * @return the index of the chosen option, 
+     * or -1 if the user chose to go back 
+     * or 5 if user chose to quit
+     */
+        public static int chooseUserAction(Scanner input)
     {
         boolean isValid = false;
         String choice;
