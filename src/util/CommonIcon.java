@@ -11,6 +11,7 @@ public class CommonIcon {
    */
     public static void printHeader()
     {
+        System.out.println(Color.RESET);
         printChar('-', 60);
         System.out.println("▀█▀░█░█░█▀▀░ ░█▀▀░█░█▄░█░█▀▀░█▀▄▀█░▄▀█░█▀");
         System.out.println("░█░░▀▄▀░█▄█░ ░█▄▄░█░█░▀█░██▄░█░▀░█░█▀█░▄█");
