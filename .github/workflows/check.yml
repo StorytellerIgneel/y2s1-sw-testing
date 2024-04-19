@@ -20,7 +20,7 @@ jobs:
       - name: Build Java Program
         working-directory: src
         run: |
-          java -cp ../lib/gson-2.2.2.jar src/Main.java
+          java -cp ../lib/gson-2.2.2.jar Main.java
 
       - name: Verify Build Success
         run: |
