@@ -18,8 +18,9 @@ jobs:
           java-version: '21'
       
       - name: Build Java Program
+        working-directory: ./src
         run: |
-          java -cp "src:lib/gson-2.2.2.jar" src/Main.java
+          javac -cp "../lib/gson-2.2.2.jar" Main.java
 
       - name: Verify Build Success
         run: |
