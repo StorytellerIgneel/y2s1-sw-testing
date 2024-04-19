@@ -18,12 +18,13 @@ public class Result {
         this.movieId = null;
         this.title = null;
         this.description = null;
-        this.showtimes = null;
-        this.languages = null;
+        this.showtimes = new ArrayList<>();
+        this.languages = new ArrayList<>();;
         this.releaseDate = null;
-        this.genre = null;
+        this.genre = new ArrayList<>();;
         this.priceAdult = null;
         this.priceChildren = null;
+        this.step = 1;
     }
 
     // Getter and Setter methods
