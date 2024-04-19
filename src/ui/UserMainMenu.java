@@ -8,10 +8,7 @@ import movie.Movie;
 import util.*;
 import color.Color;
 
-
-
 public class UserMainMenu {
-
     public static void printMovies(ArrayList<Movie> trendMovies, ArrayList<Movie> latestMovies, int index, ArrayList<UserAccount> users)
     {
         CommonIcon.printHeader();
@@ -29,12 +26,10 @@ public class UserMainMenu {
         System.out.println(Color.RED + "2." + Color.LIME + " View bookings" + Color.RESET);
         System.out.println(Color.RED + "3." + Color.LIME + " View profile" + Color.RESET);
         System.out.println(Color.RED + "4." + Color.LIME + " View cinema location" + Color.RESET);
-        // System.out.println(Color.red + "5." + Color.lime + " Exit" + Color.reset);
     }
 
-    public static int chooseUserAction()
+    public static int chooseUserAction(Scanner input)
     {
-        Scanner input = new Scanner(System.in);
         boolean isValid = false;
         String choice;
         int choiceInt = 0;
@@ -71,9 +66,6 @@ public class UserMainMenu {
         {
             e.printStackTrace();
         }
-
-
-
         return choiceInt;
     }
 }

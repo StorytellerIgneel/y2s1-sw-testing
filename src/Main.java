@@ -28,7 +28,7 @@ public class Main
             
             boolean resumeMainMenu = true;
             LoginPage.printChoice();
-            int choice = LoginPage.chooseChoice(); 
+            int choice = LoginPage.chooseChoice(input); 
             
             if(choice == 1) //login
             {
@@ -64,7 +64,7 @@ public class Main
                     }
                     UserMainMenu.printMovies(trend, latest, userIdx, users); // to be modified
                     UserMainMenu.printUserAction();
-                    choice = UserMainMenu.chooseUserAction(); // -1 means re-run main
+                    choice = UserMainMenu.chooseUserAction(input); // -1 means re-run main
 
                     if(choice == 5) //exit the program
                     {

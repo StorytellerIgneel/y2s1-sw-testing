@@ -5,8 +5,6 @@ import java.util.InputMismatchException;
 import color.Color;
 import util.*;
 
-import java.util.NoSuchElementException;
-
 public class LoginPage {
 
     public static void printChoice()
@@ -32,9 +30,8 @@ public class LoginPage {
         CommonIcon.printChar('-', 60);
     }
 
-    public static int chooseChoice()
+    public static int chooseChoice(Scanner input)
     {
-        Scanner input = new Scanner(System.in);
         boolean isValid = false;
         int choice = 0;
         
