@@ -25,6 +25,8 @@ import util.*;
 public class UserAccount extends Account{
   //instance variables
  private ArrayList<Booking> bookings;
+
+
  public ArrayList<Booking> getBookings()
  {
   return bookings;
