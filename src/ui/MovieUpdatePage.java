@@ -2,10 +2,10 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import movie.Movie;
-import movie.MovieCRUD;
+import movie.*;
 import util.Validation;
 import util.SystemMessage;
+import java.util.function.Function;
 
 public class MovieUpdatePage implements MovieCRUD{
     MovieUpdatePage(){};
@@ -14,14 +14,26 @@ public class MovieUpdatePage implements MovieCRUD{
     public void execute(ArrayList<Movie> movieList)
     {
         int movieIndex = 0;
+        Result result = new Result();
+        MovieInfoInput input = new MovieInfoInput();
+
+        ArrayList<Function<Result,Result>> functionList = new ArrayList<>();
+        functionList.add(input::filler);
+        functionList.add(input::getMovieId);
+        functionList.add(input::getTitle);
+        functionList.add(input::getDesc);
+        functionList.add(input::getShowtime);
+        functionList.add(input::getLanguage);
+        functionList.add(input::getReleaseDate);
+        functionList.add(input::getGenre);
+        functionList.add(input::getPriceAdult);
+        functionList.add(input::getPriceChildren);
 
         MovieCRUDGeneralPage.showAllMovie(movieList);
         movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "update");
-        Scanner input = new Scanner(System.in);
 
         System.out.println("Current Movie Information:");
         System.out.println(movieList.get(movieIndex).viewInformation());
-
         System.out.println("Which attribute would you like to update?");
         System.out.println("1. Movie ID");
         System.out.println("2. Title");
@@ -33,10 +45,7 @@ public class MovieUpdatePage implements MovieCRUD{
         System.out.println("8. Price (Adult)");
         System.out.println("9. Price (Children)");
 
-        // Read user's choice
-        int choice = input.nextInt();
-        input.nextLine();
-
+        
         System.out.print("Enter the new value (Enter :q to quit): ");
         String newValue = input.nextLine();
         if(Validation.isBack(newValue))

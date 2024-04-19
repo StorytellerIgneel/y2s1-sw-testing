@@ -75,12 +75,14 @@ public class MovieInfoInput {
             ArrayList<String> step4Repeat = new ArrayList<String>(List.of("y", "n", "Y", "N"));
             if (previousResult.getShowtimes().size() > 0){
                 String choice = Util.getLimitedInput("Would you like to manually enter a new showtime or create a new showtime based on the previous showtime? Press 1 for former and 2 for latter: ", step4Allowed);
-                if (choice == "1"){
+                System.out.println(choice);
+                if (choice.equals("1")){
                     while(true){
-                        String showtime = Util.getInput("Enter a showtime in format of (YYYY MM DD HH SS (The spaces are important!)): ", true);
+                        String showtime = Util.getInput("Enter a showtime in format of (YYYY MM DD HH MM (The spaces are important!)): ", true);
                         if(Validation.isShowtime(showtime)){
                             ArrayList<Integer> timeList = Util.getTime(showtime);
-                            previousResult.getShowtimes().add(LocalDateTime.of(timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), timeList.get(5), 0));
+                            previousResult.getShowtimes().add(LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), 0));
+                            break;
                         }
                         else if (Validation.isBack(showtime)){
                             previousResult.step -= 1;
@@ -90,11 +92,10 @@ public class MovieInfoInput {
                             SystemMessage.errorMessage(13);
                     }
                 }
-                else if (choice == "2"){
+                else if (choice.equals("2")){
                     String addTime = Util.getInput("Enter the time intended to minus or add after the previous showtime (in 'M D H M' format)", true);
                     ArrayList<Integer> timeList = Util.getTime(addTime); // M D H M
                     previousResult.getShowtimes().add(previousResult.getShowtimes().get(previousResult.getShowtimes().size() - 1).plusMonths(timeList.get(0)).plusDays(timeList.get(1)).plusHours(timeList.get(2)).plusMinutes(timeList.get(3)));
-                    return previousResult;
                 }
             }
             else{
@@ -117,7 +118,7 @@ public class MovieInfoInput {
                         SystemMessage.errorMessage(8);
                 }
             }
-            String repeat = Util.getLimitedInput("Do you want to add another showtimew? Press y for yes and n for no: ", step4Repeat);
+            String repeat = Util.getLimitedInput("Do you want to add another showtime? Press y for yes and n for no: ", step4Repeat);
             if (repeat.equals("n")){
                 previousResult.step += 1;
                 return previousResult;
@@ -230,12 +231,12 @@ public class MovieInfoInput {
                     priceChildrenDouble = Double.parseDouble(priceChildren);
                     if (priceChildrenDouble > previousResult.getPriceAdult()){
                         confirm = Util.getLimitedInput(Color.RED + "The children price you have entered is more expensive than the adult price! Are you sure this is correct? Press y for yes and n for no: ", confirmList);
-                        if (confirm == "y"){
+                        if (confirm.equals("y")){
                             previousResult.step += 1;
                             previousResult.setPriceChildren(priceChildrenDouble);
                             return previousResult;
                         }
-                        else if (confirm == "n"){
+                        else if (confirm.equals("n")){
                             choice = Util.getLimitedInput("Would you like to change the children price or the adult price? Press 1 for children and 2 for adult", choiceList);
                             if (choice == "2"){
                                 previousResult.step -= 1;
