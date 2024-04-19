@@ -26,16 +26,24 @@ public class UserAccount extends Account{
   //instance variables
  private ArrayList<Booking> bookings;
 
+ 
+ /**
+ * Returns the list of bookings associated with the user account.
+ * 
+ * @return the list of bookings associated with the user account
+ */
+public ArrayList<Booking> getBookings() {
+    return bookings;
+}
 
- public ArrayList<Booking> getBookings()
- {
-  return bookings;
- }
-
- public void setBookings(ArrayList<Booking> bookings)
- {
-  this.bookings = bookings;
- }
+ /**
+ * Sets the list of bookings associated with the user account.
+ * 
+ * @param bookings the list of bookings to set
+ */
+public void setBookings(ArrayList<Booking> bookings) {
+    this.bookings = bookings;
+}
  
  //overloaded constructor
  public UserAccount(String accountId, String name, String password, String registerDate, String email, String phoneNo) {
@@ -49,6 +57,9 @@ public class UserAccount extends Account{
 }
 
  //static methods
+ /**
+  * Create a new UserAccount
+  */
  public static UserAccount register()
  {
     CommonIcon.printHeader();
@@ -188,6 +199,11 @@ public class UserAccount extends Account{
     return user;
  }
 
+ /**
+   * Returns a list of all user accounts stored in the system.
+   *
+   * @return a list of all user accounts stored in the system
+   */
  public static ArrayList<UserAccount> getUsers()
  {
     Scanner input = new Scanner(System.in);
@@ -223,6 +239,11 @@ public class UserAccount extends Account{
    return userList;
  }
 
+ /**
+ * Saves the list of user accounts to a file in JSON format.
+ *
+ * @param users the list of user accounts to save
+ */
  public static void saveUsers(ArrayList<UserAccount> users)
  {
     Scanner scanner = new Scanner(System.in);
