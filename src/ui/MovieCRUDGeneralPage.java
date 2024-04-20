@@ -1,4 +1,5 @@
 package ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.google.gson.Gson;
@@ -59,56 +60,55 @@ public class MovieCRUDGeneralPage {
                 SystemMessage.errorMessage(6, scanner);
             }
             movieList = getMovieList();
-                        
+
             CommonIcon.printHeader();
             System.out.println("Choose an action:");
             System.out.println(Color.RED + "1." + Color.LIME + " Add a Movie" + Color.RESET);
             System.out.println(Color.RED + "2." + Color.LIME + " List all Movies" + Color.RESET);
             System.out.println(Color.RED + "3." + Color.LIME + " Update a Movie" + Color.RESET);
             System.out.println(Color.RED + "4." + Color.LIME + " Delete a Movie" + Color.RESET);
-            mainPageChoice = Util.getInput("Enter your choice (':b' to back, ':q to quit'): ", false, scanner);
+            mainPageChoice = Util.getInput("Enter your choice (':b' to back, ':q to quit'): ",
+                    false, scanner);
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
-                if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
+                if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5) {
                     try {
                         Util.clearConsole(scanner);
                     } catch (Exception e) {
                         SystemMessage.errorMessage(6, scanner);
                     }
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
-                }
-                else if (mainPageChoiceInt == 5){
+                } else if (mainPageChoiceInt == 5) {
                     exportMovieData(movieList, scanner);
                     return;
-                }
-                else
+                } else
                     SystemMessage.errorMessage(2, scanner);
-            } 
-            else {
+            } else {
                 if (Validation.isBack(mainPageChoice))
                     return;
-                else if (Validation.isQuit(mainPageChoice))
-                {
+                else if (Validation.isQuit(mainPageChoice)) {
                     exportMovieData(movieList, scanner);
                     return;
-                }
-                else
+                } else
                     SystemMessage.errorMessage(1, scanner);
             }
             exportMovieData(movieList, scanner);
         }
     }
-    
+
     public static ArrayList<Movie> getMovieList() {
-        // Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create(); TODO throws error, below fixes, remove this line if fixed
+        // Gson gson = new GsonBuilder().registerTypeAdapterFactory(new
+        // LocalDateTimeTypeAdapterFactory()).create(); TODO throws error, below fixes, remove this
+        // line if fixed
         Gson gson = new GsonBuilder()
-        .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
-            @Override
-            public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            }
-        })
-        .create();
+                .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+                    @Override
+                    public LocalDateTime deserialize(JsonElement json, Type typeOfT,
+                            JsonDeserializationContext context) throws JsonParseException {
+                        return LocalDateTime.parse(json.getAsString(),
+                                DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    }
+                }).create();
         Type movieListType = new TypeToken<ArrayList<Movie>>() {}.getType();
         ArrayList<Movie> movieList = new ArrayList<Movie>();
         String line = null;
@@ -125,11 +125,12 @@ public class MovieCRUDGeneralPage {
 
         movieList = gson.fromJson(line, movieListType);
 
-        return ((Validation.isNull(line))? (new ArrayList<Movie>()): movieList);
+        return ((Validation.isNull(line)) ? (new ArrayList<Movie>()) : movieList);
     }
 
     public static void exportMovieData(ArrayList<Movie> movieList, Scanner scanner) {
-        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create();
         String toWrite = gson.toJson(movieList);
         try {
             PrintWriter outputFile = new PrintWriter("./src/resources/movieData.json");
@@ -155,7 +156,8 @@ public class MovieCRUDGeneralPage {
         String index = null;
 
         while (true) {
-            index = Util.getInput("Enter the index of the movie you wish to " + action + ": ", false, scanner);
+            index = Util.getInput("Enter the index of the movie you wish to " + action + ": ",
+                    false, scanner);
             if (Validation.isNumber(index)) {
                 int indexInt = Integer.parseInt(index);
                 if (indexInt > 0 && indexInt <= movieList.size())

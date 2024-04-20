@@ -1,4 +1,5 @@
 package movie;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -14,7 +15,7 @@ public class Result {
     private Double priceChildren;
     public int step = 1;
 
-    public Result(){
+    public Result() {
         this.movieId = null;
         this.title = null;
         this.description = null;
@@ -107,4 +108,4 @@ public class Result {
     public void setStep(int step) {
         this.step = step;
     }
-}   
+}

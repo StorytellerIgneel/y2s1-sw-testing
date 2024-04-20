@@ -71,12 +71,14 @@ public class BookingPage implements Page {
                 scanner.nextLine(); // Consume the newline character
                 if (choice < 0 || choice > 4) {
                     System.out.println(
-                            Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
+                            Color.RED + "Invalid choice. Please enter a number between 1 and 4."
+                                    + Color.RESET);
                     continue;
                 }
                 validInput = true;
             } else {
-                System.out.println(Color.RED + "Invalid input. Please enter a number." + Color.RESET);
+                System.out
+                        .println(Color.RED + "Invalid input. Please enter a number." + Color.RESET);
                 scanner.next(); // Discard the invalid input
                 continue;
             }
@@ -84,33 +86,38 @@ public class BookingPage implements Page {
             // Switch statements
             try {
                 switch (choice) {
-                case 0: // Back to main menu
-                    System.out.println(Color.RESET + "Returning to main menu...");
-                    return;
-                case 1: // Create bookings
-                    CreateBookingPage createBookingPage = new CreateBookingPage(bookingController, scanner);
-                    createBookingPage.display();
-                    break;
-                case 2: // Update bookings
-                    UpdateBookingPage updateBookingPage = new UpdateBookingPage(bookingController, scanner);
-                    updateBookingPage.display();
-                    break;
-                case 3: // Delete bookings
-                    DeleteBookingPage deleteBookingPage = new DeleteBookingPage(bookingController, scanner);
-                    deleteBookingPage.display();
-                    break;
-                case 4: // Search bookings
-                    String query = getSearchInput();
-                    bookingController.searchBookings(query);
-                    util.Util.waitForEnter(scanner);
-                    return;
-                default:
-                    System.out.println(
-                            Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
-                    break;
+                    case 0: // Back to main menu
+                        System.out.println(Color.RESET + "Returning to main menu...");
+                        return;
+                    case 1: // Create bookings
+                        CreateBookingPage createBookingPage =
+                                new CreateBookingPage(bookingController, scanner);
+                        createBookingPage.display();
+                        break;
+                    case 2: // Update bookings
+                        UpdateBookingPage updateBookingPage =
+                                new UpdateBookingPage(bookingController, scanner);
+                        updateBookingPage.display();
+                        break;
+                    case 3: // Delete bookings
+                        DeleteBookingPage deleteBookingPage =
+                                new DeleteBookingPage(bookingController, scanner);
+                        deleteBookingPage.display();
+                        break;
+                    case 4: // Search bookings
+                        String query = getSearchInput();
+                        bookingController.searchBookings(query);
+                        util.Util.waitForEnter(scanner);
+                        return;
+                    default:
+                        System.out.println(
+                                Color.RED + "Invalid choice. Please enter a number between 1 and 4."
+                                        + Color.RESET);
+                        break;
                 }
             } catch (Exception e) {
-                System.out.println(Color.RED + "An unexpected error occured:" + e.getMessage() + Color.RESET);
+                System.out.println(
+                        Color.RED + "An unexpected error occured:" + e.getMessage() + Color.RESET);
                 getChoice();
             } finally {
                 validInput = false;

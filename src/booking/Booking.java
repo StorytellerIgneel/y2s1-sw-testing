@@ -9,12 +9,11 @@ import cinema.Cinema;
 import movie.Movie;
 
 
-/** 
+/**
  * This class represents a booking made by a user.
  * 
  */
-public class Booking
-{
+public class Booking {
     public final String bookingId;
     private Movie movie;
     private Cinema cinema;
@@ -27,25 +26,19 @@ public class Booking
     /* Constructor */
     /**
      * This constructor creates a new booking.
+     * 
      * @param movie
      * @param cinema
      * @param showtime
      * @param quantityAdult
      * @param quantityChildren
      */
-    public Booking(
-        Movie movie,
-        Cinema cinema,
-        LocalDateTime showtime,
-        int quantityAdult, 
-        int quantityChildren
-        )
-    {   
+    public Booking(Movie movie, Cinema cinema, LocalDateTime showtime, int quantityAdult,
+            int quantityChildren) {
         this.bookingId = UUID.randomUUID().toString();
         this.movie = movie;
         this.cinema = cinema;
-        if (!movie.getShowtimes().contains(showtime))
-        {
+        if (!movie.getShowtimes().contains(showtime)) {
             throw new IllegalArgumentException("Selected showtime not available for this movie.");
         }
         this.showtime = showtime;
@@ -57,92 +50,76 @@ public class Booking
     }
 
     /* Accessors */
-    public String getBookingId()
-    {
+    public String getBookingId() {
         return bookingId;
     }
 
-    public String getMovieName()
-    {
+    public String getMovieName() {
         return movie.getTitle();
     }
 
-    public Movie getMovie()
-    {
+    public Movie getMovie() {
         return movie;
     }
-    
-    public int getQuantityAdult()
-    {
+
+    public int getQuantityAdult() {
         return quantityAdult;
     }
 
-    public int getQuantityChildren()
-    {
+    public int getQuantityChildren() {
         return quantityChildren;
     }
 
-    public String getCinemaName()
-    {
+    public String getCinemaName() {
         return cinema.getCinemaName();
     }
 
-    public String getCinemaAddress()
-    {
+    public String getCinemaAddress() {
         return cinema.getCinemaAddress();
     }
 
-    public LocalDateTime getShowtime()
-    {
+    public LocalDateTime getShowtime() {
         return showtime;
     }
 
-    public String getDate()
-    {
+    public String getDate() {
         return date;
     }
 
-    public String getTime()
-    {
+    public String getTime() {
         return time;
     }
 
     /* Mutators */
-    public void setQuantityAdult(int quantityAdult)
-    {
+    public void setQuantityAdult(int quantityAdult) {
         this.quantityAdult = quantityAdult;
     }
 
-    public void setQuantityChildren(int quantityChildren)
-    {
+    public void setQuantityChildren(int quantityChildren) {
         this.quantityChildren = quantityChildren;
     }
 
-    public void setShowtime(LocalDateTime showtime)
-    {
-        if (!movie.getShowtimes().contains(showtime))
-        {
+    public void setShowtime(LocalDateTime showtime) {
+        if (!movie.getShowtimes().contains(showtime)) {
             throw new IllegalArgumentException("Selected showtime not available for this movie.");
         }
         this.showtime = showtime;
     }
 
-    public void setCinema(Cinema cinema)
-    {
+    public void setCinema(Cinema cinema) {
         this.cinema = cinema;
     }
 
-    public void setMovie(Movie movie)
-    {
+    public void setMovie(Movie movie) {
         this.movie = movie;
     }
 
-    /** 
+    /**
      * This method returns the total price of the booking.
+     * 
      * @return double
      */
-    public double calculateTotalPrice()
-    {
+    public double calculateTotalPrice() {
         return quantityAdult * movie.getPriceAdult() + quantityChildren * movie.getPriceChildren();
     }
 }
