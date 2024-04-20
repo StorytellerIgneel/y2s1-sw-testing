@@ -23,4 +23,4 @@ jobs:
 
       - name: Verify Build Success
         run: |
-          ls target  # Check if target directory exists (indicates successful build)
+          ls ./src/Main.class  # Check if target directory exists (indicates successful build)
