@@ -92,6 +92,7 @@ public class UserProfilePage {
                 else 
                 {
                     users.get(userIdx).setName(username);
+                    UserAccount.saveUsers(users);
                     resume = false;
                 }
             }
@@ -105,6 +106,7 @@ public class UserProfilePage {
                 else 
                 {
                     users.get(userIdx).setEmail(email);
+                    UserAccount.saveUsers(users);
                     resume = false;
                 }
             }
@@ -118,6 +120,7 @@ public class UserProfilePage {
                 else
                 {
                     users.get(userIdx).setPhoneNo(phoneNo);
+                    UserAccount.saveUsers(users);
                     resume = false;
                 }
             }
