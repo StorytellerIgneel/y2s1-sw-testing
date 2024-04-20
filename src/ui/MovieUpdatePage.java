@@ -10,8 +10,7 @@ import util.Util;
 import java.util.function.Function;
 
 public class MovieUpdatePage implements MovieCRUD {
-    MovieUpdatePage() {
-    };
+    MovieUpdatePage() {};
 
     @Override
     public void execute(ArrayList<Movie> movieList, Scanner scanner) {
@@ -47,27 +46,24 @@ public class MovieUpdatePage implements MovieCRUD {
         System.out.println("8. Price (Adult)");
         System.out.println("9. Price (Children)");
 
-        while(true){
+        while (true) {
             String choiceString = Util.getInput("Enter your choice: ", false, scanner);
             if(Validation.isNumber(choiceString)){
                 int choiceInt = Integer.parseInt(choiceString);
-                if (0 < choiceInt && choiceInt < functionList.size()){
+                if (0 < choiceInt && choiceInt < functionList.size()) {
                     Function<Result, Result> function = functionList.get(choiceInt);
                     result = function.apply(result);
-                    movieList.set(movieIndex, NullFinder.findNull(result, movieList.get(movieIndex)));
+                    movieList.set(movieIndex,
+                            NullFinder.findNull(result, movieList.get(movieIndex)));
                     SystemMessage.successMessage(6, scanner);
                     return;
-                }
-                else 
+                } else
                     SystemMessage.errorMessage(2, scanner);
-            }
-            else if (Validation.isBack(choiceString)){
+            } else if (Validation.isBack(choiceString)) {
                 return;
-            }
-            else if (Validation.isQuit(choiceString)){
+            } else if (Validation.isQuit(choiceString)) {
                 System.exit(0);
-            }
-            else
+            } else
                 SystemMessage.errorMessage(11, scanner);
         }
     }

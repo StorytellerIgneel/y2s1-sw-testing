@@ -5,6 +5,8 @@ import account.*;
 import movie.*;
 import ui.*;
 import ui.booking.*;
+import ui.systemAdmin.mainMenu;
+import ui.systemAdmin.manageUserPage;
 import util.*;
 import color.Color;
 
@@ -142,22 +144,27 @@ public class Main {
                     adminAccounts.add(admins.get(i));
                 }
                 userIdx = SystemAdminAccount.login(adminAccounts);
-
-                if (userIdx == -1) // back
+                SystemAdminAccount admin;
+                
+                if(userIdx == -1) //back
                     continue;
                 else if (userIdx == -2) // quit
                     break;
-
-                while (resumeMainMenu) {
-                    // admin page
-                    try {
+                else {
+                    admin = (SystemAdminAccount)adminAccounts.get(userIdx);
+                }
+                while(resumeMainMenu)
+                {
+                    // admin page   
+                    try
+                    {
                         Util.clearConsole(input);
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
-                    AdminMainMenu.printAdminInfo(userIdx, admins);
-                    AdminMainMenu.printAdminAction();
-                    choice = AdminMainMenu.chooseAdminAction();
+                    CommonIcon.printAdminHeader(admin);
+                    mainMenu.printAdminAction();
+                    choice = mainMenu.chooseAdminAction();
 
                     if (choice == 5) {
                         resumeMainMenu = false;
@@ -181,14 +188,35 @@ public class Main {
                         } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
-                        AdminManageUserPage adminManageUserPage = new AdminManageUserPage();
-                        adminManageUserPage.manageUserPage(userIdx, admins, users, input);
-                    } else if (choice == 3) {
-                        // Manage Bookings
-                        System.out.println("Manage Bookings");
-                    } else if (choice == 4) {
+                        manageUserPage manageUserPage = new manageUserPage();
+                        manageUserPage.adminManageUserPage(admin, users, input);
+                    }
+                    else if (choice == 3)
+                    {
+                        //Manage Bookings
+                        try
+                        {
+                            Util.clearConsole(input);
+                        }
+                        catch(IOException | InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        userIdx = SystemAdminAccount.accessUser(users, input);
+                        if(userIdx == -1) //back
+                            continue;
+                        else if(userIdx == -2) //quit
+                            CommonIcon.adminQuit(input);
+                        else
+                        {
+                            BookingPage bookingPage = new BookingPage(users, userIdx, input);
+                            bookingPage.display();
+                        }
+                    }
+                    else if (choice == 4)
+                    {
                         // Generate Report
-                        System.out.println("Generate Report");
+                        
                     }
                 }
             } else if (choice == 4) // exit

@@ -17,35 +17,30 @@ public class SearchMoviePage {
     private Scanner input;
     private String searchName;
     private boolean found;
-    
-    
-    public SearchMoviePage(ArrayList<UserAccount> users, int userIdx, Scanner input)
-    {
+
+
+    public SearchMoviePage(ArrayList<UserAccount> users, int userIdx, Scanner input) {
         this.users = users;
         this.userIdx = userIdx;
         this.input = input;
     }
+
     /**
-     * This method is used to search for movies in the movieList. It takes the user input and searches for the movies based on the input.
-     * If the movie is found, it will display the movie information. If the movie is not found, it will display an error message.
+     * This method is used to search for movies in the movieList. It takes the user input and
+     * searches for the movies based on the input. If the movie is found, it will display the movie
+     * information. If the movie is not found, it will display an error message.
      *
      */
-    public void searchMovie()
-    {
-        do
-        {
+    public void searchMovie() {
+        do {
             System.out.print("Search for Movies (':q' to quit ':b to back'):");
             searchName = input.nextLine();
-            if(Validation.isBack(searchName))
+            if (Validation.isBack(searchName))
                 return;
-            if(Validation.isQuit(searchName))
-            {
-                try
-                {
+            if (Validation.isQuit(searchName)) {
+                try {
                     Util.clearConsole(input);
-                }
-                catch(IOException | InterruptedException e)
-                {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
                 CommonIcon.printHeader();
@@ -58,25 +53,22 @@ public class SearchMoviePage {
             }
 
 
-            for(int i = 0; i < movies.size(); i++)
-            {
-                if(movies.get(i).getTitle().toLowerCase().contains(searchName.toLowerCase()))
+            for (int i = 0; i < movies.size(); i++) {
+                if (movies.get(i).getTitle().toLowerCase().contains(searchName.toLowerCase()))
                     result.add(movies.get(i));
             }
-            if(result.size() != 0)
-            {
+            if (result.size() != 0) {
                 found = true;
-                ViewMovieInfoPage movieInfoPage = new ViewMovieInfoPage(result,userIdx,users,input);
+                ViewMovieInfoPage movieInfoPage =
+                        new ViewMovieInfoPage(result, userIdx, users, input);
                 movieInfoPage.printSearchedMovies();
                 movieInfoPage.viewMovieInfo();
-            }
-            else
-            {
+            } else {
                 found = false;
                 SystemMessage.errorMessage(6, input);
             }
-        }while(!found);
+        } while (!found);
     }
 
- 
+
 }

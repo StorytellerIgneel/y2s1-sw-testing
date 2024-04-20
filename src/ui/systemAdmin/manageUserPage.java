@@ -1,4 +1,4 @@
-package ui;
+package ui.systemAdmin;
 
 import color.*;
 import util.*;
@@ -9,14 +9,12 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AdminManageUserPage {
+public class manageUserPage {
     // constructor
-    public AdminManageUserPage() {};
+    public manageUserPage() {};
 
-    public static void printAdminAction(int index, ArrayList<SystemAdminAccount> admins)
+    public static void printAdminAction()
     {
-        CommonIcon.printHeader();
-        CommonIcon.printAdminStatus(index, admins);
         System.out.println("Choose an action:");
         System.out.println(Color.RED + "1." + Color.LIME + " View List of Users" + Color.RESET);
         System.out.println(Color.RED + "2." + Color.LIME + " Update User Account Info" + Color.RESET);
@@ -64,7 +62,7 @@ public class AdminManageUserPage {
         return choiceInt;
     }
 
-    public void manageUserPage(int userIdx, ArrayList<SystemAdminAccount> admins, ArrayList<UserAccount> users, Scanner scanner)
+    public void adminManageUserPage(SystemAdminAccount admin, ArrayList<UserAccount> users, Scanner scanner)
     {
         boolean resumeProgram = true;
         while(resumeProgram){
@@ -76,17 +74,18 @@ public class AdminManageUserPage {
             {
                 e.printStackTrace();
             }
-            printAdminAction(userIdx, admins);
-            int choice = AdminManageUserPage.chooseAdminAction(scanner);
+            CommonIcon.printAdminHeader(admin);
+            printAdminAction();
+            int choice = manageUserPage.chooseAdminAction(scanner);
             if (choice == 1)
             {
                 // View list of users
-                viewListOfUsers(scanner);
+                SystemAdminAccount.viewListOfUsers(users, scanner);
             }
             if (choice == 2)
             {
                 // Update user account
-                updateUserAccount(userIdx, users, scanner);
+                SystemAdminAccount.updateUserAccount(users, scanner);
             }
             if (choice == 5)
             {
@@ -97,44 +96,5 @@ public class AdminManageUserPage {
                 return;
             }
         }
-    }
-
-    public void updateUserAccount(int userIdx, ArrayList<UserAccount> users, Scanner scanner)
-    {
-        ArrayList<UserAccount> userAccounts = new ArrayList<UserAccount>();
-        for(int i = 0; i < users.size(); i++) 
-        {
-            userAccounts.add(users.get(i));
-        }
-        userIdx = SystemAdminAccount.accessUser(userAccounts, scanner);
-        
-        if(userIdx == -1) //back
-        {
-            return;
-        }
-        else if(userIdx == -2) //quit
-        {
-            CommonIcon.adminQuit(scanner);
-        }
-
-        UserProfilePage userProfilePage = new UserProfilePage(users, userIdx, scanner);
-        userProfilePage.printUserInfo();
-        UserAccount.saveUsers(users);
-    }
-
-    public void viewListOfUsers(Scanner scanner)
-    {
-        CommonIcon.printHeader();
-        System.out.println("List of Users");
-        System.out.printf("%10s\t%-30s\n", "Account ID", "Username");
-        ArrayList<UserAccount> userAccounts = UserAccount.getUsers();
-        for (int i = 0; i < userAccounts.size(); i++)
-        {
-            System.out.printf("%10s\t%-30s\n",  userAccounts.get(i).getAccountId(), userAccounts.get(i).getName());
-        }
-        CommonIcon.printChar('-', 60);
-        scanner.nextLine(); // clear scanner
-        Util.waitForEnter(scanner);
-    }
-    
+    }    
 }

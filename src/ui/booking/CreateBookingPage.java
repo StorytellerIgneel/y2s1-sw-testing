@@ -10,7 +10,7 @@ import util.BookingUtils;
 import booking.BookingController;
 import java.util.Scanner;
 
-public class CreateBookingPage implements Page{
+public class CreateBookingPage implements Page {
     private BookingController bookingController;
     private Scanner scanner;
 
@@ -21,31 +21,32 @@ public class CreateBookingPage implements Page{
 
     /**
      * Displays the create booking page
+     * 
      * @throws IllegalArgumentException
      */
-    public void display() throws IllegalArgumentException
-    {   
-        if (ui.MovieCRUDGeneralPage.getMovieList() == null || ui.MovieCRUDGeneralPage.getMovieList().isEmpty()) {
+    public void display() throws IllegalArgumentException {
+        if (ui.MovieCRUDGeneralPage.getMovieList() == null
+                || ui.MovieCRUDGeneralPage.getMovieList().isEmpty()) {
             System.out.println("No movies available for booking.");
             throw new IllegalArgumentException("No movies available for booking.");
         }
         ArrayList<Movie> movieList = ui.MovieCRUDGeneralPage.getMovieList();
-        
-        
+
+
         // Search for movie
         int resultCount = 0;
         ArrayList<Movie> movieSearchResults = new ArrayList<Movie>();
-        while(resultCount == 0)
-        {
+        while (resultCount == 0) {
             // Get user query input
             System.out.println(Color.RESET + "Create a Booking");
             System.out.print(Color.RESET + "Search for movie title:");
             String query = scanner.nextLine();
             System.out.println(Color.RESET + "Search results:");
-            
+
             // Search for movie in movieList
-                     
-            query = query.replaceAll("\\s", "").toLowerCase(); // Remove whitespace and convert to lowercase
+
+            query = query.replaceAll("\\s", "").toLowerCase(); // Remove whitespace and convert to
+                                                               // lowercase
             for (Movie movie : movieList) {
                 if (movie.getTitle().replaceAll("\\s", "").toLowerCase().contains(query)) {
                     movieSearchResults.add(movie);
@@ -54,7 +55,7 @@ public class CreateBookingPage implements Page{
             }
 
             // Skip to next iteration if no results found
-            if (resultCount == 0){
+            if (resultCount == 0) {
                 System.out.println("No movies found. Please try again.");
                 continue;
             }
@@ -69,8 +70,9 @@ public class CreateBookingPage implements Page{
         while (!validInput) {
             // Print search results
             System.out.println(Color.RED + "Search Results:");
-            for (int i = 0; i < movieSearchResults.size(); i++){
-                System.out.println(Color.RED + (i+1) + ") \t" + Color.LIME + movieSearchResults.get(i).getTitle() + Color.RESET);
+            for (int i = 0; i < movieSearchResults.size(); i++) {
+                System.out.println(Color.RED + (i + 1) + ") \t" + Color.LIME
+                        + movieSearchResults.get(i).getTitle() + Color.RESET);
             }
 
             // Get user choice for movie
@@ -78,7 +80,8 @@ public class CreateBookingPage implements Page{
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 if (choice <= 0 || choice > movieSearchResults.size()) { // 1-based index
-                    System.out.println("Movie out of bounds. Please enter a number between 1 and " + movieSearchResults.size() + ".");
+                    System.out.println("Movie out of bounds. Please enter a number between 1 and "
+                            + movieSearchResults.size() + ".");
                     continue;
                 }
                 validInput = true;
@@ -94,7 +97,7 @@ public class CreateBookingPage implements Page{
         System.out.println(); // Add a newline for layout
 
         // Get cinema location from user
-        Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);   
+        Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);
 
         // Get showtime from user
         LocalDateTime selectedShowtime = BookingUtils.getShowtimeInput(scanner, selectedMovie);
@@ -112,7 +115,7 @@ public class CreateBookingPage implements Page{
         validInput = false;
         while (!validInput) {
             System.out.println(Color.RED + "Confirm booking?");
-            System.out.println(Color.RED + "1) " + Color.LIME + "Yes"); 
+            System.out.println(Color.RED + "1) " + Color.LIME + "Yes");
             System.out.println(Color.RED + "2) " + Color.LIME + "No");
             System.out.print(Color.RESET + "Enter your choice: ");
             if (scanner.hasNextInt()) {
@@ -129,7 +132,8 @@ public class CreateBookingPage implements Page{
         }
         if (choice == 1) {
             // Create booking
-            bookingController.createBooking(selectedMovie, selectedCinema, selectedShowtime, quantityAdult, quantityChildren);
+            bookingController.createBooking(selectedMovie, selectedCinema, selectedShowtime,
+                    quantityAdult, quantityChildren);
             System.out.println("Booking created successfully.");
             System.out.println(); // Add a newline for layout
         } else {

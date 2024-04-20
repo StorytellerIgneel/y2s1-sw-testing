@@ -7,7 +7,8 @@ import javax.sound.sampled.Line;
 import color.Color;
 
 public class Util {
-    Util(){};
+    Util() {};
+
     public static void clearConsole(Scanner scanner) throws IOException, InterruptedException {
         String os = System.getProperty("os.name").toLowerCase();
         try {
@@ -18,7 +19,7 @@ public class Util {
         } catch (Exception e) {
             SystemMessage.errorMessage(9, scanner);
         }
-        
+
     }
 
     public static void waitForEnter(Scanner scanner) {
@@ -29,7 +30,7 @@ public class Util {
 
     public static String getInput(String prompt, Boolean allowSpaces, Scanner scanner) {
         String input = null;
-        while(true){
+        while (true) {
             System.out.print(prompt + Color.YELLOW);
             if (allowSpaces.equals(false))
                 input = scanner.next();
@@ -44,9 +45,10 @@ public class Util {
         return input.trim();
     }
 
-    public static String getLimitedInput(String prompt, ArrayList<String> allowedInputs, Scanner scanner){
+    public static String getLimitedInput(String prompt, ArrayList<String> allowedInputs,
+            Scanner scanner) {
         String input = null;
-        while(true){
+        while (true) {
             System.out.print(prompt + Color.YELLOW);
             input = scanner.next();
             if (allowedInputs.contains(input))
