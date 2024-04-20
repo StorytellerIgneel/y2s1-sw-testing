@@ -1,20 +1,11 @@
-package ui;
+package ui.systemAdmin;
 import java.util.Scanner;
 import java.io.IOException;
 
 import color.Color;
 import util.*;
-import account.SystemAdminAccount;
 
-import java.util.ArrayList;
-
-public class AdminMainMenu {
-    public static void printAdminInfo(int index, ArrayList<SystemAdminAccount> admins)
-    {
-        CommonIcon.printHeader();
-        CommonIcon.printAdminStatus(index, admins);
-    }
-
+public class mainMenu {
     public static void printAdminAction()
     {
         System.out.println("Choose an action:");

@@ -76,14 +76,19 @@ public class CommonIcon {
     /**
      * Prints the admin's status, including their username.
      * 
-     * @param index the index of the admin in the list of admins
-     * @param admins the list of admin accounts
+     * @param admin the object of SystemAdminAccount
      */
-    public static void printAdminStatus(int index, ArrayList<SystemAdminAccount> admins)
+    public static void printAdminStatus(SystemAdminAccount admin)
     {
-        System.out.print("Username : " + admins.get(index).getName());
+        System.out.print("Username : " + admin.getName());
         System.out.println();
         printChar('-', 60);
+    }
+
+    public static void printAdminHeader(SystemAdminAccount admin)
+    {
+        CommonIcon.printHeader();
+        CommonIcon.printAdminStatus(admin);
     }
 
     public static void adminQuit(Scanner scanner)
