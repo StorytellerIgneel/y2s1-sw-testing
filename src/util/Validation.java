@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Validation {
+    /**
+ * Checks if a given string is a number.
+ * 
+ * @param value the string to be checked
+ * @return true if the string is a number, false otherwise
+ */
     public static boolean isNumber(String value) {
         try{
             Integer valueInt = Integer.parseInt(value);

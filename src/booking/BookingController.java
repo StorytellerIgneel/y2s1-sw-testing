@@ -162,4 +162,28 @@ public class BookingController {
     {
         return bookings;
     }
+
+    /**
+     * Search for bookings by movie name
+     * @param query
+     */
+    public void searchBookings(String query)
+    {
+        System.out.println(Color.RED + "Search results for: " + Color.LIME + query + Color.RESET);
+        bookings = users.get(userIdx).getBookings();
+        int count = 0;
+        for (int i = 0; i < bookings.size(); i++)
+        {
+            if (bookings.get(i).getMovieName().toLowerCase().contains(query.toLowerCase()))
+            {
+                printBookingDetails(i, bookings.get(i));
+                System.out.println();
+                count++;
+            }
+        }
+        if (count == 0)
+        {
+            System.out.println(Color.RED + "No bookings found." + Color.RESET);
+        }
+    }
 }

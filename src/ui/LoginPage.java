@@ -6,7 +6,13 @@ import color.Color;
 import util.*;
 
 public class LoginPage {
-
+    /**
+     * Clears the console by writing a blank line to it.
+     * 
+     * @param scanner the scanner used to read user input
+     * @throws IOException if an I/O error occurs
+     * @throws InterruptedException if the thread is interrupted while waiting for user input
+     */
     public static void printChoice(Scanner scanner)
     {
         try
@@ -22,14 +28,20 @@ public class LoginPage {
             e.printStackTrace();
         }
         CommonIcon.printHeader();
+        // print the menu options
         System.out.println(Color.RED + "1. " + Color.LIME + "Login" + Color.RESET);
         System.out.println(Color.RED + "2. " + Color.LIME + "Register" + Color.RESET);
         System.out.println(Color.RED + "3. " + Color.LIME + "Login as Administrator" + Color.RESET);
         System.out.println(Color.RED + "4. " + Color.LIME + "Exit" + Color.RESET);
-
+        // print a separator line
         CommonIcon.printChar('-', 60);
     }
-
+    /**
+     * Prompts the user to enter their choice and returns it.
+     * 
+     * @param input the scanner used to read user input
+     * @return the user's choice
+     */
     public static int chooseChoice(Scanner input)
     {
         boolean isValid = false;

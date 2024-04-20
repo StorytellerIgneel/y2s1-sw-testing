@@ -25,6 +25,11 @@ public class SearchMoviePage {
         this.userIdx = userIdx;
         this.input = input;
     }
+    /**
+     * This method is used to search for movies in the movieList. It takes the user input and searches for the movies based on the input.
+     * If the movie is found, it will display the movie information. If the movie is not found, it will display an error message.
+     *
+     */
     public void searchMovie()
     {
         do

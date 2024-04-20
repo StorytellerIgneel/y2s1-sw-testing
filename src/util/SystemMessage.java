@@ -4,7 +4,21 @@ import java.util.Scanner;
 
 import color.Color;
 
+/**
+ * This class provides static methods for displaying error and success messages to the user.
+ * The messages are displayed in red for error and are based on a given error index.
+ * The messages are displayed in lime for success and are based on a given success index.
+ */
 public class SystemMessage {
+    /**
+     * This method displays an error message based on the given error index.
+     * The error messages are defined in the class and are based on a given index.
+     * The method displays the message in red and then waits for the user to press
+     * enter before returning.
+     *
+     * @param errorIndex the index of the error message to display
+     * @param input the scanner used for waiting for the user to press enter
+     */
     public static void errorMessage(int errorIndex, Scanner input){
         System.out.println();
         System.out.print(Color.RED);
@@ -71,7 +85,15 @@ public class SystemMessage {
         System.out.print(Color.RESET);
         return;
     }
-
+/**
+ * This method displays a success message based on the given success index.
+ * The success messages are defined in the class and are based on a given index.
+ * The method displays the message in lime and then waits for the user to press
+ * enter before returning.
+ *
+ * @param successIndex the index of the success message to display
+ * @param input the scanner used for waiting for the user to press enter
+ */
     public static void successMessage(int successIndex, Scanner input) {
         System.out.println();
         System.out.print(Color.LIME);
