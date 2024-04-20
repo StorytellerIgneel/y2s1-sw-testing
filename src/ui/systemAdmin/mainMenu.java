@@ -6,7 +6,7 @@ import java.io.IOException;
 import color.Color;
 import util.*;
 
-public class mainMenu {
+public class MainMenu {
     public static void printAdminAction() {
         System.out.println("Choose an action:");
         System.out.println(Color.RED + "1." + Color.LIME + " Manage movies" + Color.RESET);

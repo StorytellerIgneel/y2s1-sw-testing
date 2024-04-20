@@ -5,8 +5,8 @@ import account.*;
 import movie.*;
 import ui.*;
 import ui.booking.*;
-import ui.systemAdmin.mainMenu;
-import ui.systemAdmin.manageUserPage;
+import ui.systemAdmin.MainMenu;
+import ui.systemAdmin.ManageUserPage;
 import util.*;
 import color.Color;
 
@@ -161,8 +161,8 @@ public class Main {
                         e.printStackTrace();
                     }
                     CommonIcon.printAdminHeader(admin);
-                    mainMenu.printAdminAction();
-                    choice = mainMenu.chooseAdminAction();
+                    MainMenu.printAdminAction();
+                    choice = MainMenu.chooseAdminAction();
 
                     if (choice == 5) {
                         resumeMainMenu = false;
@@ -186,7 +186,7 @@ public class Main {
                         } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
-                        manageUserPage manageUserPage = new manageUserPage();
+                        ManageUserPage manageUserPage = new ManageUserPage();
                         manageUserPage.adminManageUserPage(admin, users, input);
                     } else if (choice == 3) {
                         // Manage Bookings

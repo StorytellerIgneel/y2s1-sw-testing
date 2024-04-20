@@ -9,9 +9,9 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class manageUserPage {
+public class ManageUserPage {
     // constructor
-    public manageUserPage() {};
+    public ManageUserPage() {};
 
     public static void printAdminAction() {
         System.out.println("Choose an action:");
@@ -65,7 +65,7 @@ public class manageUserPage {
             }
             CommonIcon.printAdminHeader(admin);
             printAdminAction();
-            int choice = manageUserPage.chooseAdminAction(scanner);
+            int choice = ManageUserPage.chooseAdminAction(scanner);
             if (choice == 1) {
                 // View list of users
                 SystemAdminAccount.viewListOfUsers(users, scanner);
