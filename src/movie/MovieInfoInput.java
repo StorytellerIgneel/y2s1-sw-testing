@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Collections;
 
 import color.Color;
 import util.*;
@@ -79,7 +80,6 @@ public class MovieInfoInput {
             ArrayList<String> step4Repeat = new ArrayList<String>(List.of("y", "n", "Y", "N"));
             if (previousResult.getShowtimes().size() > 0){
                 String choice = Util.getLimitedInput("Would you like to manually enter a new showtime or create a new showtime based on the previous showtime? Press 1 for former and 2 for latter: ", step4Allowed, scanner);
-                System.out.println(choice);
                 if (choice.equals("1")){
                     while(true){
                         String showtime = Util.getInput("Enter a showtime in format of (YYYY MM DD HH MM (The spaces are important!)): ", true, scanner);
@@ -90,6 +90,7 @@ public class MovieInfoInput {
                         }
                         else if (Validation.isBack(showtime)){
                             previousResult.step -= 1;
+                            sortShowtime(previousResult.getShowtimes());
                             return previousResult;
                         }
                     }
@@ -108,6 +109,7 @@ public class MovieInfoInput {
                     else if(Validation.isShowtime(showtime, scanner)){
                         ArrayList<Integer> timeList = Util.getTime(showtime);
                         previousResult.getShowtimes().add(LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), 0));
+                        sortShowtime(previousResult.getShowtimes());
                         break;
                     }
                     else if (Validation.isBack(showtime)){
@@ -123,6 +125,7 @@ public class MovieInfoInput {
             String repeat = Util.getLimitedInput("Do you want to add another showtime? Press y for yes and n for no: ", step4Repeat, scanner);
             if (repeat.equals("n")){
                 previousResult.step += 1;
+                sortShowtime(previousResult.getShowtimes());
                 return previousResult;
             } 
         }
@@ -268,4 +271,7 @@ public class MovieInfoInput {
         }
     }
 
+    public static void sortShowtime (ArrayList<LocalDateTime> showtimeList){
+        Collections.sort(showtimeList);
+    }
 }
