@@ -90,12 +90,6 @@ public class CommonIcon {
         CommonIcon.printAdminStatus(admin);
     }
 
-    public static void printAdminHeader(SystemAdminAccount admin)
-    {
-        CommonIcon.printHeader();
-        CommonIcon.printAdminStatus(admin);
-    }
-
     public static void adminQuit(Scanner scanner) {
         try {
             Util.clearConsole(scanner);
