@@ -24,11 +24,21 @@ import java.io.PrintWriter;
 
 public class MovieCRUDGeneralPage {
     ArrayList<Movie> movieList;
+    Scanner scanner;
 
-    // constructor
-    public MovieCRUDGeneralPage() {};
+    /**
+     * Constructor
+     */
+    public MovieCRUDGeneralPage(Scanner scanner) {
+        this.scanner = scanner;
+    };
 
-    public void MainPage(Scanner scanner) {
+    /**
+     * Main page for movie CRUD operations
+     * 
+     * @param scanner
+     */
+    public void MainPage() {
         ArrayList<MovieCRUD> movieFunctions = new ArrayList<>();
 
         // lambda expression implementing interface
@@ -67,7 +77,8 @@ public class MovieCRUDGeneralPage {
             System.out.println(Color.RED + "2." + Color.LIME + " List all Movies" + Color.RESET);
             System.out.println(Color.RED + "3." + Color.LIME + " Update a Movie" + Color.RESET);
             System.out.println(Color.RED + "4." + Color.LIME + " Delete a Movie" + Color.RESET);
-            mainPageChoice = Util.getInput("Enter your choice: ", false, scanner);
+            mainPageChoice = Util.getInput("Enter your choice (':b' to back, ':q' to quit):", false,
+                    scanner);
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5) {
@@ -77,8 +88,7 @@ public class MovieCRUDGeneralPage {
                         SystemMessage.errorMessage(6, scanner);
                     }
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList, scanner);
-                }
-                else if (mainPageChoiceInt == 5){
+                } else if (mainPageChoiceInt == 5) {
                     exportMovieData(movieList, scanner);
                     return;
                 } else
@@ -96,10 +106,12 @@ public class MovieCRUDGeneralPage {
         }
     }
 
+    /**
+     * Get movie list from movieData.json
+     * 
+     * @return ArrayList<Movie> movieList
+     */
     public static ArrayList<Movie> getMovieList() {
-        // Gson gson = new GsonBuilder().registerTypeAdapterFactory(new
-        // LocalDateTimeTypeAdapterFactory()).create(); TODO throws error, below fixes, remove this
-        // line if fixed
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
                     @Override
@@ -128,6 +140,11 @@ public class MovieCRUDGeneralPage {
         return ((Validation.isNull(line)) ? (new ArrayList<Movie>()) : movieList);
     }
 
+    /**
+     * Export movie data to movieData.json
+     * 
+     * @param movieList
+     */
     public static void exportMovieData(ArrayList<Movie> movieList, Scanner scanner) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create();
@@ -142,6 +159,11 @@ public class MovieCRUDGeneralPage {
         return;
     }
 
+    /**
+     * Show all movies in the movieList
+     * 
+     * @param movieList
+     */
     public static void showAllMovie(ArrayList<Movie> movieList) {
         int counter = 1;
         for (Movie movie : movieList) {
@@ -152,12 +174,26 @@ public class MovieCRUDGeneralPage {
         return;
     }
 
+    /**
+     * Show all movie titles in the movieList
+     * 
+     * @param movieList
+     */
     public static void showAllMovieTitle(ArrayList<Movie> movieList) {
         for (Movie movie : movieList)
-            System.out.println("Index " + (movieList.indexOf(movie) + 1) + ": " + (movie.getTitle()));
+            System.out
+                    .println("Index " + (movieList.indexOf(movie) + 1) + ": " + (movie.getTitle()));
         return;
     }
 
+    /**
+     * Get movie index from user input
+     * 
+     * @param movieList
+     * @param action
+     * @param scanner
+     * @return int index
+     */
     public static int getMovieIndex(ArrayList<Movie> movieList, String action, Scanner scanner) {
         String index = null;
 

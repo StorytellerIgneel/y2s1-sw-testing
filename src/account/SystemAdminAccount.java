@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import color.Color;
-import util.*; 
+import util.*;
 import ui.UserProfilePage;
 
 public class SystemAdminAccount extends Account {
@@ -38,35 +38,33 @@ public class SystemAdminAccount extends Account {
         }
 
         ArrayList<SystemAdminAccount> adminList = gson.fromJson(line, type);
-        if (adminList == null)
-        {
+        if (adminList == null) {
             adminList = new ArrayList<SystemAdminAccount>();
         }
         return adminList;
     }
 
-    public static int privilegedLogin(ArrayList<UserAccount> users, String accountID)
-    {
-        for(int i = 0; i < users.size(); i++)
-        {
+    public static int privilegedLogin(ArrayList<UserAccount> users, String accountID) {
+        for (int i = 0; i < users.size(); i++) {
             // admin logins into a user account without password as they have privileged access
-            if(users.get(i).getAccountId().equals(accountID))
+            if (users.get(i).getAccountId().equals(accountID))
                 return i;
         }
         return -1;
     }
 
-    public static int accessUser(ArrayList<UserAccount> users, Scanner input)
-    {
+    public static int accessUser(ArrayList<UserAccount> users, Scanner input) {
 
         int userIdx = 0;
         CommonIcon.printHeader();
-        System.out.println(Color.RED+"As an admin, you are allowed to login user account with privileged access."+Color.RESET);
+        System.out.println(Color.RED
+                + "As an admin, you are allowed to login user account with privileged access."
+                + Color.RESET);
         input.nextLine();
-        do
-        {
-            //entering details
-            System.out.println("Enter the User ID of the user account to be logged in (':b' to back, ':q' to quit): ");
+        do {
+            // entering details
+            System.out.println(
+                    "Enter the User ID of the user account to be logged in (':b' to back, ':q' to quit): ");
             String accountID = input.nextLine();
 
             if (Validation.isBack(accountID))
@@ -90,16 +88,15 @@ public class SystemAdminAccount extends Account {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return userIdx; //return the user index for tracking user activities
+        return userIdx; // return the user index for tracking user activities
     }
 
-    public static void updateUserAccount(ArrayList<UserAccount> users, Scanner scanner)
-    {
+    public static void updateUserAccount(ArrayList<UserAccount> users, Scanner scanner) {
         int userIdx = SystemAdminAccount.accessUser(users, scanner);
-        
-        if(userIdx == -1) //back
+
+        if (userIdx == -1) // back
             return;
-        else if(userIdx == -2) //quit
+        else if (userIdx == -2) // quit
             CommonIcon.adminQuit(scanner);
 
         UserProfilePage userProfilePage = new UserProfilePage(users, userIdx, scanner);
@@ -107,17 +104,15 @@ public class SystemAdminAccount extends Account {
         UserAccount.saveUsers(users);
     }
 
-    public static void viewListOfUsers(ArrayList<UserAccount> users, Scanner scanner)
-    {
+    public static void viewListOfUsers(ArrayList<UserAccount> users, Scanner scanner) {
         CommonIcon.printHeader();
         System.out.println("List of Users");
         System.out.printf("%10s %-30s %-12s %-30s\n", "Account ID", "Username", "Contact", "Email");
-        for (int i = 0; i < users.size(); i++)
-        {
-            System.out.printf("%10s %-30s %-12s %-30s\n",  users.get(i).getAccountId(), users.get(i).getName(), users.get(i).getPhoneNo(), users.get(i).getEmail());
+        for (int i = 0; i < users.size(); i++) {
+            System.out.printf("%-10s %-30s %-12s %-30s\n", users.get(i).getAccountId(),
+                    users.get(i).getName(), users.get(i).getPhoneNo(), users.get(i).getEmail());
         }
         CommonIcon.printChar('-', 60);
-        scanner.nextLine(); // clear scanner
         Util.waitForEnter(scanner);
     }
 }

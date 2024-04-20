@@ -145,19 +145,17 @@ public class Main {
                 }
                 userIdx = SystemAdminAccount.login(adminAccounts);
                 SystemAdminAccount admin;
-                
-                if(userIdx == -1) //back
+
+                if (userIdx == -1) // back
                     continue;
                 else if (userIdx == -2) // quit
                     break;
                 else {
-                    admin = (SystemAdminAccount)adminAccounts.get(userIdx);
+                    admin = (SystemAdminAccount) adminAccounts.get(userIdx);
                 }
-                while(resumeMainMenu)
-                {
-                    // admin page   
-                    try
-                    {
+                while (resumeMainMenu) {
+                    // admin page
+                    try {
                         Util.clearConsole(input);
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
@@ -179,8 +177,8 @@ public class Main {
                         } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
-                        MovieCRUDGeneralPage movieCRUDGeneralPage = new MovieCRUDGeneralPage();
-                        movieCRUDGeneralPage.MainPage(input);
+                        MovieCRUDGeneralPage movieCRUDGeneralPage = new MovieCRUDGeneralPage(input);
+                        movieCRUDGeneralPage.MainPage();
                     } else if (choice == 2) {
                         // Manage User
                         try {
@@ -190,33 +188,25 @@ public class Main {
                         }
                         manageUserPage manageUserPage = new manageUserPage();
                         manageUserPage.adminManageUserPage(admin, users, input);
-                    }
-                    else if (choice == 3)
-                    {
-                        //Manage Bookings
-                        try
-                        {
+                    } else if (choice == 3) {
+                        // Manage Bookings
+                        try {
                             Util.clearConsole(input);
-                        }
-                        catch(IOException | InterruptedException e)
-                        {
+                        } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
                         userIdx = SystemAdminAccount.accessUser(users, input);
-                        if(userIdx == -1) //back
+                        if (userIdx == -1) // back
                             continue;
-                        else if(userIdx == -2) //quit
+                        else if (userIdx == -2) // quit
                             CommonIcon.adminQuit(input);
-                        else
-                        {
+                        else {
                             BookingPage bookingPage = new BookingPage(users, userIdx, input);
                             bookingPage.display();
                         }
-                    }
-                    else if (choice == 4)
-                    {
+                    } else if (choice == 4) {
                         // Generate Report
-                        
+
                     }
                 }
             } else if (choice == 4) // exit

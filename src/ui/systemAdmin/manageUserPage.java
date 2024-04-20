@@ -13,88 +13,72 @@ public class manageUserPage {
     // constructor
     public manageUserPage() {};
 
-    public static void printAdminAction()
-    {
+    public static void printAdminAction() {
         System.out.println("Choose an action:");
         System.out.println(Color.RED + "1." + Color.LIME + " View List of Users" + Color.RESET);
-        System.out.println(Color.RED + "2." + Color.LIME + " Update User Account Info" + Color.RESET);
+        System.out
+                .println(Color.RED + "2." + Color.LIME + " Update User Account Info" + Color.RESET);
 
     }
 
-    public static int chooseAdminAction(Scanner scanner)
-    {
+    public static int chooseAdminAction(Scanner scanner) {
         boolean isValid = false;
         String choice;
         int choiceInt = 0;
-        do
-        {
+        do {
             System.out.print("Enter your choice (':b' to back, ':q to quit'): ");
             choice = scanner.next();
 
-            if(Validation.isBack(choice))
+            if (Validation.isBack(choice))
                 return -1;
-            if(Validation.isQuit(choice))
+            if (Validation.isQuit(choice))
                 return 5;
-            if(Validation.isNumber(choice)) //checking its a number or not
+            if (Validation.isNumber(choice)) // checking its a number or not
             {
                 choiceInt = Integer.parseInt(choice);
-                if(choiceInt < 1 || choiceInt > 2) 
+                if (choiceInt < 1 || choiceInt > 2)
                     SystemMessage.errorMessage(2, scanner);
                 else
                     isValid = true;
-            }
-            else
+            } else
                 SystemMessage.errorMessage(1, scanner);
-        } while(!isValid);
-        
-        try
-        {
+        } while (!isValid);
+
+        try {
             Util.clearConsole(scanner);
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch(InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return choiceInt;
     }
 
-    public void adminManageUserPage(SystemAdminAccount admin, ArrayList<UserAccount> users, Scanner scanner)
-    {
+    public void adminManageUserPage(SystemAdminAccount admin, ArrayList<UserAccount> users,
+            Scanner scanner) {
         boolean resumeProgram = true;
-        while(resumeProgram){
-            try
-            {
+        while (resumeProgram) {
+            try {
                 Util.clearConsole(scanner);
-            }
-            catch(IOException | InterruptedException e)
-            {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
             CommonIcon.printAdminHeader(admin);
             printAdminAction();
             int choice = manageUserPage.chooseAdminAction(scanner);
-            if (choice == 1)
-            {
+            if (choice == 1) {
                 // View list of users
                 SystemAdminAccount.viewListOfUsers(users, scanner);
             }
-            if (choice == 2)
-            {
+            if (choice == 2) {
                 // Update user account
                 SystemAdminAccount.updateUserAccount(users, scanner);
             }
-            if (choice == 5)
-            {
+            if (choice == 5) {
                 CommonIcon.adminQuit(scanner);
-            }
-            else if (choice == -1)
-            {
+            } else if (choice == -1) {
                 return;
             }
         }
-    }    
+    }
 }
