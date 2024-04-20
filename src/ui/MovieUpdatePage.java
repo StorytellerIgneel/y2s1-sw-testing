@@ -32,7 +32,7 @@ public class MovieUpdatePage implements MovieCRUD {
         functionList.add(input::getPriceAdult);
         functionList.add(input::getPriceChildren);
 
-        MovieCRUDGeneralPage.showAllMovie(movieList);
+        MovieCRUDGeneralPage.showAllMovieTitle(movieList);
         movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "update", scanner);
 
         System.out.println("Current Movie Information:");

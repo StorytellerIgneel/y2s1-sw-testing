@@ -56,6 +56,7 @@ public class NullFinder {
 
             //set the value of the field to the attribute value
             movieField.set(movie, attributeValue);
+
         }catch (NoSuchFieldException e){
             System.out.println("error: no such field");
         }catch(IllegalAccessException e){

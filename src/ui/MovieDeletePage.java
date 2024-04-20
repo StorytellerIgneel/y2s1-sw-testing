@@ -11,7 +11,7 @@ public class MovieDeletePage implements MovieCRUD {
     public void execute(ArrayList<Movie> movieList) {
         int movieIndex = 0;
         Scanner scanner = new Scanner(System.in);
-        MovieCRUDGeneralPage.showAllMovie(movieList);
+        MovieCRUDGeneralPage.showAllMovieTitle(movieList);
         movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "delete", scanner);
         if (movieIndex == -1)
             return;

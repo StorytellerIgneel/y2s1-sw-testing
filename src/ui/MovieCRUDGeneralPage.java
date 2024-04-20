@@ -25,16 +25,16 @@ public class MovieCRUDGeneralPage {
         ArrayList<MovieCRUD> movieFunctions = new ArrayList<>();
 
         // lambda expression implementing interface
-        MovieCRUD addMovie = (ArrayList<Movie> movieList) -> {
+        MovieCRUD addMovie = (ArrayList<Movie> movieList, Scanner scanner) -> {
             new MovieAddPage().execute(movieList);
         };
-        MovieCRUD listMovie = (ArrayList<Movie> movieList) -> {
+        MovieCRUD listMovie = (ArrayList<Movie>, Scanner scanner) -> {
             new MovieListPage().execute(movieList);
         };
-        MovieCRUD updateMovie = (ArrayList<Movie> movieList) -> {
+        MovieCRUD updateMovie = (ArrayList<Movie>, Scanner scanner) -> {
             new MovieUpdatePage().execute(movieList);
         };
-        MovieCRUD deleteMovie = (ArrayList<Movie> movieList) -> {
+        MovieCRUD deleteMovie = (ArrayList<Movie>, Scanner scanner) -> {
             new MovieDeletePage().execute(movieList);
         };
 
@@ -60,7 +60,7 @@ public class MovieCRUDGeneralPage {
             System.out.println(Color.RED + "2." + Color.LIME + " List all Movies" + Color.RESET);
             System.out.println(Color.RED + "3." + Color.LIME + " Update a Movie" + Color.RESET);
             System.out.println(Color.RED + "4." + Color.LIME + " Delete a Movie" + Color.RESET);
-            mainPageChoice = Util.getInput("Enter your choice (':b' to back, ':q to quit'): ", false, scanner);
+            mainPageChoice = Util.getInput("Enter your choice: ", false, scanner);
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
@@ -134,6 +134,12 @@ public class MovieCRUDGeneralPage {
             System.out.println(movie.viewInformation());
             counter += 1;
         }
+        return;
+    }
+
+    public static void showAllMovieTitle(ArrayList<Movie> movieList) {
+        for (Movie movie : movieList)
+            System.out.println("Index " + (movieList.indexOf(movie) + 1) + ": " + (movie.getTitle()));
         return;
     }
 
