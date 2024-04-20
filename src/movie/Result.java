@@ -84,7 +84,7 @@ public class Result {
         this.genre = genre;
     }
 
-    public double getPriceAdult() {
+    public Double getPriceAdult() {
         return priceAdult;
     }
 
@@ -92,7 +92,7 @@ public class Result {
         this.priceAdult = priceAdult;
     }
 
-    public double getPriceChildren() {
+    public Double getPriceChildren() {
         return priceChildren;
     }
 
@@ -100,7 +100,7 @@ public class Result {
         this.priceChildren = priceChildren;
     }
 
-    public int getStep() {
+    public Integer getStep() {
         return step;
     }
 

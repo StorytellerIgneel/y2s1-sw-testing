@@ -14,19 +14,18 @@ public class MovieAddPage implements MovieCRUD {
     MovieAddPage() {};
 
     @Override
-    public void execute(ArrayList<Movie> movieList) {
+    public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         Result result = new Result();
         MovieInfoInput input = new MovieInfoInput();
-        Scanner scanner = new Scanner(System.in);
 
         ArrayList<Function<Result,Result>> functionList = new ArrayList<>();
         functionList.add(input::filler);
         functionList.add(input::getMovieId);
         functionList.add(input::getTitle);
-        functionList.add(input::getDesc);
+        functionList.add(input::getDesc);    
+        functionList.add(input::getReleaseDate);
         functionList.add(input::getShowtime);
         functionList.add(input::getLanguage);
-        functionList.add(input::getReleaseDate);
         functionList.add(input::getGenre);
         functionList.add(input::getPriceAdult);
         functionList.add(input::getPriceChildren);

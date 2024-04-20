@@ -75,6 +75,33 @@ public class MovieInfoInput {
         return previousResult;
     }
 
+    public Result getReleaseDate(Result previousResult){
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            ArrayList<Integer> releaseDateList = new ArrayList<Integer>();
+            String releaseDateString = Util.getInput("Enter Release Date (YYYY MM DD): ", true, scanner);
+            if( Validation.isNull(releaseDateString))
+                SystemMessage.errorMessage(10, scanner);
+            else if (Validation.isReleaseDate(releaseDateString, scanner)){
+                releaseDateList = Util.getTime(releaseDateString);
+                int year = releaseDateList.get(0);
+                int month = releaseDateList.get(1);
+                int day = releaseDateList.get(2);
+                previousResult.setReleaseDate(LocalDateTime.of(year, month, day, 0, 0, 0));
+                previousResult.step += 1;
+                return previousResult;
+            }
+            else if (Validation.isBack(releaseDateString)){
+                previousResult.step -= 1;
+                return previousResult;
+            }
+            else if (Validation.isQuit(releaseDateString))
+                System.exit(0);
+            else
+                SystemMessage.errorMessage(16, scanner);
+        }
+    }
+
     public Result getShowtime(Result previousResult){
         Scanner scanner = new Scanner(System.in);
         while(true){
@@ -88,15 +115,18 @@ public class MovieInfoInput {
                         String showtime = Util.getInput("Enter a showtime in format of (YYYY MM DD HH MM (The spaces are important!)): ", true, scanner);
                         if(Validation.isShowtime(showtime, scanner)){
                             ArrayList<Integer> timeList = Util.getTime(showtime);
-                            previousResult.getShowtimes().add(LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), 0));
-                            break;
+                            LocalDateTime newShowtime = LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), 0);
+                            if (previousResult.getReleaseDate() != null && newShowtime.compareTo(previousResult.getReleaseDate()) >= 0){ //ensure that the newShowtime is not earlier than RD
+                                previousResult.getShowtimes().add(newShowtime);
+                                break;
+                            }
+                            else
+                                SystemMessage.errorMessage(20, scanner);
                         }
                         else if (Validation.isBack(showtime)){
                             previousResult.step -= 1;
                             return previousResult;
                         }
-                        else
-                            SystemMessage.errorMessage(13, scanner);
                     }
                 }
                 else if (choice.equals("2")){
@@ -121,8 +151,6 @@ public class MovieInfoInput {
                     }
                     else if (Validation.isQuit(showtime))
                         System.exit(0);
-                    else
-                        SystemMessage.errorMessage(8, scanner);
                 }
             }
             String repeat = Util.getLimitedInput("Do you want to add another showtime? Press y for yes and n for no: ", step4Repeat, scanner);
@@ -155,33 +183,6 @@ public class MovieInfoInput {
             }
             else
                 SystemMessage.errorMessage(7, scanner);
-        }
-    }
-
-    public Result getReleaseDate(Result previousResult){
-        Scanner scanner = new Scanner(System.in);
-        while(true){
-            ArrayList<Integer> releaseDateList = new ArrayList<Integer>();
-            String releaseDateString = Util.getInput("Enter Release Date (YYYY MM DD): ", true, scanner);
-            if( Validation.isNull(releaseDateString))
-                SystemMessage.errorMessage(10, scanner);
-            else if (Validation.isReleaseDate(releaseDateString, scanner)){
-                releaseDateList = Util.getTime(releaseDateString);
-                int year = releaseDateList.get(0);
-                int month = releaseDateList.get(1);
-                int day = releaseDateList.get(2);
-                previousResult.setReleaseDate(LocalDateTime.of(year, month, day, 0, 0, 0));
-                previousResult.step += 1;
-                return previousResult;
-            }
-            else if (Validation.isBack(releaseDateString)){
-                previousResult.step -= 1;
-                return previousResult;
-            }
-            else if (Validation.isQuit(releaseDateString))
-                System.exit(0);
-            else
-                SystemMessage.errorMessage(16, scanner);
         }
     }
 
@@ -241,7 +242,7 @@ public class MovieInfoInput {
                 String priceChildren = Util.getInput("Enter Price for Children: ", false, scanner);
                 if (Validation.isDouble(priceChildren)){
                     priceChildrenDouble = Double.parseDouble(priceChildren);
-                    if (priceChildrenDouble > previousResult.getPriceAdult()){
+                    if (previousResult.getPriceAdult() != null && priceChildrenDouble > previousResult.getPriceAdult()){
                         confirm = Util.getLimitedInput(Color.RED + "The children price you have entered is more expensive than the adult price! Are you sure this is correct? Press y for yes and n for no: ", confirmList, scanner);
                         if (confirm.equals("y")){
                             previousResult.step += 1;

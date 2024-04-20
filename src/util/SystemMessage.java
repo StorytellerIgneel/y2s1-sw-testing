@@ -80,6 +80,9 @@ public class SystemMessage {
             case 19:
                 System.out.println("The day entered has already passed, invalid day. Please try again.");
                 break;
+            case 20:
+                System.out.println("The showtime is earlier than the Release Date of the movie. Please try again.");
+                break;
         }
         Util.waitForEnter(input);
         System.out.print(Color.RESET);

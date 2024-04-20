@@ -1,10 +1,6 @@
 package movie;
-import movie.Result;
-import util.SystemMessage;
-import util.Util;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +41,6 @@ public class NullFinder {
         return null; //no non-null value found, all values are null
     }
     public static Movie setAttribute (Movie movie, String attributeName, Object attributeValue){
-        Scanner scanner = new Scanner(System.in);
         Class<?> classMovie = Movie.class;
         try{
             //get the field of the object with the attribute name

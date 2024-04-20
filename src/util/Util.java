@@ -3,7 +3,7 @@ package util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import javax.sound.sampled.Line;
 import color.Color;
 
 public class Util {
@@ -22,6 +22,7 @@ public class Util {
     }
 
     public static void waitForEnter(Scanner scanner) {
+        scanner.nextLine();
         System.out.println("Press Enter to continue...");
         scanner.nextLine(); // Wait for the user to press Enter
     }

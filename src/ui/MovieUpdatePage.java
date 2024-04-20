@@ -14,8 +14,7 @@ public class MovieUpdatePage implements MovieCRUD {
     };
 
     @Override
-    public void execute(ArrayList<Movie> movieList) {
-        Scanner scanner = new Scanner(System.in);
+    public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         int movieIndex = 0;
         Result result = new Result();
         MovieInfoInput input = new MovieInfoInput();
@@ -24,10 +23,10 @@ public class MovieUpdatePage implements MovieCRUD {
         functionList.add(input::filler);
         functionList.add(input::getMovieId);
         functionList.add(input::getTitle);
-        functionList.add(input::getDesc);
+        functionList.add(input::getDesc);        
+        functionList.add(input::getReleaseDate);
         functionList.add(input::getShowtime);
         functionList.add(input::getLanguage);
-        functionList.add(input::getReleaseDate);
         functionList.add(input::getGenre);
         functionList.add(input::getPriceAdult);
         functionList.add(input::getPriceChildren);
@@ -51,7 +50,6 @@ public class MovieUpdatePage implements MovieCRUD {
         while(true){
             String choiceString = Util.getInput("Enter your choice: ", false, scanner);
             if(Validation.isNumber(choiceString)){
-                System.out.println(choiceString);
                 int choiceInt = Integer.parseInt(choiceString);
                 if (0 < choiceInt && choiceInt < functionList.size()){
                     Function<Result, Result> function = functionList.get(choiceInt);

@@ -31,17 +31,17 @@ public class MovieCRUDGeneralPage {
         ArrayList<MovieCRUD> movieFunctions = new ArrayList<>();
 
         // lambda expression implementing interface
-        MovieCRUD addMovie = (ArrayList<Movie> movieList, Scanner scanner) -> {
-            new MovieAddPage().execute(movieList);
+        MovieCRUD addMovie = (ArrayList<Movie> movieList, Scanner lambdaScanner) -> {
+            new MovieAddPage().execute(movieList, scanner);
         };
-        MovieCRUD listMovie = (ArrayList<Movie>, Scanner scanner) -> {
-            new MovieListPage().execute(movieList);
+        MovieCRUD listMovie = (ArrayList<Movie> movieList, Scanner lambdaScanner) -> {
+            new MovieListPage().execute(movieList, scanner);
         };
-        MovieCRUD updateMovie = (ArrayList<Movie>, Scanner scanner) -> {
-            new MovieUpdatePage().execute(movieList);
+        MovieCRUD updateMovie = (ArrayList<Movie> movieList, Scanner lambdaScanner) -> {
+            new MovieUpdatePage().execute(movieList, scanner);
         };
-        MovieCRUD deleteMovie = (ArrayList<Movie>, Scanner scanner) -> {
-            new MovieDeletePage().execute(movieList);
+        MovieCRUD deleteMovie = (ArrayList<Movie> movieList, Scanner lambdaScanner) -> {
+            new MovieDeletePage().execute(movieList, scanner);
         };
 
         movieFunctions.add(addMovie);
@@ -75,7 +75,7 @@ public class MovieCRUDGeneralPage {
                     } catch (Exception e) {
                         SystemMessage.errorMessage(6, scanner);
                     }
-                    movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
+                    movieFunctions.get(mainPageChoiceInt - 1).execute(movieList, scanner);
                 }
                 else if (mainPageChoiceInt == 5){
                     exportMovieData(movieList, scanner);

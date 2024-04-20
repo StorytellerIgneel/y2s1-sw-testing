@@ -9,8 +9,7 @@ import util.Util;
 
 public class MovieListPage implements MovieCRUD {
     @Override
-    public void execute(ArrayList<Movie> movieList) {
-        Scanner scanner = new Scanner(System.in);
+    public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         MovieCRUDGeneralPage.showAllMovie(movieList); 
         Util.waitForEnter(scanner);
         return;

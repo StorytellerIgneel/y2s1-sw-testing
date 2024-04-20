@@ -8,9 +8,8 @@ import util.*;
 
 public class MovieDeletePage implements MovieCRUD {
     @Override
-    public void execute(ArrayList<Movie> movieList) {
+    public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         int movieIndex = 0;
-        Scanner scanner = new Scanner(System.in);
         MovieCRUDGeneralPage.showAllMovieTitle(movieList);
         movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "delete", scanner);
         if (movieIndex == -1)
