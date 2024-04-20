@@ -11,10 +11,11 @@ public class MovieInfoInput {
     public Result filler(Result previousResult){ //memang just a filler
         return previousResult;
     }
+    
     public Result getMovieId(Result previousResult){
         Scanner scanner = new Scanner(System.in);
         while(true){
-            String movieId = "MOV" + Util.getInput("Enter Movie ID (E.g: MOV000001): MOV", false, scanner);
+            String movieId = Util.getInput("Enter Movie ID (E.g: MOV000001): MOV", false, scanner);
             if (Validation.isMovie(movieId)){
                 previousResult.step += 1;
                 previousResult.setMovieId(movieId);

@@ -49,9 +49,15 @@ public class MovieUpdatePage implements MovieCRUD {
         System.out.println("9. Price (Children)");
 
         String choiceString = Util.getInput("Enter your choice: ", false, scanner);
+        if(Validation.isNumber(choiceString)){
+            System.out.println(choiceString);
+            int choiceInt = Integer.parseInt(choiceString);
+            if (0 < choiceInt && choiceInt < functionList.size()){
+                Function<Result, Result> function = functionList.get(choiceInt);
+                result = function.apply(result);
+                movieList.set(movieIndex, NullFinder.findNull(result, movieList.get(movieIndex)));
+            }
 
-        if (Validation.isBack(choiceString))
-            return;
-        // Update the chosen attribute
+        }
     }
 }
