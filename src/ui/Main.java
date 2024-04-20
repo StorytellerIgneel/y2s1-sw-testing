@@ -1,4 +1,5 @@
 package ui;
+
 import movie.Movie;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

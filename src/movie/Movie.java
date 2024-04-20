@@ -1,4 +1,5 @@
 package movie;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import color.Color;
@@ -15,9 +16,12 @@ public class Movie {
     private Double priceChildren;
 
     // Constructor
-    public Movie(){};
+    public Movie() {};
 
-    public Movie(String movieId, String title, String description, ArrayList<LocalDateTime> showtimes, ArrayList<String> languages, LocalDateTime releaseDate, ArrayList<String> genre, Double priceAdult, Double priceChildren) {
+    public Movie(String movieId, String title, String description,
+            ArrayList<LocalDateTime> showtimes, ArrayList<String> languages,
+            LocalDateTime releaseDate, ArrayList<String> genre, Double priceAdult,
+            Double priceChildren) {
         this.movieId = movieId;
         this.title = title;
         this.description = description;
@@ -102,18 +106,30 @@ public class Movie {
         this.priceChildren = priceChildren;
     }
 
-    //other methods
+    // other methods
     public String viewInformation() {
         StringBuilder movie_info = new StringBuilder();
-        movie_info.append(Color.RED + "Movie ID: " + Color.LIME).append(movieId).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Description: " + Color.LIME).append(description).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Showtimes: " + Color.LIME).append(showtimes.toString().substring(1, showtimes.toString().length()-1)).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Languages: " + Color.LIME).append(languages.toString().substring(1, languages.toString().length()-1)).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Release Date: " + Color.LIME).append(releaseDate).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Genre: " + Color.LIME).append(genre.toString().substring(1, genre.toString().length()-1)).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Price (Adult): " + Color.LIME + "$").append(priceAdult).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Price (Children): "+ Color.LIME +"$").append(priceChildren).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Movie ID: " + Color.LIME).append(movieId).append("\n")
+                .append(Color.RESET);
+        movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n")
+                .append(Color.RESET);
+        movie_info.append(Color.RED + "Description: " + Color.LIME).append(description).append("\n")
+                .append(Color.RESET);
+        movie_info.append(Color.RED + "Showtimes: " + Color.LIME)
+                .append(showtimes.toString().substring(1, showtimes.toString().length() - 1))
+                .append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Languages: " + Color.LIME)
+                .append(languages.toString().substring(1, languages.toString().length() - 1))
+                .append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Release Date: " + Color.LIME).append(releaseDate)
+                .append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Genre: " + Color.LIME)
+                .append(genre.toString().substring(1, genre.toString().length() - 1)).append("\n")
+                .append(Color.RESET);
+        movie_info.append(Color.RED + "Price (Adult): " + Color.LIME + "$").append(priceAdult)
+                .append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Price (Children): " + Color.LIME + "$").append(priceChildren)
+                .append("\n").append(Color.RESET);
         return movie_info.toString();
     }
 }

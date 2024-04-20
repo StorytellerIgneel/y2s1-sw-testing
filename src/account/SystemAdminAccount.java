@@ -12,33 +12,28 @@ import color.Color;
 import util.*; 
 import ui.UserProfilePage;
 
-public class SystemAdminAccount extends Account
-{
+public class SystemAdminAccount extends Account {
     // constructor
-    public SystemAdminAccount(String accountId, String name, String password, String registerDate, String email, String phoneNo)
-    {
+    public SystemAdminAccount(String accountId, String name, String password, String registerDate,
+            String email, String phoneNo) {
         super(accountId, name, password, registerDate, email, phoneNo);
     }
 
     // static methods
-    public static ArrayList<SystemAdminAccount> getAdmins()
-    {
+    public static ArrayList<SystemAdminAccount> getAdmins() {
         Scanner scanner = new Scanner(System.in);
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<SystemAdminAccount>>() {}.getType();
 
         String line = "";
-        try
-        {
-        File inFile = new File("src\\resources\\admin.json");
-        Scanner inputFile = new Scanner(inFile);
-        while(inputFile.hasNextLine())
-        {
-            line = inputFile.nextLine();
-        }
-        inputFile.close();
-        }catch(IOException e)
-        {
+        try {
+            File inFile = new File("src\\resources\\admin.json");
+            Scanner inputFile = new Scanner(inFile);
+            while (inputFile.hasNextLine()) {
+                line = inputFile.nextLine();
+            }
+            inputFile.close();
+        } catch (IOException e) {
             SystemMessage.errorMessage(4, scanner);
         }
 
@@ -74,31 +69,25 @@ public class SystemAdminAccount extends Account
             System.out.println("Enter the User ID of the user account to be logged in (':b' to back, ':q' to quit): ");
             String accountID = input.nextLine();
 
-            if(Validation.isBack(accountID))
+            if (Validation.isBack(accountID))
                 return -1;
-            if(Validation.isQuit(accountID))
+            if (Validation.isQuit(accountID))
                 return -2;
 
             userIdx = privilegedLogin(users, accountID);
             if (userIdx == -1)
                 SystemMessage.errorMessage(5, input);
-            else
-            {
+            else {
                 SystemMessage.successMessage(4, input);
                 break;
             }
         } while (userIdx != 1);
 
-        try
-        {
+        try {
             Util.clearConsole(input);
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch(InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return userIdx; //return the user index for tracking user activities

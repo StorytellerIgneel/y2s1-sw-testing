@@ -1,4 +1,5 @@
 package ui;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import account.*;
@@ -21,115 +22,97 @@ public class UserProfilePage {
     }
 
     /**
-    * Prints the user's profile information and prompts the user to update their profile.
-    */
-    public void printUserInfo()
-    {
-        do
-        {   
-            try
-            {
+     * Prints the user's profile information and prompts the user to update their profile.
+     */
+    public void printUserInfo() {
+        do {
+            try {
                 Util.clearConsole(input);
-            }
-            catch(IOException | InterruptedException e)
-            {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
             CommonIcon.printHeader();
             CommonIcon.printUserStatus(userIdx, users);
             System.out.println("#Profile Information");
             System.out.println();
-            System.out.println(Color.RED + "Username    : " + Color.LIME + users.get(userIdx).getName());
-            System.out.println(Color.RED + "Email       : " + Color.LIME + users.get(userIdx).getEmail());
-            System.out.println(Color.RED + "Phone Number: " + Color.LIME + users.get(userIdx).getPhoneNo());
+            System.out.println(
+                    Color.RED + "Username    : " + Color.LIME + users.get(userIdx).getName());
+            System.out.println(
+                    Color.RED + "Email       : " + Color.LIME + users.get(userIdx).getEmail());
+            System.out.println(
+                    Color.RED + "Phone Number: " + Color.LIME + users.get(userIdx).getPhoneNo());
             System.out.print(Color.RESET);
             CommonIcon.printChar('-', 60);
             System.out.print("Do you want to update your profile? (y/n): ");
             choice = input.next();
             input.nextLine();
-            if(choice.equals("y") || choice.equals("Y"))
-            {
+            if (choice.equals("y") || choice.equals("Y")) {
                 isValid = true;
                 updateProfile();
-            }
-            else if(choice.equals("n")|| choice.equals("N"))
-            {
+            } else if (choice.equals("n") || choice.equals("N")) {
                 isValid = true;
                 return;
-            }
-            else 
-            {
+            } else {
                 isValid = false;
                 SystemMessage.errorMessage(11, input);
             }
-        }while(!isValid);
+        } while (!isValid);
     }
+
     /**
-    * Updates the user's profile information.
-    only 3 editable information which are username, email and phone number
-    */
-    public void updateProfile()
-    {
+     * Updates the user's profile information. only 3 editable information which are username, email
+     * and phone number
+     */
+    public void updateProfile() {
         boolean resume = true;
-        do
-        {
+        do {
             System.out.println();
             System.out.println("Choose what to update: ");
             System.out.println(Color.RED + "1)" + Color.LIME + " Username");
             System.out.println(Color.RED + "2)" + Color.LIME + " Email");
             System.out.println(Color.RED + "3)" + Color.LIME + " Phone Number");
             System.out.print(Color.RESET);
-    
+
             System.out.print("Enter your choice (':b' to back): ");
             choice = input.next();
-            if(choice.equals("1"))
-            {   
-                input.nextLine(); //consume the next line character
+            if (choice.equals("1")) {
+                input.nextLine(); // consume the next line character
                 System.out.print("Enter new username (':b' to back): ");
                 String username = input.nextLine();
-                if(Validation.isBack(username))
+                if (Validation.isBack(username))
                     ;
-                else 
-                {
+                else {
                     users.get(userIdx).setName(username);
                     UserAccount.saveUsers(users);
                     resume = false;
                 }
-            }
-            else if(choice.equals("2"))
-            {
+            } else if (choice.equals("2")) {
                 input.nextLine();
                 System.out.print("Enter new email (':b' to back): ");
                 String email = input.nextLine();
-                if(Validation.isBack(email))
+                if (Validation.isBack(email))
                     ;
-                else 
-                {
+                else {
                     users.get(userIdx).setEmail(email);
                     UserAccount.saveUsers(users);
                     resume = false;
                 }
-            }
-            else if(choice.equals("3"))
-            {
+            } else if (choice.equals("3")) {
                 input.nextLine();
                 System.out.print("Enter new phone number (':b' to back): ");
                 String phoneNo = input.nextLine();
-                if(Validation.isBack(phoneNo))
+                if (Validation.isBack(phoneNo))
                     ;
-                else
-                {
+                else {
                     users.get(userIdx).setPhoneNo(phoneNo);
                     UserAccount.saveUsers(users);
                     resume = false;
                 }
-            }
-            else if(Validation.isBack(choice))
-            {
+            } else if (Validation.isBack(choice)) {
                 return;
             }
-        }while(resume);
+        } while (resume);
     }
 
-    
+
 }

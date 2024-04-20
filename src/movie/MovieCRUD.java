@@ -1,4 +1,5 @@
 package movie;
+
 import java.util.ArrayList;
 
 public interface MovieCRUD {
