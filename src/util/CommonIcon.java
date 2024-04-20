@@ -5,6 +5,7 @@ import movie.Movie;
 import account.*;
 import color.Color;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class CommonIcon {
   /**
@@ -85,11 +86,11 @@ public class CommonIcon {
         printChar('-', 60);
     }
 
-    public static void adminQuit()
+    public static void adminQuit(Scanner scanner)
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(scanner);
         }
         catch(IOException | InterruptedException e)
         {

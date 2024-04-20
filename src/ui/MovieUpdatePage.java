@@ -50,7 +50,7 @@ public class MovieUpdatePage implements MovieCRUD {
 
         String choiceString = Util.getInput("Enter your choice: ", false, scanner);
 
-        if (Validation.isBack(newValue))
+        if (Validation.isBack(choiceString))
             return;
         // Update the chosen attribute
     }

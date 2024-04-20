@@ -229,7 +229,7 @@ public class Main
                             e.printStackTrace();
                         }
                         AdminManageUserPage adminManageUserPage = new AdminManageUserPage();
-                        adminManageUserPage.manageUserPage(userIdx, admins, users);
+                        adminManageUserPage.manageUserPage(userIdx, admins, users, input);
                     }
                     else if (choice == 3)
                     {

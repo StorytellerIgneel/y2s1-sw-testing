@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class AdminManageUserPage {
-    private Scanner input;
-
     // constructor
     public AdminManageUserPage() {};
 
@@ -25,16 +23,15 @@ public class AdminManageUserPage {
 
     }
 
-    public static int chooseAdminAction()
+    public static int chooseAdminAction(Scanner scanner)
     {
-        Scanner input = new Scanner(System.in);
         boolean isValid = false;
         String choice;
         int choiceInt = 0;
         do
         {
             System.out.print("Enter your choice (':b' to back, ':q to quit'): ");
-            choice = input.next();
+            choice = scanner.next();
 
             if(Validation.isBack(choice))
                 return -1;
@@ -44,17 +41,17 @@ public class AdminManageUserPage {
             {
                 choiceInt = Integer.parseInt(choice);
                 if(choiceInt < 1 || choiceInt > 2) 
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, scanner);
                 else
                     isValid = true;
             }
             else
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1, scanner);
         } while(!isValid);
         
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(scanner);
         }
         catch(IOException e)
         {
@@ -67,20 +64,20 @@ public class AdminManageUserPage {
         return choiceInt;
     }
 
-    public void manageUserPage(int userIdx, ArrayList<SystemAdminAccount> admins, ArrayList<UserAccount> users)
+    public void manageUserPage(int userIdx, ArrayList<SystemAdminAccount> admins, ArrayList<UserAccount> users, Scanner scanner)
     {
         boolean resumeProgram = true;
         while(resumeProgram){
             try
             {
-                Util.clearConsole();
+                Util.clearConsole(scanner);
             }
             catch(IOException | InterruptedException e)
             {
                 e.printStackTrace();
             }
             printAdminAction(userIdx, admins);
-            int choice = AdminManageUserPage.chooseAdminAction();
+            int choice = AdminManageUserPage.chooseAdminAction(scanner);
             if (choice == 1)
             {
                 // View list of users
@@ -93,16 +90,17 @@ public class AdminManageUserPage {
                     System.out.printf("%10s\t%-30s\n",  userAccounts.get(i).getAccountId(), userAccounts.get(i).getName());
                 }
                 CommonIcon.printChar('-', 60);
-                Util.waitForEnter();
+                scanner.nextLine(); // clear scanner
+                Util.waitForEnter(scanner);
             }
             if (choice == 2)
             {
                 // Update user account
-                updateUserAccount(userIdx, users);
+                updateUserAccount(userIdx, users, scanner);
             }
             if (choice == 5)
             {
-                CommonIcon.adminQuit();
+                CommonIcon.adminQuit(scanner);
             }
             else if (choice == -1)
             {
@@ -111,14 +109,14 @@ public class AdminManageUserPage {
         }
     }
 
-    public void updateUserAccount(int userIdx, ArrayList<UserAccount> users)
+    public void updateUserAccount(int userIdx, ArrayList<UserAccount> users, Scanner scanner)
     {
         ArrayList<UserAccount> userAccounts = new ArrayList<UserAccount>();
         for(int i = 0; i < users.size(); i++) 
         {
             userAccounts.add(users.get(i));
         }
-        userIdx = SystemAdminAccount.accessUser(userAccounts);
+        userIdx = SystemAdminAccount.accessUser(userAccounts, scanner);
         
         if(userIdx == -1) //back
         {
@@ -126,13 +124,12 @@ public class AdminManageUserPage {
         }
         else if(userIdx == -2) //quit
         {
-            CommonIcon.adminQuit();
+            CommonIcon.adminQuit(scanner);
         }
 
-        UserProfilePage userProfilePage = new UserProfilePage(users, userIdx, input);
+        UserProfilePage userProfilePage = new UserProfilePage(users, userIdx, scanner);
         userProfilePage.printUserInfo();
-        // userProfilePage.updateProfile();
-        
+        UserAccount.saveUsers(users);
     }
     
 }

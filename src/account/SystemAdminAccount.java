@@ -57,18 +57,18 @@ public class SystemAdminAccount extends Account
         return -1;
     }
 
-    public static int accessUser(ArrayList<UserAccount> users)
+    public static int accessUser(ArrayList<UserAccount> users, Scanner input)
     {
         int index = 0;
         CommonIcon.printHeader();
         System.out.println("As an admin, you are allowed to login user account with privileged access.");
+        input.nextLine(); // clear scanner
         do
         {
             //entering details
-            Scanner input = new Scanner(System.in);
             System.out.println("Enter the User ID of the user account to be logged in (':b' to back, ':q' to quit): ");
             String accountID = input.nextLine();
-            
+
             if(Validation.isBack(accountID))
                 return -1;
             if(Validation.isQuit(accountID))
@@ -76,17 +76,17 @@ public class SystemAdminAccount extends Account
 
             index = privilegedLogin(users, accountID);
             if (index == -1)
-                SystemMessage.errorMessage(5);
+                SystemMessage.errorMessage(5, input);
             else
             {
-                SystemMessage.successMessage(4);
+                SystemMessage.successMessage(4, input);
                 break;
             }
         } while (index != 1);
 
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException e)
         {

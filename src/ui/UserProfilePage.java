@@ -82,7 +82,6 @@ public class UserProfilePage {
     
             System.out.print("Enter your choice (':b' to back): ");
             choice = input.next();
-    
             if(choice.equals("1"))
             {   
                 input.nextLine(); //consume the next line character
@@ -98,6 +97,7 @@ public class UserProfilePage {
             }
             else if(choice.equals("2"))
             {
+                input.nextLine();
                 System.out.print("Enter new email (':b' to back): ");
                 String email = input.nextLine();
                 if(Validation.isBack(email))
@@ -110,6 +110,7 @@ public class UserProfilePage {
             }
             else if(choice.equals("3"))
             {
+                input.nextLine();
                 System.out.print("Enter new phone number (':b' to back): ");
                 String phoneNo = input.nextLine();
                 if(Validation.isBack(phoneNo))
