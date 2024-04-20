@@ -19,6 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        // Fetch data from files
         ArrayList<UserAccount> users = UserAccount.getUsers();
         ArrayList<SystemAdminAccount> admins = SystemAdminAccount.getAdmins();
         ArrayList<Movie> trend = MovieCRUDGeneralPage.getMovieList(); // to be modified
@@ -192,7 +193,6 @@ public class Main {
                 }
             } else if (choice == 4) // exit
                 resumeProgram = false;
-
         }
 
         try {
@@ -200,6 +200,8 @@ public class Main {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        // End of program
         CommonIcon.printHeader();
         input.close();
         System.out.print(Color.LIME);
