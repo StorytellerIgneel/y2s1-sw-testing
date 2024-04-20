@@ -32,6 +32,8 @@ public class MovieAddPage implements MovieCRUD {
         functionList.add(input::getPriceChildren);
 
         while(result.step < functionList.size()){
+            if (result.step == 0)
+                return;
             Function<Result, Result> function = functionList.get(result.step);
             result = function.apply(result);
         }

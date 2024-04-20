@@ -54,7 +54,7 @@ public class Validation {
     }
 
     public static boolean isMovie(String value){
-        return value.matches("MOV[0-9][0-9][0-9][0-9][0-9][0-9]");
+        return value.matches("[0-9][0-9][0-9][0-9][0-9][0-9]");
     }
 
     public static boolean isShowtime(String value, Scanner scanner){
