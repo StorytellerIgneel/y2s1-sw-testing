@@ -162,12 +162,12 @@ public class Main
                 {
                     e.printStackTrace();
                 }
-                ArrayList<Account> accounts = new ArrayList<Account>();
+                ArrayList<Account> adminAccounts = new ArrayList<Account>();
                 for(int i = 0; i < admins.size(); i++) //convert SystemAdminAccount to Account type for verifying admins because it only accept account type
                 {
-                    accounts.add(admins.get(i));
+                    adminAccounts.add(admins.get(i));
                 }
-                userIdx = SystemAdminAccount.login(accounts);
+                userIdx = SystemAdminAccount.login(adminAccounts);
 
                 if(userIdx == -1) //back
                     continue;
@@ -215,6 +215,7 @@ public class Main
                     }
                     else if (choice == 2)
                     {
+                        // Manage User
                         try
                         {
                             Util.clearConsole();
@@ -223,18 +224,8 @@ public class Main
                         {
                             e.printStackTrace();
                         }
-                        // Manage User Accounts
-                        System.out.println("Manage User Accounts");
-                        if (choice == 1)
-                        {
-                            // View User Account
-                            System.out.println("View User Account");
-                        }
-                        else if (choice == 2)
-                        {
-                            // Update user account
-                            System.out.println("Update User Account");
-                        }
+                        AdminManageUserPage adminManageUserPage = new AdminManageUserPage();
+                        adminManageUserPage.manageUserPage(userIdx, admins, users);
                     }
                     else if (choice == 3)
                     {

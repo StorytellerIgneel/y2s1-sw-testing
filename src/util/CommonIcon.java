@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import movie.Movie;
 import account.*;
 import color.Color;
+import java.io.IOException;
 
 public class CommonIcon {
     public static void printHeader()
@@ -60,5 +61,23 @@ public class CommonIcon {
     {
         System.out.print("Username : " + admins.get(index).getName());
         System.out.println();
+        printChar('-', 60);
+    }
+
+    public static void adminQuit()
+    {
+        try
+        {
+            Util.clearConsole();
+        }
+        catch(IOException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        CommonIcon.printHeader();
+        System.out.print(Color.LIME);
+        System.out.println("Admin Session Ended.");
+        System.out.print(Color.RESET);
+        System.exit(0);
     }
 }
