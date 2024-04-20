@@ -57,7 +57,14 @@ public class MovieUpdatePage implements MovieCRUD {
                 result = function.apply(result);
                 movieList.set(movieIndex, NullFinder.findNull(result, movieList.get(movieIndex)));
             }
-
         }
+        else if (Validation.isBack(choiceString)){
+            return;
+        }
+        else if (Validation.isQuit(choiceString)){
+            System.exit(0);
+        }
+        else
+            SystemMessage.errorMessage(11, scanner);
     }
 }

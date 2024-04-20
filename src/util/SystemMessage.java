@@ -112,6 +112,10 @@ public class SystemMessage {
                 break;
             case 5:
                 System.out.println("Account registered successfully");
+                break;
+            case 6:
+                System.out.println("Movie updated successfully");
+                break;
         }
         Util.waitForEnter(input);
         System.out.print(Color.RESET);
