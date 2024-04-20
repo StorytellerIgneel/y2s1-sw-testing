@@ -9,7 +9,7 @@ import util.CommonIcon;
 
 import java.util.ArrayList;
 
-public class BookingPage implements Page{
+public class BookingPage implements Page {
     private ArrayList<UserAccount> users;
     private int user_index;
     private Scanner scanner;
@@ -17,24 +17,23 @@ public class BookingPage implements Page{
 
     /**
      * Constructor for BookingPage for a user
+     * 
      * @param user
      * @param scanner
      */
-    public BookingPage(ArrayList<UserAccount> users, int user_index, Scanner scanner) 
-    {
+    public BookingPage(ArrayList<UserAccount> users, int user_index, Scanner scanner) {
         this.users = users;
         this.scanner = scanner;
         this.user_index = user_index;
         this.bookingController = new BookingController(users, user_index);
     }
 
-    
     /**
      * Displays the booking page
+     * 
      * @return 0 if no errors occur
      */
-    public void display()
-    {   
+    public void display() {
         CommonIcon.printHeader();
         System.out.println();
         System.out.println(Color.RESET + "Welcome, " + users.get(user_index).getName() + "!\n");
@@ -44,19 +43,17 @@ public class BookingPage implements Page{
         return;
     }
 
-    
     /**
      * Gets user choice for booking
+     * 
      * @throws IllegalArgumentException
      */
-    public void getChoice()
-    {
+    public void getChoice() {
         int choice = 0;
         boolean validInput = false;
-        while(!validInput || choice != 4)
-        {
+        while (!validInput || choice != 4) {
             System.out.println(Color.RESET + "Your Bookings:");
-        
+
             // Prints all booking details
             bookingController.printAllBookings();
 
@@ -73,7 +70,8 @@ public class BookingPage implements Page{
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
                 if (choice < 0 || choice > 4) {
-                    System.out.println(Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
+                    System.out.println(
+                            Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
                     continue;
                 }
                 validInput = true;
@@ -86,29 +84,30 @@ public class BookingPage implements Page{
             // Switch statements
             try {
                 switch (choice) {
-                    case 0: // Back to main menu
-                        System.out.println(Color.RESET + "Returning to main menu...");
-                        return;
-                    case 1: // Create bookings
-                        CreateBookingPage createBookingPage = new CreateBookingPage(bookingController, scanner);
-                        createBookingPage.display();
-                        break;
-                    case 2: // Update bookings
-                        UpdateBookingPage updateBookingPage = new UpdateBookingPage(bookingController, scanner);
-                        updateBookingPage.display();
-                        break;
-                    case 3: // Delete bookings
-                        DeleteBookingPage deleteBookingPage = new DeleteBookingPage(bookingController, scanner);
-                        deleteBookingPage.display();
-                        break;
-                    case 4: // Search bookings
-                        String query = getSearchInput();
-                        bookingController.searchBookings(query);
-                        util.Util.waitForEnter(scanner);
-                        return;
-                    default:
-                        System.out.println(Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
-                        break;
+                case 0: // Back to main menu
+                    System.out.println(Color.RESET + "Returning to main menu...");
+                    return;
+                case 1: // Create bookings
+                    CreateBookingPage createBookingPage = new CreateBookingPage(bookingController, scanner);
+                    createBookingPage.display();
+                    break;
+                case 2: // Update bookings
+                    UpdateBookingPage updateBookingPage = new UpdateBookingPage(bookingController, scanner);
+                    updateBookingPage.display();
+                    break;
+                case 3: // Delete bookings
+                    DeleteBookingPage deleteBookingPage = new DeleteBookingPage(bookingController, scanner);
+                    deleteBookingPage.display();
+                    break;
+                case 4: // Search bookings
+                    String query = getSearchInput();
+                    bookingController.searchBookings(query);
+                    util.Util.waitForEnter(scanner);
+                    return;
+                default:
+                    System.out.println(
+                            Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
+                    break;
                 }
             } catch (Exception e) {
                 System.out.println(Color.RED + "An unexpected error occured:" + e.getMessage() + Color.RESET);
@@ -123,14 +122,13 @@ public class BookingPage implements Page{
     /**
      * Gets search input from user
      */
-    public String getSearchInput()
-    {
+    public String getSearchInput() {
         boolean validInput = false;
         String query = "";
-        while(!validInput){
+        while (!validInput) {
             System.out.println("Search Bookings");
             System.out.print(Color.RESET + "Enter movie title of the booking:");
-            if(scanner.hasNextLine()){
+            if (scanner.hasNextLine()) {
                 query = scanner.nextLine();
                 validInput = true;
             } else {
