@@ -1,7 +1,4 @@
 package ui;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -15,6 +12,10 @@ import movie.MovieCRUD;
 import util.*;
 import color.*;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.Comparator;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -213,5 +214,9 @@ public class MovieCRUDGeneralPage {
                     SystemMessage.errorMessage(1, scanner);
             }
         }
+    }
+
+    public static void sortReleaseDate (ArrayList<Movie> movieList){
+        Collections.sort(movieList, Comparator.comparing(Movie::getReleaseDate).reversed());
     }
 }

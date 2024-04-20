@@ -5,22 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.util.Scanner;
-
 public class NullFinder {
     NullFinder(){};
 
     public static Movie findNull(Result result, Movie movie) {
         Map <String, Object> nonNullAttribute = findNonNull(result);
-
-        if (nonNullAttribute != null){
-            String nonNullKey = nonNullAttribute.keySet().iterator().next();
-            return(setAttribute(movie, nonNullKey, nonNullAttribute.get(nonNullKey)));
-        }
-        else{
-
-        }
-        return movie;
+        String nonNullKey = nonNullAttribute.keySet().iterator().next();
+        return(setAttribute(movie, nonNullKey, nonNullAttribute.get(nonNullKey)));
     }
 
     public static Map<String, Object> findNonNull(Result updatedResult) {
