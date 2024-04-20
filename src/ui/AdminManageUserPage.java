@@ -81,17 +81,7 @@ public class AdminManageUserPage {
             if (choice == 1)
             {
                 // View list of users
-                CommonIcon.printHeader();
-                System.out.println("List of Users");
-                System.out.printf("%10s\t%-30s\n", "Account ID", "Username");
-                ArrayList<UserAccount> userAccounts = UserAccount.getUsers();
-                for (int i = 0; i < userAccounts.size(); i++)
-                {
-                    System.out.printf("%10s\t%-30s\n",  userAccounts.get(i).getAccountId(), userAccounts.get(i).getName());
-                }
-                CommonIcon.printChar('-', 60);
-                scanner.nextLine(); // clear scanner
-                Util.waitForEnter(scanner);
+                viewListOfUsers(scanner);
             }
             if (choice == 2)
             {
@@ -130,6 +120,21 @@ public class AdminManageUserPage {
         UserProfilePage userProfilePage = new UserProfilePage(users, userIdx, scanner);
         userProfilePage.printUserInfo();
         UserAccount.saveUsers(users);
+    }
+
+    public void viewListOfUsers(Scanner scanner)
+    {
+        CommonIcon.printHeader();
+        System.out.println("List of Users");
+        System.out.printf("%10s\t%-30s\n", "Account ID", "Username");
+        ArrayList<UserAccount> userAccounts = UserAccount.getUsers();
+        for (int i = 0; i < userAccounts.size(); i++)
+        {
+            System.out.printf("%10s\t%-30s\n",  userAccounts.get(i).getAccountId(), userAccounts.get(i).getName());
+        }
+        CommonIcon.printChar('-', 60);
+        scanner.nextLine(); // clear scanner
+        Util.waitForEnter(scanner);
     }
     
 }

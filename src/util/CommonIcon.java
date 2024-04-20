@@ -74,11 +74,11 @@ public class CommonIcon {
         printChar('-', 60);
     }
     /**
- * Prints the admin's status, including their username.
- * 
- * @param index the index of the admin in the list of admins
- * @param admins the list of admin accounts
- */
+     * Prints the admin's status, including their username.
+     * 
+     * @param index the index of the admin in the list of admins
+     * @param admins the list of admin accounts
+     */
     public static void printAdminStatus(int index, ArrayList<SystemAdminAccount> admins)
     {
         System.out.print("Username : " + admins.get(index).getName());
