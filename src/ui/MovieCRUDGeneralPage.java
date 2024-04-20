@@ -78,7 +78,7 @@ public class MovieCRUDGeneralPage {
             System.out.println(Color.RED + "2." + Color.LIME + " List all Movies" + Color.RESET);
             System.out.println(Color.RED + "3." + Color.LIME + " Update a Movie" + Color.RESET);
             System.out.println(Color.RED + "4." + Color.LIME + " Delete a Movie" + Color.RESET);
-            mainPageChoice = Util.getInput("Enter your choice (':b' to back, ':q' to quit):", false,
+            mainPageChoice = Util.getInput("Enter your choice (':b' to back, ':q' to quit, this is applicable throughout the entire section of movie handling):", false,
                     scanner);
             if (Validation.isNumber(mainPageChoice)) {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);

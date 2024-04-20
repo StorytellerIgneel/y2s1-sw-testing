@@ -16,7 +16,8 @@ public class MovieListPage implements MovieCRUD {
      */
     @Override
     public void execute(ArrayList<Movie> movieList, Scanner scanner) {
-        MovieCRUDGeneralPage.showAllMovie(movieList); 
+        MovieCRUDGeneralPage.showAllMovie(movieList);
+        scanner.nextLine();
         Util.waitForEnter(scanner);
         return;
     }

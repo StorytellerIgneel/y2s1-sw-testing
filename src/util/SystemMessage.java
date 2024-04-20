@@ -131,6 +131,7 @@ public class SystemMessage {
                 System.out.println("Action successful.");
                 break;
         }
+        input.nextLine();
         Util.waitForEnter(input);
         System.out.print(Color.RESET);
         return;
