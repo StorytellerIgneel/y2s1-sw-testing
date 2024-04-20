@@ -98,9 +98,9 @@ public class MovieCRUDGeneralPage {
             exportMovieData(movieList, scanner);
         }
     }
-
+    
     public static ArrayList<Movie> getMovieList() {
-        // Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create(); TODO throws error, below fixes
+        // Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create(); TODO throws error, below fixes, remove this line if fixed
         Gson gson = new GsonBuilder()
         .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
             @Override
