@@ -16,7 +16,7 @@ public class NullFinder {
 
     public static Movie findNull(Result result, Movie movie) {
         Map <String, Object> nonNullAttribute = findNonNull(result);
-        System.out.println("nonNullAttri:" + nonNullAttribute);
+
         if (nonNullAttribute != null){
             String nonNullKey = nonNullAttribute.keySet().iterator().next();
             return(setAttribute(movie, nonNullKey, nonNullAttribute.get(nonNullKey)));
@@ -24,7 +24,6 @@ public class NullFinder {
         else{
 
         }
-
         return movie;
     }
 
@@ -57,7 +56,6 @@ public class NullFinder {
 
             //set the value of the field to the attribute value
             movieField.set(movie, attributeValue);
-            SystemMessage.successMessage(6, scanner);
         }catch (NoSuchFieldException e){
             System.out.println("error: no such field");
         }catch(IllegalAccessException e){
