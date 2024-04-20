@@ -22,7 +22,9 @@ public class Util {
     }
 
     public static void waitForEnter(Scanner scanner) {
-        scanner.nextLine();
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
         System.out.println("Press Enter to continue...");
         scanner.nextLine(); // Wait for the user to press Enter
     }

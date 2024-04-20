@@ -110,9 +110,14 @@ public class MovieInfoInput {
                         SystemMessage.errorMessage(10, scanner);
                     else if(Validation.isShowtime(showtime, scanner)){
                         ArrayList<Integer> timeList = Util.getTime(showtime);
-                        previousResult.getShowtimes().add(LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), 0));
-                        sortShowtime(previousResult.getShowtimes());
-                        break;
+                        LocalDateTime newShowtime = LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), 0);
+                        if (previousResult.getReleaseDate() != null && newShowtime.compareTo(previousResult.getReleaseDate()) >= 0){ //ensure that the newShowtime is not earlier than RD
+                            previousResult.getShowtimes().add(newShowtime);
+                            sortShowtime(previousResult.getShowtimes());
+                            break;
+                        }
+                        else
+                            SystemMessage.errorMessage(20, scanner);
                     }
                     else if (Validation.isBack(showtime)){
                         previousResult.step -= 1;

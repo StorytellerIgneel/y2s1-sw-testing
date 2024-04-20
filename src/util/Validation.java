@@ -76,7 +76,7 @@ public class Validation {
 
         // it would like like: 2024 12 31 10 30
         if (value.matches(
-                "(2024|20[3-9][0-9]|2[1-9][0-9]{2}|[3-9][0-9]{3}) (0?[1-9]|1[0-2]) (0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]) ([0-5]?[0-9])")) {
+                "(202[4-9]) (0?[1-9]|1[0-2]) (0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]) ([0-5]?[0-9])")) {
             String[] list = value.split(" ");
             for (String time : list)
                 times.add(Integer.parseInt(time));
@@ -131,7 +131,7 @@ public class Validation {
                 new ArrayList<>(List.of(0, 31, febDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31));
 
         if (value.matches(
-                "(2024|20[3-9][0-9]|2[1-9][0-9]{2}|[3-9][0-9]{3}) (0?[1-9]|1[0-2]) (0?[1-9]|[12][0-9]|3[01])")) {
+                "(202[4-9]) (0?[1-9]|1[0-2]) (0?[1-9]|[12][0-9]|3[01])")) {
             String[] list = value.split(" ");
             for (String time : list)
                 times.add(Integer.parseInt(time));
