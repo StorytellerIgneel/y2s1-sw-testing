@@ -9,6 +9,7 @@ import movie.Movie;
 import util.BookingUtils;
 import booking.BookingController;
 import java.util.Scanner;
+import javax.swing.colorchooser.ColorSelectionModel;
 
 public class CreateBookingPage implements Page {
     private BookingController bookingController;
@@ -134,10 +135,10 @@ public class CreateBookingPage implements Page {
             // Create booking
             bookingController.createBooking(selectedMovie, selectedCinema, selectedShowtime,
                     quantityAdult, quantityChildren);
-            System.out.println("Booking created successfully.");
+            System.out.println(Color.LIME + "Booking created successfully." + Color.RESET);
             System.out.println(); // Add a newline for layout
         } else {
-            System.out.println("Booking cancelled.");
+            System.out.println(Color.RED + "Booking cancelled." + Color.RESET);
             return;
         }
         return;
