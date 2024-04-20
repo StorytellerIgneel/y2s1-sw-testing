@@ -5,10 +5,10 @@ import java.io.*;
 import java.util.Scanner;
 import java.lang.reflect.Type;
 
-import util.*;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken; 
+import com.google.gson.reflect.TypeToken;
+
+import util.*; 
 
 public class SystemAdminAccount extends Account
 {
@@ -20,6 +20,7 @@ public class SystemAdminAccount extends Account
     // static methods
     public static ArrayList<SystemAdminAccount> getAdmins()
     {
+        Scanner scanner = new Scanner(System.in);
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<SystemAdminAccount>>() {}.getType();
 
@@ -35,7 +36,7 @@ public class SystemAdminAccount extends Account
         inputFile.close();
         }catch(IOException e)
         {
-            SystemMessage.errorMessage(4);
+            SystemMessage.errorMessage(4, scanner);
         }
 
         ArrayList<SystemAdminAccount> adminList = gson.fromJson(line, type);

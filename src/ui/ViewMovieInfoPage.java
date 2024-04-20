@@ -26,13 +26,15 @@ public class ViewMovieInfoPage {
         this.users = users;
         this.input = input;
     }
-
+    /**
+    * Prints the list of searched movies and prompts the user to select one.
+    */
     public void printSearchedMovies() 
     {
         
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {
@@ -49,7 +51,9 @@ public class ViewMovieInfoPage {
         chooseMovie();
         
     }
-
+    /**
+    * Prompts the user to select a movie from the list of searched movies.
+    */
     public void chooseMovie()
     {
         do
@@ -62,7 +66,7 @@ public class ViewMovieInfoPage {
                 if(choice < 1 || choice > searchedMovieList.size())
                 {
                     isValid = false;
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, input);
                 }
                 else
                     isValid = true;
@@ -70,17 +74,19 @@ public class ViewMovieInfoPage {
             else
             {
                 isValid = false;
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1, input);
             }
         }while(!isValid);
 
     }
-
+    /**
+ * Prints the information of the selected movie
+ */
     public void viewMovieInfo()
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {

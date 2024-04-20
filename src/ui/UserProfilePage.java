@@ -2,9 +2,10 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import account.*;
-import util.*;
+
 import java.util.Scanner;
 import color.Color;
+import util.*;
 
 public class UserProfilePage {
     private ArrayList<UserAccount> users;
@@ -19,13 +20,16 @@ public class UserProfilePage {
         this.input = input;
     }
 
+    /**
+    * Prints the user's profile information and prompts the user to update their profile.
+    */
     public void printUserInfo()
     {
         do
         {   
             try
             {
-                Util.clearConsole();
+                Util.clearConsole(input);
             }
             catch(IOException | InterruptedException e)
             {
@@ -56,11 +60,14 @@ public class UserProfilePage {
             else 
             {
                 isValid = false;
-                SystemMessage.errorMessage(11);;
+                SystemMessage.errorMessage(11, input);
             }
         }while(!isValid);
     }
-
+    /**
+    * Updates the user's profile information.
+    only 3 editable information which are username, email and phone number
+    */
     public void updateProfile()
     {
         boolean resume = true;

@@ -1,12 +1,12 @@
 package ui;
 import cinema.Cinema;
-import util.*;
 import account.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import color.Color;
+import util.*;
 
 
 public class CinemaLocationPage {
@@ -24,7 +24,7 @@ public class CinemaLocationPage {
     {
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {

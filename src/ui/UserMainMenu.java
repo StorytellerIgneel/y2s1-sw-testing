@@ -6,13 +6,17 @@ import java.util.Scanner;
 import account.*;
 import movie.Movie;
 import util.*;
-import movie.*;
 import color.Color;
 
-
-
 public class UserMainMenu {
-
+    /**
+     * Prints the movie lists and user status to the console.
+     * 
+     * @param trendMovies the list of trending movies
+     * @param latestMovies the list of latest movies
+     * @param index the index of the currently logged in user
+     * @param users the list of all users
+     */
     public static void printMovies(ArrayList<Movie> trendMovies, ArrayList<Movie> latestMovies, int index, ArrayList<UserAccount> users)
     {
         CommonIcon.printHeader();
@@ -22,7 +26,9 @@ public class UserMainMenu {
         CommonIcon.printLatest(latestMovies);
         CommonIcon.printChar('-', 60);
     }
-
+    /**
+     * Prints the user action menu to the console.
+     */
     public static void printUserAction()
     {
         System.out.println("Choose an action:");
@@ -30,12 +36,17 @@ public class UserMainMenu {
         System.out.println(Color.RED + "2." + Color.LIME + " View bookings" + Color.RESET);
         System.out.println(Color.RED + "3." + Color.LIME + " View profile" + Color.RESET);
         System.out.println(Color.RED + "4." + Color.LIME + " View cinema location" + Color.RESET);
-        // System.out.println(Color.red + "5." + Color.lime + " Exit" + Color.reset);
     }
-
-    public static int chooseUserAction()
+    /**
+     * Prompts the user to choose an action from a list of options.
+     * 
+     * @param input the scanner used for user input
+     * @return the index of the chosen option, 
+     * or -1 if the user chose to go back 
+     * or 5 if user chose to quit
+     */
+        public static int chooseUserAction(Scanner input)
     {
-        Scanner input = new Scanner(System.in);
         boolean isValid = false;
         String choice;
         int choiceInt = 0;
@@ -52,17 +63,17 @@ public class UserMainMenu {
             {
                 choiceInt = Integer.parseInt(choice);
                 if(choiceInt < 1 || choiceInt > 4) 
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, input);
                 else
                     isValid = true;
             }
             else
-                SystemMessage.errorMessage(1);
+                SystemMessage.errorMessage(1, input);
         }while(!isValid);
         
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException e)
         {
@@ -72,9 +83,6 @@ public class UserMainMenu {
         {
             e.printStackTrace();
         }
-
-
-
         return choiceInt;
     }
 }

@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import booking.Booking;
-import ui.MovieCRUDGeneralPage;
-import ui.UserMainMenu;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,21 +18,32 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonDeserializationContext;
-import util.*;
+
 import color.Color;
+import util.*;
 
 public class UserAccount extends Account{
   //instance variables
  private ArrayList<Booking> bookings;
- public ArrayList<Booking> getBookings()
- {
-  return bookings;
- }
 
- public void setBookings(ArrayList<Booking> bookings)
- {
-  this.bookings = bookings;
- }
+ 
+ /**
+ * Returns the list of bookings associated with the user account.
+ * 
+ * @return the list of bookings associated with the user account
+ */
+public ArrayList<Booking> getBookings() {
+    return bookings;
+}
+
+ /**
+ * Sets the list of bookings associated with the user account.
+ * 
+ * @param bookings the list of bookings to set
+ */
+public void setBookings(ArrayList<Booking> bookings) {
+    this.bookings = bookings;
+}
  
  //overloaded constructor
  public UserAccount(String accountId, String name, String password, String registerDate, String email, String phoneNo) {
@@ -48,6 +57,9 @@ public class UserAccount extends Account{
 }
 
  //static methods
+ /**
+  * Create a new UserAccount
+  */
  public static UserAccount register()
  {
     CommonIcon.printHeader();
@@ -57,13 +69,15 @@ public class UserAccount extends Account{
     System.out.print("Enter your account ID (':b' to back, ':q to quit'): ");
     String id = input.next();
 
-    if(Validation.isBack(id))
+    if(Validation.isBack(id)){
+      input.close();
       return null;
+    }
     if(Validation.isQuit(id))
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -88,7 +102,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -112,7 +126,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -136,7 +150,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -160,7 +174,7 @@ public class UserAccount extends Account{
     {
       try
       {
-          Util.clearConsole();
+          Util.clearConsole(input);
       }
       catch(IOException | InterruptedException e)
       {
@@ -185,8 +199,14 @@ public class UserAccount extends Account{
     return user;
  }
 
+ /**
+   * Returns a list of all user accounts stored in the system.
+   *
+   * @return a list of all user accounts stored in the system
+   */
  public static ArrayList<UserAccount> getUsers()
  {
+    Scanner input = new Scanner(System.in);
     Gson gson = new GsonBuilder()
     .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
         @Override
@@ -209,7 +229,7 @@ public class UserAccount extends Account{
       inputFile.close();
     }catch(IOException e)
     {
-      SystemMessage.errorMessage(4);
+      SystemMessage.errorMessage(4, input);
     }
 
     ArrayList<UserAccount> userList = gson.fromJson(line, type);
@@ -219,21 +239,26 @@ public class UserAccount extends Account{
    return userList;
  }
 
+ /**
+ * Saves the list of user accounts to a file in JSON format.
+ *
+ * @param users the list of user accounts to save
+ */
  public static void saveUsers(ArrayList<UserAccount> users)
  {
-   Gson gson = new Gson();
-   String toWrite = gson.toJson(users);
+    Scanner scanner = new Scanner(System.in);
+    Gson gson = new Gson();
+    String toWrite = gson.toJson(users);
 
-   try
-   {
-     File outFile = new File("src\\resources\\user.json");
-     PrintWriter outputFile = new PrintWriter(outFile);
-     outputFile.println(toWrite);
-     outputFile.close();
-   }catch(FileNotFoundException error)
-   {
-     SystemMessage.errorMessage(4);
-   }
-
- }
+    try
+    {
+      File outFile = new File("src\\resources\\user.json");
+      PrintWriter outputFile = new PrintWriter(outFile);
+      outputFile.println(toWrite);
+      outputFile.close();
+    }catch(FileNotFoundException error)
+    {
+      SystemMessage.errorMessage(4, scanner);
+    }
+  }
 }

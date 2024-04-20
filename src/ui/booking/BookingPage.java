@@ -6,6 +6,7 @@ import account.UserAccount;
 import booking.BookingController;
 import color.Color;
 import util.CommonIcon;
+
 import java.util.ArrayList;
 
 public class BookingPage implements Page{
@@ -61,16 +62,17 @@ public class BookingPage implements Page{
 
             // Print booking menu
             System.out.println(Color.RESET + "What would you like to do with your bookings?");
+            System.out.println(Color.RED + "0) " + Color.LIME + "Back to Main Menu");
             System.out.println(Color.RED + "1) " + Color.LIME + "Create Bookings");
             System.out.println(Color.RED + "2) " + Color.LIME + "Update Bookings");
             System.out.println(Color.RED + "3) " + Color.LIME + "Delete Bookings");
-            System.out.println(Color.RED + "4) " + Color.LIME + "Back to Main Menu");
+            System.out.println(Color.RED + "4) " + Color.LIME + "Search Bookings");
             System.out.println();
             System.out.print(Color.RESET + "Enter your choice: ");
             if (scanner.hasNextInt()) { // Check if input is an integer
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
-                if (choice < 1 || choice > 4) {
+                if (choice < 0 || choice > 4) {
                     System.out.println(Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
                     continue;
                 }
@@ -84,6 +86,9 @@ public class BookingPage implements Page{
             // Switch statements
             try {
                 switch (choice) {
+                    case 0: // Back to main menu
+                        System.out.println(Color.RESET + "Returning to main menu...");
+                        return;
                     case 1: // Create bookings
                         CreateBookingPage createBookingPage = new CreateBookingPage(bookingController, scanner);
                         createBookingPage.display();
@@ -96,8 +101,10 @@ public class BookingPage implements Page{
                         DeleteBookingPage deleteBookingPage = new DeleteBookingPage(bookingController, scanner);
                         deleteBookingPage.display();
                         break;
-                    case 4: // Back to main menu
-                        System.out.println(Color.RESET + "Returning to main menu...");
+                    case 4: // Search bookings
+                        String query = getSearchInput();
+                        bookingController.searchBookings(query);
+                        util.Util.waitForEnter(scanner);
                         return;
                     default:
                         System.out.println(Color.RED + "Invalid choice. Please enter a number between 1 and 4." + Color.RESET);
@@ -111,6 +118,27 @@ public class BookingPage implements Page{
                 choice = 0;
             }
         }
-        
+    }
+
+    /**
+     * Gets search input from user
+     */
+    public String getSearchInput()
+    {
+        boolean validInput = false;
+        String query = "";
+        while(!validInput){
+            System.out.println("Search Bookings");
+            System.out.print(Color.RESET + "Enter movie title of the booking:");
+            if(scanner.hasNextLine()){
+                query = scanner.nextLine();
+                validInput = true;
+            } else {
+                System.out.println("Invalid input. Please enter a string.");
+                scanner.next(); // Discard the invalid input
+                continue;
+            }
+        }
+        return query;
     }
 }

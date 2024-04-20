@@ -1,19 +1,23 @@
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import account.*;
 import movie.*;
-import booking.Booking;
 import ui.*;
 import ui.booking.*;
 import util.*;
 import color.Color;
 
 
+/**
+ * Main method of the TVG Cinemas program. This method initializes the program by creating a Scanner object,
+ * retrieving the user ,administrator accounts and movies from the data files.
+ * 
+ * @param args command line arguments (not used)
+ */
 public class Main
 {
-    
+   
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
@@ -29,14 +33,14 @@ public class Main
         {
             
             boolean resumeMainMenu = true;
-            LoginPage.printChoice();
-            int choice = LoginPage.chooseChoice(); 
+            LoginPage.printChoice(input);
+            int choice = LoginPage.chooseChoice(input); 
             
             if(choice == 1) //login
             {
                 try
                 {
-                    Util.clearConsole();
+                    Util.clearConsole(input);
                 }
                 catch(IOException | InterruptedException e)
                 {
@@ -58,7 +62,7 @@ public class Main
                 {
                     try
                     {
-                        Util.clearConsole();
+                        Util.clearConsole(input);
                     }
                     catch(IOException | InterruptedException e)
                     {
@@ -66,7 +70,7 @@ public class Main
                     }
                     UserMainMenu.printMovies(trend, latest, userIdx, users); // to be modified
                     UserMainMenu.printUserAction();
-                    choice = UserMainMenu.chooseUserAction(); // -1 means re-run main
+                    choice = UserMainMenu.chooseUserAction(input); // -1 means re-run main
 
                     if(choice == 5) //exit the program
                     {
@@ -82,7 +86,7 @@ public class Main
                     {
                         try
                         {
-                            Util.clearConsole();
+                            Util.clearConsole(input);
                         }
                         catch(IOException | InterruptedException e)
                         {
@@ -96,7 +100,7 @@ public class Main
                     {
                         try
                         {
-                            Util.clearConsole();
+                            Util.clearConsole(input);
                         }
                         catch(IOException | InterruptedException e)
                         {
@@ -109,7 +113,7 @@ public class Main
                     {
                         try
                         {
-                            Util.clearConsole();
+                            Util.clearConsole(input);
                         }
                         catch(IOException | InterruptedException e)
                         {
@@ -122,7 +126,7 @@ public class Main
                     {
                         try
                         {
-                            Util.clearConsole();
+                            Util.clearConsole(input);
                         }
                         catch(IOException | InterruptedException e)
                         {
@@ -138,7 +142,7 @@ public class Main
             {
                 try
                 {
-                    Util.clearConsole();
+                    Util.clearConsole(input);
                 }
                 catch(IOException | InterruptedException e)
                 {
@@ -149,14 +153,14 @@ public class Main
                 {
                     users.add(user);
                     UserAccount.saveUsers(users);
-                    SystemMessage.successMessage(5);
+                    SystemMessage.successMessage(5, input);
                 }
             }
             else if (choice == 3) //login as admin
             {
                 try
                 {
-                    Util.clearConsole();
+                    Util.clearConsole(input);
                 }
                 catch(IOException | InterruptedException e)
                 {
@@ -179,7 +183,7 @@ public class Main
                     // admin page   
                     try
                     {
-                        Util.clearConsole();
+                        Util.clearConsole(input);
                     }
                     catch(IOException | InterruptedException e)
                     {
@@ -204,21 +208,21 @@ public class Main
                         // Manage Movies
                         try
                         {
-                            Util.clearConsole();
+                            Util.clearConsole(input);
                         }
                         catch(IOException | InterruptedException e)
                         {
                             e.printStackTrace();
                         }
                         MovieCRUDGeneralPage movieCRUDGeneralPage = new MovieCRUDGeneralPage();
-                        movieCRUDGeneralPage.MainPage();
+                        movieCRUDGeneralPage.MainPage(input);
                     }
                     else if (choice == 2)
                     {
                         // Manage User
                         try
                         {
-                            Util.clearConsole();
+                            Util.clearConsole(input);
                         }
                         catch(IOException | InterruptedException e)
                         {
@@ -246,7 +250,7 @@ public class Main
 
         try
         {
-            Util.clearConsole();
+            Util.clearConsole(input);
         }
         catch(IOException | InterruptedException e)
         {

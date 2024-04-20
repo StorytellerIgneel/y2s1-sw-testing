@@ -13,7 +13,6 @@ import color.*;
 import java.lang.reflect.Type;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 public class MovieCRUDGeneralPage {
@@ -22,7 +21,7 @@ public class MovieCRUDGeneralPage {
     // constructor
     public MovieCRUDGeneralPage() {};
 
-    public void MainPage() {
+    public void MainPage(Scanner scanner) {
         ArrayList<MovieCRUD> movieFunctions = new ArrayList<>();
 
         // lambda expression implementing interface
@@ -49,9 +48,9 @@ public class MovieCRUDGeneralPage {
             Integer mainPageChoiceInt = 0;
 
             try {
-                Util.clearConsole();
+                Util.clearConsole(scanner);
             } catch (Exception e) {
-                SystemMessage.errorMessage(6);
+                SystemMessage.errorMessage(6, scanner);
             }
             movieList = getMovieList();
                         
@@ -66,31 +65,31 @@ public class MovieCRUDGeneralPage {
                 mainPageChoiceInt = Integer.parseInt(mainPageChoice);
                 if (mainPageChoiceInt > 0 && mainPageChoiceInt < 5){
                     try {
-                        Util.clearConsole();
+                        Util.clearConsole(scanner);
                     } catch (Exception e) {
-                        SystemMessage.errorMessage(6);
+                        SystemMessage.errorMessage(6, scanner);
                     }
                     movieFunctions.get(mainPageChoiceInt - 1).execute(movieList);
                 }
                 else if (mainPageChoiceInt == 5){
-                    exportMovieData(movieList);
+                    exportMovieData(movieList, scanner);
                     return;
                 }
                 else
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, scanner);
             } 
             else {
                 if (Validation.isBack(mainPageChoice))
                     return;
                 else if (Validation.isQuit(mainPageChoice))
                 {
-                    exportMovieData(movieList);
+                    exportMovieData(movieList, scanner);
                     return;
                 }
                 else
-                    SystemMessage.errorMessage(1);
+                    SystemMessage.errorMessage(1, scanner);
             }
-            exportMovieData(movieList);
+            exportMovieData(movieList, scanner);
         }
     }
 
@@ -115,7 +114,7 @@ public class MovieCRUDGeneralPage {
         return ((Validation.isNull(line))? (new ArrayList<Movie>()): movieList);
     }
 
-    public static void exportMovieData(ArrayList<Movie> movieList) {
+    public static void exportMovieData(ArrayList<Movie> movieList, Scanner scanner) {
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LocalDateTimeTypeAdapterFactory()).create();
         String toWrite = gson.toJson(movieList);
         try {
@@ -123,7 +122,7 @@ public class MovieCRUDGeneralPage {
             outputFile.println(toWrite);
             outputFile.close();
         } catch (FileNotFoundException error) {
-            SystemMessage.errorMessage(3);
+            SystemMessage.errorMessage(3, scanner);
         }
         return;
     }
@@ -138,22 +137,22 @@ public class MovieCRUDGeneralPage {
         return;
     }
 
-    public static int getMovieIndex(ArrayList<Movie> movieList, String action) {
+    public static int getMovieIndex(ArrayList<Movie> movieList, String action, Scanner scanner) {
         String index = null;
 
         while (true) {
-            index = Util.getInput("Enter the index of the movie you wish to " + action + ": ", false);
+            index = Util.getInput("Enter the index of the movie you wish to " + action + ": ", false, scanner);
             if (Validation.isNumber(index)) {
                 int indexInt = Integer.parseInt(index);
                 if (indexInt > 0 && indexInt <= movieList.size())
                     return indexInt - 1;
                 else
-                    SystemMessage.errorMessage(2);
+                    SystemMessage.errorMessage(2, scanner);
             } else {
                 if (Validation.isBack(index))
                     return -1;
                 else
-                    SystemMessage.errorMessage(1);
+                    SystemMessage.errorMessage(1, scanner);
             }
         }
     }
