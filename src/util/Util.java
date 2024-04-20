@@ -3,7 +3,6 @@ package util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.sound.sampled.Line;
 import color.Color;
 
 public class Util {
@@ -45,8 +44,9 @@ public class Util {
         return input.trim();
     }
 
-    public static String getLimitedInput(String prompt, ArrayList<String> allowedInputs,
-            Scanner scanner) {
+    public static String getLimitedInput(String prompt, ArrayList<String> allowedInputs,Scanner scanner) {
+        allowedInputs.add(":b");
+        allowedInputs.add(":q");
         String input = null;
         while (true) {
             System.out.print(prompt + Color.YELLOW);

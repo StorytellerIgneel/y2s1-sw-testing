@@ -13,6 +13,11 @@ import movie.MovieInfoInput;
 public class MovieAddPage implements MovieCRUD {
     MovieAddPage() {};
 
+    /**
+     *Add page for adding new movies
+     * 
+     * @param movieList, @param scanner
+     */
     @Override
     public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         Result result = new Result();
@@ -42,6 +47,4 @@ public class MovieAddPage implements MovieCRUD {
         SystemMessage.successMessage(1, scanner);
         return;
     }
-
-    
 }

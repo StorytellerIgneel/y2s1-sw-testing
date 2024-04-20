@@ -8,6 +8,12 @@ import movie.MovieCRUD;
 import util.Util;
 
 public class MovieListPage implements MovieCRUD {
+
+     /**
+     * List page for Listing all existing movies with their informations (not only title)
+     * 
+     * @param movieList, @param scanner
+     */
     @Override
     public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         MovieCRUDGeneralPage.showAllMovie(movieList); 

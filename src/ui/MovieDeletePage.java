@@ -8,6 +8,12 @@ import movie.MovieCRUD;
 import util.*;
 
 public class MovieDeletePage implements MovieCRUD {
+
+     /**
+     * Delete page for deleting existing movies
+     * 
+     * @param movieList, @param scanner
+     */
     @Override
     public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         int movieIndex = 0;

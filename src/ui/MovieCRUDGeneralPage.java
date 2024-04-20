@@ -187,8 +187,9 @@ public class MovieCRUDGeneralPage {
         return;
     }
 
+
     /**
-     * Get movie index from user input
+     * Get movie index from user input so that the calling programme can choose the correct movie to be changed
      * 
      * @param movieList
      * @param action
@@ -216,6 +217,11 @@ public class MovieCRUDGeneralPage {
         }
     }
 
+    /**
+     * Sort the movie List by the Release date of the movie by descending (The latest released movies will be at first)
+     * Used to show the latest released movies in the calling pages
+     * @param movieList
+     */
     public static void sortReleaseDate (ArrayList<Movie> movieList){
         Collections.sort(movieList, Comparator.comparing(Movie::getReleaseDate).reversed());
     }

@@ -12,6 +12,11 @@ import java.util.function.Function;
 public class MovieUpdatePage implements MovieCRUD {
     MovieUpdatePage() {};
 
+     /**
+     * Updating page to update the existing movie information
+     * 
+     * @param movieList, @param scanner
+     */
     @Override
     public void execute(ArrayList<Movie> movieList, Scanner scanner) {
         int movieIndex = 0;

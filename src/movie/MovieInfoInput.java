@@ -100,6 +100,8 @@ public class MovieInfoInput {
                     ArrayList<Integer> timeList = Util.getTime(addTime); // M D H M
                     previousResult.getShowtimes().add(previousResult.getShowtimes().get(previousResult.getShowtimes().size() - 1).plusMonths(timeList.get(0)).plusDays(timeList.get(1)).plusHours(timeList.get(2)).plusMinutes(timeList.get(3)));
                 }
+                else if (Validation.isQuit(choice))
+                    System.exit(0);
             }
             else{
                 while(true){    
@@ -127,7 +129,13 @@ public class MovieInfoInput {
                 previousResult.step += 1;
                 sortShowtime(previousResult.getShowtimes());
                 return previousResult;
-            } 
+            }
+            else if (Validation.isBack(repeat)){
+                previousResult.getShowtimes().remove(previousResult.getShowtimes().size() - 1);
+                return previousResult;
+            }
+            else if (Validation.isQuit(repeat))
+                System.exit(0);
         }
     }
 
@@ -238,21 +246,33 @@ public class MovieInfoInput {
                 if (Validation.isDouble(priceChildren)) {
                     priceChildrenDouble = Double.parseDouble(priceChildren);
                     if (previousResult.getPriceAdult() != null && priceChildrenDouble > previousResult.getPriceAdult()){
-                        confirm = Util.getLimitedInput(Color.RED + "The children price you have entered is more expensive than the adult price! Are you sure this is correct? Press y for yes and n for no: ", confirmList, scanner);
-                        if (confirm.equals("y")){
-                            previousResult.step += 1;
-                            previousResult.setPriceChildren(priceChildrenDouble);
-                            return previousResult;
-                        } else if (confirm.equals("n")) {
-                            choice = Util.getLimitedInput(
-                                    "Would you like to change the children price or the adult price? Press 1 for children and 2 for adult",
-                                    choiceList, scanner);
-                            if (choice == "2") {
-                                previousResult.step -= 1;
+                        while (true) {
+                            confirm = Util.getLimitedInput(Color.RED + "The children price you have entered is more expensive than the adult price! Are you sure this is correct? Press y for yes and n for no: ", confirmList, scanner);
+                            if (confirm.equals("y")){
+                                previousResult.step += 1;
+                                previousResult.setPriceChildren(priceChildrenDouble);
                                 return previousResult;
+                            } 
+                            else if (confirm.equals("n")) {
+                                choice = Util.getLimitedInput(
+                                        "Would you like to change the children price or the adult price? Press 1 for children and 2 for adult",
+                                        choiceList, scanner);
+                                if (choice.equals("2")) {
+                                    previousResult.step -= 1;
+                                    return previousResult;
+                                }
+                                else if (choice.equals("1"))
+                                    break;
+                                else if (Validation.isBack(choice)){} //ntg to do, just let it reloop
+                                else if (Validation.isQuit(choice))
+                                    System.exit(0);
                             }
+                            else if (Validation.isBack(choice)){} //ntg to do, just let it reloop
+                            else if (Validation.isQuit(choice))
+                                System.exit(0);
                         }
-                    } else {
+                    } 
+                    else{
                         previousResult.step += 1;
                         previousResult.setPriceChildren(priceChildrenDouble);
                         return previousResult;

@@ -88,6 +88,9 @@ public class SystemMessage {
             case 20:
                 System.out.println("The showtime is earlier than the Release Date of the movie. Please try again.");
                 break;
+            default:
+                System.out.println("An error has occurred. Please try again.");
+                break;
         }
         Util.waitForEnter(input);
         System.out.print(Color.RESET);
@@ -123,6 +126,9 @@ public class SystemMessage {
                 break;
             case 6:
                 System.out.println("Movie updated successfully");
+                break;
+            default:
+                System.out.println("Action successful.");
                 break;
         }
         Util.waitForEnter(input);
