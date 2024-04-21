@@ -152,9 +152,8 @@ public class UpdateBookingPage implements Page {
         Booking booking = bookingController.getBookings().get(chosenBookingIndex);
         System.out.println(Color.RESET + "Current Adult Tickets: " + booking.getQuantityAdult());
         System.out.println(Color.RESET + "Current Child Tickets: " + booking.getQuantityChildren());
-        System.out.print(Color.RESET + "Enter new number of adult tickets: ");
+        System.out.println(Color.RESET + "[ Enter new number of tickets ]");
         int quantityAdult = BookingUtils.getTicketQuantityInput(scanner, "adult");
-        System.out.print(Color.RESET + "Enter new number of child tickets: ");
         int quantityChildren = BookingUtils.getTicketQuantityInput(scanner, "child");
         bookingController.updateBooking(chosenBookingIndex, quantityAdult, quantityChildren);
         return;
