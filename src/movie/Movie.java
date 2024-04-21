@@ -90,7 +90,7 @@ public class Movie {
         this.genre = genre;
     }
 
-    public double getPriceAdult() {
+    public Double getPriceAdult() {
         return priceAdult;
     }
 
@@ -98,7 +98,7 @@ public class Movie {
         this.priceAdult = priceAdult;
     }
 
-    public double getPriceChildren() {
+    public Double getPriceChildren() {
         return priceChildren;
     }
 
