@@ -27,7 +27,6 @@ public class DeleteBookingPage implements Page {
      */
     public void display() {
         System.out.println("Select a booking to delete (0 to go back): ");
-        bookingController.printAllBookings();
         int choice = -1;
         boolean validInput = false;
         int chosenBookingIndex;
