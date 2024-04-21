@@ -70,25 +70,31 @@ public class UserAccount extends Account {
     System.out.println("Register: \n");
     // entering details
     String id = generateAccountId();
-    System.out.print("Enter your name (':b' to back, ':q to quit'): ");
-    String username = input.nextLine();
-
-    if (Validation.isBack(username))
-      return null;
-    if (Validation.isQuit(username)) {
-      try {
-        Util.clearConsole(input);
-      } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
+    String username2;
+    do{
+      System.out.print("Enter your name (':b' to back, ':q to quit'): ");
+      username2 = input.nextLine();
+  
+      if (Validation.isBack(username2))
+        return null;
+      if (Validation.isQuit(username2)) {
+        try {
+          Util.clearConsole(input);
+        } catch (IOException | InterruptedException e) {
+          e.printStackTrace();
+        }
+        CommonIcon.printHeader();
+        input.close();
+        System.out.print(Color.LIME);
+        System.out.println("Thank you for using TVG Cinemas.");
+        System.out.println("Vist Us Next Time.");
+        System.out.print(Color.RESET);
+        System.exit(0);
       }
-      CommonIcon.printHeader();
-      input.close();
-      System.out.print(Color.LIME);
-      System.out.println("Thank you for using TVG Cinemas.");
-      System.out.println("Vist Us Next Time.");
-      System.out.print(Color.RESET);
-      System.exit(0);
-    }
+
+      if(Validation.isDuplicateUsername(username2))
+        SystemMessage.errorMessage(23, input);
+    }while(Validation.isDuplicateUsername(username2));
 
     System.out.print("Enter your password (':b' to back, ':q to quit'): ");
     String pass = input.next();
@@ -171,7 +177,7 @@ public class UserAccount extends Account {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
     String dateString = simpleDateFormat.format(date);
 
-    UserAccount user = new UserAccount(id, username, pass, dateString, email2, phoneNo2);
+    UserAccount user = new UserAccount(id, username2, pass, dateString, email2, phoneNo2);
 
     return user;
   }

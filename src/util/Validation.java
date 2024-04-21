@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import account.UserAccount;
 
 public class Validation {
     /**
@@ -212,5 +213,16 @@ public class Validation {
 
         // Return true if the phone number matches the pattern, otherwise false
         return matcher.matches();
+    }
+
+    public static boolean isDuplicateUsername(String username)
+    {
+        ArrayList<UserAccount> userList = UserAccount.getUsers();
+        for(UserAccount user : userList)
+        {
+            if(user.getName().equals(username))
+                return true;
+        }
+        return false;
     }
 }

@@ -77,16 +77,21 @@ public class UserProfilePage {
             choice = input.next();
             if (choice.equals("1")) {
                 input.nextLine(); // consume the next line character
-                System.out.print("Enter new username (':b' to back): ");
-                String username = input.nextLine();
-                if (Validation.isBack(username))
-                    ;
-                else {
-                    users.get(userIdx).setName(username);
-                    UserAccount.saveUsers(users);
-                    SystemMessage.successMessage(100, input);
-                    resume = false;
-                }
+                String username2;
+                do{
+                    System.out.print("Enter new username (':b' to back): ");
+                    username2 = input.nextLine();
+                    if (Validation.isBack(username2))
+                        ;
+                    else if(Validation.isDuplicateUsername(username2))
+                        SystemMessage.errorMessage(23, input);
+                    else {
+                        users.get(userIdx).setName(username2);
+                        UserAccount.saveUsers(users);
+                        SystemMessage.successMessage(100, input);
+                        resume = false;
+                    }
+                }while(Validation.isDuplicateUsername(username2));
             } else if (choice.equals("2")) {
                 input.nextLine();
                 String email2;
