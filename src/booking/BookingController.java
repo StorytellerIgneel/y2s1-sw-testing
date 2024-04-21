@@ -20,6 +20,7 @@ public class BookingController {
      * @param user
      */
     public BookingController(ArrayList<UserAccount> users, int userIdx) {
+        this.userIdx = userIdx;
         this.users = users;
         bookings = users.get(userIdx).getBookings();
     }
@@ -114,7 +115,12 @@ public class BookingController {
      * Prints all bookings of the user List is 1-indexed
      */
     public void printAllBookings() {
+        if (users.get(userIdx).getBookings().size() == 0) {
+            System.out.println(Color.RED + "No bookings found." + Color.RESET);
+            return;
+        }
         for (int i = 0; i < users.get(userIdx).getBookings().size(); i++) {
+            System.out.println(userIdx);
             printBookingDetails(i, users.get(userIdx).getBookings().get(i));
             System.out.println();
         }
