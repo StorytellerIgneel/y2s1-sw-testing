@@ -65,16 +65,14 @@ public class UserAccount extends Account {
   /**
    * Create a new UserAccount
    */
-  public static UserAccount register() {
+  public static UserAccount register(Scanner input) {
     CommonIcon.printHeader();
     System.out.println("Register: \n");
     // entering details
-    Scanner input = new Scanner(System.in);
     System.out.print("Enter your account ID (':b' to back, ':q to quit'): ");
     String id = input.next();
 
     if (Validation.isBack(id)) {
-      input.close();
       return null;
     }
     if (Validation.isQuit(id)) {
