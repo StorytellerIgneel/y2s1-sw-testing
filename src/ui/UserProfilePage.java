@@ -89,28 +89,38 @@ public class UserProfilePage {
                 }
             } else if (choice.equals("2")) {
                 input.nextLine();
-                System.out.print("Enter new email (':b' to back): ");
-                String email = input.nextLine();
-                if (Validation.isBack(email))
-                    ;
-                else {
-                    users.get(userIdx).setEmail(email);
-                    UserAccount.saveUsers(users);
-                    SystemMessage.successMessage(100, input);
-                    resume = false;
-                }
+                String email2;
+                do{
+                    System.out.print("Enter new email (':b' to back): ");
+                    email2 = input.nextLine();
+                    if (Validation.isBack(email2))
+                        break;
+                    else if(!Validation.isValidEmail(email2))
+                        SystemMessage.errorMessage(21,input);
+                    else {
+                        users.get(userIdx).setEmail(email2);
+                        UserAccount.saveUsers(users);
+                        SystemMessage.successMessage(100, input);
+                        resume = false;
+                    }
+                }while(!Validation.isValidEmail(email2));
             } else if (choice.equals("3")) {
                 input.nextLine();
-                System.out.print("Enter new phone number (':b' to back): ");
-                String phoneNo = input.nextLine();
-                if (Validation.isBack(phoneNo))
-                    ;
-                else {
-                    users.get(userIdx).setPhoneNo(phoneNo);
-                    UserAccount.saveUsers(users);
-                    SystemMessage.successMessage(100, input);
-                    resume = false;
-                }
+                String phoneNo2;
+                do{
+                    System.out.print("Enter new phone number (':b' to back): ");
+                    phoneNo2 = input.nextLine();
+                    if (Validation.isBack(phoneNo2))
+                        break;
+                    else if(!Validation.isValidMalaysiaPhoneNumber(phoneNo2))
+                        SystemMessage.errorMessage(22, input);
+                    else {
+                        users.get(userIdx).setPhoneNo(phoneNo2);
+                        UserAccount.saveUsers(users);
+                        SystemMessage.successMessage(100, input);
+                        resume = false;
+                    }
+                }while(!Validation.isValidMalaysiaPhoneNumber(phoneNo2));
             } else if (Validation.isBack(choice)) {
                 return;
             }else{
