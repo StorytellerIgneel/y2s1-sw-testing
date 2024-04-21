@@ -84,6 +84,7 @@ public class UserProfilePage {
                 else {
                     users.get(userIdx).setName(username);
                     UserAccount.saveUsers(users);
+                    SystemMessage.successMessage(100, input);
                     resume = false;
                 }
             } else if (choice.equals("2")) {
@@ -95,6 +96,7 @@ public class UserProfilePage {
                 else {
                     users.get(userIdx).setEmail(email);
                     UserAccount.saveUsers(users);
+                    SystemMessage.successMessage(100, input);
                     resume = false;
                 }
             } else if (choice.equals("3")) {
@@ -106,6 +108,7 @@ public class UserProfilePage {
                 else {
                     users.get(userIdx).setPhoneNo(phoneNo);
                     UserAccount.saveUsers(users);
+                    SystemMessage.successMessage(100, input);
                     resume = false;
                 }
             } else if (Validation.isBack(choice)) {
