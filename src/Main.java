@@ -1,12 +1,12 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import account.*;
 import movie.*;
 import ui.*;
 import ui.booking.*;
-import ui.systemAdmin.MainMenu;
-import ui.systemAdmin.ManageUserPage;
+import ui.systemAdmin.*;
 import util.*;
 import color.Color;
 
@@ -206,7 +206,7 @@ public class Main {
                         }
                     } else if (choice == 4) {
                         // Generate Report
-
+                        GenerateReport.printReport(users, input);
                     }
                 }
             } else if (choice == 4) // exit
