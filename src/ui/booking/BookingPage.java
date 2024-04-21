@@ -52,10 +52,10 @@ public class BookingPage implements Page {
         int choice = 0;
         boolean validInput = false;
         while (!validInput || choice != 4) {
-            System.out.println(Color.RESET + "Your Bookings:");
+            System.out.println(Color.RESET + "Your Bookings to attend:");
 
             // Prints all booking details
-            bookingController.printAllBookings();
+            bookingController.printAllOngoingBookings();
 
             // Print booking menu
             System.out.println(Color.RESET + "What would you like to do with your bookings?");

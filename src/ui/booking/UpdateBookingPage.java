@@ -13,6 +13,12 @@ public class UpdateBookingPage implements Page {
     private BookingController bookingController;
     private Scanner scanner;
 
+    /**
+     * Constructor for UpdateBookingPage
+     * 
+     * @param bookingController
+     * @param scanner
+     */
     public UpdateBookingPage(BookingController bookingController, Scanner scanner) {
         this.bookingController = bookingController;
         this.scanner = scanner;
@@ -36,7 +42,8 @@ public class UpdateBookingPage implements Page {
         int chosenBookingIndex;
         while (!validInput || choice < 0 || choice > bookingController.getBookings().size()) {
             System.out.println(Color.RESET + "Your Bookings:");
-            bookingController.printAllBookings(); // Display all bookings, listed as 1-indexed
+            bookingController.printAllBookings(); // Display all bookings, listed as
+                                                  // 1-indexed
             System.out.println(
                     Color.RESET + "Which booking would you like to modify? (Enter 0 to go back)");
             System.out.print("Enter your choice: ");

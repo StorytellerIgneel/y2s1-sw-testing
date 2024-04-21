@@ -124,8 +124,31 @@ public class BookingController {
             return;
         }
         for (int i = 0; i < users.get(userIdx).getBookings().size(); i++) {
-            System.out.println(userIdx);
-            printBookingDetails(i, users.get(userIdx).getBookings().get(i));
+            Booking curr_booking = users.get(userIdx).getBookings().get(i);
+            if (curr_booking.getShowtime().isBefore(LocalDateTime.now())) { // Check if booking is
+                                                                            // expired
+                continue;
+            }
+            printBookingDetails(i, curr_booking);
+            System.out.println();
+        }
+    }
+
+    /**
+     * Prints all ongoing bookings of the user List is 1-indexed
+     */
+    public void printAllOngoingBookings() {
+        if (users.get(userIdx).getBookings().size() == 0) {
+            System.out.println(Color.RED + "No bookings found." + Color.RESET);
+            return;
+        }
+        for (int i = 0; i < users.get(userIdx).getBookings().size(); i++) {
+            Booking curr_booking = users.get(userIdx).getBookings().get(i);
+            if (curr_booking.getShowtime().isBefore(LocalDateTime.now())) { // Check if booking is
+                                                                            // expired
+                continue;
+            }
+            printBookingDetails(i, curr_booking);
             System.out.println();
         }
     }
