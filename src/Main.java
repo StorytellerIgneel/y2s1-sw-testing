@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import account.*;
 import movie.*;
+import report.*;
 import ui.*;
 import ui.booking.*;
-import ui.systemAdmin.MainMenu;
-import ui.systemAdmin.ManageUserPage;
+import ui.systemAdmin.*;
 import util.*;
 import color.Color;
 
@@ -161,8 +161,9 @@ public class Main {
                         e.printStackTrace();
                     }
                     CommonIcon.printAdminHeader(admin);
-                    MainMenu.printAdminAction();
-                    choice = MainMenu.chooseAdminAction();
+                    MainMenu adminMenu = new MainMenu();
+                    adminMenu.printAdminAction();
+                    choice = adminMenu.chooseAdminAction(input);
 
                     if (choice == 5) {
                         resumeMainMenu = false;
@@ -206,7 +207,9 @@ public class Main {
                         }
                     } else if (choice == 4) {
                         // Generate Report
-
+                        ArrayList<Report> data = new ArrayList<Report>();
+                        Report.generateTicketSalesReport(users, data);
+                        GenerateReport.printReport(users, data, input);
                     }
                 }
             } else if (choice == 4) // exit

@@ -9,11 +9,11 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ManageUserPage {
+public class ManageUserPage extends AdminPage {
     // constructor
     public ManageUserPage() {};
 
-    public static void printAdminAction() {
+    public void printAdminAction() {
         System.out.println("Choose an action:");
         System.out.println(Color.RED + "1." + Color.LIME + " View List of Users" + Color.RESET);
         System.out
@@ -21,7 +21,7 @@ public class ManageUserPage {
 
     }
 
-    public static int chooseAdminAction(Scanner scanner) {
+    public int chooseAdminAction(Scanner scanner) {
         boolean isValid = false;
         String choice;
         int choiceInt = 0;
@@ -65,10 +65,10 @@ public class ManageUserPage {
             }
             CommonIcon.printAdminHeader(admin);
             printAdminAction();
-            int choice = ManageUserPage.chooseAdminAction(scanner);
+            int choice = chooseAdminAction(scanner);
             if (choice == 1) {
                 // View list of users
-                SystemAdminAccount.viewListOfUsers(users, scanner);
+                printListOfUsers(users, scanner);
             }
             if (choice == 2) {
                 // Update user account
@@ -80,5 +80,18 @@ public class ManageUserPage {
                 return;
             }
         }
+    }
+
+    public static void printListOfUsers(ArrayList<UserAccount> users, Scanner scanner) {
+        CommonIcon.printHeader();
+        System.out.println("List of Users");
+        System.out.printf("%10s %-30s %-12s %-30s\n", "Account ID", "Username", "Contact", "Email");
+        for (int i = 0; i < users.size(); i++) {
+            System.out.printf("%-10s %-30s %-12s %-30s\n", users.get(i).getAccountId(),
+                    users.get(i).getName(), users.get(i).getPhoneNo(), users.get(i).getEmail());
+        }
+        CommonIcon.printChar('-', 60);
+        scanner.nextLine();
+        Util.waitForEnter(scanner);
     }
 }

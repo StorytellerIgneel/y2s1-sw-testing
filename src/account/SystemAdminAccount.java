@@ -103,16 +103,4 @@ public class SystemAdminAccount extends Account {
         userProfilePage.printUserInfo();
         UserAccount.saveUsers(users);
     }
-
-    public static void viewListOfUsers(ArrayList<UserAccount> users, Scanner scanner) {
-        CommonIcon.printHeader();
-        System.out.println("List of Users");
-        System.out.printf("%10s %-30s %-12s %-30s\n", "Account ID", "Username", "Contact", "Email");
-        for (int i = 0; i < users.size(); i++) {
-            System.out.printf("%-10s %-30s %-12s %-30s\n", users.get(i).getAccountId(),
-                    users.get(i).getName(), users.get(i).getPhoneNo(), users.get(i).getEmail());
-        }
-        CommonIcon.printChar('-', 60);
-        Util.waitForEnter(scanner);
-    }
 }
