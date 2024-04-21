@@ -3,6 +3,13 @@ package movie;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
+/**
+     * dummy replica Movie class that acts as a recorder for the movie Object during the update and add process
+     * ALl of the fields are initialized to either null or an empty array
+     * as the movie is added, all the information will be stored in the Result, and the step will increase as it progresses in the add process
+     * during update process, only the specific function will be called
+     * Result was created due to the wish of not involving the movie object in too many places, and that the step variable isnt relevant in the movie object.
+     */
 public class Result {
     private String movieId;
     private String title;
