@@ -24,9 +24,7 @@ public class Main {
         // Fetch data from files
         ArrayList<UserAccount> users = UserAccount.getUsers();
         ArrayList<SystemAdminAccount> admins = SystemAdminAccount.getAdmins();
-        ArrayList<Movie> trend = MovieCRUDGeneralPage.getMovieList(); // to be modified
-        ArrayList<Movie> latest = MovieCRUDGeneralPage.getMovieList(); // to be modified
-        ArrayList<Movie> movieList = MovieCRUDGeneralPage.getMovieList(); // to be modified
+        ArrayList<Movie> movieList = MovieCRUDGeneralPage.getMovieList();
 
         boolean resumeProgram = true;
         int userIdx;
@@ -63,7 +61,7 @@ public class Main {
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
-                    UserMainMenu.printMovies(trend, latest, userIdx, users); // to be modified
+                    UserMainMenu.printMovies(movieList, userIdx, users); // to be modified
                     UserMainMenu.printUserAction();
                     choice = UserMainMenu.chooseUserAction(input); // -1 means re-run main
 
@@ -82,7 +80,7 @@ public class Main {
                         } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
-                        UserMainMenu.printMovies(trend, latest, userIdx, users);
+                        UserMainMenu.printMovies(movieList, userIdx, users);
                         SearchMoviePage searchMoviePage =
                                 new SearchMoviePage(users, userIdx, input);
                         searchMoviePage.searchMovie();
