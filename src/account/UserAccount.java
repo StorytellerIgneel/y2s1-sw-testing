@@ -69,28 +69,7 @@ public class UserAccount extends Account {
     CommonIcon.printHeader();
     System.out.println("Register: \n");
     // entering details
-    System.out.print("Enter your account ID (':b' to back, ':q to quit'): ");
-    String id = input.next();
-
-    if (Validation.isBack(id)) {
-      return null;
-    }
-    if (Validation.isQuit(id)) {
-      try {
-        Util.clearConsole(input);
-      } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
-      }
-      CommonIcon.printHeader();
-      input.close();
-      System.out.print(Color.LIME);
-      System.out.println("Thank you for using TVG Cinemas.");
-      System.out.println("Vist Us Next Time.");
-      System.out.print(Color.RESET);
-      System.exit(0);
-    }
-
-    input.nextLine(); // eliminate whitespace
+    String id = generateAccountId();
     System.out.print("Enter your name (':b' to back, ':q to quit'): ");
     String username = input.nextLine();
 
@@ -131,52 +110,68 @@ public class UserAccount extends Account {
       System.exit(0);
     }
 
-    System.out.print("Enter your email (':b' to back, ':q to quit'): ");
-    String email = input.next();
-
-    if (Validation.isBack(email))
-      return null;
-    if (Validation.isQuit(email)) {
-      try {
-        Util.clearConsole(input);
-      } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
+    String email2;
+    do{
+      System.out.print("Enter your email (':b' to back, ':q to quit'): ");
+      email2 = input.next();
+  
+      if (Validation.isBack(email2))
+        return null;
+      if (Validation.isQuit(email2)) {
+        try {
+          Util.clearConsole(input);
+        } catch (IOException | InterruptedException e) {
+          e.printStackTrace();
+        }
+        CommonIcon.printHeader();
+        input.close();
+        System.out.print(Color.LIME);
+        System.out.println("Thank you for using TVG Cinemas.");
+        System.out.println("Vist Us Next Time.");
+        System.out.print(Color.RESET);
+        System.exit(0);
       }
-      CommonIcon.printHeader();
-      input.close();
-      System.out.print(Color.LIME);
-      System.out.println("Thank you for using TVG Cinemas.");
-      System.out.println("Vist Us Next Time.");
-      System.out.print(Color.RESET);
-      System.exit(0);
-    }
-
-    System.out.print("Enter your phone number (':b' to back, ':q to quit'): ");
-    String phoneNo = input.next();
-
-    if (Validation.isBack(phoneNo))
-      return null;
-    if (Validation.isQuit(phoneNo)) {
-      try {
-        Util.clearConsole(input);
-      } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
+      if(!Validation.isValidEmail(email2))
+      {
+        SystemMessage.errorMessage(21, input);
       }
-      CommonIcon.printHeader();
-      input.close();
-      System.out.print(Color.LIME);
-      System.out.println("Thank you for using TVG Cinemas.");
-      System.out.println("Vist Us Next Time.");
-      System.out.print(Color.RESET);
-      System.exit(0);
-    }
+
+    }while(!Validation.isValidEmail(email2));
+
+    String phoneNo2;
+    do{
+      System.out.print("Enter your phone number (':b' to back, ':q to quit'): ");
+      phoneNo2 = input.next();
+  
+      if (Validation.isBack(phoneNo2))
+        return null;
+      if (Validation.isQuit(phoneNo2)) {
+        try {
+          Util.clearConsole(input);
+        } catch (IOException | InterruptedException e) {
+          e.printStackTrace();
+        }
+        CommonIcon.printHeader();
+        input.close();
+        System.out.print(Color.LIME);
+        System.out.println("Thank you for using TVG Cinemas.");
+        System.out.println("Vist Us Next Time.");
+        System.out.print(Color.RESET);
+        System.exit(0);
+      }
+
+      if(!Validation.isValidMalaysiaPhoneNumber(phoneNo2))
+      {
+        SystemMessage.errorMessage(22, input);
+      }
+    }while(!Validation.isValidMalaysiaPhoneNumber(phoneNo2));
 
     // generating simple date formate in string
     Date date = new Date();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
     String dateString = simpleDateFormat.format(date);
 
-    UserAccount user = new UserAccount(id, username, pass, dateString, email, phoneNo);
+    UserAccount user = new UserAccount(id, username, pass, dateString, email2, phoneNo2);
 
     return user;
   }

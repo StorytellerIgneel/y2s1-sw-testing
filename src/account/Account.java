@@ -3,6 +3,7 @@ package account;
 // import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 import util.*;
 
@@ -93,6 +94,15 @@ public class Account {
       e.printStackTrace();
     }
     return index; // return the user index for tracking user activities
+  }
+
+   // Method to generate a unique account ID
+  public static String generateAccountId() {
+      // Generate a random UUID (Universally Unique Identifier)
+      // and remove hyphens to make it shorter
+      String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+      // Extract the first 8 characters to create a shorter ID
+      return uuid.substring(0, 8);
   }
 
   // getter methods
