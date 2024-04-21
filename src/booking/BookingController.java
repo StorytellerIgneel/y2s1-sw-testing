@@ -1,6 +1,7 @@
 package booking;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import account.UserAccount;
@@ -102,7 +103,10 @@ public class BookingController {
     public void printBookingDetails(int index, Booking booking) {
         System.out.println(
                 Color.RED + (index + 1) + ". \tMovie: " + Color.LIME + booking.getMovieName());
-        System.out.println(Color.RED + "\tShowtime: " + Color.LIME + booking.getShowtime());
+        // format date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd HH:mm:ss");
+        String formattedDate = booking.getShowtime().format(formatter);
+        System.out.println(Color.RED + "\tShowtime: " + Color.LIME + formattedDate);
         System.out.println(Color.RED + "\tCinema: " + Color.LIME + booking.getCinemaName());
         System.out.println(Color.RED + "\tLocation: " + Color.LIME + booking.getCinemaAddress());
         System.out.println(Color.RED + "\tChildren: " + Color.LIME + booking.getQuantityChildren());

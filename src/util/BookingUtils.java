@@ -1,6 +1,7 @@
 package util;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import cinema.Cinema;
@@ -67,8 +68,11 @@ public class BookingUtils {
         while (!validInput) {
             System.out.println("Available showtimes:");
             for (int i = 0; i < selectedMovie.getShowtimes().size(); i++) {
-                System.out.println(Color.RED + (i + 1) + ") \t" + Color.LIME
-                        + selectedMovie.getShowtimes().get(i) + Color.RESET);
+                // format date
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd HH:mm:ss");
+                String formattedDate = selectedMovie.getShowtimes().get(i).format(formatter);
+                System.out.println(
+                        Color.RED + (i + 1) + ") \t" + Color.LIME + formattedDate + Color.RESET);
             }
             System.out.print(Color.RESET + "Select a showtime: " + Color.RESET);
             if (scanner.hasNextInt()) {
