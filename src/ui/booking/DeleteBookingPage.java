@@ -27,7 +27,6 @@ public class DeleteBookingPage implements Page {
      */
     public void display() {
         System.out.println("Select a booking to delete (0 to go back): ");
-        bookingController.printAllBookings();
         int choice = -1;
         boolean validInput = false;
         int chosenBookingIndex;
@@ -36,7 +35,7 @@ public class DeleteBookingPage implements Page {
             bookingController.printAllBookings(); // Display all bookings, listed as
                                                   // 1-indexed
             System.out.println(
-                    Color.RESET + "Which booking would you like to modify? (Enter 0 to go back)");
+                    Color.RESET + "Which booking would you like to delete? (Enter 0 to go back)");
             System.out.print("Enter your choice: ");
             // Check for integer input
             if (!scanner.hasNextInt()) {
@@ -60,6 +59,7 @@ public class DeleteBookingPage implements Page {
         try {
             bookingController.deleteBooking(chosenBookingIndex);
             System.out.println(Color.LIME + "Booking deleted successfully.");
+            System.out.println();
         } catch (IllegalArgumentException e) {
             System.out.println(Color.RED + e.getMessage() + Color.RESET);
         }
