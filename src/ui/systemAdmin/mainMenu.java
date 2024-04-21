@@ -6,8 +6,8 @@ import java.io.IOException;
 import color.Color;
 import util.*;
 
-public class MainMenu {
-    public static void printAdminAction() {
+public class MainMenu extends AdminPage {
+    public void printAdminAction() {
         System.out.println("Choose an action:");
         System.out.println(Color.RED + "1." + Color.LIME + " Manage movies" + Color.RESET);
         System.out.println(Color.RED + "2." + Color.LIME + " Manage user accounts" + Color.RESET);
@@ -15,8 +15,7 @@ public class MainMenu {
         System.out.println(Color.RED + "4." + Color.LIME + " Generate report" + Color.RESET);
     }
 
-    public static int chooseAdminAction() {
-        Scanner input = new Scanner(System.in);
+    public int chooseAdminAction(Scanner input) {
         boolean isValid = false;
         String choice;
         int choiceInt = 0;

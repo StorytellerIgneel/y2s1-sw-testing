@@ -1,7 +1,8 @@
 package report;
 
-
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import account.UserAccount;
 import booking.*;
@@ -60,7 +61,15 @@ public class Report {
         setTotalChildren(getTotalChildren() + totalChildren);
     }
 
-    public String getMovieId() {
+    public static String getReportDate(){
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDate.format(formatter);
+        return formattedDate;
+    }
+
+    public String getMovieId()
+    {
         return movieId;
     }
 
