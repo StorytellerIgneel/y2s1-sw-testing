@@ -34,7 +34,6 @@ public class SearchMoviePage {
     public void searchMovie() {
         do {
             System.out.print("Search for Movies (':q' to quit ':b to back'):");
-            input.nextLine();
             searchName = input.nextLine();
             if (Validation.isBack(searchName))
                 return;

@@ -51,6 +51,7 @@ public class UserMainMenu {
         do {
             System.out.print("Your selection (':b' to back, ':q' to quit): ");
             choice = input.next();
+            input.nextLine();
 
             if (Validation.isBack(choice))
                 return -1;
