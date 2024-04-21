@@ -8,7 +8,7 @@ import util.Util;
 import util.CommonIcon;
 import report.*;
 
-public class GenerateReport extends AdminPage {
+public class GenerateReportPage extends AdminPage {
     public void printAdminAction() {
 
     }

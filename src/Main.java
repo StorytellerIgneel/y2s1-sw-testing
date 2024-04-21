@@ -209,7 +209,7 @@ public class Main {
                         // Generate Report
                         ArrayList<Report> data = new ArrayList<Report>();
                         Report.generateTicketSalesReport(users, data);
-                        GenerateReport.printReport(users, data, input);
+                        GenerateReportPage.printReport(users, data, input);
                     }
                 }
             } else if (choice == 4) // exit
