@@ -41,6 +41,7 @@ public class DeleteBookingPage implements Page {
             if (!scanner.hasNextInt()) {
                 System.out
                         .println(Color.RED + "Invalid input. Please enter a number." + Color.RESET);
+                scanner.next(); // Consume invalid input
                 continue;
             }
             choice = scanner.nextInt();
