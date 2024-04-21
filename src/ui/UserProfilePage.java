@@ -77,39 +77,62 @@ public class UserProfilePage {
             choice = input.next();
             if (choice.equals("1")) {
                 input.nextLine(); // consume the next line character
-                System.out.print("Enter new username (':b' to back): ");
-                String username = input.nextLine();
-                if (Validation.isBack(username))
-                    ;
-                else {
-                    users.get(userIdx).setName(username);
-                    UserAccount.saveUsers(users);
-                    resume = false;
-                }
+                String username2;
+                do{
+                    System.out.print("Enter new username (':b' to back): ");
+                    username2 = input.nextLine();
+                    if (Validation.isBack(username2))
+                        ;
+                    else if(Validation.isDuplicateUsername(username2))
+                        SystemMessage.errorMessage(23, input);
+                    else {
+                        users.get(userIdx).setName(username2);
+                        UserAccount.saveUsers(users);
+                        SystemMessage.successMessage(100, input);
+                        resume = false;
+                        break;
+                    }
+                }while(Validation.isDuplicateUsername(username2));
             } else if (choice.equals("2")) {
                 input.nextLine();
-                System.out.print("Enter new email (':b' to back): ");
-                String email = input.nextLine();
-                if (Validation.isBack(email))
-                    ;
-                else {
-                    users.get(userIdx).setEmail(email);
-                    UserAccount.saveUsers(users);
-                    resume = false;
-                }
+                String email2;
+                do{
+                    System.out.print("Enter new email (':b' to back): ");
+                    email2 = input.nextLine();
+                    if (Validation.isBack(email2))
+                        break;
+                    else if(!Validation.isValidEmail(email2))
+                        SystemMessage.errorMessage(21,input);
+                    else {
+                        users.get(userIdx).setEmail(email2);
+                        UserAccount.saveUsers(users);
+                        SystemMessage.successMessage(100, input);
+                        resume = false;
+                        break;
+                    }
+                }while(!Validation.isValidEmail(email2));
             } else if (choice.equals("3")) {
                 input.nextLine();
-                System.out.print("Enter new phone number (':b' to back): ");
-                String phoneNo = input.nextLine();
-                if (Validation.isBack(phoneNo))
-                    ;
-                else {
-                    users.get(userIdx).setPhoneNo(phoneNo);
-                    UserAccount.saveUsers(users);
-                    resume = false;
-                }
+                String phoneNo2;
+                do{
+                    System.out.print("Enter new phone number (':b' to back): ");
+                    phoneNo2 = input.nextLine();
+                    if (Validation.isBack(phoneNo2))
+                        break;
+                    else if(!Validation.isValidMalaysiaPhoneNumber(phoneNo2))
+                        SystemMessage.errorMessage(22, input);
+                    else {
+                        users.get(userIdx).setPhoneNo(phoneNo2);
+                        UserAccount.saveUsers(users);
+                        SystemMessage.successMessage(100, input);
+                        resume = false;
+                        break;
+                    }
+                }while(!Validation.isValidMalaysiaPhoneNumber(phoneNo2));
             } else if (Validation.isBack(choice)) {
                 return;
+            }else{
+                SystemMessage.errorMessage(11, input);
             }
         } while (resume);
     }

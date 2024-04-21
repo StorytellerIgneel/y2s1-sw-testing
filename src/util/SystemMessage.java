@@ -88,6 +88,15 @@ public class SystemMessage {
             case 20:
                 System.out.println("The showtime is earlier than the Release Date of the movie. Please try again.");
                 break;
+            case 21:
+                System.out.println("Please enter a valid email format.");
+                break;
+            case 22:
+                System.out.println("Please enter a valid Malaysia Phone Format.");
+                break;
+            case 23:
+                System.out.println("Username already existed. Please try again.");
+                break;
             default:
                 System.out.println("An error has occurred. Please try again.");
                 break;

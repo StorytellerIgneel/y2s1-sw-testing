@@ -9,7 +9,6 @@ import movie.Movie;
 import util.BookingUtils;
 import booking.BookingController;
 import java.util.Scanner;
-import javax.swing.colorchooser.ColorSelectionModel;
 
 public class CreateBookingPage implements Page {
     private BookingController bookingController;
@@ -40,7 +39,7 @@ public class CreateBookingPage implements Page {
         while (resultCount == 0) {
             // Get user query input
             System.out.println(Color.RESET + "Create a Booking");
-            System.out.print(Color.RESET + "Search for movie title:");
+            System.out.print(Color.RESET + "Search for movie title: ");
             String query = scanner.nextLine();
             System.out.println(Color.RESET + "Search results:");
 

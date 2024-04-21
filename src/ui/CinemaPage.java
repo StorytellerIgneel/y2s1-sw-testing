@@ -1,10 +1,11 @@
 package ui;
 
+import java.util.ArrayList;
 import cinema.Cinema;
 import util.CommonIcon;
 
 public class CinemaPage {
-    private static Cinema[] cinemas = Cinema.getCinemaLocation();
+    private static ArrayList<Cinema> cinemas = Cinema.getCinemaLocation();
 
     public static void printAllCinemaLocation() {
         CommonIcon.printHeader();

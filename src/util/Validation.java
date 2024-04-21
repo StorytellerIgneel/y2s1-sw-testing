@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import account.UserAccount;
 
 public class Validation {
     /**
@@ -177,5 +180,49 @@ public class Validation {
 
     public static boolean isNull(String value) {
         return (value.equals(null) || value.equals(""));
+    }
+
+    public static boolean isValidEmail(String email) {
+        // Email regular expression pattern
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        // Compile the regular expression pattern
+        Pattern pattern = Pattern.compile(emailRegex);
+
+        // Create a Matcher object
+        Matcher matcher = pattern.matcher(email);
+
+        // Return true if the email matches the pattern, otherwise false
+        return matcher.matches();
+    }
+
+    public static boolean isValidMalaysiaPhoneNumber(String phoneNumber) {
+        // Phone number regular expression pattern for Malaysia format
+        // Allows for formats like:
+        // - 012-3456789
+        // - 012-345 6789
+        // - 012 345 6789
+        // - 0123456789
+        String malaysiaPhoneRegex = "^(01)[0-46-9]-?[0-9]{7,8}$";
+
+        // Compile the regular expression pattern
+        Pattern pattern = Pattern.compile(malaysiaPhoneRegex);
+
+        // Create a Matcher object
+        Matcher matcher = pattern.matcher(phoneNumber);
+
+        // Return true if the phone number matches the pattern, otherwise false
+        return matcher.matches();
+    }
+
+    public static boolean isDuplicateUsername(String username)
+    {
+        ArrayList<UserAccount> userList = UserAccount.getUsers();
+        for(UserAccount user : userList)
+        {
+            if(user.getName().equals(username))
+                return true;
+        }
+        return false;
     }
 }

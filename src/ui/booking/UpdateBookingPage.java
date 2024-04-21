@@ -126,6 +126,8 @@ public class UpdateBookingPage implements Page {
         System.out.print(Color.RESET + "Change to a new cinema location: ");
         Cinema selectedCinema = BookingUtils.getCinemaInput(scanner);
         bookingController.updateBooking(chosenBookingIndex, selectedCinema);
+        System.out.println(Color.LIME + "Booking updated successfully." + Color.RESET);
+        System.out.println();
         return;
     }
 
@@ -140,6 +142,8 @@ public class UpdateBookingPage implements Page {
         System.out.print(Color.RESET + "Change to a new showtime: ");
         LocalDateTime selectedShowtime = BookingUtils.getShowtimeInput(scanner, booking.getMovie());
         bookingController.updateBooking(chosenBookingIndex, selectedShowtime);
+        System.out.println(Color.LIME + "Booking updated successfully." + Color.RESET);
+        System.out.println();
         return;
     }
 
@@ -152,11 +156,12 @@ public class UpdateBookingPage implements Page {
         Booking booking = bookingController.getBookings().get(chosenBookingIndex);
         System.out.println(Color.RESET + "Current Adult Tickets: " + booking.getQuantityAdult());
         System.out.println(Color.RESET + "Current Child Tickets: " + booking.getQuantityChildren());
-        System.out.print(Color.RESET + "Enter new number of adult tickets: ");
+        System.out.println(Color.RESET + "[ Enter new number of tickets ]");
         int quantityAdult = BookingUtils.getTicketQuantityInput(scanner, "adult");
-        System.out.print(Color.RESET + "Enter new number of child tickets: ");
         int quantityChildren = BookingUtils.getTicketQuantityInput(scanner, "child");
         bookingController.updateBooking(chosenBookingIndex, quantityAdult, quantityChildren);
+        System.out.println(Color.LIME + "Booking updated successfully." + Color.RESET);
+        System.out.println();
         return;
     }
 }

@@ -12,17 +12,17 @@ public class UserMainMenu {
     /**
      * Prints the movie lists and user status to the console.
      * 
-     * @param trendMovies the list of trending movies
-     * @param latestMovies the list of latest movies
+     * 
+     * @param movieList the list of latest movies
      * @param index the index of the currently logged in user
      * @param users the list of all users
      */
-    public static void printMovies(ArrayList<Movie> trendMovies, ArrayList<Movie> latestMovies,
+    public static void printMovies(ArrayList<Movie> movieList,
             int index, ArrayList<UserAccount> users) {
         CommonIcon.printHeader();
         CommonIcon.printUserStatus(index, users);
         System.out.println();
-        CommonIcon.printLatest(latestMovies);
+        CommonIcon.printLatest(movieList);
         CommonIcon.printChar('-', 60);
     }
 
@@ -51,6 +51,7 @@ public class UserMainMenu {
         do {
             System.out.print("Your selection (':b' to back, ':q' to quit): ");
             choice = input.next();
+            input.nextLine();
 
             if (Validation.isBack(choice))
                 return -1;
