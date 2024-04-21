@@ -21,7 +21,6 @@ public class UserMainMenu {
             int index, ArrayList<UserAccount> users) {
         CommonIcon.printHeader();
         CommonIcon.printUserStatus(index, users);
-        CommonIcon.printTrend(trendMovies);
         System.out.println();
         CommonIcon.printLatest(latestMovies);
         CommonIcon.printChar('-', 60);

@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import movie.Movie;
+import ui.MovieCRUDGeneralPage;
 import account.*;
 import color.Color;
 import java.io.IOException;
@@ -33,25 +34,12 @@ public class CommonIcon {
     }
 
     /**
-     * Prints the trending movies.
-     * 
-     * @param movies the list of movie objects
-     */
-    public static void printTrend(ArrayList<Movie> movies) {
-        System.out.println("#Trending Now");
-        for (int i = 0; i < movies.size(); i++) {
-            System.out.println(Color.RED + "  " + (i + 1) + ") " + Color.LIME
-                    + movies.get(i).getTitle() + Color.RESET);
-        }
-
-    }
-
-    /**
      * Prints the latest movie releases.
      * 
      * @param movies the list of movie objects
      */
     public static void printLatest(ArrayList<Movie> movies) {
+        MovieCRUDGeneralPage.sortReleaseDate(movies);
         System.out.println("#Latest Release");
         for (int i = 0; i < movies.size(); i++) {
             System.out.println(Color.RED + "  " + (i + 1) + ") " + Color.LIME
