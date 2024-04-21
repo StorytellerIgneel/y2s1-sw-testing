@@ -39,7 +39,7 @@ public class CreateBookingPage implements Page {
         while (resultCount == 0) {
             // Get user query input
             System.out.println(Color.RESET + "Create a Booking");
-            System.out.print(Color.RESET + "Search for movie title:");
+            System.out.print(Color.RESET + "Search for movie title: ");
             String query = scanner.nextLine();
             System.out.println(Color.RESET + "Search results:");
 
