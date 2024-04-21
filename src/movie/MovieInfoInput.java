@@ -105,7 +105,7 @@ public class MovieInfoInput {
             }
             else{
                 while(true){    
-                    String showtime = Util.getInput("Enter a showtime in format of (YYYY MM DD HH SS (The spaces are important!)): ", true, scanner);
+                    String showtime = Util.getInput("Enter a showtime in format of (YYYY MM DD HH MM (The spaces are important!)): ", true, scanner);
                     if(Validation.isNull(showtime))
                         SystemMessage.errorMessage(10, scanner);
                     else if(Validation.isShowtime(showtime, scanner)){
