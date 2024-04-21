@@ -49,7 +49,7 @@ public class BookingUtils {
         }
 
         // Get selected cinema
-        Cinema selectedCinema = cinemaList.get(choice-1); // Adjust for 0-based index
+        Cinema selectedCinema = cinemaList.get(choice - 1); // Adjust for 0-based index
         System.out.println("You have selected: " + selectedCinema.getCinemaName());
         System.out.println(); // Add a newline for layout
         return selectedCinema;
@@ -66,11 +66,11 @@ public class BookingUtils {
         // Get showtime
         int choice = 0;
         boolean validInput = false;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd HH:mm:ss");
         while (!validInput) {
             System.out.println("Available showtimes:");
             for (int i = 0; i < selectedMovie.getShowtimes().size(); i++) {
                 // format date
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd HH:mm:ss");
                 String formattedDate = selectedMovie.getShowtimes().get(i).format(formatter);
                 System.out.println(
                         Color.RED + (i + 1) + ") \t" + Color.LIME + formattedDate + Color.RESET);
@@ -95,7 +95,8 @@ public class BookingUtils {
         LocalDateTime selectedShowtime = selectedMovie.getShowtimes().get(choice - 1); // Adjust for
                                                                                        // 0-based
                                                                                        // index
-        System.out.println("Showtime selected: " + selectedShowtime);
+        String formattedDate = selectedShowtime.format(formatter);
+        System.out.println("Showtime selected: " + formattedDate);
         System.out.println(); // Add a newline for layout
         return selectedShowtime;
     }
