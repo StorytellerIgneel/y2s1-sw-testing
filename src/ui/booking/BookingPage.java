@@ -134,7 +134,7 @@ public class BookingPage implements Page {
         String query = "";
         while (!validInput) {
             System.out.println("Search Bookings");
-            System.out.print(Color.RESET + "Enter movie title of the booking:");
+            System.out.print(Color.RESET + "Enter movie title of the booking: ");
             if (scanner.hasNextLine()) {
                 query = scanner.nextLine();
                 validInput = true;
