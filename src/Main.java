@@ -61,7 +61,7 @@ public class Main {
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
-                    UserMainMenu.printMovies(movieList, userIdx, users); // to be modified
+                    UserMainMenu.printMovies(movieList, userIdx, users);
                     UserMainMenu.printUserAction();
                     choice = UserMainMenu.chooseUserAction(input); // -1 means re-run main
 
