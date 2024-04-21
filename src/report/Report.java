@@ -15,7 +15,16 @@ public class Report {
     private double priceChildren;
     private double priceAdult;
 
-    // constructor
+    /**
+     * Constructor for Report
+     * 
+     * @param movieId
+     * @param movieName
+     * @param totalAdult
+     * @param totalChildren
+     * @param priceAdult
+     * @param priceChildren
+     */
     public Report(String movieId, String movieName, int totalAdult, int totalChildren,
             double priceAdult, double priceChildren) {
         this.movieId = movieId;
@@ -26,6 +35,12 @@ public class Report {
         this.priceChildren = priceChildren;
     }
 
+    /**
+     * Generate ticket sales report
+     * 
+     * @param users
+     * @param data
+     */
     public static void generateTicketSalesReport(ArrayList<UserAccount> users,
             ArrayList<Report> data) {
         for (UserAccount user : users) {
@@ -52,24 +67,40 @@ public class Report {
         }
     }
 
+    /**
+     * Calculate total revenue
+     * 
+     * @return total revenue
+     */
     public double calculateTotalRevenue() {
         return getTotalAdult() * getPriceAdult() + getTotalChildren() * getPriceChildren();
     }
 
+    /**
+     * Update quantities of adult and children tickets
+     * 
+     * @param totalAdult
+     * @param totalChildren
+     */
     public void updateQuantities(int totalAdult, int totalChildren) {
         setTotalAdult(getTotalAdult() + totalAdult);
         setTotalChildren(getTotalChildren() + totalChildren);
     }
 
-    public static String getReportDate(){
+    /**
+     * Get report date
+     * 
+     * @return formatted date
+     */
+    public static String getReportDate() {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = currentDate.format(formatter);
         return formattedDate;
     }
 
-    public String getMovieId()
-    {
+    // Accessors
+    public String getMovieId() {
         return movieId;
     }
 
@@ -93,6 +124,7 @@ public class Report {
         return priceChildren;
     }
 
+    // Mutators
     public void setTotalAdult(int totalAdult) {
         this.totalAdult = totalAdult;
     }

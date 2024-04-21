@@ -69,6 +69,4 @@ public class SearchMoviePage {
             }
         } while (!found);
     }
-
-
 }
