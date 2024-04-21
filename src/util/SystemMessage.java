@@ -94,6 +94,9 @@ public class SystemMessage {
             case 22:
                 System.out.println("Please enter a valid Malaysia Phone Format.");
                 break;
+            case 23:
+                System.out.println("Username already existed. Please try again.");
+                break;
             default:
                 System.out.println("An error has occurred. Please try again.");
                 break;
