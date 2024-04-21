@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>console</headerType>
-  <jar>D:\Coursework\UECS1104 OBJECT ORIENTED APPLICATION DEVELOPMENT\y1s3-java-assignment\main.jar</jar>
+  <jar>D:\Coursework\UECS1104 OBJECT ORIENTED APPLICATION DEVELOPMENT\y1s3-java-assignment\y1s3-java-assignment.jar</jar>
   <outfile>D:\Coursework\UECS1104 OBJECT ORIENTED APPLICATION DEVELOPMENT\y1s3-java-assignment\Assignment.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
