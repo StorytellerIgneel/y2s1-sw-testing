@@ -9,7 +9,6 @@ import movie.Movie;
 import util.BookingUtils;
 import booking.BookingController;
 import java.util.Scanner;
-import javax.swing.colorchooser.ColorSelectionModel;
 
 public class CreateBookingPage implements Page {
     private BookingController bookingController;

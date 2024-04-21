@@ -74,6 +74,7 @@ public class UserAccount extends Account {
     String id = input.next();
 
     if (Validation.isBack(id)) {
+      input.close();
       return null;
     }
     if (Validation.isQuit(id)) {
