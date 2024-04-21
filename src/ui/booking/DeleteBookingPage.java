@@ -59,6 +59,7 @@ public class DeleteBookingPage implements Page {
         try {
             bookingController.deleteBooking(chosenBookingIndex);
             System.out.println(Color.LIME + "Booking deleted successfully.");
+            System.out.println();
         } catch (IllegalArgumentException e) {
             System.out.println(Color.RED + e.getMessage() + Color.RESET);
         }
