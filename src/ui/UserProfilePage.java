@@ -110,6 +110,8 @@ public class UserProfilePage {
                 }
             } else if (Validation.isBack(choice)) {
                 return;
+            }else{
+                SystemMessage.errorMessage(11, input);
             }
         } while (resume);
     }
