@@ -90,6 +90,7 @@ public class UserProfilePage {
                         UserAccount.saveUsers(users);
                         SystemMessage.successMessage(100, input);
                         resume = false;
+                        break;
                     }
                 }while(Validation.isDuplicateUsername(username2));
             } else if (choice.equals("2")) {
@@ -107,6 +108,7 @@ public class UserProfilePage {
                         UserAccount.saveUsers(users);
                         SystemMessage.successMessage(100, input);
                         resume = false;
+                        break;
                     }
                 }while(!Validation.isValidEmail(email2));
             } else if (choice.equals("3")) {
@@ -124,6 +126,7 @@ public class UserProfilePage {
                         UserAccount.saveUsers(users);
                         SystemMessage.successMessage(100, input);
                         resume = false;
+                        break;
                     }
                 }while(!Validation.isValidMalaysiaPhoneNumber(phoneNo2));
             } else if (Validation.isBack(choice)) {

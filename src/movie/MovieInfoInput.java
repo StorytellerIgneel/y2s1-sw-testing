@@ -9,6 +9,10 @@ import java.util.Collections;
 import color.Color;
 import util.*;
 
+/**
+     * a class that contains information input functions for both update and add movies 
+     * 
+     */
 public class MovieInfoInput {
     /**
      * Filler
@@ -150,19 +154,8 @@ public class MovieInfoInput {
                         SystemMessage.errorMessage(10, scanner);
                     else if (Validation.isShowtime(showtime, scanner)) {
                         ArrayList<Integer> timeList = Util.getTime(showtime);
-                        LocalDateTime newShowtime =
-                                LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2),
-                                        timeList.get(3), timeList.get(4), 0);
-                        if (previousResult.getReleaseDate() != null
-                                && newShowtime.compareTo(previousResult.getReleaseDate()) >= 0) { // ensure
-                                                                                                  // that
-                                                                                                  // the
-                                                                                                  // newShowtime
-                                                                                                  // is
-                                                                                                  // not
-                                                                                                  // earlier
-                                                                                                  // than
-                                                                                                  // RD
+                        LocalDateTime newShowtime = LocalDateTime.of(timeList.get(0), timeList.get(1), timeList.get(2), timeList.get(3), timeList.get(4), 0);
+                        if ((previousResult.getReleaseDate() != null && newShowtime.compareTo(previousResult.getReleaseDate()) >= 0) || (previousResult.getReleaseDate() == null)){ //ensure that the newShowtime is not earlier than RD. if the p
                             previousResult.getShowtimes().add(newShowtime);
                             sortShowtime(previousResult.getShowtimes());
                             break;
@@ -321,8 +314,7 @@ public class MovieInfoInput {
                 String priceChildren = Util.getInput("Enter Price for Children: ", false, scanner);
                 if (Validation.isDouble(priceChildren)) {
                     priceChildrenDouble = Double.parseDouble(priceChildren);
-                    if (previousResult.getPriceAdult() != null
-                            && priceChildrenDouble > previousResult.getPriceAdult()) {
+                    if ((previousResult.getPriceAdult() != null && priceChildrenDouble > previousResult.getPriceAdult())){
                         while (true) {
                             confirm = Util.getLimitedInput(Color.RED
                                     + "The children price you have entered is more expensive than the adult price! Are you sure this is correct? Press y for yes and n for no: ",
