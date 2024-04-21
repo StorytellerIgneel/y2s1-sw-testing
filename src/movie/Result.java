@@ -13,7 +13,7 @@ public class Result {
     private ArrayList<String> genre;
     private Double priceAdult;
     private Double priceChildren;
-    public int step = 1;
+    public Integer step = 1;
 
     public Result() {
         this.movieId = null;
