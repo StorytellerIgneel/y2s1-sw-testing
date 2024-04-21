@@ -11,7 +11,6 @@ import ui.systemAdmin.*;
 import util.*;
 import color.Color;
 
-
 /**
  * Main method of the TVG Cinemas program. This method initializes the program by creating a Scanner
  * object, retrieving the user ,administrator accounts and movies from the data files.
