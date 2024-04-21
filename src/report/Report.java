@@ -59,6 +59,11 @@ public class Report {
                     }
                 }
                 if (movieFound == false) {
+                    if (booking.getShowtime().toLocalDate()
+                            .format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(LocalDate.now()
+                                    .format(DateTimeFormatter.ofPattern("MM-yyyy")))) {
+                        continue;
+                    }
                     data.add(new Report(movieId, booking.getMovieName(), booking.getQuantityAdult(),
                             booking.getQuantityChildren(), booking.getMovie().getPriceAdult(),
                             booking.getMovie().getPriceChildren()));

@@ -1,5 +1,7 @@
 package ui.systemAdmin;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,7 +24,8 @@ public class GenerateReportPage extends AdminPage {
     public static void printReport(ArrayList<UserAccount> users, ArrayList<Report> data,
             Scanner scanner) {
         CommonIcon.printHeader();
-        System.out.println("Revenue Report");
+        System.out.println("Report for Month "
+                + LocalDate.now().format(DateTimeFormatter.ofPattern("MM-yyyy")));
         CommonIcon.printChar('-', 100);
         System.out.println("Report Generated on: " + Report.getReportDate());
         CommonIcon.printChar('-', 100);
