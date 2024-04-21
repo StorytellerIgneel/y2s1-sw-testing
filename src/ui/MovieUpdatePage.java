@@ -44,9 +44,9 @@ public class MovieUpdatePage implements MovieCRUD {
         System.out.println("1. Movie ID");
         System.out.println("2. Title");
         System.out.println("3. Description");
-        System.out.println("4. Showtimes");
-        System.out.println("5. Languages");
-        System.out.println("6. Release Date");
+        System.out.println("4. Release Date");
+        System.out.println("5. Showtimes");
+        System.out.println("6. Language");
         System.out.println("7. Genre");
         System.out.println("8. Price (Adult)");
         System.out.println("9. Price (Children)");
