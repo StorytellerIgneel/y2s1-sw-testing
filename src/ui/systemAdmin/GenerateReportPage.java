@@ -8,17 +8,8 @@ import util.Util;
 import util.CommonIcon;
 import report.*;
 
-public class GenerateReportPage extends AdminPage {
-    public void printAdminAction() {
-
-    }
-
-    public int chooseAdminAction(Scanner scanner) {
-        return 1;
-    }
-
-
-
+public class GenerateReportPage {
+    
     public static void printReport(ArrayList<UserAccount> users, ArrayList<Report> data,
             Scanner scanner) {
         CommonIcon.printHeader();
