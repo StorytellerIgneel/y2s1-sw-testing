@@ -30,10 +30,10 @@ public class CinemaLocationPage {
         CommonIcon.printHeader();
         CommonIcon.printUserStatus(userIdx, users);
         System.out.println("Available cinema locations:");
-        for (int i = 0; i < Cinema.getCinemaLocation().length; i++) {
+        for (int i = 0; i < Cinema.getCinemaLocation().size(); i++) {
             System.out.println(
-                    Color.RED + (i + 1) + ") " + Cinema.getCinemaLocation()[i].getCinemaName());
-            System.out.println(Color.LIME + Cinema.getCinemaLocation()[i].getCinemaAddress());
+                    Color.RED + (i + 1) + ") " + Cinema.getCinemaLocation().get(i).getCinemaName());
+            System.out.println(Color.LIME + Cinema.getCinemaLocation().get(i).getCinemaAddress());
             System.out.print(Color.RESET);
         }
         CommonIcon.printChar('-', 60);

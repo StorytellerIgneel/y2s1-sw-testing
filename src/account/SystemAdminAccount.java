@@ -13,13 +13,27 @@ import util.*;
 import ui.UserProfilePage;
 
 public class SystemAdminAccount extends Account {
-    // constructor
+    /**
+     * Constructor for SystemAdminAccount
+     * 
+     * @param accountId
+     * @param name
+     * @param password
+     * @param registerDate
+     * @param email
+     * @param phoneNo
+     */
     public SystemAdminAccount(String accountId, String name, String password, String registerDate,
             String email, String phoneNo) {
         super(accountId, name, password, registerDate, email, phoneNo);
     }
 
     // static methods
+    /**
+     * Reads file with system administrator account information
+     * 
+     * @return ArrayList of SystemAdminAccount objects
+     */
     public static ArrayList<SystemAdminAccount> getAdmins() {
         Scanner scanner = new Scanner(System.in);
         Gson gson = new Gson();
@@ -44,28 +58,45 @@ public class SystemAdminAccount extends Account {
         return adminList;
     }
 
+    /**
+     * Log in a user account without password
+     * 
+     * @param users
+     * @param accountID
+     * @return userIdx (the index of the UserAccount)
+     *         -1 (indicates login failure)
+     */
     public static int privilegedLogin(ArrayList<UserAccount> users, String accountID) {
-        for (int i = 0; i < users.size(); i++) {
+        for (int userIdx = 0; userIdx < users.size(); userIdx++) {
             // admin logins into a user account without password as they have privileged access
-            if (users.get(i).getAccountId().equals(accountID))
-                return i;
+            if (users.get(userIdx).getAccountId().equals(accountID))
+                return userIdx;
         }
         return -1;
     }
 
-    public static int accessUser(ArrayList<UserAccount> users, Scanner input) {
+    /**
+     * Access the user account
+     * 
+     * @param users
+     * @param scanner
+     * @return -1 to go back to previous page
+     *         -2 to stop the programme
+     *         userIdx (the index of the user account)
+     */
+    public static int accessUser(ArrayList<UserAccount> users, Scanner scanner) {
 
-        int userIdx = 0;
         CommonIcon.printHeader();
         System.out.println(Color.RED
-                + "As an admin, you are allowed to login user account with privileged access."
-                + Color.RESET);
-        input.nextLine();
+        + "As an admin, you are allowed to login user account with privileged access."
+        + Color.RESET);
+        scanner.nextLine();
+        int userIdx = 0;
         do {
             // entering details
             System.out.println(
                     "Enter the User ID of the user account to be logged in (':b' to back, ':q' to quit): ");
-            String accountID = input.nextLine();
+            String accountID = scanner.nextLine();
 
             if (Validation.isBack(accountID))
                 return -1;
@@ -74,23 +105,29 @@ public class SystemAdminAccount extends Account {
 
             userIdx = privilegedLogin(users, accountID);
             if (userIdx == -1)
-                SystemMessage.errorMessage(5, input);
+                SystemMessage.errorMessage(5, scanner);
             else {
-                SystemMessage.successMessage(4, input);
+                SystemMessage.successMessage(4, scanner);
                 break;
             }
         } while (userIdx != 1);
 
         try {
-            Util.clearConsole(input);
+            Util.clearConsole(scanner);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return userIdx; // return the user index for tracking user activities
+        return userIdx; 
     }
 
+    /**
+     * Updates the info of user accounts
+     * 
+     * @param users
+     * @param scanner
+     */
     public static void updateUserAccount(ArrayList<UserAccount> users, Scanner scanner) {
         int userIdx = SystemAdminAccount.accessUser(users, scanner);
 
