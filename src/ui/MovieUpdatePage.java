@@ -59,7 +59,6 @@ public class MovieUpdatePage implements MovieCRUD {
                 if (0 < choiceInt && choiceInt < functionList.size()) {
                     Function<Result, Result> function = functionList.get(choiceInt);
                     result = function.apply(result);
-                    System.out.println(result.step);
                     if (!result.step.equals(0)){
                         movieList.set(movieIndex,
                                 NullFinder.findNull(result, movieList.get(movieIndex)));
