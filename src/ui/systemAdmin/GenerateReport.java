@@ -28,10 +28,17 @@ public class GenerateReport extends AdminPage {
         System.out.println("*A = Adult  C = Children");
         System.out.printf("%-3s %-9s\t%-30s\t%-3s %-3s %10s\n", "No", "Movie ID", "Movie Name",
                 "A*", "C*", "Revenue");
+        System.out.printf("%-3s %-9s\t%-30s\t%-3s %-3s %10s\n", "No", "Movie ID", "Movie Name",
+                "A*", "C*", "Revenue");
         double totalRevenue = 0;
+        for (int i = 0; i < data.size(); i++) {
         for (int i = 0; i < data.size(); i++) {
             Report current = data.get(i);
             double revenue = current.calculateTotalRevenue();
+            totalRevenue += revenue;
+            System.out.printf("%02d. %-9s\t%-30s\t%-3s %-3s %10.2f\n", i + 1, current.getMovieId(),
+                    current.getMovieName(), current.getTotalAdult(), current.getTotalChildren(),
+                    revenue);
             totalRevenue += revenue;
             System.out.printf("%02d. %-9s\t%-30s\t%-3s %-3s %10.2f\n", i + 1, current.getMovieId(),
                     current.getMovieName(), current.getTotalAdult(), current.getTotalChildren(),
