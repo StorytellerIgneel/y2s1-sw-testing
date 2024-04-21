@@ -121,7 +121,7 @@ public class Main {
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
-                UserAccount user = UserAccount.register();
+                UserAccount user = UserAccount.register(input);
                 if (user != null) {
                     users.add(user);
                     UserAccount.saveUsers(users);
