@@ -37,7 +37,8 @@ public class MovieUpdatePage implements MovieCRUD {
 
         MovieCRUDGeneralPage.showAllMovieTitle(movieList);
         movieIndex = MovieCRUDGeneralPage.getMovieIndex(movieList, "update", scanner);
-
+        if (movieIndex == -1)
+            return;
         System.out.println("Current Movie Information:");
         System.out.println(movieList.get(movieIndex).viewInformation());
         System.out.println("Which attribute would you like to update?");
@@ -58,10 +59,13 @@ public class MovieUpdatePage implements MovieCRUD {
                 if (0 < choiceInt && choiceInt < functionList.size()) {
                     Function<Result, Result> function = functionList.get(choiceInt);
                     result = function.apply(result);
-                    movieList.set(movieIndex,
-                            NullFinder.findNull(result, movieList.get(movieIndex)));
-                    SystemMessage.successMessage(6, scanner);
-                    return;
+                    System.out.println(result.step);
+                    if (!result.step.equals(0)){
+                        movieList.set(movieIndex,
+                                NullFinder.findNull(result, movieList.get(movieIndex)));
+                        SystemMessage.successMessage(6, scanner);
+                        return;
+                    }
                 } else
                     SystemMessage.errorMessage(2, scanner);
             } else if (Validation.isBack(choiceString)) {

@@ -108,7 +108,12 @@ public class Validation {
                 return false;
             }
             return true;
-        } else {
+        } 
+        else if (isBack(value))
+            return false;
+        else if (isQuit(value))
+            return false;
+        else {
             SystemMessage.errorMessage(13, scanner);
             return false;
         }
