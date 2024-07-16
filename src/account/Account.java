@@ -8,26 +8,20 @@ import java.util.UUID;
 import util.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
 
 
 public class Account {
   // instance variables to be inherited
-  protected String accountId;
-  protected String name;
-  protected String password;
-  protected String registerDate;
-  protected String email;
-  protected String phoneNo;
+  private String name;
+  private String email;
+  private LocalDateTime birthday;
 
   // constructor
-  public Account(String accountId, String name, String password, String registerDate, String email,
-      String phoneNo) {
-    this.accountId = accountId;
+  public Account(String name, String email, LocalDateTime birthday) {
     this.name = name;
-    this.password = password;
-    this.registerDate = registerDate;
     this.email = email;
-    this.phoneNo = phoneNo;
+    this.birthday = birthday;
   }
 
   // static methods
@@ -39,9 +33,9 @@ public class Account {
    * @param pass the password of the user
    * @return the index of the user in the list if the login is successful, -1 otherwise
    */
-  public static int verifyLogin(ArrayList<Account> accounts, String name, String pass) {
+  public static int verifyLogin(ArrayList<Account> accounts, String name) {
     for (int i = 0; i < accounts.size(); i++) {
-      if (accounts.get(i).getName().equals(name) && accounts.get(i).getPassword().equals(pass))
+      if (accounts.get(i).getName().equals(name))
         return i;
     }
     return -1;
@@ -62,7 +56,7 @@ public class Account {
     System.out.println("Login: \n");
     do {
       // entering details
-      System.out.print("Enter your username (':b' to back, ':q' to quit): ");
+      System.out.print("Enter your name (':b' to back, ':q' to quit): ");
       String name = input.nextLine();
 
       if (Validation.isBack(name))
@@ -70,15 +64,7 @@ public class Account {
       if (Validation.isQuit(name))
         return -2;
 
-      System.out.print("Enter your password (':b' to back, ':q to quit'): ");
-      String pass = input.next();
-
-      if (Validation.isBack(pass))
-        return -1;
-      if (Validation.isQuit(pass))
-        return -2;
-
-      index = verifyLogin(accounts, name, pass);
+      index = verifyLogin(accounts, name);
       if (index == -1)
         SystemMessage.errorMessage(5, input);
       else
@@ -97,6 +83,7 @@ public class Account {
   }
 
    // Method to generate a unique account ID
+   /*
   public static String generateAccountId() {
       // Generate a random UUID (Universally Unique Identifier)
       // and remove hyphens to make it shorter
@@ -104,30 +91,15 @@ public class Account {
       // Extract the first 8 characters to create a shorter ID
       return uuid.substring(0, 8);
   }
+      */
 
   // getter methods
-  public String getAccountId() {
-    return accountId;
-  }
-
   public String getName() {
     return name;
   }
 
-  public String getPassword() {
-    return password;
-  }
-
-  public String getRegisterDate() {
-    return registerDate;
-  }
-
   public String getEmail() {
     return email;
-  }
-
-  public String getPhoneNo() {
-    return phoneNo;
   }
 
   // setter methoids
@@ -137,9 +109,5 @@ public class Account {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public void setPhoneNo(String phoneNo) {
-    this.phoneNo = phoneNo;
   }
 }

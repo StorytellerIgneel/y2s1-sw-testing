@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 import cinema.Cinema;
 import movie.Movie;
+import showtime.Showtime;
 
 
 /**
@@ -14,11 +15,14 @@ import movie.Movie;
  * 
  */
 public class Booking {
-    public final String bookingId;
+    private String bookingId;
+    private String bookingMemberName;
     private Movie movie;
-    private Cinema cinema;
-    private LocalDateTime showtime;
+    private Showtime showtime;
     private int quantityAdult;
+    private int quantityOKU;
+    private int quantitySenior;
+    private int quantityStudent;
     private int quantityChildren;
     private String date;
     private String time;
