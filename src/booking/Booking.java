@@ -2,6 +2,7 @@ package booking;
 
 import java.util.Date;
 import java.util.UUID;
+import account.Account;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ import showtime.Showtime;
  */
 public class Booking {
     private String bookingId;
-    private String bookingMemberName;
+    private Account account;
     private Movie movie;
     private Showtime showtime;
     private int quantityAdult;
@@ -24,8 +25,9 @@ public class Booking {
     private int quantitySenior;
     private int quantityStudent;
     private int quantityChildren;
-    private String date;
-    private String time;
+    private int totalNumberOfSeats;
+    private double totalPrice;
+    private String status;
 
     /* Constructor */
     /**
@@ -41,7 +43,6 @@ public class Booking {
             int quantityChildren) {
         this.bookingId = UUID.randomUUID().toString();
         this.movie = movie;
-        this.cinema = cinema;
         if (!movie.getShowtimes().contains(showtime)) {
             throw new IllegalArgumentException("Selected showtime not available for this movie.");
         }
