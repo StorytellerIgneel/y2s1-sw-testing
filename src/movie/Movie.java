@@ -1,7 +1,7 @@
 package movie;
 
 import java.util.ArrayList;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import color.Color;
 import showtime.Showtime;
 
@@ -9,27 +9,16 @@ public class Movie {
     private String title;
     private String category;
     private ArrayList<Showtime> showtimes;
-    private double normalPrice = 10; 
+    private double normalPrice; 
 
     // Constructor
     public Movie() {};
 
-    public Movie(String title, String category, ArrayList<Showtime> showtimes){
+    public Movie(String title, String category, ArrayList<Showtime> showtimes, double normalPrice) {
         this.title = title;
         this.category = category;
-        switch (category) {
-            case "2D":
-                break;
-            case "3D":
-                normalPrice += 4;
-                break;
-            case "IMAX":
-                normalPrice += 4;
-                break;
-            default:
-                break;
-        }
         this.showtimes = showtimes;
+        this.normalPrice = normalPrice;
     }
 
     // Getter and Setter methods
@@ -42,6 +31,13 @@ public class Movie {
         this.title = title;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
     public ArrayList<Showtime> getShowtimes() {
         return showtimes;
     }
@@ -50,35 +46,29 @@ public class Movie {
         this.showtimes = showtimes;
     }
 
-    public Double getPriceAdult() {
-        return priceAdult;
+    public double getNormalPrice() {
+        return normalPrice;
     }
 
-    public void setPriceAdult(double priceAdult) {
-        this.priceAdult = priceAdult;
+    public void setNormalPrice(double normalPrice) {
+        this.normalPrice = normalPrice;
     }
-
-    public Double getPriceChildren() {
-        return priceChildren;
-    }
-
 
     // other methods
     public String viewInformation() {
+        int index = 0;
         StringBuilder movie_info = new StringBuilder();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
  
-        movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n")
-                .append(Color.RESET);
-
-        movie_info.append(Color.RED + "Showtimes: " + Color.LIME)
-                .append(showtimes.toString().substring(1, showtimes.toString().length() - 1))
-                .append("\n").append(Color.RESET);
-        
-        
-        movie_info.append(Color.RED + "Price (Adult): " + Color.LIME + "$").append(priceAdult)
-                .append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Price (Children): " + Color.LIME + "$").append(priceChildren)
-                .append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Category: " + Color.LIME).append(category).append("\n").append(Color.RESET);
+        movie_info.append(Color.RED + "Showtimes: " + Color.LIME);
+        for (Showtime showtime : showtimes) {
+            movie_info.append(index + ". " );
+            movie_info.append(showtime.getDate().format(dateFormatter)).append(" - ");
+            movie_info.append(showtime.getTime().format(timeFormatter)).append("\n");
+        }
         return movie_info.toString();
     }
 }

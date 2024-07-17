@@ -51,6 +51,9 @@ public class Booking {
         this.quantityOKU = quantityOKU;
         this.quantitySenior = quantitySenior;
         this.quantityStudent = quantityStudent;
+        this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
+        this.totalPrice = calculateTotalPrice();
+        this.status = "booked";
     }
 
     /* Accessors */
@@ -58,33 +61,24 @@ public class Booking {
         return bookingId;
     }
 
-    public String getMovieName() {
-        return movie.getTitle();
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Movie getMovie() {
         return movie;
     }
 
-    public int getQuantityAdult() {
-        return quantityAdult;
-    }
-
-    public int getQuantityChildren() {
-        return quantityChildren;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     public Showtime getShowtime() {
-        return showtime;
-    }
-
-    /* Mutators */
-    public void setQuantityAdult(int quantityAdult) {
-        this.quantityAdult = quantityAdult;
-    }
-
-    public void setQuantityChildren(int quantityChildren) {
-        this.quantityChildren = quantityChildren;
+            return showtime;
     }
 
     public void setShowtime(Showtime showtime) {
@@ -94,8 +88,67 @@ public class Booking {
         this.showtime = showtime;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    // Getter and Setter for quantityOKU
+    public int getQuantityOKU() {
+        return quantityOKU;
+    }
+
+    public void setQuantityOKU(int quantityOKU) {
+        this.quantityOKU = quantityOKU;
+    }
+
+    // Getter and Setter for quantitySenior
+    public int getQuantitySenior() {
+        return quantitySenior;
+    }
+
+    public void setQuantitySenior(int quantitySenior) {
+        this.quantitySenior = quantitySenior;
+    }
+
+    // Getter and Setter for quantityStudent
+    public int getQuantityStudent() {
+        return quantityStudent;
+    }
+
+    public void setQuantityStudent(int quantityStudent) {
+        this.quantityStudent = quantityStudent;
+    }
+
+    // Getter and Setter for quantityChildren
+    public int getQuantityChildren() {
+        return quantityChildren;
+    }
+
+    public void setQuantityChildren(int quantityChildren) {
+        this.quantityChildren = quantityChildren;
+    }
+
+    // Getter and Setter for totalNumberOfSeats
+    public int getTotalNumberOfSeats() {
+        return totalNumberOfSeats;
+    }
+
+    public void setTotalNumberOfSeats(int totalNumberOfSeats) {
+        this.totalNumberOfSeats = totalNumberOfSeats;
+    }
+
+    // Getter and Setter for totalPrice
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+
+    public String getStatus(){
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     /**
@@ -104,6 +157,37 @@ public class Booking {
      * @return double
      */
     public double calculateTotalPrice() {
-        return quantityAdult * movie.getPriceAdult() + quantityChildren * movie.getPriceChildren();
+        double sum = 0;
+        
+        for (int i = 0; i < quantityAdult; i++) {
+            sum += showtime.getNormalTicketPrice();
+        }
+
+        for (int i = 0; i < quantityOKU; i++) {
+            sum += showtime.getNormalTicketPrice() * 0.95;
+        }
+
+        for (int i = 0; i < quantitySenior; i++) {
+            if (showtime.getDate().getDayOfWeek().toString().equals("WEDNESDAY"))
+                sum += 8;
+            else
+                sum += 9;
+        }
+
+        for (int i = 0; i < quantityStudent; i++) {
+            if (showtime.getTime().getHour() < 18)
+                sum += 9;
+            else
+                sum += showtime.getNormalTicketPrice();
+        }
+
+        for (int i = 0; i < quantityStudent; i++){
+            if (showtime.getDate().getDayOfWeek().toString().equals("WEDNESDAY"))
+                sum += 8;
+            else
+                sum += 9;
+        }
+
+        return sum;
     }
 }
