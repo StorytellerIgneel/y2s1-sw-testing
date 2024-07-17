@@ -39,8 +39,7 @@ public class Booking {
      * @param quantityAdult
      * @param quantityChildren
      */
-    public Booking(Movie movie, Cinema cinema, LocalDateTime showtime, int quantityAdult,
-            int quantityChildren) {
+    public Booking(Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
         this.bookingId = UUID.randomUUID().toString();
         this.movie = movie;
         if (!movie.getShowtimes().contains(showtime)) {
@@ -49,9 +48,9 @@ public class Booking {
         this.showtime = showtime;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
-        Date unformatted_date = new Date();
-        this.date = new SimpleDateFormat("dd-MM-yyyy").format(unformatted_date);
-        this.time = new SimpleDateFormat("HH:mm:ss").format(unformatted_date);
+        this.quantityOKU = quantityOKU;
+        this.quantitySenior = quantitySenior;
+        this.quantityStudent = quantityStudent;
     }
 
     /* Accessors */
@@ -75,24 +74,8 @@ public class Booking {
         return quantityChildren;
     }
 
-    public String getCinemaName() {
-        return cinema.getCinemaName();
-    }
-
-    public String getCinemaAddress() {
-        return cinema.getCinemaAddress();
-    }
-
-    public LocalDateTime getShowtime() {
+    public Showtime getShowtime() {
         return showtime;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getTime() {
-        return time;
     }
 
     /* Mutators */
@@ -104,15 +87,11 @@ public class Booking {
         this.quantityChildren = quantityChildren;
     }
 
-    public void setShowtime(LocalDateTime showtime) {
+    public void setShowtime(Showtime showtime) {
         if (!movie.getShowtimes().contains(showtime)) {
             throw new IllegalArgumentException("Selected showtime not available for this movie.");
         }
         this.showtime = showtime;
-    }
-
-    public void setCinema(Cinema cinema) {
-        this.cinema = cinema;
     }
 
     public void setMovie(Movie movie) {
