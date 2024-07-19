@@ -6,18 +6,17 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import CinemaHall.CinemaHall;
-import movie.Movie;
 
 public class Showtime {
-    private Movie movie;
+    private String title;
     private String status;
     private CinemaHall hallNumber;
     private LocalTime time;
     private LocalDate date;
     private double normalTicketPrice;
     
-    Showtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
-        this.movie = movie;
+    Showtime(String title, CinemaHall hallNumber, LocalTime time, LocalDate date){
+        this.title = title;
         this.hallNumber = hallNumber;
         this.time = time;
         this.date = date;
@@ -34,30 +33,16 @@ public class Showtime {
         else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())){
             normalTicketPrice = 9;
         }   
-        
-        //special movie category
-        switch (movie.getCategory()) {
-            case "2D":
-                break;
-            case "3D":
-                normalTicketPrice += 4;
-                break;
-            case "IMAX":
-                normalTicketPrice += 4;
-                break;
-            default:
-                break;
-        }
 
         return normalTicketPrice;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     // Getter and Setter for status

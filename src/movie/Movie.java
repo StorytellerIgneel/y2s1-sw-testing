@@ -19,6 +19,23 @@ public class Movie {
         this.category = category;
         this.showtimes = showtimes;
         this.normalPrice = normalPrice;
+
+        for (Showtime showtime : showtimes) {
+            switch (category) {
+                case "2D":
+                    break;
+                case "3D":
+                    showtime.setNormalTicketPrice(getNormalPrice() + 4);
+                    break;
+                case "IMAX":
+                    showtime.setNormalTicketPrice(getNormalPrice() + 4);
+                    break;
+                default:
+                    break;
+            }
+
+            showtime.setTitle(title);
+        }
     }
 
     // Getter and Setter methods

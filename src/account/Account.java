@@ -16,6 +16,7 @@ public class Account {
   private String name;
   private String email;
   private LocalDateTime birthday;
+  private ArrayList<Showtimes> showtimes;
 
   // constructor
   public Account(String name, String email, LocalDateTime birthday) {
