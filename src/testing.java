@@ -13,5 +13,7 @@ public class testing {
             System.out.println(movie.getTitle());
         FileHandling.exportMovieData(movies, null);
         }
+
+        
     }
 }
