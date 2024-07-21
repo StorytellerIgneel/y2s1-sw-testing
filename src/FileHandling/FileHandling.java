@@ -3,7 +3,9 @@ package FileHandling;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -52,14 +54,14 @@ public class FileHandling {
      * 
      * @param movieList
      */
-    public static void exportBookingData(ArrayList<Movie> movieList, Scanner scanner) {
+    public static void exportBookingData(ArrayList<Booking> bookingList, Scanner scanner) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new LocalDateTypeAdapterFactory())
                 .registerTypeAdapterFactory(new LocalTimeTypeAdapterFactory())
                 .create();
-        String toWrite = gson.toJson(movieList);
+        String toWrite = gson.toJson(bookingList);
         try {
-            PrintWriter outputFile = new PrintWriter("./src/resources/movieData.json");
+            PrintWriter outputFile = new PrintWriter("./src/resources/bookingData.json");
             outputFile.println(toWrite);
             outputFile.close();
         } catch (FileNotFoundException error) {
@@ -68,29 +70,35 @@ public class FileHandling {
         return;
     }
 
-    public static ArrayList<Booking> getBookingList() {
+        public static ArrayList<Booking> getBookingList() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapterFactory(new LocalDateTypeAdapterFactory())
-                .registerTypeAdapterFactory(new LocalTimeTypeAdapterFactory())
-                .create();
+            .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+            .registerTypeAdapter(LocalTime.class, new LocalTimeTypeAdapter())
+            .create();
         Type bookingListType = new TypeToken<ArrayList<Booking>>() {}.getType();
-        ArrayList<Booking> bookingList = new ArrayList<Booking>();
+        ArrayList<Booking> bookingList = new ArrayList<>();
         String line = null;
 
         try {
-            File file = new File("./src/resources/movieData.json");
+            File file = new File("./src/resources/bookingData.json");
             Scanner inputFile = new Scanner(file);
-            while (inputFile.hasNextLine())
-                line = inputFile.nextLine();
+            StringBuilder jsonContent = new StringBuilder();
+            while (inputFile.hasNextLine()) {
+                jsonContent.append(inputFile.nextLine());
+            }
+            line = jsonContent.toString();
             inputFile.close();
         } catch (FileNotFoundException error) {
             error.printStackTrace();
         }
 
-        bookingList = gson.fromJson(line, bookingListType);
+        if (line != null && !line.isEmpty()) {
+            bookingList = gson.fromJson(line, bookingListType);
+        }
 
-        return ((Validation.isNull(line)) ? (new ArrayList<Booking>()) : bookingList);
+        return bookingList;
     }
+}
 
     /**
      * Export movie data to movieData.json
