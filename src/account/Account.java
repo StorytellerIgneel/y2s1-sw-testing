@@ -4,7 +4,7 @@ package account;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
-
+import booking.Booking;
 import util.*;
 
 import java.io.*;
@@ -16,13 +16,14 @@ public class Account {
   private String name;
   private String email;
   private LocalDateTime birthday;
-  private ArrayList<Showtimes> showtimes;
+  private ArrayList<Booking> bookings;
 
   // constructor
   public Account(String name, String email, LocalDateTime birthday) {
     this.name = name;
     this.email = email;
     this.birthday = birthday;
+    bookings = new ArrayList<Booking>();
   }
 
   // static methods
@@ -99,10 +100,6 @@ public class Account {
     return name;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
   // setter methoids
   public void setName(String name) {
     this.name = name;
@@ -110,5 +107,17 @@ public class Account {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public LocalDateTime getBirthday(){
+    return birthday;
+  }
+
+  public void setBirthDay(LocalDateTime birthday){
+    this.birthday = birthday;
   }
 }

@@ -2,7 +2,6 @@ package util;
 
 import java.util.ArrayList;
 import movie.Movie;
-import ui.MovieCRUDGeneralPage;
 import account.*;
 import color.Color;
 import java.io.IOException;
@@ -34,60 +33,14 @@ public class CommonIcon {
     }
 
     /**
-     * Prints the latest movie releases.
-     * 
-     * @param movies the list of movie objects
-     */
-    public static void printLatest(ArrayList<Movie> movies) {
-        MovieCRUDGeneralPage.sortReleaseDate(movies);
-        System.out.println("#Latest Release");
-        for (int i = 0; i < movies.size(); i++) {
-            System.out.println(Color.RED + "  " + (i + 1) + ") " + Color.LIME
-                    + movies.get(i).getTitle() + Color.RESET);
-        }
-
-    }
-
-    /**
      * Prints the user's status, including their username and user ID.
      * 
      * @param index the index of the user in the list of users
      * @param users the list of user accounts
      */
-    public static void printUserStatus(int index, ArrayList<UserAccount> users) {
+    public static void printUserStatus(int index, ArrayList<Account> users) {
         System.out.print("Username  : " + users.get(index).getName());
-        System.out.println("\t\tUserID    : " + users.get(index).getAccountId());
+        System.out.println("\t\tUserID    : " + users.get(index).getName());
         printChar('-', 60);
-    }
-
-    /**
-     * Prints the admin's status, including their username.
-     * 
-     * @param admin the object of SystemAdminAccount
-     */
-    public static void printAdminStatus(SystemAdminAccount admin)
-    {
-        System.out.print("Username : " + admin.getName());
-        System.out.println();
-        printChar('-', 60);
-    }
-
-    public static void printAdminHeader(SystemAdminAccount admin)
-    {
-        CommonIcon.printHeader();
-        CommonIcon.printAdminStatus(admin);
-    }
-
-    public static void adminQuit(Scanner scanner) {
-        try {
-            Util.clearConsole(scanner);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        CommonIcon.printHeader();
-        System.out.print(Color.LIME);
-        System.out.println("Admin Session Ended.");
-        System.out.print(Color.RESET);
-        System.exit(0);
     }
 }
