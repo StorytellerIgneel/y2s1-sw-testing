@@ -8,22 +8,20 @@ import booking.Booking;
 import util.*;
 
 import java.io.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 public class Account {
   // instance variables to be inherited
   private String name;
   private String email;
-  private LocalDateTime birthday;
-  private ArrayList<Booking> bookings;
+  private LocalDate birthday;
 
   // constructor
-  public Account(String name, String email, LocalDateTime birthday) {
+  public Account(String name, String email, LocalDate birthday) {
     this.name = name;
     this.email = email;
     this.birthday = birthday;
-    bookings = new ArrayList<Booking>();
   }
 
   // static methods
@@ -113,11 +111,11 @@ public class Account {
     return email;
   }
 
-  public LocalDateTime getBirthday(){
+  public LocalDate getBirthday(){
     return birthday;
   }
 
-  public void setBirthDay(LocalDateTime birthday){
+  public void setBirthDay(LocalDate birthday){
     this.birthday = birthday;
   }
 }

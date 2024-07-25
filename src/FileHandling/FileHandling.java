@@ -19,6 +19,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import account.Account;
 import movie.Movie;
 import booking.Booking;
 import util.SystemMessage;
@@ -72,9 +73,9 @@ public class FileHandling {
 
     public static ArrayList<Booking> getBookingList() {
         Gson gson = new GsonBuilder()
-            .registerTypeAdapterFactory(new LocalDateTypeAdapterFactory())
-            .registerTypeAdapterFactory(new LocalTimeTypeAdapterFactory())
-            .create();
+        .registerTypeAdapterFactory(new LocalDateTypeAdapterFactory())
+        .registerTypeAdapterFactory(new LocalTimeTypeAdapterFactory())
+        .create();
         Type bookingListType = new TypeToken<ArrayList<Booking>>() {}.getType();
         ArrayList<Booking> bookingList = new ArrayList<>();
         String line = null;
@@ -92,6 +93,51 @@ public class FileHandling {
         bookingList = gson.fromJson(line, bookingListType);
 
         return ((Validation.isNull(line)) ? (new ArrayList<Booking>()) : bookingList);
+    }
+
+    /**
+     * Export movie data to bookings.json
+     * 
+     * @param bookingList
+     */
+    public static void exportBookingData(ArrayList<Booking> bookingList, Scanner scanner) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new LocalDateTypeAdapterFactory())
+                .registerTypeAdapterFactory(new LocalTimeTypeAdapterFactory())
+                .create();
+        String toWrite = gson.toJson(bookingList);
+        try {
+            PrintWriter outputFile = new PrintWriter("./src/resources/booking.json");
+            outputFile.println(toWrite);
+            outputFile.close();
+        } catch (FileNotFoundException error) {
+            SystemMessage.errorMessage(3, scanner);
+        }
+        return;
+    }
+
+    public static ArrayList<Account> getAccountList() {
+        Gson gson = new GsonBuilder()
+        .registerTypeAdapterFactory(new LocalDateTypeAdapterFactory())
+        .registerTypeAdapterFactory(new LocalTimeTypeAdapterFactory())
+        .create();
+        Type AccountListType = new TypeToken<ArrayList<Account>>() {}.getType();
+        ArrayList<Account> AccountList = new ArrayList<>();
+        String line = null;
+
+        try {
+            File file = new File("./src/resources/account.json");
+            Scanner inputFile = new Scanner(file);
+            while (inputFile.hasNextLine())
+                line = inputFile.nextLine();
+            inputFile.close();
+        } catch (FileNotFoundException error) {
+            error.printStackTrace();
+        }
+
+        AccountList = gson.fromJson(line, AccountListType);
+
+        return ((Validation.isNull(line)) ? (new ArrayList<Account>()) : AccountList);
     }
 
     /**
