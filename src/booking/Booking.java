@@ -1,12 +1,7 @@
 package booking;
 
-import java.util.Date;
-import java.util.UUID;
 import account.Account;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-
-import cinema.Cinema;
+import java.util.UUID;
 import movie.Movie;
 import showtime.Showtime;
 
@@ -39,8 +34,9 @@ public class Booking {
      * @param quantityAdult
      * @param quantityChildren
      */
-    public Booking(Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
-        this.bookingId = UUID.randomUUID().toString();
+    public Booking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
+        this.bookingId = bookingID;
+        this.account = account;
         this.movie = movie;
         if (!movie.getShowtimes().contains(showtime)) {
             throw new IllegalArgumentException("Selected showtime not available for this movie.");
@@ -53,7 +49,7 @@ public class Booking {
         this.quantityStudent = quantityStudent;
         this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
         this.totalPrice = calculateTotalPrice();
-        this.status = "booked";
+        this.status = "CONFIRMED";
     }
 
     /* Accessors */
