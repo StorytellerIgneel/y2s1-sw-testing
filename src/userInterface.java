@@ -77,7 +77,7 @@ public class userInterface {
         Booking booking = new Booking("B004", account_array[2], movie_array[0], movie_array[0].getShowtimes().get(0), adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
 
         // Calculate total tickets and total price
-        int totalTickets = adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets;
+        int totalTickets = booking.getTotalNumberOfSeats();
         double totalPrice = booking.calculateTotalPrice();
 
         // Display total tickets and total price
