@@ -95,7 +95,7 @@ public class FileHandling {
     }
 
     /**
-     * Export movie data to bookings.json
+     * Export booking data to bookings.json
      * 
      * @param bookingList
      */

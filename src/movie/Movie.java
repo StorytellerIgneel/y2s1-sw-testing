@@ -1,8 +1,8 @@
 package movie;
 
-import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;
 import color.Color;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import showtime.Showtime;
 
 public class Movie {
@@ -73,18 +73,19 @@ public class Movie {
 
     // other methods
     public String viewInformation() {
-        int index = 0;
+        int index = 1;
         StringBuilder movie_info = new StringBuilder();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
  
         movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
         movie_info.append(Color.RED + "Category: " + Color.LIME).append(category).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Showtimes: " + Color.LIME);
+        movie_info.append(Color.RED + "Showtimes: " + Color.LIME).append("\n");
         for (Showtime showtime : showtimes) {
             movie_info.append(index + ". " );
             movie_info.append(showtime.getDate().format(dateFormatter)).append(" - ");
             movie_info.append(showtime.getTime().format(timeFormatter)).append("\n");
+            index ++;
         }
         return movie_info.toString();
     }
