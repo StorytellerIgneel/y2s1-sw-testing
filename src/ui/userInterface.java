@@ -16,11 +16,11 @@ public class userInterface {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int movieCHOICE;
-        int adultTickets;
-        int childrenTickets;
-        int okuTickets;
-        int seniorTickets;
-        int studentTickets;
+        int adultTickets=0;
+        int childrenTickets=0;
+        int okuTickets=0;
+        int seniorTickets=0;
+        int studentTickets=0;
 
         System.out.println("Cineplex ABC: Movie ticket booking system");
         Movie[] movie_array = {
@@ -71,7 +71,11 @@ public class userInterface {
                 System.out.println("Please enter a valid number.");
             }
         }
-        
+
+        for (Movie movie : movie_array) {
+            System.out.println(movie.getAllShowtimes());
+        }
+        /*
         while (true) { 
             //Select tickets
             System.out.println(Color.RESET + "Purchase Tickets");
@@ -88,7 +92,7 @@ public class userInterface {
             }
         
         }
-            
+        */    
         //Create booking object
         Booking booking = new Booking("B004", account_array[2], movie_array[movieCHOICE - 1], movie_array[movieCHOICE - 1].getShowtimes().get(0), adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
 
