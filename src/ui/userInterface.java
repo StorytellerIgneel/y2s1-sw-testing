@@ -16,6 +16,7 @@ public class userInterface {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int movieCHOICE;
+        int showtimeCHOICE;
         int adultTickets=0;
         int childrenTickets=0;
         int okuTickets=0;
@@ -72,10 +73,24 @@ public class userInterface {
             }
         }
 
-        for (Movie movie : movie_array) {
-            System.out.println(movie.getAllShowtimes());
+        System.out.println(movie_array[movieCHOICE-1].getAllShowtimes());
+        System.out.println("\nPlease choose a showtime : ");
+        while(true){
+            String showtimeChoice = scanner.nextLine();
+            if (Validation.isNumber(showtimeChoice)){
+                showtimeCHOICE = Integer.parseInt(showtimeChoice);
+                if (showtimeCHOICE < 1 || showtimeCHOICE > 2){
+                    System.out.println("Please enter a valid choice (1 - 2)");
+                }
+                else {
+                    break;
+                }    
+            }
+            else {
+                System.out.println("Please enter a valid number.");
+            }
         }
-        /*
+        
         while (true) { 
             //Select tickets
             System.out.println(Color.RESET + "Purchase Tickets");
@@ -85,14 +100,14 @@ public class userInterface {
             seniorTickets = BookingUtils.getTicketQuantityInput(scanner, "senior");
             studentTickets = BookingUtils.getTicketQuantityInput(scanner, "student");
 
-            if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > movie_array[movieCHOICE-1].getShowtimes().get(0).getHallNumber.getAvailableSeats){
+            if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > movie_array[movieCHOICE-1].getShowtimes().get(showtimeCHOICE-1).getHallNumber().getAvailableSeats()){
                 System.out.println("There are only xxx available spaces in the cinema hall.\nPlease enter a valid number of seats");
             } else {
                 break;
             }
         
         }
-        */    
+            
         //Create booking object
         Booking booking = new Booking("B004", account_array[2], movie_array[movieCHOICE - 1], movie_array[movieCHOICE - 1].getShowtimes().get(0), adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
 
