@@ -96,13 +96,9 @@ public class userInterface {
         //Create booking object
         Booking booking = new Booking("B004", account_array[2], movie_array[movieCHOICE - 1], movie_array[movieCHOICE - 1].getShowtimes().get(0), adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
 
-        // Calculate total tickets and total price
-        int totalTickets = booking.getTotalNumberOfSeats();
-        double totalPrice = booking.calculateTotalPrice();
-
         // Display total tickets and total price
-        System.out.println("Total tickets: " + totalTickets);
-        System.out.println("Total price: " + totalPrice);
+        System.out.println("Total tickets: " + booking.getTotalNumberOfSeats());
+        System.out.println("Total price: " + booking.getTotalPrice());
 
         // Display options
         System.out.println("[1] PAYMENT");
