@@ -13,7 +13,7 @@ import showtime.Showtime;
 import util.*;
 
 public class userInterface {
-    public static void main(String[] args) {
+    public void getMovie() {
         Scanner scanner = new Scanner(System.in);
         int movieCHOICE;
         int adultTickets;
@@ -37,10 +37,12 @@ public class userInterface {
 
         // Account entries
         Account[] account_array = {
-            new Account("Kirito", "kirito@sao.com", LocalDate.of(2008, 10, 7)),
+            new Account("Sinon", "sinon@sao.com", LocalDate.of(2008, 10, 7)),
             new Account("Asuna", "asuna@sao.com", LocalDate.of(2008, 9, 30)),
             new Account("Suguha", "suguha@sao.com", LocalDate.of(2011, 6, 6))
         };
+
+        Account MC = new Account("Kirito", "sinon@sao.com", LocalDate.of(2008, 10, 7));
 
         // Booking entries
         Booking[] booking_array = {
@@ -64,15 +66,26 @@ public class userInterface {
                     System.out.println("Please enter a valid choice (1 - 3)");
                 }
                 else {
-                    break;
+                    //pass the movie, acccount
+                    //Call showtimes
                 }    
             }
             else {
                 System.out.println("Please enter a valid number.");
             }
         }
-        
-        while (true) { 
+        scanner.close();
+    }
+
+    public void ticketPayment(Movie movie, Showtime showtime, Account account, Scanner scanner){
+        int movieCHOICE;
+        int adultTickets;
+        int childrenTickets;
+        int okuTickets;
+        int seniorTickets;
+        int studentTickets;
+        while (true) {
+            
             //Select tickets
             System.out.println(Color.RESET + "Purchase Tickets");
             adultTickets = BookingUtils.getTicketQuantityInput(scanner, "adult");
@@ -81,16 +94,15 @@ public class userInterface {
             seniorTickets = BookingUtils.getTicketQuantityInput(scanner, "senior");
             studentTickets = BookingUtils.getTicketQuantityInput(scanner, "student");
 
-            if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > movie_array[movieCHOICE-1].getShowtimes().get(0).getHallNumber.getAvailableSeats){
+            if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > showtime.getHallNumber().getAvailableSeats()){
                 System.out.println("There are only xxx available spaces in the cinema hall.\nPlease enter a valid number of seats");
-            } else {
+            else
                 break;
-            }
         
         }
             
         //Create booking object
-        Booking booking = new Booking("B004", account_array[2], movie_array[movieCHOICE - 1], movie_array[movieCHOICE - 1].getShowtimes().get(0), adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
+        Booking booking = new Booking("B004", account, movie, showtime, adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
 
         // Calculate total tickets and total price
         int totalTickets = booking.getTotalNumberOfSeats();
@@ -114,7 +126,5 @@ public class userInterface {
             booking.setStatus("CANCELLED");
             System.out.println("Booking cancelled.");
         }
-
-        scanner.close();
     }
 }
