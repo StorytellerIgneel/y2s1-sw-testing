@@ -16,11 +16,11 @@ public class userInterface {
     public void getMovie() {
         Scanner scanner = new Scanner(System.in);
         int movieCHOICE;
-        int adultTickets;
-        int childrenTickets;
-        int okuTickets;
-        int seniorTickets;
-        int studentTickets;
+        int adultTickets=0;
+        int childrenTickets=0;
+        int okuTickets=0;
+        int seniorTickets=0;
+        int studentTickets=0;
 
         System.out.println("Cineplex ABC: Movie ticket booking system");
         Movie[] movie_array = {
@@ -84,8 +84,7 @@ public class userInterface {
         int okuTickets;
         int seniorTickets;
         int studentTickets;
-        while (true) {
-            
+        while (true) { 
             //Select tickets
             System.out.println(Color.RESET + "Purchase Tickets");
             adultTickets = BookingUtils.getTicketQuantityInput(scanner, "adult");
@@ -94,23 +93,17 @@ public class userInterface {
             seniorTickets = BookingUtils.getTicketQuantityInput(scanner, "senior");
             studentTickets = BookingUtils.getTicketQuantityInput(scanner, "student");
 
-            if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > showtime.getHallNumber().getAvailableSeats()){
+            if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > showtime.getHallNumber().getAvailableSeats())
                 System.out.println("There are only xxx available spaces in the cinema hall.\nPlease enter a valid number of seats");
             else
                 break;
-        
         }
-            
         //Create booking object
         Booking booking = new Booking("B004", account, movie, showtime, adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
 
-        // Calculate total tickets and total price
-        int totalTickets = booking.getTotalNumberOfSeats();
-        double totalPrice = booking.calculateTotalPrice();
-
         // Display total tickets and total price
-        System.out.println("Total tickets: " + totalTickets);
-        System.out.println("Total price: " + totalPrice);
+        System.out.println("Total tickets: " + booking.getTotalNumberOfSeats());
+        System.out.println("Total price: " + booking.getTotalPrice());
 
         // Display options
         System.out.println("[1] PAYMENT");
