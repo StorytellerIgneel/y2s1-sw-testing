@@ -1,3 +1,4 @@
+package ui;
 import CinemaHall.CinemaHall;
 import account.Account;
 import booking.Booking;
