@@ -73,7 +73,6 @@ public class Movie {
 
     // other methods
     public String viewInformation() {
-        int index = 1;
         StringBuilder movie_info = new StringBuilder();
  
         movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
