@@ -13,15 +13,11 @@ import showtime.Showtime;
 import util.*;
 
 public class userInterface {
-    public static void main(String[] args) {
+    public void getMovie() {
         Scanner scanner = new Scanner(System.in);
-        int movieCHOICE;
-        int showtimeCHOICE;
-        int adultTickets=0;
-        int childrenTickets=0;
-        int okuTickets=0;
-        int seniorTickets=0;
-        int studentTickets=0;
+        int movieCHOICE = 1;
+        int showtimeCHOICE = 1;
+        boolean pp = true;
 
         System.out.println("Cineplex ABC: Movie ticket booking system");
         Movie[] movie_array = {
@@ -34,14 +30,16 @@ public class userInterface {
             new Movie("Attack on Titan: The Roar of Awakening", "Anime", new ArrayList<Showtime>(Arrays.asList(
                 new Showtime("Attack on Titan: The Roar of Awakening", new CinemaHall(5, 50), LocalTime.of(12, 0), LocalDate.of(2024, 7, 25)),
                 new Showtime("Attack on Titan: The Roar of Awakening", new CinemaHall(6, 50), LocalTime.of(14, 0), LocalDate.of(2024, 7, 26)))), 10.00)
-    };
+        };
 
         // Account entries
         Account[] account_array = {
-            new Account("Kirito", "kirito@sao.com", LocalDate.of(2008, 10, 7)),
+            new Account("Sinon", "sinon@sao.com", LocalDate.of(2008, 10, 7)),
             new Account("Asuna", "asuna@sao.com", LocalDate.of(2008, 9, 30)),
             new Account("Suguha", "suguha@sao.com", LocalDate.of(2011, 6, 6))
         };
+
+        Account MC = new Account("Kirito", "sinon@sao.com", LocalDate.of(2008, 10, 7));
 
         // Booking entries
         Booking[] booking_array = {
@@ -57,7 +55,7 @@ public class userInterface {
         
         //Select movie and showtimes
         System.out.println("Please choose your movie (1 - 3) : ");
-        while(true){
+        while(pp){
             String movieChoice = scanner.nextLine();
             if (Validation.isNumber(movieChoice)){
                 movieCHOICE = Integer.parseInt(movieChoice);
@@ -65,71 +63,69 @@ public class userInterface {
                     System.out.println("Please enter a valid choice (1 - 3)");
                 }
                 else {
-                    break;
-                }    
+                    System.out.println(movie_array[movieCHOICE-1].getAllShowtimes());
+                    System.out.println("Please choose a showtime : ");
+                    while(pp){
+                        String showtimeChoice = scanner.nextLine();
+                        if (Validation.isNumber(showtimeChoice)){
+                            showtimeCHOICE = Integer.parseInt(showtimeChoice);
+                            if (showtimeCHOICE < 1 || showtimeCHOICE > 2)
+                                System.out.println("Please enter a valid choice (1 - 2)");
+                            else 
+                                pp = false; 
+                        }
+                        else
+                            System.out.println("Please enter a valid number.");
+                    }
+                }   
             }
-            else {
+            else 
                 System.out.println("Please enter a valid number.");
-            }
-        }
-
-        System.out.println(movie_array[movieCHOICE-1].getAllShowtimes());
-        System.out.println("\nPlease choose a showtime : ");
-        while(true){
-            String showtimeChoice = scanner.nextLine();
-            if (Validation.isNumber(showtimeChoice)){
-                showtimeCHOICE = Integer.parseInt(showtimeChoice);
-                if (showtimeCHOICE < 1 || showtimeCHOICE > 2){
-                    System.out.println("Please enter a valid choice (1 - 2)");
-                }
-                else {
-                    break;
-                }    
-            }
-            else {
-                System.out.println("Please enter a valid number.");
-            }
         }
         
-        while (true) { 
-            //Select tickets
-            System.out.println(Color.RESET + "Purchase Tickets");
-            adultTickets = BookingUtils.getTicketQuantityInput(scanner, "adult");
-            childrenTickets = BookingUtils.getTicketQuantityInput(scanner, "children");
-            okuTickets = BookingUtils.getTicketQuantityInput(scanner, "OKU");
-            seniorTickets = BookingUtils.getTicketQuantityInput(scanner, "senior");
-            studentTickets = BookingUtils.getTicketQuantityInput(scanner, "student");
-
-            if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > movie_array[movieCHOICE-1].getShowtimes().get(showtimeCHOICE-1).getHallNumber().getAvailableSeats()){
-                System.out.println("There are only xxx available spaces in the cinema hall.\nPlease enter a valid number of seats");
-            } else {
-                break;
-            }
-        
-        }
-            
-        //Create booking object
-        Booking booking = new Booking("B004", account_array[2], movie_array[movieCHOICE - 1], movie_array[movieCHOICE - 1].getShowtimes().get(0), adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
-
-        // Display total tickets and total price
-        System.out.println("Total tickets: " + booking.getTotalNumberOfSeats());
-        System.out.println("Total price: " + booking.getTotalPrice());
-
-        // Display options
-        System.out.println("[1] PAYMENT");
-        System.out.println("[2] CANCEL");
-
-        // Get user choice
-        System.out.print("Enter your choice: ");
-        int choice = scanner.nextInt();
-
-        if (choice == 1) {
-            System.out.println("Payment successful!");
-        } else {
-            booking.setStatus("CANCELLED");
-            System.out.println("Booking cancelled.");
-        }
-
-        scanner.close();
+        ticketPayment(movie_array[movieCHOICE-1], movie_array[movieCHOICE-1].getShowtimes().get(showtimeCHOICE-1), MC, scanner);
     }
-}
+
+            public void ticketPayment(Movie movie, Showtime showtime, Account account, Scanner scanner){
+                int adultTickets;
+                int childrenTickets;
+                int okuTickets;
+                int seniorTickets;
+                int studentTickets;
+                while (true) { 
+                    //Select tickets
+                    System.out.println(Color.RESET + "Purchase Tickets");
+                    adultTickets = BookingUtils.getTicketQuantityInput(scanner, "adult");
+                    childrenTickets = BookingUtils.getTicketQuantityInput(scanner, "children");
+                    okuTickets = BookingUtils.getTicketQuantityInput(scanner, "OKU");
+                    seniorTickets = BookingUtils.getTicketQuantityInput(scanner, "senior");
+                    studentTickets = BookingUtils.getTicketQuantityInput(scanner, "student");
+        
+                    if ((adultTickets + childrenTickets + okuTickets + seniorTickets + studentTickets) > showtime.getHallNumber().getAvailableSeats())
+                        System.out.println("There are only " + showtime.getHallNumber().getAvailableSeats() + " available spaces in the cinema hall.\nPlease enter a valid number of seats\n");
+                    else
+                        break;
+                }
+                //Create booking object
+                Booking booking = new Booking("B004", account, movie, showtime, adultTickets, childrenTickets, okuTickets, seniorTickets, studentTickets);
+        
+                // Display total tickets and total price
+                System.out.println("Total tickets: " + booking.getTotalNumberOfSeats());
+                System.out.println("Total price: " + booking.getTotalPrice());
+        
+                // Display options
+                System.out.println("[1] PAYMENT");
+                System.out.println("[2] CANCEL");
+        
+                // Get user choice
+                System.out.print("Enter your choice: ");
+                int choice = scanner.nextInt();
+        
+                if (choice == 1) {
+                    System.out.println("Payment successful!");
+                } else {
+                    booking.setStatus("CANCELLED");
+                    System.out.println("Booking cancelled.");
+                }
+            }
+        }
