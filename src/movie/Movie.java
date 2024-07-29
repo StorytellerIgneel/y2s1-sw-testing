@@ -78,13 +78,6 @@ public class Movie {
  
         movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
         movie_info.append(Color.RED + "Category: " + Color.LIME).append(category).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Showtimes: " + Color.LIME).append("\n");
-        for (Showtime showtime : showtimes) {
-            movie_info.append(index + ". " );
-            movie_info.append(showtime.getDate().format(dateFormatter)).append(" - ");
-            movie_info.append(showtime.getTime().format(timeFormatter)).append("\n");
-            index ++;
-        }
         return movie_info.toString();
     }
 
