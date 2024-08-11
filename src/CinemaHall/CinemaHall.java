@@ -1,5 +1,8 @@
 package CinemaHall;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CinemaHall {
     private int hallNumber;
     private int seats;
@@ -42,4 +45,20 @@ public class CinemaHall {
     }
     
     //Methods
+    public boolean checkOversell(int newTickets){
+        return (newTickets > availableSeats); 
+    }
+
+    public boolean hallAvailable(int totalTicketQuantity){
+        ArrayList<String> rejectList = new ArrayList<>(Arrays.asList("Fully Booked", "Not Available", "under repair"));
+        if (rejectList.contains(this.getHallStatus())){
+            System.out.println("Sorry, the hall is currently " + this.getHallStatus());
+            return false;
+        }
+        else if (checkOversell(totalTicketQuantity)){
+            System.out.println("The hall only has " + this.getAvailableSeats() + " seats left.");
+            return false;
+        }
+        return true;
+    }
 }

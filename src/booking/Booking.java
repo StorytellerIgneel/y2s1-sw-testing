@@ -2,6 +2,7 @@ package booking;
 
 import account.Account;
 import java.util.UUID;
+import java.util.ArrayList;
 import movie.Movie;
 import showtime.Showtime;
 
@@ -12,6 +13,7 @@ import showtime.Showtime;
  */
 public class Booking {
     private String bookingId;
+    private ArrayList<Account> allAccounts = new ArrayList<Account>();
     private Account account;
     private Movie movie;
     private Showtime showtime;
@@ -49,7 +51,10 @@ public class Booking {
         this.quantityStudent = quantityStudent;
         this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
         this.totalPrice = calculateTotalPrice();
-        this.status = "CONFIRMED";
+        if (this.totalPrice != 0) 
+            this.status = "booked"; 
+        else
+            this.status = "not booked";
     }
 
     /* Accessors */
@@ -147,43 +152,51 @@ public class Booking {
         this.status = status;
     }
 
+    public boolean accountRegistered() {
+        return allAccounts.contains(account);
+    }
     /**
      * This method returns the total price of the booking.
-     * 
+     * Serves as the core of the entire system
      * @return double
      */
     public double calculateTotalPrice() {
-        double sum = 0;
+        int sumTicket = quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent;
+
+        //validate account
+        ///if ()
+
+        if (accountRegistered()){
+            if (showtime.showtimeAvailable(sumTicket))
+                return (calculateAdultTicketPrice() + calculateOKUTicketPrice() + calculateSeniorTicketPrice() + calculateStudentTicketPrice() + calculateChildrenTicketPrice());
+            else
+                return 0;
+        }
+        else{
+            System.out.println("Account not registered");
+            return 0;
+        }
+        //validate showtime (inside showtime validate the hallnumber ardy)
         
-        for (int i = 0; i < quantityAdult; i++) {
-            sum += showtime.getNormalTicketPrice();
-        }
+    }
 
-        for (int i = 0; i < quantityOKU; i++) {
-            sum += showtime.getNormalTicketPrice() * 0.95;
-        }
+    public double calculateAdultTicketPrice(){
+        return (quantityAdult * showtime.getNormalTicketPrice());
+    }
 
-        for (int i = 0; i < quantitySenior; i++) {
-            if (showtime.getDate().getDayOfWeek().toString().equals("WEDNESDAY"))
-                sum += 8;
-            else
-                sum += 9;
-        }
+    public double calculateOKUTicketPrice(){
+        return (quantityOKU * showtime.getNormalTicketPrice() * 0.95);
+    }
 
-        for (int i = 0; i < quantityStudent; i++) {
-            if (showtime.getTime().getHour() < 18)
-                sum += 9;
-            else
-                sum += showtime.getNormalTicketPrice();
-        }
+    public double calculateSeniorTicketPrice(){
+        return quantityAdult * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice());
+    }
 
-        for (int i = 0; i < quantityStudent; i++){
-            if (showtime.getDate().getDayOfWeek().toString().equals("WEDNESDAY"))
-                sum += 8;
-            else
-                sum += 9;
-        }
+    public double calculateStudentTicketPrice(){
+        return quantityStudent * ((showtime.getTime().getHour() < 18)? 9 : showtime.getNormalTicketPrice());
+    }
 
-        return sum;
+    public double calculateChildrenTicketPrice(){
+        return quantityChildren * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice());
     }
 }

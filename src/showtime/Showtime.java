@@ -1,10 +1,12 @@
 package showtime;
 
 import CinemaHall.CinemaHall;
+import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Showtime {
@@ -15,26 +17,13 @@ public class Showtime {
     private LocalDate date;
     private double normalTicketPrice;
     
-    public Showtime(String title, CinemaHall hallNumber, LocalTime time, LocalDate date){
+    public Showtime(String title, CinemaHall hallNumber, LocalTime time, LocalDate date, double normalTicketPrice){
         this.title = title;
         this.hallNumber = hallNumber;
         this.time = time;
         this.date = date;
         this.status = "Available";
-        this.normalTicketPrice = determineTicketPrice();
-    }
-
-    private double determineTicketPrice(){
-        ArrayList<DayOfWeek> weekdays = new ArrayList<>(List.of(DayOfWeek.values()));
-        if (!weekdays.contains(date.getDayOfWeek()))
-            normalTicketPrice += 2;
-        else if (date.getDayOfWeek().equals("WEDNESDAY"))
-            normalTicketPrice = 8;
-        else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())){
-            normalTicketPrice = 9;
-        }   
-
-        return normalTicketPrice;
+        this.normalTicketPrice = determineTicketPrice(normalTicketPrice);
     }
 
     public String getTitle() {
@@ -88,5 +77,31 @@ public class Showtime {
 
     public void setNormalTicketPrice(double normalTicketPrice) {
         this.normalTicketPrice = normalTicketPrice;
+    }
+
+    private double determineTicketPrice(double normalTicketPrice){
+        ArrayList<DayOfWeek> weekdays = new ArrayList<>(new ArrayList<>(List.of(DayOfWeek.values())).subList(0, 4)); //returns weekedays
+        if (!weekdays.contains(date.getDayOfWeek())) //weekends
+            normalTicketPrice += 2;
+        else if (date.getDayOfWeek().equals("WEDNESDAY"))
+            normalTicketPrice = 8;
+        else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) //1pm weekedays
+            normalTicketPrice = 9;  
+
+        return normalTicketPrice;
+    }
+
+    public boolean showtimeAvailable(int totalTicketQuantity){
+        if (hallNumber.hallAvailable(totalTicketQuantity)){
+            ArrayList<String> rejectList = new ArrayList<>(Arrays.asList("Not Available", "Fully Booked", "Cancelled"));
+            if (rejectList.contains(status)){ //hall available but showtime not available
+                System.out.println("Sorry, the showtime is currently " + status);
+                return false;
+            }
+            else
+                return true;
+        }
+        else //hall not available 
+            return false; 
     }
 }
