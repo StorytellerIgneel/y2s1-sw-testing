@@ -1,7 +1,6 @@
 package showtime;
 
 import CinemaHall.CinemaHall;
-import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,7 +16,7 @@ public class Showtime {
     private LocalDate date;
     private double normalTicketPrice;
     
-    public Showtime(String title, CinemaHall hallNumber, LocalTime time, LocalDate date, double normalTicketPrice){
+    public Showtime(String title, CinemaHall hallNumber, LocalTime time, LocalDate date){
         this.title = title;
         this.hallNumber = hallNumber;
         this.time = time;
