@@ -163,12 +163,13 @@ public class Booking {
     public double calculateTotalPrice() {
         int sumTicket = quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent;
 
+        double addOn = (movie.isExpensive()? 1: 0) * 4;
         //validate account
         ///if ()
 
         if (accountRegistered()){
             if (showtime.showtimeAvailable(sumTicket))
-                return (calculateAdultTicketPrice() + calculateOKUTicketPrice() + calculateSeniorTicketPrice() + calculateStudentTicketPrice() + calculateChildrenTicketPrice());
+                return (calculateAdultTicketPrice(addOn) + calculateOKUTicketPrice(addOn) + calculateSeniorTicketPrice(addOn) + calculateStudentTicketPrice(addOn) + calculateChildrenTicketPrice(addOn));
             else
                 return 0;
         }
@@ -180,23 +181,23 @@ public class Booking {
         
     }
 
-    public double calculateAdultTicketPrice(){
-        return (quantityAdult * showtime.getNormalTicketPrice());
+    public double calculateAdultTicketPrice(double addOn){
+        return (quantityAdult * showtime.getNormalTicketPrice() + addOn);
     }
 
-    public double calculateOKUTicketPrice(){
-        return (quantityOKU * showtime.getNormalTicketPrice() * 0.95);
+    public double calculateOKUTicketPrice(double addOn){
+        return (quantityOKU * showtime.getNormalTicketPrice() * 0.95 + addOn);
     }
 
-    public double calculateSeniorTicketPrice(){
-        return quantityAdult * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice());
+    public double calculateSeniorTicketPrice(double addOn){
+        return (quantityAdult * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 
-    public double calculateStudentTicketPrice(){
-        return quantityStudent * ((showtime.getTime().getHour() < 18)? 9 : showtime.getNormalTicketPrice());
+    public double calculateStudentTicketPrice(double addOn){
+        return (quantityStudent * ((showtime.getTime().getHour() < 18)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 
-    public double calculateChildrenTicketPrice(){
-        return quantityChildren * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice());
+    public double calculateChildrenTicketPrice(double addOn){
+        return (quantityChildren * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 }

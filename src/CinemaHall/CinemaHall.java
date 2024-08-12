@@ -15,7 +15,7 @@ public class CinemaHall {
         this.seats = seats;
         this.availableSeats = seats;
         this.bookedSeats = 0;
-        this.hallStatus = "Available";
+        this.hallStatus = "Available"; //Fully Booked, Available, Not Available, Repair 
     }
 
     //Getters

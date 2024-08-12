@@ -21,9 +21,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import account.Account;
 import movie.Movie;
+import validation.SystemMessage;
+import validation.Validation;
 import booking.Booking;
-import util.SystemMessage;
-import util.Validation;
 
 public class FileHandling {
         public static ArrayList<Movie> getMovieList() {

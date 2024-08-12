@@ -1,5 +1,7 @@
 package showtime;
 
+
+import movie.Movie;
 import CinemaHall.CinemaHall;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -9,8 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Showtime {
-    private String title;
-    private String status;
+    private Movie movie;
+    private String status; //Available, Not Available, Fully Booked, Cancelled
     private CinemaHall hallNumber;
     private LocalTime time;
     private LocalDate date;
@@ -25,12 +27,12 @@ public class Showtime {
         this.normalTicketPrice = determineTicketPrice(normalTicketPrice);
     }
 
-    public String getTitle() {
-        return title;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(Movie movie) {
+        this.movie = movie;
     }
 
     // Getter and Setter for status
