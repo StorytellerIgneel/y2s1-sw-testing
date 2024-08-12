@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 import booking.Booking;
-import util.*;
-
+import validation.*;
 import java.io.*;
 import java.time.LocalDate;
 

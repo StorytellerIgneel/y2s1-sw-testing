@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import movie.*;
 import showtime.Showtime;
-import util.*;
+import validation.*;
 
 public class userInterface {
     public void getMovie() {

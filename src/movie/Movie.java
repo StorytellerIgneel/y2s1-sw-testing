@@ -16,26 +16,9 @@ public class Movie {
 
     public Movie(String title, String category, ArrayList<Showtime> showtimes, double normalPrice) {
         this.title = title;
-        this.category = category;
+        this.category = category; //Normal, 3D, IMAX
         this.showtimes = showtimes;
         this.normalPrice = normalPrice;
-
-        for (Showtime showtime : showtimes) {
-            switch (category) {
-                case "2D":
-                    break;
-                case "3D":
-                    showtime.setNormalTicketPrice(getNormalPrice() + 4);
-                    break;
-                case "IMAX":
-                    showtime.setNormalTicketPrice(getNormalPrice() + 4);
-                    break;
-                default:
-                    break;
-            }
-
-            showtime.setTitle(title);
-        }
     }
 
     // Getter and Setter methods
@@ -94,5 +77,9 @@ public class Movie {
             index ++;
         }
         return movie_info.toString();
+    }
+
+    public boolean isExpensive(){
+        return (category.equals("3D") || category.equals("IMAX"));
     }
 }
