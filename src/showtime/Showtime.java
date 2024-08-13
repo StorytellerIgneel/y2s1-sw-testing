@@ -3,7 +3,6 @@ package showtime;
 
 import movie.Movie;
 import CinemaHall.CinemaHall;
-import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,8 +18,8 @@ public class Showtime {
     private LocalDate date;
     private double normalTicketPrice;
     
-    public Showtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date, double normalTicketPrice){
-        this.movie = movie;
+    public Showtime(String title, CinemaHall hallNumber, LocalTime time, LocalDate date){
+        this.title = title;
         this.hallNumber = hallNumber;
         this.time = time;
         this.date = date;
