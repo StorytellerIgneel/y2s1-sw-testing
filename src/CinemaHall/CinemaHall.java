@@ -18,6 +18,15 @@ public class CinemaHall {
         this.hallStatus = "Available"; //Fully Booked, Available, Not Available, Repair 
     }
 
+    public CinemaHall createCinemaHall(int hallNumber, int seats){
+        if (seats < 50){
+            System.out.println("Seat number cannot be less than 50");
+            return null;
+        }
+        else
+            return new CinemaHall(hallNumber, seats);
+    }
+
     //Getters
     public int getHallNumber() {
         return hallNumber;
