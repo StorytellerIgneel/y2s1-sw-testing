@@ -1,6 +1,7 @@
 package validation;
 
 import account.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,7 +61,19 @@ public class Validation {
         }
     }
 
-    public static boolean isRegisteredUser (ArrayList <Account> accounts, String name) {
+    public static boolean isRegisteredUser (String name) {
+        Account kira = new Account("Kira Yamato", "kira.yamato@gundamseed.com", LocalDate.of(2004, 5, 18));
+        Account lacus = new Account("Lacus Clyne", "lacus.clyne@gundamseed.com", LocalDate.of(2004, 2, 29));
+        Account athrun = new Account("Athrun Zala", "athrun.zala@gundamseed.com", LocalDate.of(2004, 10, 29));
+        Account cagalli = new Account("Cagalli Yula Athha", "cagalli.athha@gundamseed.com", LocalDate.of(2004, 11, 18));
+
+        // Add them to an ArrayList
+        ArrayList<Account> accounts = new ArrayList<>();
+        accounts.add(kira);
+        accounts.add(lacus);
+        accounts.add(athrun);
+        accounts.add(cagalli);
+        
         for (int i = 0; i < accounts.size(); i++) {
             if (accounts.get(i).getName().equals(name))
                 return true;

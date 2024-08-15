@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.ArrayList;
 import movie.Movie;
 import showtime.Showtime;
+import validation.Validation;
 
 
 /**
@@ -13,7 +14,6 @@ import showtime.Showtime;
  */
 public class Booking {
     private String bookingId;
-    private ArrayList<Account> allAccounts = new ArrayList<Account>();
     private Account account;
     private Movie movie;
     private Showtime showtime;
@@ -40,9 +40,6 @@ public class Booking {
         this.bookingId = bookingID;
         this.account = account;
         this.movie = movie;
-        if (!movie.getShowtimes().contains(showtime)) {
-            throw new IllegalArgumentException("Selected showtime not available for this movie.");
-        }
         this.showtime = showtime;
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
@@ -51,10 +48,23 @@ public class Booking {
         this.quantityStudent = quantityStudent;
         this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
         this.totalPrice = calculateTotalPrice();
-        if (this.totalPrice != 0) 
-            this.status = "booked"; 
-        else
-            this.status = "not booked";
+        this.status = "Booked";
+    }
+
+    public Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
+        if (!movie.getShowtimes().contains(showtime)) {
+            System.out.println("Selected showtime not available for this movie.");
+            return null;
+        }
+        if ((quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent) == 0){
+            System.out.println("No tickets booked.");
+            return null;
+        }
+        if (!Validation.isRegisteredUser(account.getName())){
+            System.out.println("User not registered");
+            return null;
+        }
+        return new Booking(bookingID, account, movie, showtime, quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
     }
 
     /* Accessors */
@@ -150,10 +160,6 @@ public class Booking {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public boolean accountRegistered() {
-        return allAccounts.contains(account);
     }
     /**
      * This method returns the total price of the booking.

@@ -2,6 +2,7 @@ package CinemaHall;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import validation.Validation;
 
 public class CinemaHall {
     private int hallNumber;
@@ -50,7 +51,11 @@ public class CinemaHall {
 
     //Setters
     public void setHallStatus(String hallStatus) {
-        this.hallStatus = hallStatus;
+        if (Validation.isHalltimeHallstatus(hallStatus))
+            this.hallStatus = hallStatus;
+        else
+            System.out.println("Invalid hall status.");
+        return;
     }
     
     //Methods
