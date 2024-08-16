@@ -19,7 +19,19 @@ public class CinemaHall {
         this.hallStatus = "Available"; //Fully Booked, Available, Not Available, Repair 
     }
 
-    public CinemaHall createCinemaHall(int hallNumber, int seats){
+    public static CinemaHall createCinemaHall(int hallNumber, int seats){
+        if (Validation.isNullParams(hallNumber,seats)){
+            System.out.println("In the createCinemahall method");
+            return null;
+        }
+        if (Validation.isNegativeNum(hallNumber)){
+            System.out.println("Hall number is negative");
+            return null;
+        }
+        if (Validation.isNegativeNum(seats)){
+            System.out.println("Seat number is negative");
+            return null;
+        }
         if (seats < 50){
             System.out.println("Seat number cannot be less than 50");
             return null;

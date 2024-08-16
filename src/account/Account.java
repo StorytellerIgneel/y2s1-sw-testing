@@ -23,6 +23,19 @@ public class Account {
     this.birthday = birthday;
   }
 
+  public Account createAccount(String name, String email, LocalDate birthday) {
+    if (!Validation.isAlphaNumerical(name))
+    {
+      System.out.println("Name should only contain alphabets and numbers.");
+      return null;
+    }
+    if (!Validation.isValidEmail(email)){
+      System.out.println("Invalid email format.");
+      return null;
+    }
+    return new Account(name, email, birthday);
+  }
+
    // Method to generate a unique account ID
    /*
   public static String generateAccountId() {

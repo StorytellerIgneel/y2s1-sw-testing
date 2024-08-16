@@ -45,20 +45,31 @@ public class Validation {
         return (value.equals(null) || value.equals(""));
     }
 
+    public static boolean isNullParams(Object... params) {
+        for (Object param : params) {
+            if (param == null) {
+                System.out.println("Null parameter passed.");
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isWhiteSpace(String value) {
         return value.matches("^[\\s]+$");
     }
 
-    public static boolean isNegativeNum (String value) {
-        try {
-            Double valueNegative = Double.parseDouble(value);
-            if (valueNegative < 0)
-                return (true);
-            else
-                return false;
-        } catch (NumberFormatException error) {
-            return false;
-        }
+    public static boolean isNegativeNum (Double value) {
+        return (value < 0);
+    }
+
+    //overload
+    public static boolean isNegativeNum (int value) {
+        return (value < 0);
+    }
+
+    public static boolean comboValidString(String value){
+        return (Validation.isAlphaNumerical(value) && !Validation.isNull(value) && !Validation.isWhiteSpace(value));
     }
 
     public static boolean isRegisteredUser (String name) {

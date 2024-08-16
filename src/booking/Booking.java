@@ -51,13 +51,22 @@ public class Booking {
         this.status = "Booked";
     }
 
-    public Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
+    public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
+        if (Validation.isNullParams(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent))
+        {
+            System.out.println("In the createBooking method");
+            return null;
+        }
         if (!movie.getShowtimes().contains(showtime)) {
             System.out.println("Selected showtime not available for this movie.");
             return null;
         }
         if ((quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent) == 0){
             System.out.println("No tickets booked.");
+            return null;
+        }
+        if (Validation.isNegativeNum(quantityAdult) || Validation.isNegativeNum(quantityOKU) || Validation.isNegativeNum(quantitySenior) || Validation.isNegativeNum(quantityStudent) || Validation.isNegativeNum(quantityChildren)){
+            System.out.println("Negative ticket number passed.");
             return null;
         }
         if (!Validation.isRegisteredUser(account.getName())){
@@ -167,43 +176,27 @@ public class Booking {
      * @return double
      */
     public double calculateTotalPrice() {
-        int sumTicket = quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent;
-
         double addOn = (movie.isExpensive()? 1: 0) * 4;
-        //validate account
-        ///if ()
-
-        if (accountRegistered()){
-            if (showtime.showtimeAvailable(sumTicket))
-                return (calculateAdultTicketPrice(addOn) + calculateOKUTicketPrice(addOn) + calculateSeniorTicketPrice(addOn) + calculateStudentTicketPrice(addOn) + calculateChildrenTicketPrice(addOn));
-            else
-                return 0;
-        }
-        else{
-            System.out.println("Account not registered");
-            return 0;
-        }
-        //validate showtime (inside showtime validate the hallnumber ardy)
-        
+        return (calculateAdultTicketPrice(addOn) + calculateOKUTicketPrice(addOn) + calculateSeniorTicketPrice(addOn) + calculateStudentTicketPrice(addOn) + calculateChildrenTicketPrice(addOn));
     }
 
     public double calculateAdultTicketPrice(double addOn){
-        return (quantityAdult * showtime.getNormalTicketPrice() + addOn);
+        return (quantityAdult * (showtime.getNormalTicketPrice() + addOn));
     }
 
     public double calculateOKUTicketPrice(double addOn){
-        return (quantityOKU * showtime.getNormalTicketPrice() * 0.95 + addOn);
+        return (quantityOKU * (showtime.getNormalTicketPrice() * 0.95 + addOn));
     }
 
     public double calculateSeniorTicketPrice(double addOn){
-        return (quantityAdult * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
+        return (quantitySenior * (((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn));
     }
 
     public double calculateStudentTicketPrice(double addOn){
-        return (quantityStudent * ((showtime.getTime().getHour() < 18)? 9 : showtime.getNormalTicketPrice()) + addOn);
+        return quantityStudent * (((showtime.getTime().getHour() < 18)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 
     public double calculateChildrenTicketPrice(double addOn){
-        return (quantityChildren * ((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
+        return quantityChildren * (((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 }

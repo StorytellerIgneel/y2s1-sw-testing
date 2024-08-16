@@ -2,6 +2,7 @@ package showtime;
 
 
 import movie.Movie;
+import validation.Validation;
 import CinemaHall.CinemaHall;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,17 +19,26 @@ public class Showtime {
     private LocalDate date;
     private double normalTicketPrice;
     
-    public Showtime(String title, CinemaHall hallNumber, LocalTime time, LocalDate date){
-        this.title = title;
+    public Showtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
+        this.movie = movie;
         this.hallNumber = hallNumber;
         this.time = time;
         this.date = date;
         this.status = "Available";
-        this.normalTicketPrice = determineTicketPrice(normalTicketPrice);
+        this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
+        movie.getShowtimes().add(this);
     }
 
-    public Movie getMovie() {
-        return movie;
+    public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
+        if (Validation.isNullParams(movie, hallNumber, time, date)){
+            System.out.println("In the createShowtime method");
+            return null;
+        }
+        return new Showtime(movie, hallNumber, time, date);
+    }
+
+    public Movie getMovieTitle() {
+        return getMovieTitle();
     }
 
     public void setTitle(Movie movie) {

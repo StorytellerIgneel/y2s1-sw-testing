@@ -4,6 +4,7 @@ import color.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import showtime.Showtime;
+import validation.Validation;
 
 public class Movie {
     private String title;
@@ -19,6 +20,23 @@ public class Movie {
         this.category = category; //Normal, 3D, IMAX
         this.showtimes = showtimes;
         this.normalPrice = normalPrice;
+    }
+
+    public static Movie createBooking(String title, String category, ArrayList<Showtime> showtimes, double normalPrice){
+        if (Validation.isNullParams(title, category, showtimes, normalPrice))
+        {
+            System.out.println("In the createBooking method");
+            return null;
+        }
+        if (!Validation.comboValidString(title) || !Validation.comboValidString(category)){
+            System.out.println("Invalid title or category.");
+            return null;
+        }
+        if (Validation.isNegativeNum(normalPrice)){
+            System.out.println("Invalid price.");
+            return null;
+        }
+        return new Movie(title, category, showtimes, normalPrice);
     }
 
     // Getter and Setter methods
