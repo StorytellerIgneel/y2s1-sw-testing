@@ -80,5 +80,17 @@
                 </configuration>
             </plugin>
         </plugins>
+        <sourceDirectory>src/main/assignment</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resource</directory>
+            </resource>
+        </resources>
+        <testSourceDirectory>src/test/assignment</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
     </build>
 </project>
