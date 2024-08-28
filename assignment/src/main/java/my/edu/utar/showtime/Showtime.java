@@ -30,10 +30,7 @@ public class Showtime {
     }
 
     public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
-        if (Validation.isNullParams(movie, hallNumber, time, date)){
-            System.out.println("In the createShowtime method");
-            return null;
-        }
+        Validation.isNullParams(movie, hallNumber, time, date);
         return new Showtime(movie, hallNumber, time, date);
     }
 

@@ -2,15 +2,15 @@ package my.edu.utar;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import movie.Movie;
-import showtime.Showtime;
+import my.edu.utar.movie.Movie;
+import my.edu.utar.showtime.Showtime;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import CinemaHall.CinemaHall;
-import account.Account;
-import booking.Booking;
+import my.edu.utar.CinemaHall.CinemaHall;
+import my.edu.utar.account.Account;
+import my.edu.utar.booking.Booking;
 
 import static org.junit.Assert.assertEquals;
 

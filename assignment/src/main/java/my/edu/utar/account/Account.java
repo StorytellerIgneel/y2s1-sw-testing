@@ -24,15 +24,8 @@ public class Account {
   }
 
   public Account createAccount(String name, String email, LocalDate birthday) {
-    if (!Validation.isAlphaNumerical(name))
-    {
-      System.out.println("Name should only contain alphabets and numbers.");
-      return null;
-    }
-    if (!Validation.isValidEmail(email)){
-      System.out.println("Invalid email format.");
-      return null;
-    }
+    Validation.isAlphaNumerical(name);
+    Validation.isValidEmail(email);
     return new Account(name, email, birthday);
   }
 
