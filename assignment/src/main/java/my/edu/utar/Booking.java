@@ -1,11 +1,7 @@
-package my.edu.utar.booking;
+package my.edu.utar;
 
-import my.edu.utar.account.Account;
 import java.util.UUID;
 import java.util.ArrayList;
-import my.edu.utar.movie.Movie;
-import my.edu.utar.showtime.Showtime;
-import my.edu.utar.validation.Validation;
 
 
 /**

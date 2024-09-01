@@ -1,4 +1,4 @@
-package my.edu.utar.color;
+package my.edu.utar;
 
 public class Color {
     public final static String RED = "\u001b[31m";

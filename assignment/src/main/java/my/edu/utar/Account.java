@@ -1,11 +1,9 @@
-package my.edu.utar.account;
+package my.edu.utar;
 
 // import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
-import my.edu.utar.booking.Booking;
-import my.edu.utar.validation.*;
 import java.io.*;
 import java.time.LocalDate;
 

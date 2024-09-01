@@ -1,10 +1,7 @@
-package my.edu.utar.movie;
+package my.edu.utar;
 
-import my.edu.utar.color.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import my.edu.utar.showtime.Showtime;
-import my.edu.utar.validation.Validation;
 
 public class Movie {
     private String title;

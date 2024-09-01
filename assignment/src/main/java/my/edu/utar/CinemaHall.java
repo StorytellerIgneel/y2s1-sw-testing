@@ -1,8 +1,9 @@
-package my.edu.utar.CinemaHall;
+package my.edu.utar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import my.edu.utar.validation.Validation;
+
+import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 
 public class CinemaHall {
     private int hallNumber;
@@ -58,19 +59,16 @@ public class CinemaHall {
     
     //Methods
     public boolean checkOversell(int newTickets){
+        Validation.isNegativeNum(newTickets);
         return (newTickets > availableSeats); 
     }
 
     public boolean hallAvailable(int totalTicketQuantity){
         ArrayList<String> rejectList = new ArrayList<>(Arrays.asList("Fully Booked", "Not Available", "under repair"));
-        if (rejectList.contains(this.getHallStatus())){
-            System.out.println("Sorry, the hall is currently " + this.getHallStatus());
-            return false;
-        }
-        else if (checkOversell(totalTicketQuantity)){
-            System.out.println("The hall only has " + this.getAvailableSeats() + " seats left.");
-            return false;
-        }
+        if (rejectList.contains(this.getHallStatus()))
+            throw new IllegalArgumentException("Sorry, the hall is currently " + this.getHallStatus());
+        else if (checkOversell(totalTicketQuantity))
+            throw new IllegalArgumentException("The hall only has " + this.getAvailableSeats() + " seats left.");
         return true;
     }
 }

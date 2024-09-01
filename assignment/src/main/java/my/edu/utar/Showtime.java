@@ -1,9 +1,6 @@
-package my.edu.utar.showtime;
+package my.edu.utar;
 
 
-import my.edu.utar.movie.Movie;
-import my.edu.utar.validation.Validation;
-import my.edu.utar.CinemaHall.CinemaHall;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,19 +16,19 @@ public class Showtime {
     private LocalDate date;
     private double normalTicketPrice;
     
-    public Showtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
+    public Showtime(Movie movie, CinemaHall hallNumber, String status, LocalTime time, LocalDate date){
         this.movie = movie;
         this.hallNumber = hallNumber;
         this.time = time;
         this.date = date;
-        this.status = "Available";
+        this.status = status;
         this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
         movie.getShowtimes().add(this);
     }
 
     public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
         Validation.isNullParams(movie, hallNumber, time, date);
-        return new Showtime(movie, hallNumber, time, date);
+        return new Showtime(movie, hallNumber, "available", time, date);
     }
 
     public Movie getMovieTitle() {

@@ -1,6 +1,5 @@
-package my.edu.utar.validation;
+package my.edu.utar;
 
-import my.edu.utar.account.Account;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
