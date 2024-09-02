@@ -34,7 +34,7 @@ public class Showtime {
         return movie;
     }
 
-    public void setTitle(Movie movie) {
+    public void setMovie(Movie movie) {
         this.movie = movie;
     }
 
