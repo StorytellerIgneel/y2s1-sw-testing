@@ -30,8 +30,8 @@ public class Showtime {
         return new Showtime(movie, hallNumber, "available", time, date);
     }
 
-    public Movie getMovieTitle() {
-        return getMovieTitle();
+    public Movie getMovie() {
+        return movie;
     }
 
     public void setTitle(Movie movie) {
