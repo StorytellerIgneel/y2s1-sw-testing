@@ -40,6 +40,11 @@ public class Validation {
         if (!value.matches("^[a-zA-Z0-9()\\s]+$"))
             throw new IllegalArgumentException("Only alphanumerical value allowed");
     }
+
+    public static void isValidMovieName(String value) {
+        if (!value.matches("[ '.,\\:\\-a-zA-Z0-9()\\s]+$"))
+            throw new IllegalArgumentException("Only alphanumerical value allowed");
+    }
     
     public static void isNull(String value) {
         if (value.equals(null) || value.equals(""))
@@ -71,6 +76,12 @@ public class Validation {
 
     public static void comboValidString(String value){
         Validation.isAlphaNumerical(value);
+        Validation.isNull(value);
+        Validation.isWhiteSpace(value);
+    }
+
+    public static void comboValidMovie(String value){
+        Validation.isValidMovieName(value);
         Validation.isNull(value);
         Validation.isWhiteSpace(value);
     }

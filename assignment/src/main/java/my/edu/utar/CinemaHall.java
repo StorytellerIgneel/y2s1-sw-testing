@@ -60,7 +60,7 @@ public class CinemaHall {
     //Methods
     public boolean checkOversell(int newTickets){
         Validation.isNegativeNum(newTickets);
-        return (newTickets > availableSeats); 
+        return (newTickets > getAvailableSeats()); 
     }
 
     public boolean hallAvailable(int totalTicketQuantity){

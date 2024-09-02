@@ -21,7 +21,7 @@ public class Account {
     this.birthday = birthday;
   }
 
-  public Account createAccount(String name, String email, LocalDate birthday) {
+  public static Account createAccount(String name, String email, LocalDate birthday) {
     Validation.isAlphaNumerical(name);
     Validation.isValidEmail(email);
     return new Account(name, email, birthday);

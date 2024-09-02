@@ -100,6 +100,7 @@ public class Booking {
     }
 
     public void setQuantityOKU(int quantityOKU) {
+        Validation.isNegativeNum(quantityOKU);
         this.quantityOKU = quantityOKU;
     }
 

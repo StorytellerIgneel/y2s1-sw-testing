@@ -19,9 +19,9 @@ public class Movie {
         this.normalPrice = normalPrice;
     }
 
-    public static Movie createBooking(String title, String category, ArrayList<Showtime> showtimes, double normalPrice){
+    public static Movie createMovie(String title, String category, ArrayList<Showtime> showtimes, double normalPrice){
         Validation.isNullParams(title, category, showtimes, normalPrice);
-        Validation.comboValidString(title);
+        Validation.comboValidMovie(title);
         Validation.comboValidString(category);
         Validation.isNegativeNum(normalPrice);
         return new Movie(title, category, showtimes, normalPrice);
@@ -60,32 +60,32 @@ public class Movie {
         this.normalPrice = normalPrice;
     }
 
-    // other methods
-    public String viewInformation() {
-        StringBuilder movie_info = new StringBuilder();
+    // // other methods
+    // public String viewInformation() {
+    //     StringBuilder movie_info = new StringBuilder();
  
-        movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
-        movie_info.append(Color.RED + "Category: " + Color.LIME).append(category).append("\n").append(Color.RESET);
-        return movie_info.toString();
-    }
+    //     movie_info.append(Color.RED + "Title: " + Color.LIME).append(title).append("\n").append(Color.RESET);
+    //     movie_info.append(Color.RED + "Category: " + Color.LIME).append(category).append("\n").append(Color.RESET);
+    //     return movie_info.toString();
+    // }
 
-    public String getAllShowtimes() {
-        int index = 1;
-        StringBuilder movie_info = new StringBuilder();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    // public String getAllShowtimes() {
+    //     int index = 1;
+    //     StringBuilder movie_info = new StringBuilder();
+    //     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+    //     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
 
-        movie_info.append(Color.RED + "Showtimes: " + Color.LIME).append("\n");
-        for (Showtime showtime : showtimes) {
-            movie_info.append(index + ". " );
-            movie_info.append(showtime.getDate().format(dateFormatter)).append(" - ");
-            movie_info.append(showtime.getTime().format(timeFormatter)).append("\n");
-            index ++;
-        }
-        return movie_info.toString();
-    }
+    //     movie_info.append(Color.RED + "Showtimes: " + Color.LIME).append("\n");
+    //     for (Showtime showtime : showtimes) {
+    //         movie_info.append(index + ". " );
+    //         movie_info.append(showtime.getDate().format(dateFormatter)).append(" - ");
+    //         movie_info.append(showtime.getTime().format(timeFormatter)).append("\n");
+    //         index ++;
+    //     }
+    //     return movie_info.toString();
+    // }
 
     public boolean isExpensive(){
-        return (category.equals("3D") || category.equals("IMAX"));
+        return (getCategory().equals("3D") || getCategory().equals("IMAX"));
     }
 }

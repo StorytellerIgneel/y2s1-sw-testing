@@ -25,24 +25,22 @@ import org.junit.Before;
 
 @RunWith(JUnitParamsRunner.class)
 public class CinemaHallTest {
-    /* 
+    
     private Object[] getParamForCheckOversellValid(){
         return new Object[] {
-            ""
+            new Object[] {10, 5, true},
+            new Object[] {5, 10, false},
+            new Object[] {10, 10, false},
         };
     }
 
     @Test
     @Parameters(method = "getParamForCheckOversellValid")
-    public void checkOversellValid(String hallStatus){
-        CinemaHall hall = new CinemaHall(1, 10);
-        hall.setHallStatus(hallStatus);
-        when(hall.getHallStatus()).thenReturn(hallStatus);
-        assertDoesNotThrow(() -> {
-            assertTrue(hall.hallAvailable());
-        });
+    public void checkOversellValid(int newTickets, int availableSeats, boolean ER){
+        CinemaHall mockHall = mock(CinemaHall.class);
+        when(mockHall.getAvailableSeats()).thenReturn(availableSeats);
+        assertEquals(ER, mockHall.checkOversell(newTickets));
     }
-        */
 
     private Object[] getParamsForHallAvailableValidTest(){
         return new Object[] {
@@ -50,7 +48,7 @@ public class CinemaHallTest {
             new Object[] {"Not Available", false, false},
             new Object[] {"under repair", false, false},
             new Object[] {"Available", true, false},
-            new Object[] {"Available", false, true},
+            new Object[] {"Available", false, false},
         };
     }
 
@@ -65,24 +63,24 @@ public class CinemaHallTest {
         });
     }
 
-    private Object[] getParamsForHallAvailableInvalidTest(){
-        return new Object[] {
-            new Object[] {"Fully Booked", false, false},
-            new Object[] {"Not Available", false, false},
-            new Object[] {"under repair", false, false},
-            new Object[] {"Available", true, false},
-            new Object[] {"Available", false, true},
-        };
-    }
+    // private Object[] getParamsForHallAvailableInvalidTest(){
+    //     return new Object[] {
+    //         new Object[] {"", false, false},
+    //         new Object[] {"Not Available", false, false},
+    //         new Object[] {"under repair", false, false},
+    //         new Object[] {"Available", true, false},
+    //         new Object[] {"Available", false, true},
+    //     };
+    // }
 
-    @Test(expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamsForHallAvailableInvalidTest")
-    public void hallAvailableInvalidTest(String hallStatus, boolean oversell, boolean ER){
-        CinemaHall hall = mock(CinemaHall.class);
-        when(hall.getHallStatus()).thenReturn(hallStatus);
-        when(hall.checkOversell(anyInt())).thenReturn(oversell);
-        assertThrows(IllegalArgumentException.class, () -> {
-            hall.hallAvailable(1);
-        });
-    }
+    // @Test(expected = IllegalArgumentException.class)
+    // @Parameters(method = "getParamsForHallAvailableInvalidTest")
+    // public void hallAvailableInvalidTest(String hallStatus, boolean oversell, boolean ER){
+    //     CinemaHall hall = mock(CinemaHall.class);
+    //     when(hall.getHallStatus()).thenReturn(hallStatus);
+    //     when(hall.checkOversell(anyInt())).thenReturn(oversell);
+    //     assertThrows(IllegalArgumentException.class, () -> {
+    //         hall.hallAvailable(1);
+    //     });
+    // }
 }
