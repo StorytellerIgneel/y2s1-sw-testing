@@ -22,6 +22,7 @@ public class Account {
   }
 
   public static Account createAccount(String name, String email, LocalDate birthday) {
+    Validation.isNullParams(name, email, birthday);
     Validation.isAlphaNumerical(name);
     Validation.isValidEmail(email);
     return new Account(name, email, birthday);
@@ -38,18 +39,25 @@ public class Account {
   }
       */
 
-  // getter methods
-  public String getName() {
-    return name;
-  }
-
   // setter methoids
   public void setName(String name) {
+    Validation.isAlphaNumerical(name);
     this.name = name;
   }
 
   public void setEmail(String email) {
+    Validation.isValidEmail(email);
     this.email = email;
+  }
+
+  
+  public void setBirthDay(LocalDate birthday){
+    this.birthday = birthday;
+  }
+
+    // getter methods
+  public String getName() {
+    return name;
   }
 
   public String getEmail() {
@@ -58,9 +66,5 @@ public class Account {
 
   public LocalDate getBirthday(){
     return birthday;
-  }
-
-  public void setBirthDay(LocalDate birthday){
-    this.birthday = birthday;
   }
 }

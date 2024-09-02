@@ -29,8 +29,9 @@ public class AccountTest {
     private Object[] getParamForCreateAccountValid(){
         return new Object[] {
             new Object[] {"Kirito", "teohwh2004@gmail.com", LocalDate.of(2004, 6, 28)},
-            new Object[] {"Kira Yamato", "teohwh2004@gmail.com", LocalDate.of(2004, 6, 28)},
-            new Object[] {"Asuna Yuuki", "teohwh2004@gmail.com", LocalDate.of(2004, 6, 28)},
+            new Object[] {"Kira Yamato", "teohwh2004@hotmail.com", LocalDate.of(2024, 9, 2)},
+            new Object[] {"Asuna Yuuki", "teohwh2004@gmail.com", LocalDate.of(2003, 1,1)},
+            new Object[] {null, null, null}
         };
     }
 

@@ -6,25 +6,23 @@ import java.util.ArrayList;
 public class Movie {
     private String title;
     private String category;
-    private ArrayList<Showtime> showtimes;
     private double normalPrice; 
 
     // Constructor
     public Movie() {};
 
-    public Movie(String title, String category, ArrayList<Showtime> showtimes, double normalPrice) {
+    public Movie(String title, String category, double normalPrice) {
         this.title = title;
         this.category = category; //Normal, 3D, IMAX
-        this.showtimes = showtimes;
         this.normalPrice = normalPrice;
     }
 
-    public static Movie createMovie(String title, String category, ArrayList<Showtime> showtimes, double normalPrice){
-        Validation.isNullParams(title, category, showtimes, normalPrice);
+    public static Movie createMovie(String title, String category, double normalPrice){
+        Validation.isNullParams(title, category, normalPrice);
         Validation.comboValidMovie(title);
         Validation.comboValidString(category);
         Validation.isNegativeNum(normalPrice);
-        return new Movie(title, category, showtimes, normalPrice);
+        return new Movie(title, category, normalPrice);
     }
 
     // Getter and Setter methods
@@ -43,13 +41,6 @@ public class Movie {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-    public ArrayList<Showtime> getShowtimes() {
-        return showtimes;
-    }
-
-    public void setShowtimes(ArrayList<Showtime> showtimes) {
-        this.showtimes = showtimes;
     }
 
     public double getNormalPrice() {

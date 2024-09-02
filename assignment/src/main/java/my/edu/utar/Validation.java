@@ -12,29 +12,29 @@ public class Validation {
      * @param value the string to be checked
      * @return true if the string is a number, false otherwise
      */
-    public static boolean isNumber(String value) {
-        try {
-            Integer valueInt = Integer.parseInt(value);
-            if (valueInt >= 0)
-                return (true);
-            else
-                return false;
-        } catch (NumberFormatException error) {
-            return false;
-        }
-    }
+    // public static boolean isNumber(String value) {
+    //     try {
+    //         Integer valueInt = Integer.parseInt(value);
+    //         if (valueInt >= 0)
+    //             return (true);
+    //         else
+    //             return false;
+    //     } catch (NumberFormatException error) {
+    //         return false;
+    //     }
+    // }
 
-    public static boolean isDouble(String value) {
-        try {
-            Double valueDouble = Double.parseDouble(value);
-            if (valueDouble >= 0)
-                return (true);
-            else
-                return false;
-        } catch (NumberFormatException error) {
-            return false;
-        }
-    }
+    // public static boolean isDouble(String value) {
+    //     try {
+    //         Double valueDouble = Double.parseDouble(value);
+    //         if (valueDouble >= 0)
+    //             return (true);
+    //         else
+    //             return false;
+    //     } catch (NumberFormatException error) {
+    //         return false;
+    //     }
+    // }
 
     public static void isAlphaNumerical(String value) {
         if (!value.matches("^[a-zA-Z0-9()\\s]+$"))

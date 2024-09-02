@@ -23,7 +23,6 @@ public class Showtime {
         this.date = date;
         this.status = status;
         this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
-        movie.getShowtimes().add(this);
     }
 
     public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){

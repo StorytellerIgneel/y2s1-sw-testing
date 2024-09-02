@@ -49,7 +49,7 @@ public class Booking {
 
     public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
         Validation.isNullParams(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
-        if (!movie.getShowtimes().contains(showtime))
+        if (!showtime.getMovieTitle().equals(movie.getTitle()))
             throw new IllegalArgumentException("Movie does not contain this showtime");
         if ((quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent) == 0)
             throw new IllegalArgumentException("No tickets booked.");
@@ -88,9 +88,6 @@ public class Booking {
     }
 
     public void setShowtime(Showtime showtime) {
-        if (!movie.getShowtimes().contains(showtime)) {
-            throw new IllegalArgumentException("Selected showtime not available for this movie.");
-        }
         this.showtime = showtime;
     }
 
