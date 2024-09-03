@@ -47,7 +47,7 @@ public class Validation {
     }
     
     public static void isNull(String value) {
-        if (value.equals(null) || value.equals(""))
+        if (value == null || value.isEmpty())
             throw new IllegalArgumentException("Null param passed");
     }
 

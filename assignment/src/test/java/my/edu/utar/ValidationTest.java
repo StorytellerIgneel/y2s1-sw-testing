@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.mockito.ArgumentMatchers.nullable;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -52,19 +53,20 @@ public class ValidationTest {
     @Test
     @Parameters(method = "getParamsForIsNullValidTest")
     public void isNullValidTest(String test){
-        assertDoesNotThrow(() -> Validation.isAlphaNumerical(test));
+        assertDoesNotThrow(() -> Validation.isNull(test));
     }
 
     private Object[] getParamsForIsNullInvalidTest(){
         return new Object[] {
-            null, ""
+            new Object[] {null}, 
+            new Object[] {""}, 
         };
     }
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getParamsForIsNullInvalidTest")
     public void isNullInvalidTest(String test){
-        Validation.isAlphaNumerical(test);
+        Validation.isNull(test);
     }
 
 }
