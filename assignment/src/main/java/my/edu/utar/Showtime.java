@@ -30,6 +30,7 @@ public class Showtime {
         return new Showtime(movie, hallNumber, "available", time, date);
     }
 
+    //Getter and Setter for movie
     public Movie getMovie() {
         return movie;
     }
