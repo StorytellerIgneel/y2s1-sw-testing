@@ -119,7 +119,7 @@ public class Validation {
     }
 
     public static void isMovieCategory (String category){
-        if(!category.equals("2D") && !category.equals("3D") && !category.equals("IMAX"))
+        if(!category.equals("Normal") && !category.equals("3D") && !category.equals("IMAX"))
             throw new IllegalArgumentException("Invalid movie category");
     }
 
