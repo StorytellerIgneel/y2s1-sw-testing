@@ -1,8 +1,5 @@
 package my.edu.utar;
 
-import java.util.UUID;
-import java.util.ArrayList;
-
 
 /**
  * This class represents a booking made by a user.
@@ -49,7 +46,7 @@ public class Booking {
 
     public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
         Validation.isNullParams(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
-        if (!showtime.getMovieTitle().equals(movie.getTitle()))
+        if (!showtime.getMovie().equals(movie.getTitle()))
             throw new IllegalArgumentException("Movie does not contain this showtime");
         if ((quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent) == 0)
             throw new IllegalArgumentException("No tickets booked.");
@@ -91,6 +88,16 @@ public class Booking {
         this.showtime = showtime;
     }
 
+    //Getter and Setter for quantityAdult
+    public int getQuantityAdult() {
+        return quantityOKU;
+    }
+
+    public void setQuantityAdult(int quantityAdult) {
+        Validation.isNegativeNum(quantityAdult);
+        this.quantityAdult = quantityAdult;
+    }
+
     // Getter and Setter for quantityOKU
     public int getQuantityOKU() {
         return quantityOKU;
@@ -107,6 +114,7 @@ public class Booking {
     }
 
     public void setQuantitySenior(int quantitySenior) {
+        Validation.isNegativeNum(quantitySenior);
         this.quantitySenior = quantitySenior;
     }
 
@@ -116,6 +124,7 @@ public class Booking {
     }
 
     public void setQuantityStudent(int quantityStudent) {
+        Validation.isNegativeNum(quantityStudent);
         this.quantityStudent = quantityStudent;
     }
 
@@ -125,6 +134,7 @@ public class Booking {
     }
 
     public void setQuantityChildren(int quantityChildren) {
+        Validation.isNegativeNum(quantityChildren);
         this.quantityChildren = quantityChildren;
     }
 
