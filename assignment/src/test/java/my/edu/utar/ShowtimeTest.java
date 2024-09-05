@@ -34,7 +34,7 @@ public class ShowtimeTest {
         Validation.isAlphaNumerical(test);
     }
 
-    // private Object[] getParamsForShowtimeAvailableValidTest(){
+    // private Object[] getParamsForShowtimeAvailableInValidTest(){
     //     return new Object[] {
     //         "$%^&*()"
     //     };
@@ -47,4 +47,18 @@ public class ShowtimeTest {
     //     Showtime showtime = new Showtime(movieMock, null, null, null)
     //     Validation.isAlphaNumerical(test);
     // }
+
+    private Object[] getParamsForDetermineTicketPriceValidTest(){
+        return new Object[] {
+            "$%^&*()"
+        };
+    }
+
+    @Test
+    @Parameters(method = "getParamsForDetermineTicketPriceValidTest")
+    public void determineTicketPriceValidTest(double normalTicketPrice, double ER){
+        Showtime showtime  = new Showtime(null, null, null, null, null)
+        Showtime showtimeSpy = spy()
+    }
+
 }
