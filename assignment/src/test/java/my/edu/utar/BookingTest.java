@@ -41,7 +41,6 @@ public class BookingTest{
         ArrayList<Showtime> mockShowtimeArrayList = new ArrayList<Showtime>();
         mockShowtimeArrayList.add(showtimeMock);
         when(accountMock.getName()).thenReturn("Kira Yamato");
-        when(movieMock.getShowtimes().contains(any())).thenReturn(true);
 
         assertNotNull(Booking.createBooking("1", accountMock, movieMock, showtimeMock, 0, 0, 0, 0, 0));
     }

@@ -2,6 +2,7 @@ package my.edu.utar;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,17 +71,17 @@ public class Validation {
     }
 
     //overload
-    public static void isNegativeNum (int values) {
-        for (int value : values) {
-            if (value < 0) 
-                throw new IllegalArgumentException("Negative param passed.");
-        }
+    public static void isNegativeNum (int value) {
+        if (value < 0)
+            throw new IllegalArgumentException("Negative integer passed");
     }
 
     //overload again
     public static void isNegativeNum (int... values) {
-        if (value < 0)
-            throw new IllegalArgumentException("Negative integer passed");
+        for (int value : values) {
+            if (value < 0) 
+                throw new IllegalArgumentException("Negative param passed.");
+        }
     }
 
     public static void comboValidString(String value){
@@ -98,10 +99,10 @@ public class Validation {
     public static void isRegisteredUser (String name) {
         boolean userIsRegistered = false;
 
-        Account kira = new Account("Kira Yamato", "kira.yamato@gundamseed.com", LocalDate.of(2004, 5, 18));
-        Account lacus = new Account("Lacus Clyne", "lacus.clyne@gundamseed.com", LocalDate.of(2004, 2, 29));
-        Account athrun = new Account("Athrun Zala", "athrun.zala@gundamseed.com", LocalDate.of(2004, 10, 29));
-        Account cagalli = new Account("Cagalli Yula Athha", "cagalli.athha@gundamseed.com", LocalDate.of(2004, 11, 18));
+        Account kira = new Account("Kira Yamato", "kira.yamato@gundamseed.com", 2004, 5, 18);
+        Account lacus = new Account("Lacus Clyne", "lacus.clyne@gundamseed.com", 2004, 2, 29);
+        Account athrun = new Account("Athrun Zala", "athrun.zala@gundamseed.com", 2004, 10, 29);
+        Account cagalli = new Account("Cagalli Yula Athha", "cagalli.athha@gundamseed.com", 2004, 11, 18);
 
         // Add them to an ArrayList
         ArrayList<Account> accounts = new ArrayList<>();
@@ -151,7 +152,7 @@ public class Validation {
     }
 
     public static void isValidDate(int year, int month, int day) {    
-        LocalDat birthday;    
+        LocalDate birthday;    
         // Check for valid month
         if (month < 1 || month > 12)
             throw new IllegalArgumentException("Invalid month");

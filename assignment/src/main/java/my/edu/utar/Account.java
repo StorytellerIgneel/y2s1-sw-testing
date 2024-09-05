@@ -15,31 +15,20 @@ public class Account {
   private LocalDate birthday;
 
   // constructor
-  public Account(String name, String email, LocalDate birthday) {
+  public Account(String name, String email,  int year, int month, int day ) {
     this.name = name;
     this.email = email;
-    this.birthday = birthday;
+    this.birthday = LocalDate.of(year, month, month);
   }
 
   public static Account createAccount(String name, String email, int year, int month, int day) {
-    Validation.isNull(name, email, birthday);
+    Validation.isNull(name, email, year, month, day);
     Validation.isNegativeNum(year, month, day);
     Validation.isValidDate(year, month, day);
     Validation.isAlphaNumerical(name);
     Validation.isValidEmail(email);
-    return new Account(name, email, birthday);
+    return new Account(name, email, year, month, day);
   }
-
-   // Method to generate a unique account ID
-   /*
-  public static String generateAccountId() {
-      // Generate a random UUID (Universally Unique Identifier)
-      // and remove hyphens to make it shorter
-      String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-      // Extract the first 8 characters to create a shorter ID
-      return uuid.substring(0, 8);
-  }
-      */
 
   // setter methoids
   public void setName(String name) {

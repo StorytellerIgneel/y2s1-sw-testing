@@ -45,8 +45,8 @@ public class Booking {
     }
 
     public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
-        Validation.isNullParams(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
-        if (!showtime.getMovie().equals(movie.getTitle()))
+        Validation.isNull(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
+        if (!showtime.getMovie().equals(movie))
             throw new IllegalArgumentException("Movie does not contain this showtime");
         if ((quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent) == 0)
             throw new IllegalArgumentException("No tickets booked.");

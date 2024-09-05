@@ -36,7 +36,7 @@ public class AccountTest {
 
     @Test
     @Parameters(method = "getParamForCreateAccountValid")
-    public void createAccountValidTest(String name, String email, Int birthday_year, Int birthday_month, Int birthday_day){
+    public void createAccountValidTest(String name, String email, Integer birthday_year, Integer birthday_month, Integer birthday_day){
         assertNotNull(Account.createAccount(name, email, birthday_year, birthday_month, birthday_day));
     }
 
@@ -54,7 +54,7 @@ public class AccountTest {
 
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getParamForCreateAccountInvalid")
-    public void createAccountInvalidTest(String name, String email, Int birthday_year, Int birthday_month, Int birthday_day){
+    public void createAccountInvalidTest(String name, String email, Integer birthday_year, Integer birthday_month, Integer birthday_day){
         Account.createAccount(name, email, birthday_year, birthday_month, birthday_day);
     }
 }
