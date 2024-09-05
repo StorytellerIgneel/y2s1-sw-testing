@@ -84,6 +84,7 @@ public class Showtime {
     }
 
     private double determineTicketPrice(double normalTicketPrice){
+        Validation.isNegativeNum(normalTicketPrice);
         ArrayList<DayOfWeek> weekdays = new ArrayList<>(new ArrayList<>(List.of(DayOfWeek.values())).subList(0, 4)); //returns weekedays
         if (!weekdays.contains(date.getDayOfWeek())) //weekends
             normalTicketPrice += 2;
