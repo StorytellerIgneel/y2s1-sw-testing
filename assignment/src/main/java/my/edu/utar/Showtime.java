@@ -26,7 +26,7 @@ public class Showtime {
     }
 
     public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
-        Validation.isNullParams(movie, hallNumber, time, date);
+        Validation.isNull(movie, hallNumber, time, date);
         return new Showtime(movie, hallNumber, "available", time, date);
     }
 

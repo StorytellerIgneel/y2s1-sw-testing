@@ -18,7 +18,7 @@ public class Movie {
     }
 
     public static Movie createMovie(String title, String category, double normalPrice){
-        Validation.isNullParams(title, category, normalPrice);
+        Validation.isNull(title, category, normalPrice);
         Validation.comboValidMovie(title);
         Validation.comboValidString(category);
         Validation.isNegativeNum(normalPrice);

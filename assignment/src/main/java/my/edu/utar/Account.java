@@ -21,8 +21,10 @@ public class Account {
     this.birthday = birthday;
   }
 
-  public static Account createAccount(String name, String email, LocalDate birthday) {
-    Validation.isNullParams(name, email, birthday);
+  public static Account createAccount(String name, String email, int year, int month, int day) {
+    Validation.isNull(name, email, birthday);
+    Validation.isNegativeNum(year, month, day);
+    Validation.isValidDate(year, month, day);
     Validation.isAlphaNumerical(name);
     Validation.isValidEmail(email);
     return new Account(name, email, birthday);

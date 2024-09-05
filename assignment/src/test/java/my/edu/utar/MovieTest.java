@@ -80,7 +80,7 @@ public class MovieTest {
 
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getParamForCreateMovieInvalid")
-    public void createMovieValidTest(String title, String category, double normalPrice){
+    public void createMovieInvalidTest(String title, String category, double normalPrice){
         Movie.createMovie(title, category, normalPrice);
     }
 

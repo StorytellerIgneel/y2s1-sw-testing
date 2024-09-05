@@ -1,6 +1,7 @@
 package my.edu.utar;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,7 +44,7 @@ public class Validation {
 
     public static void isValidMovieName(String value) {
         if (!value.matches("[ '.,\\:\\-a-zA-Z0-9()\\s]+$"))
-            throw new IllegalArgumentException("Only alphanumerical value allowed");
+            throw new IllegalArgumentException("Invalid movie name");
     }
     
     public static void isNull(String value) {
@@ -51,7 +52,7 @@ public class Validation {
             throw new IllegalArgumentException("Null param passed");
     }
 
-    public static void isNullParams(Object... params) {
+    public static void isNull(Object... params) {
         for (Object param : params) {
             if (param == null) 
                 throw new IllegalArgumentException("Null parameter passed.");
@@ -69,7 +70,15 @@ public class Validation {
     }
 
     //overload
-    public static void isNegativeNum (int value) {
+    public static void isNegativeNum (int values) {
+        for (int value : values) {
+            if (value < 0) 
+                throw new IllegalArgumentException("Negative param passed.");
+        }
+    }
+
+    //overload again
+    public static void isNegativeNum (int... values) {
         if (value < 0)
             throw new IllegalArgumentException("Negative integer passed");
     }
@@ -141,16 +150,23 @@ public class Validation {
             throw new IllegalArgumentException("Invalid email");
     }
 
-/*
-    public static void isDuplicateUsername(String username)
-    {
-        ArrayList<Account> userList = Account.getName();
-        for(Account user : userList)
-        {
-            if(user.getName().equals(username))
-                return true;
+    public static void isValidDate(int year, int month, int day) {    
+        LocalDat birthday;    
+        // Check for valid month
+        if (month < 1 || month > 12)
+            throw new IllegalArgumentException("Invalid month");
+        
+        // Check for valid day in the given month and year
+        YearMonth yearMonth = YearMonth.of(year, month);
+        if (day <= 0 && day > yearMonth.lengthOfMonth())
+            throw new IllegalArgumentException("Invalid day");
+        
+        try {
+            birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException("Invalid date value");
         }
-        return false;
+
+        return;
     }
-*/
 }

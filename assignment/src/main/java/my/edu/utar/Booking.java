@@ -48,7 +48,7 @@ public class Booking {
     }
 
     public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
-        Validation.isNullParams(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
+        Validation.isNull(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
         if (!showtime.getMovieTitle().equals(movie.getTitle()))
             throw new IllegalArgumentException("Movie does not contain this showtime");
         if ((quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent) == 0)

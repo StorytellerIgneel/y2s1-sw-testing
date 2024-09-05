@@ -28,30 +28,33 @@ import org.junit.Before;
 public class AccountTest {
     private Object[] getParamForCreateAccountValid(){
         return new Object[] {
-            new Object[] {"Kirito", "teohwh2004@gmail.com", LocalDate.of(2004, 6, 28)},
-            new Object[] {"Kira Yamato", "teohwh2004@hotmail.com", LocalDate.of(2024, 9, 2)},
-            new Object[] {"Asuna Yuuki", "teohwh2004@gmail.com", LocalDate.of(2003, 1,1)},
-            new Object[] {null, null, null}
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 28},
+            new Object[] {"Kira Yamato", "teohwh2004@hotmail.com", 2024, 9, 2},
+            new Object[] {"Asuna Yuuki", "teohwh2004@gmail.com",2003, 1,1},
         };
     }
 
     @Test
     @Parameters(method = "getParamForCreateAccountValid")
-    public void createAccountValidTest(String name, String email, LocalDate birthday){
-        assertNotNull(Account.createAccount(name, email, birthday));
+    public void createAccountValidTest(String name, String email, Int birthday_year, Int birthday_month, Int birthday_day){
+        assertNotNull(Account.createAccount(name, email, birthday_year, birthday_month, birthday_day));
     }
 
     private Object[] getParamForCreateAccountInvalid(){
         return new Object[] {
-            new Object[] {"$%^&*()", "teohwh2004@gmail.com", LocalDate.of(2004, 6, 28)},
-            new Object[] {"Kirito", "@gmail", LocalDate.of(2004, 6, 28)},
-            new Object[] {"Kirito", "teohwh2004gmail.com", LocalDate.of(2004, 6, 28)},
+            new Object[] {"$%^&*()", "teohwh2004@gmail.com", 2004, 6, 28},
+            new Object[] {"Kirito", "@gmail", 2004, 6, 28},
+            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, 2, 38},
+            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, 13, 8},
+            new Object[] {null, "teohwh2004gmail.com", 2004, 6, 28},
+            new Object[] {"Kirito", null, 2004, 6, 28},
+            new Object[] {"Kirito", "teohwh2004gmail.com", null, 6, 28},
         };
     }
 
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getParamForCreateAccountInvalid")
-    public void createAccountInvalidTest(String name, String email, LocalDate birthday){
-        Account.createAccount(name, email, birthday);
+    public void createAccountInvalidTest(String name, String email, Int birthday_year, Int birthday_month, Int birthday_day){
+        Account.createAccount(name, email, birthday_year, birthday_month, birthday_day);
     }
 }

@@ -21,7 +21,7 @@ public class CinemaHall {
     }
 
     public static CinemaHall createCinemaHall(int hallNumber, int seats){
-        Validation.isNullParams(hallNumber,seats);
+        Validation.isNull(hallNumber,seats);
         Validation.isNegativeNum(hallNumber);
         Validation.isNegativeNum(seats);
         if (seats < 50)
