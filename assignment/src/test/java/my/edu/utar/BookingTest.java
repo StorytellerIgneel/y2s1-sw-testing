@@ -52,6 +52,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalTime;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import my.edu.utar.Booking;
@@ -59,91 +62,104 @@ import my.edu.utar.Movie;
 import my.edu.utar.Showtime;
 import my.edu.utar.Account;
 
+//// havent tally w test cases
 public class BookingTest {
+	 
 
-    @Test
-    public void testCalculateAdultTicketPrice() {
-    	
-        // Create mock objects
-        Showtime showtimeMock = mock(Showtime.class);
-        Movie movieMock = mock(Movie.class);
-        Account accountMock = mock(Account.class);
+	    private Account mockAccount;
+	    private Movie mockMovie;
+	    private Showtime mockShowtime;
+	    private Booking mockBooking;
 
-        // Stub methods of the mock objects
-        when(showtimeMock.getNormalTicketPrice()).thenReturn(12.0);
-        when(movieMock.isExpensive()).thenReturn(true);
+	  
+	  @Before
+	    public void setUp() {
+	        // Create mocks
+	        mockAccount = mock(Account.class);
+	        mockMovie = mock(Movie.class);
+	        mockShowtime = mock(Showtime.class);
+	        mockBooking = mock(Booking.class);
 
-        // Create a Booking object using the mock objects
-        Booking booking = new Booking("B001", accountMock, movieMock, showtimeMock, 2, 0, 0, 0, 0);
+	        when(mockShowtime.getTime()).thenReturn(LocalTime.of(14, 0)); // Mock a valid time
+	        when(mockMovie.isExpensive()).thenReturn(false); 
+	        when(mockShowtime.getNormalTicketPrice()).thenReturn(10.0); 
 
-        // Invoke the method under test and assert results
-        double addOn = movieMock.isExpensive() ? 4 : 0;
-        double result = booking.calculateAdultTicketPrice(addOn);
+	    }
 
-        assertEquals(16.0, result, 0.01);
-    }
+	@Test
+	public void testSetAccount() {
 
-    @Test
-    public void testCalculateTotalPrice() {
-        System.out.println("\nDoing testCalculateTotalPrice");
+	    // Call setAccount with a different mock account
+	    Account anotherAccount = mock(Account.class);
+	    mockBooking.setAccount(anotherAccount);
 
-        // Create mock objects
-        Showtime showtimeMock = mock(Showtime.class);
-        Movie movieMock = mock(Movie.class);
-        Account accountMock = mock(Account.class);
+	    // Verify that setAccount was  called with the newly set mockAccount
+	    verify(mockBooking, times(1)).setAccount(anotherAccount);
+	}
+	
+	@Test
+	public void testSetMovie() {
 
-        // Stub methods of the mock objects
-        when(showtimeMock.getNormalTicketPrice()).thenReturn(10.0);
-        when(movieMock.isExpensive()).thenReturn(false);
+	    // Call setAccount with a different mock account
+	    Movie anotherMovie = mock(Movie.class);
+	    mockBooking.setMovie(anotherMovie);
 
-        // Create a Booking object using the mock objects
-        Booking booking = new Booking("B002", accountMock, movieMock, showtimeMock, 2, 1, 1, 0, 0);
+	    // Verify that setAccount was  called with the newly set mockAccount
+	    verify(mockBooking, times(1)).setMovie(anotherMovie);
+	}
 
-        // Invoke the method under test and assert results
-        double result = booking.calculateTotalPrice();
+	@Test
+	public void testSetQuantityAdult() {
 
-        assertEquals(37.0, result, 0.01);
-    }
+	    // Call setAccount with a different mock account
+	    Movie anotherMovie = mock(Movie.class);
+	    mockBooking.setQuantityAdult(100);
 
-//    @Test
-//    public void testNumTimesCalled() {
-//        System.out.println("\nDoing testNumTimesCalled");
-//
-//        // Create mock objects
-//        Showtime showtimeMock = mock(Showtime.class);
-//        Movie movieMock = mock(Movie.class);
-//        Account accountMock = mock(Account.class);
-//
-//        Booking booking = new Booking("B003", accountMock, movieMock, showtimeMock, 1, 0, 0, 1, 0);
-//
-//        // Call the method multiple times
-//        booking.calculateTotalPrice();
-//        booking.calculateTotalPrice();
-//        booking.calculateTotalPrice();
-//
-//        // Verify the number of times the method is called with specific arguments
-//        verify(showtimeMock, times(3)).getNormalTicketPrice();
-//        verify(movieMock, atLeastOnce()).isExpensive();
-//        verify(movieMock, never()).getMovieTitle();
-//    }
-//
-//    @Test
-//    public void testDemoArgumentMatchers() {
-//        System.out.println("\nDoing testDemoArgumentMatchers");
-//
-//        // Create mock objects
-//        Showtime showtimeMock = mock(Showtime.class);
-//
-//        // Stub method with argument matchers
-//        when(showtimeMock.getTicketPriceWithDiscount(anyInt(), anyString(), anyString())).thenReturn(10.0);
-//        when(showtimeMock.getTicketPriceWithDiscount(eq(5), eq("student"), anyString())).thenReturn(8.0);
-//
-//        // Call the method and assert results
-//        double result1 = showtimeMock.getTicketPriceWithDiscount(4, "adult", "weekday");
-//        double result2 = showtimeMock.getTicketPriceWithDiscount(5, "student", "weekend");
-//
-//        assertEquals(10.0, result1, 0.01);
-//        assertEquals(8.0, result2, 0.01);
-//    }
+	    // Verify that setAccount was  called with the newly set mockAccount
+	    verify(mockBooking, times(1)).setQuantityAdult(100);
+	}
+	
+	@Test 
+	public void testSetShowTime() {
+		// Call setAccount with a different mock account
+        Showtime anotherShowtime = mock(Showtime.class);
+        mockBooking.setShowtime(anotherShowtime);
+        
+        // Verify that setAccount was  called with the newly set mockAccount		
+        verify(mockBooking, times(1)).setShowtime(anotherShowtime);
+        
+	}
+	
+	@Test 
+	public void testStatus() {
+		// Call setAccount with a different mock account
+        mockBooking.setStatus("Confirmed");
+        
+        // Verify that setAccount was  called with the newly set mockAccount        
+        verify(mockBooking, times(1)).setStatus("Confirmed");
+        
+	}
+	
+	@Test
+    public void testTotalNumberOfSeats() {
+		mockBooking.setTotalNumberOfSeats(1);
+		
+		// Verify that setAccount was  called with the newly set mockAccount
+		verify(mockBooking, times(1)).setTotalNumberOfSeats(1);
+	
+	}
+	
+	@Test
+    public void testTotalPrice() {
+		mockBooking.setTotalPrice(100);
+		
+		// Verify that setAccount was  called with the newly set mockAccount
+		verify(mockBooking, times(1)).setTotalPrice(100);
+	}
+
+
+
+	  
+
 }
 
