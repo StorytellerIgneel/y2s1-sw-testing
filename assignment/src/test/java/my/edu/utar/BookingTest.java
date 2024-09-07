@@ -30,8 +30,8 @@ import org.junit.Before;
 
 ///havent check w test cases
 //not yet finalize
-// c c jiu hao 
-
+// might be ALOT of error c c jiu hao 
+// later i check  HAHA
 @RunWith(JUnitParamsRunner.class)
 public class BookingTest {
 	 
