@@ -25,6 +25,19 @@ import org.junit.Before;
 
 @RunWith(JUnitParamsRunner.class)
 public class CinemaHallTest {
+    private Object[] getParamForCreateCinemaHallValidTest(){
+        return new Object[] {
+            new Object[] {10, 5, true},
+            new Object[] {5, 10, false},
+            new Object[] {10, 10, false},
+        };
+    }
+
+    @Test
+    @Parameters(method = "getParamForCreateCinemaHallValidTest")
+    public void createCinemaHallValidTest(int hallNumber, int seats){
+        
+    }
     
     private Object[] getParamForCheckOversellValid(){
         return new Object[] {

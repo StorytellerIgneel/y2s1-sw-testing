@@ -29,8 +29,10 @@ public class AccountTest {
     private Object[] getParamForCreateAccountValid(){
         return new Object[] {
             new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 28},
-            new Object[] {"Kira Yamato", "teohwh2004@hotmail.com", 2024, 9, 2},
-            new Object[] {"Asuna Yuuki", "teohwh2004@gmail.com",2003, 1,1},
+            new Object[] {"Kirito", "teohwh2004@hotmail.com", 2024, 6, 28},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 2, 29},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 12, 31},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 1},
         };
     }
 
@@ -44,11 +46,22 @@ public class AccountTest {
         return new Object[] {
             new Object[] {"$%^&*()", "teohwh2004@gmail.com", 2004, 6, 28},
             new Object[] {"Kirito", "@gmail", 2004, 6, 28},
-            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, 2, 38},
-            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, 13, 8},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 0},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 31},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2005, 2, 29},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 13, 8},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 12, 32},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", -2004, 6, 28},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -6, 28},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, -28},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004.5, 6, 28},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6.5, 28},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 28.5},
             new Object[] {null, "teohwh2004gmail.com", 2004, 6, 28},
             new Object[] {"Kirito", null, 2004, 6, 28},
             new Object[] {"Kirito", "teohwh2004gmail.com", null, 6, 28},
+            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, null, 28},
+            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, 6, null},
         };
     }
 

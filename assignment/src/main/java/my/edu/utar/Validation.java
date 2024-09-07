@@ -14,29 +14,12 @@ public class Validation {
      * @param value the string to be checked
      * @return true if the string is a number, false otherwise
      */
-    // public static boolean isNumber(String value) {
-    //     try {
-    //         Integer valueInt = Integer.parseInt(value);
-    //         if (valueInt >= 0)
-    //             return (true);
-    //         else
-    //             return false;
-    //     } catch (NumberFormatException error) {
-    //         return false;
-    //     }
-    // }
-
-    // public static boolean isDouble(String value) {
-    //     try {
-    //         Double valueDouble = Double.parseDouble(value);
-    //         if (valueDouble >= 0)
-    //             return (true);
-    //         else
-    //             return false;
-    //     } catch (NumberFormatException error) {
-    //         return false;
-    //     }
-    // }
+    public static void isInteger(Object... values) {
+        for (Object value : values) {
+            if (!(value instanceof Integer))
+                throw new IllegalArgumentException("The parameter passed should be strictly an Integer");
+        }
+    }
 
     public static void isAlphaNumerical(String value) {
         if (!value.matches("^[a-zA-Z0-9()\\s]+$"))
@@ -159,10 +142,10 @@ public class Validation {
         
         // Check for valid day in the given month and year
         YearMonth yearMonth = YearMonth.of(year, month);
-        if (day <= 0 && day > yearMonth.lengthOfMonth())
+        if (day <= 0 || day > yearMonth.lengthOfMonth())
             throw new IllegalArgumentException("Invalid day");
         
-        try {
+        try { //this is somewhat redundant but ill just leave it
             birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
         } catch (DateTimeException e) {
             throw new IllegalArgumentException("Invalid date value");

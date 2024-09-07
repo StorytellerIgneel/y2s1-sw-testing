@@ -22,8 +22,8 @@ public class CinemaHall {
 
     public static CinemaHall createCinemaHall(int hallNumber, int seats){
         Validation.isNull(hallNumber,seats);
-        Validation.isNegativeNum(hallNumber);
-        Validation.isNegativeNum(seats);
+        Validation.isNegativeNum(hallNumber, seats);
+        Validation.isInteger(hallNumber, seats);
         if (seats < 50)
             throw new IllegalArgumentException("Seat number cannot be less than 50");
         else

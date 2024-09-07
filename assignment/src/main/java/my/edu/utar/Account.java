@@ -15,18 +15,19 @@ public class Account {
   private LocalDate birthday;
 
   // constructor
-  public Account(String name, String email,  int year, int month, int day ) {
+  public Account(String name, String email,  Integer year, Integer month, Integer day ) {
     this.name = name;
     this.email = email;
     this.birthday = LocalDate.of(year, month, month);
   }
 
-  public static Account createAccount(String name, String email, int year, int month, int day) {
+  public static Account createAccount(String name, String email, Integer year, Integer month, Integer day) {
     Validation.isNull(name, email, year, month, day);
     Validation.isNegativeNum(year, month, day);
     Validation.isValidDate(year, month, day);
     Validation.isAlphaNumerical(name);
     Validation.isValidEmail(email);
+    Validation.isInteger(year, month, day);
     return new Account(name, email, year, month, day);
   }
 
