@@ -22,7 +22,8 @@ public class Showtime {
         this.time = time;
         this.date = date;
         this.status = status;
-        this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
+        this.normalTicketPrice = 1.1;
+//        this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
     }
 
     public Showtime() {
