@@ -3,8 +3,6 @@ package my.edu.utar;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
-
 public class CinemaHall {
     private int hallNumber;
     private int seats;
@@ -25,8 +23,7 @@ public class CinemaHall {
             throw new IllegalArgumentException("Negative double passed");
         if (seats < 50)
             throw new IllegalArgumentException("Seat number cannot be less than 50");
-        else
-            return new CinemaHall(hallNumber, seats);
+        return new CinemaHall(hallNumber, seats);
     }
 
     //Getters
@@ -52,13 +49,15 @@ public class CinemaHall {
 
     //Setters
     public void setHallStatus(String hallStatus) {
-        Validation.isHalltimeHallstatus(hallStatus);
+        if (!(hallStatus.equals("FullyBooked") && hallStatus.equals("Available") && hallStatus.equals("NotAvailable") && hallStatus.equals("Repair")))
+            throw new IllegalArgumentException("Invalid hall status");
         this.hallStatus = hallStatus;
     }
-    
+
     //Methods
     public boolean checkOversell(int newTickets){
-        Validation.isNegativeNum(newTickets);
+        if (newTickets < 0)
+            throw new IllegalArgumentException("Negative double passed");
         return (newTickets > getAvailableSeats()); 
     }
 
@@ -68,6 +67,7 @@ public class CinemaHall {
             throw new IllegalArgumentException("Sorry, the hall is currently " + this.getHallStatus());
         else if (checkOversell(totalTicketQuantity))
             throw new IllegalArgumentException("The hall only has " + this.getAvailableSeats() + " seats left.");
-        return true;
+        else
+            return true;
     }
 }
