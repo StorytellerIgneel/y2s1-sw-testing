@@ -72,6 +72,11 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 
+
+///havent check w test cases
+//not yet finalize
+// c c jiu hao 
+
 @RunWith(JUnitParamsRunner.class)
 public class BookingTest {
 	 
@@ -246,7 +251,35 @@ public class BookingTest {
 	        assertEquals(expectedPrice, actualPrice, 0.001);
 	    }
 
+	 @Test
+	    public void testCalculateChildrenTicketPrice() {
+		 // Initialize the mock object
+	        mockShowtime = mock(Showtime.class);
 
+
+	        Booking booking;
+
+	        // Initialize the Booking object with a mocked showtime
+	        booking = new Booking();
+	        booking.setShowtime(mockShowtime);
+	        booking.setQuantityChildren(2); // Example quantity for testing
+	        
+	        // Define the behavior of the mock showtime
+	        double normalTicketPrice = 9.0;
+	        when(mockShowtime.getNormalTicketPrice()).thenReturn(normalTicketPrice);
+
+	        // Test with an add-on value
+	        double addOn = 5.0;
+	        double expectedPrice = 2 * (normalTicketPrice + addOn); // quantityAdult * (ticketPrice + addOn)
+
+	        // Call the method and capture the result
+	        double actualPrice = booking.calculateChildrenTicketPrice(addOn);
+
+	        // Assert that the expected and actual values are the same
+	        assertEquals(expectedPrice, actualPrice, 0.001);
+	    }
+
+	 
 
 	  
 

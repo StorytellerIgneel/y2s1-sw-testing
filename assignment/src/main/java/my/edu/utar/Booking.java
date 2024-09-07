@@ -44,7 +44,11 @@ public class Booking {
         this.status = "Booked";
     }
 
-    public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
+    public Booking() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
         Validation.isNull(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
         if (!showtime.getMovie().equals(movie))
             throw new IllegalArgumentException("Movie does not contain this showtime");
