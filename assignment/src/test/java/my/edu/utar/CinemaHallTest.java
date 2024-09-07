@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,16 +28,32 @@ import org.junit.Before;
 public class CinemaHallTest {
     private Object[] getParamForCreateCinemaHallValidTest(){
         return new Object[] {
-            new Object[] {10, 5, true},
-            new Object[] {5, 10, false},
-            new Object[] {10, 10, false},
+            new Object[] {10, 50},
+            new Object[] {0, 100},
         };
     }
 
     @Test
     @Parameters(method = "getParamForCreateCinemaHallValidTest")
     public void createCinemaHallValidTest(int hallNumber, int seats){
-        
+        assertNotNull(CinemaHall.createCinemaHall(hallNumber, seats));
+    }
+
+    private Object[] getParamForCreateCinemaHallInvalidTest(){
+        return new Object[] {
+            new Object[] {-10, 5},
+            new Object[] {5, -10},
+            new Object[] {-10, -10},
+            new Object[] {null, 10},
+            new Object[] {10, null},
+            new Object[] {10, 49},
+        };
+    }
+
+    @Test
+    @Parameters(method = "getParamForCreateCinemaHallInvalidTest")
+    public void createCinemaHallValidTest(int hallNumber, int seats){
+        CinemaHall.createCinemaHall(hallNumber, seats)
     }
     
     private Object[] getParamForCheckOversellValid(){
@@ -68,12 +85,10 @@ public class CinemaHallTest {
     @Test
     @Parameters(method = "getParamsForHallAvailableValidTest")
     public void hallAvailableValidTest(String hallStatus, boolean oversell, boolean ER){
-        CinemaHall hall = mock(CinemaHall.class);
-        when(hall.getHallStatus()).thenReturn(hallStatus);
-        when(hall.checkOversell(anyInt())).thenReturn(oversell);
-        assertDoesNotThrow(() -> {
-            assertEquals(hall.hallAvailable(1), ER);
-        });
+        CinemaHall hallSpy = spy(CinemaHall.class);
+        when(hallSpy.getHallStatus()).thenReturn(hallStatus);
+        when(hallSpy.checkOversell(anyInt())).thenReturn(oversell);
+        assertEquals(hallSpy.hallAvailable(1), ER);
     }
 
     // private Object[] getParamsForHallAvailableInvalidTest(){
