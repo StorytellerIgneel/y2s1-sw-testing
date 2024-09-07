@@ -1,18 +1,11 @@
 package my.edu.utar;
-
-
-// import java.util.Date;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.DateTimeException;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.time.DateTimeException;
-import java.time.YearMonth;
 
 public class Account {
   // instance variables to be inherited
@@ -22,7 +15,7 @@ public class Account {
 
   // constructor
   public Account(String name, String email,  int year, int month, int day ) {
-	this.name = name;
+    this.name = name;
     this.email = email;
     this.birthday = LocalDate.of(year, month, month);
   }
@@ -32,13 +25,13 @@ public class Account {
   }
 
   public static Account createAccount(String name, String email, int year, int month, int day) {
-	    Validation.isNull(name, email, year, month, day);
-	    Validation.isNegativeNum(year, month, day); //redundant
-	    Validation.isValidDate(year, month, day);
-	    Validation.isAlphaNumerical(name);
-	    Validation.isValidEmail(email);
-	    return new Account(name, email, year, month, day);
-	  }
+    Validation.isNull(name, email, year, month, day);
+    Validation.isNegativeNum(year, month, day); //redundant
+    Validation.isValidDate(year, month, day);
+    Validation.isAlphaNumerical(name);
+    Validation.isValidEmail(email);
+    return new Account(name, email, year, month, day);
+  }
 
   // setter methods
   public void setName(String name) {
@@ -57,7 +50,7 @@ public class Account {
 	  if (email.equals(""))
 	      throw new IllegalArgumentException("Empty String passed");
 	  // Email regular expression pattern
-      String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+      String emailRegex = "^[a-zA-Z0-9_+&-]+(?:\\.[a-zA-Z0-9_+&-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
       // Compile the regular expression pattern
       Pattern pattern = Pattern.compile(emailRegex);
@@ -111,4 +104,3 @@ public class Account {
     return birthday;
   }
 }
-
