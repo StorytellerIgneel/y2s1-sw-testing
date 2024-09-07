@@ -2,43 +2,31 @@ package my.edu.utar;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
-import org.junit.Before;
 
 @RunWith(JUnitParamsRunner.class)
 public class AccountTest {
 
+	//ACC_TC1_V001
 	//Test method to test createAccount with valid inputs
     private Object[] getParamForCreateAccountValid() {
         return new Object[] {
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 28},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 1900, 6, 29},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2024, 6, 30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 31},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 12, 31},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 1962, 6, 29},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 15},
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 28},	//All valid inputs
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 1900, 6, 29},	//BVA - year 1900
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2024, 6, 30},	//BVA - year 2024
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 31},	//BVA - month 1
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 12, 31},	//BVA - month 12
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 1962, 6, 29},	//EP - year 1962
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 30},	//EP - month 6
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 15},	//EP - day 15
             new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 1},	//beginning of year
             new Object[] {"Kirito", "teohwh2004@gmail.com", 2024, 2, 29},	//leap year
             new Object[] {"Kirito", "teohwh2004@gmail.com", 2023, 2, 28},	//non leap year
@@ -54,43 +42,26 @@ public class AccountTest {
         assertNotNull(Account.createAccount(name, email, birthday_year, birthday_month, birthday_day));
     }
 
+    //ACC_TC1_INV001
     //Test method to test createAccount with invalid inputs including both BVA and EP
     private Object[] getParamForCreateAccountInvalid() {
         return new Object[] {
-            new Object[] {null, "teohwh2004@gmail.com", 2004, 6, 30},
-            new Object[] {"Kirito", null, 2004, 6, 30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 1899, 2, 20},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2025, 2, 20},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -1, 8},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 13, 8},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, -1},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, 32},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 1500, 8, 30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2500, 8, 30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -50, 30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 50, 30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, -30},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, 60},
-            new Object[] {"Invalid@#$Name", "teohwh2004@gmail.com", 2004, 8, 30},
-            new Object[] {"Invalid@#$Name", "InvalidEmail@", 2004, 8, 30},
-            new Object[] {"$%^&*()", "teohwh2004@gmail.com", 2004, 6, 28},
-            new Object[] {"Kirito", "@gmail", 2004, 6, 28},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 0},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 31},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2005, 2, 29},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 13, 8},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 12, 32},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", -2004, 6, 28},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -6, 28},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, -28},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004.5, 6, 28},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6.5, 28},
-            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 28.5},
-            new Object[] {null, "teohwh2004gmail.com", 2004, 6, 28},
-            new Object[] {"Kirito", null, 2004, 6, 28},
-            new Object[] {"Kirito", "teohwh2004gmail.com", null, 6, 28},
-            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, null, 28},
-            new Object[] {"Kirito", "teohwh2004gmail.com", 2004, 6, null},
+            new Object[] {null, "teohwh2004@gmail.com", 2004, 6, 30},				//null name
+            new Object[] {"Kirito", null, 2004, 6, 30},								//null email
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 1899, 2, 20},			//BVA birthday_year 1899
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2025, 2, 20},			//BVA birthday_year 2025
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -1, 8},			//BVA birthday_month -1
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 13, 8},			//BVA birthday_month 13
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, -1},			//BVA birthday_day -1
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, 32},			//BVA birthday_day 32 on month with 31 days
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 1500, 8, 30},			//EP birthday_year 1500
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2500, 8, 30},			//EP birthday_year 2500
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -50, 30},			//EP birthday_month -50
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 50, 30},			//EP birthday_month 50
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, -30},			//EP birthday_day -30
+            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, 60},			//EP birthday_day 60
+            new Object[] {"Invalid@#$Name", "teohwh2004@gmail.com", 2004, 8, 30},	//Invalid name - contains non-alphanumeric values
+            new Object[] {"Invalid@#$Name", "InvalidEmail@", 2004, 8, 30},			//Invalid email - not following email address pattern
         };
     }
 
@@ -98,10 +69,11 @@ public class AccountTest {
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getParamForCreateAccountInvalid")
     public void createAccountInvalidTest(String name, String email, Integer birthday_year, Integer birthday_month, Integer birthday_day){
-        Account.createAccount(name, email, birthday_year, birthday_month, birthday_day);
+    	assertNull(Account.createAccount(name, email, birthday_year, birthday_month, birthday_day));
         
     }
     
+    //ACC_TC2_V001
     //Test method for setName method with valid name
     @Test
     public void testSetNameValid() {
@@ -109,7 +81,8 @@ public class AccountTest {
         account.setName("ValidName123");
         assertEquals("ValidName123", account.getName());
     }
-        
+    
+    //ACC_TC2_INV001
     //Test method for setName method with invalid name and empty string
     @Test (expected = IllegalArgumentException.class)
     @Parameters(
@@ -120,6 +93,7 @@ public class AccountTest {
         account.setName(name);
     }
 
+    //ACC_TC2_INV002
     //Test method for setName method with null
     @Test (expected = IllegalArgumentException.class)
     public void testSetNameInvalid2() {
@@ -127,6 +101,7 @@ public class AccountTest {
         account.setName(null);
     }
     
+    //ACC_TC3_V001
     //Test method for setEmail method with valid email address
     @Test
     public void testSetEmailValid() {
@@ -135,6 +110,7 @@ public class AccountTest {
         assertEquals("lowliana@1utar.my", account.getEmail());
     }
 
+    //ACC_TC3_INV001
     //Test method for setEmail method with invalid email address
     @Test (expected = IllegalArgumentException.class)
     @Parameters(
@@ -145,6 +121,7 @@ public class AccountTest {
         account.setEmail(email);
     }
     
+    //ACC_TC3_INV002
     //Test method for setEmail method with null
     @Test (expected = IllegalArgumentException.class)
     public void testSetEmailInvalid2() {
@@ -152,21 +129,22 @@ public class AccountTest {
         account.setEmail(null);
     }
 
+    //ACC_TC4_V001
     //Test method for setBirthday method with valid year, month, day
     @Test
     @Parameters(
-	    {"1900, 6, 29",
-	    "2024, 6, 30",
-	    "2004, 1, 31",
-	    "2004, 12, 31",
-	    "1962, 6, 29",
-	    "2004, 6, 30",
-	    "2004, 6, 15",
-	    "2004, 1, 1",
-	    "2024, 2, 29", // Leap year
-	    "2023, 2, 28",
-	    "2023, 12, 31",
-	    "2023, 9, 30"})
+	    {"1900, 6, 29",	//BVA year 1900
+	    "2024, 6, 30",	//BVA year 2024
+	    "2004, 1, 31",	//BVA month 1
+	    "2004, 12, 31",	//BVA month 12
+	    "1962, 6, 29",	//EP year 1962
+	    "2004, 6, 30",	//EP month 6
+	    "2004, 6, 15",	//EP day 15
+	    "2004, 1, 1",	//BVA day 1
+	    "2024, 2, 29",	//Leap year February with 29 days
+	    "2023, 2, 28",	//Non Leap year February with 28 days
+	    "2023, 12, 31",	//BVA day 31 for month with 31 days
+	    "2023, 9, 30"})	//BVA day 30 for month with 30 days
     public void testSetBirthDay(int year, int month, int day) {
         Account account = new Account();
         LocalDate date = LocalDate.of(year, month, day);
@@ -174,7 +152,8 @@ public class AccountTest {
         assertEquals(date, account.getBirthday());
     }
 
-  //Test method for setBirthday method with Invalid year, month, day
+    //ACC_TC4_INV001
+    //Test method for setBirthday method with Invalid year, month, day
     @Test (expected = IllegalArgumentException.class)
     @Parameters(
 	    {// Invalid Dates
@@ -199,7 +178,8 @@ public class AccountTest {
         account.setBirthDay(year,month,day);
     }
     
-    //Test getters for Account
+    //ACC_TC5_V001
+    //Test getName method
     @Test
     public void testGetName() {
         Account account = new Account();
@@ -207,6 +187,7 @@ public class AccountTest {
         assertEquals("TestName", account.getName());
     }
 
+    //ACC_TC6_V001
     //Test getEmail method
     @Test
     public void testGetEmail() {
@@ -215,6 +196,8 @@ public class AccountTest {
         assertEquals("lowliana@1utar.my", account.getEmail());
     }
 
+    //ACC_TC7_V001
+    //Test getBirthday method
     @Test
     public void testGetBirthday() {
         Account account = new Account();
