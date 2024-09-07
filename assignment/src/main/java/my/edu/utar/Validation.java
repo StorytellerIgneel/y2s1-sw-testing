@@ -14,12 +14,29 @@ public class Validation {
      * @param value the string to be checked
      * @return true if the string is a number, false otherwise
      */
-    public static void isInteger(Object... values) {
-        for (Object value : values) {
-            if (!(value instanceof Integer))
-                throw new IllegalArgumentException("The parameter passed should be strictly an Integer");
-        }
-    }
+    // public static boolean isNumber(String value) {
+    //     try {
+    //         Integer valueInt = Integer.parseInt(value);
+    //         if (valueInt >= 0)
+    //             return (true);
+    //         else
+    //             return false;
+    //     } catch (NumberFormatException error) {
+    //         return false;
+    //     }
+    // }
+
+    // public static boolean isDouble(String value) {
+    //     try {
+    //         Double valueDouble = Double.parseDouble(value);
+    //         if (valueDouble >= 0)
+    //             return (true);
+    //         else
+    //             return false;
+    //     } catch (NumberFormatException error) {
+    //         return false;
+    //     }
+    // }
 
     public static void isAlphaNumerical(String value) {
         if (!value.matches("^[a-zA-Z0-9()\\s]+$"))
@@ -136,16 +153,21 @@ public class Validation {
 
     public static void isValidDate(int year, int month, int day) {    
         LocalDate birthday;    
+        
+        //need to check for valid year
+        if (year < 1900 || year > LocalDate.now().getYear())
+            throw new IllegalArgumentException("Invalid year");
+        
         // Check for valid month
         if (month < 1 || month > 12)
             throw new IllegalArgumentException("Invalid month");
         
         // Check for valid day in the given month and year
         YearMonth yearMonth = YearMonth.of(year, month);
-        if (day <= 0 || day > yearMonth.lengthOfMonth())
+        if (day <= 0 && day > yearMonth.lengthOfMonth())
             throw new IllegalArgumentException("Invalid day");
         
-        try { //this is somewhat redundant but ill just leave it
+        try {
             birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
         } catch (DateTimeException e) {
             throw new IllegalArgumentException("Invalid date value");
