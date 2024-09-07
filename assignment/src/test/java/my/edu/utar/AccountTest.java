@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 
 @RunWith(JUnitParamsRunner.class)
@@ -204,5 +205,68 @@ public class AccountTest {
         LocalDate date = LocalDate.of(1990, 5, 15);
         account.setBirthDay(1990,5,15);
         assertEquals(date, account.getBirthday());
+    }
+    
+    // ACC_TC5_V001
+    // Test getName method
+    @Test
+    @Parameters({"TestName, TestName"})
+    public void testGetName(String name, String expectedResult) {
+        try {
+            Account account = new Account();
+            Field nameField = Account.class.getDeclaredField("name");
+            nameField.setAccessible(true);
+            
+            // Set the value of the private field "name"
+            nameField.set(account, name);
+            
+            nameField.setAccessible(false);  // Optionally reset access
+            assertEquals(expectedResult, account.getName());
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ACC_TC6_V001
+    // Test getEmail method
+    @Test
+    @Parameters({"lowliana@1utar.my, lowliana@1utar.my"})
+    public void testGetEmail(String email, String expectedResult) {
+        try {
+            Account account = new Account();
+            Field emailField = Account.class.getDeclaredField("email");
+            emailField.setAccessible(true);
+            
+            // Set the value of the private field "email"
+            emailField.set(account, email);
+            
+            emailField.setAccessible(false);  // Optionally reset access
+            assertEquals(expectedResult, account.getEmail());
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ACC_TC7_V001
+    // Test getBirthday method
+    @Test
+    @Parameters({"1990, 5, 15, 1990-05-15"})
+    public void testGetBirthday(int year, int month, int day, String expectedResult) {
+        try {
+            Account account = new Account();
+            LocalDate expectedDate = LocalDate.parse(expectedResult);
+
+            Field birthdayField = Account.class.getDeclaredField("birthday");
+            birthdayField.setAccessible(true);
+
+            // Set the value of the private field "birthday"
+            account.setBirthDay(year, month, day);
+            
+            assertEquals(expectedDate, account.getBirthday());
+
+            birthdayField.setAccessible(false);  // Optionally reset access
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 }
