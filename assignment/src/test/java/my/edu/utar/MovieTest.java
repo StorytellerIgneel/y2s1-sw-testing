@@ -8,16 +8,17 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.lang.reflect.Field;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-
-import org.junit.Before;
 
 @RunWith(JUnitParamsRunner.class)
 public class MovieTest {
+	
+    // MVE_TC1_V001
+	// Test method to test Movie constructor with valid inputs
     @Test
     @Parameters("Example Movie, Normal, 18.50")
     public void MovieConstructorTest(String title, String category, double normalPrice){
@@ -28,88 +29,54 @@ public class MovieTest {
         assertEquals("Normal", movie.getCategory());
         assertEquals(18.50, movie.getNormalPrice(), 0.0);
     }
-
-    private Object[] getParamForCreateMovieValid(){
-
+    
+    // MVE_TC2_V001
+    // Test method to test createMovie with valid inputs
+    private Object[] getParamForCreateMovieValid() {
         return new Object[] {
-            // Valid case with minimum valid length for title, "3D" category, and minimum price boundary
-            new Object[] {"G", "3D", 0.00},  // Title at minimum boundary, price at 0.00
-            
-            // Valid case with typical title, "3D" category, and price just above the minimum boundary
-            new Object[] {"Mobile Suit Gundam Hathaway", "3D", 0.01},  // Price just above minimum
-            
-            // Valid case with longer title, "3D" category, and a high price (upper boundary)
-            new Object[] {"Mobile Suit Gundam Narrative: NT", "3D", 999.99},  // Price at upper boundary
-            
-            // Case with title near the maximum allowable length, "3D" category, and a mid-level price
-            new Object[] {"Mobile Suit Gundam: The Witch from Mercury - Season 2 Part 2", "3D", 25.00},
-
-            // Case with a full title, "3D" category, and showtimes with "Cancelled" status
-            new Object[] {"Mobile Suit Gundam: Cucuruz Doan's Island", "3D", 15.00},
-
-            // Case with a full title, "3D" category, and multiple showtimes
-            new Object[] {"Mobile Suit Gundam Hathaway", "3D", 20.00}
+            new Object[] {"Example Movie", "Normal", 18.50},	// Valid title
+            new Object[] {"Example Movie", "Normal", 18.50},	// Valid "Normal" category movie
+            new Object[] {"Example Movie", "3D", 18.50},		// Valid "3D" category movie
+            new Object[] {"Example Movie", "IMAX", 18.50},		// Valid "IMAX" category movie
+            new Object[] {"Example Movie", "IMAX", 0.01},		// BVA normalPrice 0.01
+            new Object[] {"Example Movie", "IMAX", 100},		// EP normalPrice 100
+            new Object[] {"Example1234", "Normal", 18.50},		// Valid alphanumeric title
         };
     }
 
     @Test
     @Parameters(method = "getParamForCreateMovieValid")
-    public void createMovieValidTest(String title, String category, double normalPrice){
-        assertNotNull(Movie.createMovie(title, category, normalPrice));
+    public void createMovieValidTest(String title, String category, double normalPrice) {
+        Movie movie = Movie.createMovie(title, category, normalPrice);
+        assertNotNull(movie);
+        assertEquals(title, movie.getTitle());
+        assertEquals(category, movie.getCategory());
+        assertEquals(normalPrice, movie.getNormalPrice(), 0.0);
     }
 
+    // MVE_TC2_INV001
+    // Test method to test createMovie with invalid inputs
     private Object[] getParamForCreateMovieInvalid() {
         return new Object[] {
-            //new Object[] {"Example Movie", "Normal", 18.50},
-            //new Object[] {"Example Movie", "Normal", 18.50},
-            new Object[] {null, "Normal", 18.50},  // Null title
-            new Object[] {"Example Movie", null, 18.50},  // Null category
-            new Object[] {"Example Movie", "Normal", null},
-            new Object[] {"Invalid@#$Title", "Normal", 18.50},  // Invalid title
-            new Object[] {"Example Movie", "Invalid@#Category!", 18.50},  // Invalid category
-            new Object[] {"Example Movie", "Normal", -1},  // Negative price
-            new Object[] {"Example Movie", "Normal", -50}  // Negative price
+            new Object[] {null, "Normal", 18.50},             		// Null title
+            new Object[] {"", "Normal", 18.50},              		// Empty title
+            new Object[] {"Movie!", "Normal", 18.50},        		// Invalid title with special characters
+            new Object[] {"Example Movie", null, 18.50},         	// Null category
+            new Object[] {"Example Movie", "", 18.50},            	// Empty category
+            new Object[] {"Example Movie", "OtherCategory", 18.50},	// Invalid category (not Normal, 3D, IMAX)
+            new Object[] {"Example Movie", "Normal", -0.01},       	// BVA - Negative price near zero
+            new Object[] {"Example Movie", "Normal", -100},      	// EP - Negative price -100
         };
     }
-
-    @Test (expected = IllegalArgumentException.class)
+    
+    @Test(expected = IllegalArgumentException.class)
     @Parameters(method = "getParamForCreateMovieInvalid")
-    public void createMovieInvalidTest(String title, String category, double normalPrice){
-        Movie.createMovie(title, category, normalPrice);
+    public void createMovieInvalidTest(String title, String category, double normalPrice) {
+        assertNull(Movie.createMovie(title, category, normalPrice));
     }
 
-    @Test
-    @Parameters("Example Movie, Example Movie")
-    public void setTitleValidTest(String title1, String ER){
-        Movie movieSpy = spy(new Movie());
-        movieSpy.setTitle(title1);
-        verify(movieSpy).setTitle(title1);
-    }
-
-    // @Test
-    // @Parameters("Example Movie, normal, 18.50, null")
-    // public void setTitleInvalidTest(String title1, String category, double normalPrice, double ER){
-    //     // Arrange
-    //     Movie movie1 = new Movie(title1, category, normalPrice);
-    //     assertEquals("Example Movie", movie1.getTitle());
-    // }
-    @Test
-    @Parameters("Normal, Normal")
-    public void setCategoryValidTest(String category, String ER){
-        Movie movieSpy = spy(new Movie());
-        movieSpy.setTitle(category);
-        verify(movieSpy).setTitle(ER);
-    }
-
-    @Test
-    @Parameters("18.50, 18.50")
-    public void setNormalPriceValidTest(double title1, double ER){
-        Movie movieSpy = spy(new Movie());
-        movieSpy.setNormalPrice(title1);
-        verify(movieSpy).setNormalPrice(ER);
-    }
-
-    //getter tests
+    //MVE_TC3_V001
+    //test method for gettTitle 
     @Test
     @Parameters("Example Movie, Example Movie")
     public void getTitleTest(String title, String ER){
@@ -128,6 +95,8 @@ public class MovieTest {
         assertEquals(ER, movieSpy.getTitle());
     }
 
+    //MVE_TC4_V001
+    //test method for getNormalPrice 
     @Test
     @Parameters("18.50, 18.50")
     public void getNormalPriceTest(double normalPrice, double ER){
@@ -147,8 +116,10 @@ public class MovieTest {
         assertEquals(ER, movieSpy.getNormalPrice(), 0.0);
     }
 
+    //MVE_TC5_V001
+    //test method for getCategory
     @Test
-    @Parameters("normal, normal")
+    @Parameters("Normal, Normal")
     public void getCategoryTest(String category, String ER){
         // Arrange
         Movie movieSpy = spy(new Movie());
@@ -165,7 +136,80 @@ public class MovieTest {
         }
         assertEquals(ER, movieSpy.getCategory());
     }
+    
+    //MVE_TC6_V001
+    //Test method for getTitle
+    @Test
+    @Parameters("Movie123, Movie123")
+    public void setTitleValidTest(String title1, String ER){
+        Movie movieSpy = spy(new Movie());
+        movieSpy.setTitle(title1);
+        verify(movieSpy).setTitle(title1);
+        assertEquals(ER, movieSpy.getTitle());
+    }
+    
+    //MVE_TC6_INV001
+    //Test method for setTitle invalid
+    @Test (expected = IllegalArgumentException.class)
+    @Parameters("null,‘’,Invalid^&%Movie")
+    public void setTitleInvalidTest(String title){
+    	 Movie movieSpy = spy(new Movie());
+         movieSpy.setTitle(title);
+    }
+    
+    //MVE_TC7_V001
+    //Test method for setCategory valid
+    @Test
+    @Parameters({
+    	"3D,3D",
+    	"IMAX,IMAX",
+    	"Normal, Normal",
+    })
+    public void setCategoryValidTest(String category, String ER){
+        Movie movieSpy = spy(new Movie());
+        movieSpy.setCategory(category);
+        verify(movieSpy).setCategory(ER);
+        assertEquals(ER, movieSpy.getCategory());
+    }
 
+    //MVE_TC7_INV001
+    //Test method for setCategory valid
+    @Test (expected = IllegalArgumentException.class)
+    @Parameters("null,‘’,InvalidCategory")
+    public void setCategoryInvalidTest(String category){
+    	 Movie movieSpy = spy(new Movie());
+         movieSpy.setCategory(category);
+    }
+    
+    //MVE_TC8_V001
+    //Test method for setNormalPrice valid
+	@Test
+    @Parameters({	
+	    "0,0",		//BVA
+	    "100,100"}	//EP
+    )
+    public void setNormalPriceValidTest(double price, double ER){
+        Movie movieSpy = spy(new Movie());
+        movieSpy.setNormalPrice(price);
+        assertEquals(ER, movieSpy.getNormalPrice(),0.0);
+        verify(movieSpy).setNormalPrice(ER);
+
+    }
+	
+	//MVE_TC8_INV001
+    //Test method for setNormalPrice valid
+    @Test (expected = IllegalArgumentException.class)
+    @Parameters({	
+	    "-100",		//EP
+	    "-0.01"}	//BVA
+    )
+    public void setNormalPriceInvalidTest(double price){
+        Movie movieSpy = spy(new Movie());
+        movieSpy.setNormalPrice(price);
+    }
+
+    //MVE_TC9_V001
+    //Test method for isExpensive valid
     private Object[] getParamsForIsExpensive(){
         return new Object[] {
             new Object[] {"3D", true},
