@@ -94,7 +94,7 @@ public class Booking {
 
     //Getter and Setter for quantityAdult
     public int getQuantityAdult() {
-        return quantityOKU;
+        return quantityAdult;
     }
 
     public void setQuantityAdult(int quantityAdult) {
