@@ -18,7 +18,11 @@ public class CinemaHall {
         this.hallStatus = "Available"; //Fully Booked, Available, Not Available, Repair 
     }
 
-    public static CinemaHall createCinemaHall(int hallNumber, int seats){
+    public CinemaHall() {
+		// empty constructor
+	}
+
+	public static CinemaHall createCinemaHall(int hallNumber, int seats){
         if (hallNumber < 0 || seats < 0)
             throw new IllegalArgumentException("Negative double passed");
         if (seats < 50)
@@ -48,6 +52,11 @@ public class CinemaHall {
     }
 
     //Setters
+    
+    public void setHallNumber(int number) {
+    	this.hallNumber = number;
+    }
+    
     public void setHallStatus(String hallStatus) {
         if (!(hallStatus.equals("FullyBooked") && hallStatus.equals("Available") && hallStatus.equals("NotAvailable") && hallStatus.equals("Repair")))
             throw new IllegalArgumentException("Invalid hall status");
