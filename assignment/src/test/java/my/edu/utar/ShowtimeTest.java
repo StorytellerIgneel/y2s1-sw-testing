@@ -64,33 +64,13 @@ public class ShowtimeTest {
 //        Showtime showtimeSpy = spy()
 //    }
 	
-    private Account mockAccount;
-    private Movie mockMovie;
-    private Showtime mockShowtime;
-    private Booking mockBooking;
-    private Account account;
-    private Movie movie;
-    private Showtime showtime;
-    private LocalTime time;
+
     private Showtime showtimeSpy;
     
 	 @Before
 	    public void setUp() {
 	        // Create mocks
-	        mockAccount = mock(Account.class);
-	        mockMovie = mock(Movie.class);
-	        mockShowtime = mock(Showtime.class);
-	        mockBooking = mock(Booking.class);
-	        
-	        showtimeSpy = spy(new Showtime());
-
-	        // Mock expected behaviors
-	        when(mockAccount.getName()).thenReturn("Kira Yamato");
-	        when(mockMovie.isExpensive()).thenReturn(false);
-	        when(mockShowtime.getNormalTicketPrice()).thenReturn(10.0);
-	        when(mockShowtime.getMovie()).thenReturn(mockMovie);
-	        
-	       
+	        showtimeSpy = spy(new Showtime());       
 	    }
 
 
@@ -200,5 +180,65 @@ public class ShowtimeTest {
 	            e.printStackTrace();
 	        }
 	        assertEquals(ticketPrice, showtimeSpy.getNormalTicketPrice(), 0.01);
+	    }
+	    
+	    // Test for setMovie()
+	    @Test
+	    public void testSetMovie() {
+	        Movie mockMovie = mock(Movie.class);
+	        showtimeSpy.setMovie(mockMovie);
+	        
+	        // Verify that the setMovie method was called with the specified movie
+	        verify(showtimeSpy, times(1)).setMovie(mockMovie);
+	    }
+
+	    // Test for setStatus()
+	    @Test
+	    public void testSetStatus() {
+	        String status = "Available";
+	        showtimeSpy.setStatus(status);
+	        
+	        // Verify that the setStatus method was called with the specified status
+	        verify(showtimeSpy, times(1)).setStatus(status);
+	    }
+
+	    // Test for setHallNumber()
+	    @Test
+	    public void testSetHallNumber() {
+	        CinemaHall mockHall = mock(CinemaHall.class);
+	        showtimeSpy.setHallNumber(mockHall);
+	        
+	        // Verify that the setHallNumber method was called with the specified hall
+	        verify(showtimeSpy, times(1)).setHallNumber(mockHall);
+	    }
+
+	    // Test for setTime()
+	    @Test
+	    public void testSetTime() {
+	        LocalTime time = LocalTime.of(14, 30);
+	        showtimeSpy.setTime(time);
+	        
+	        // Verify that the setTime method was called with the specified time
+	        verify(showtimeSpy, times(1)).setTime(time);
+	    }
+
+	    // Test for setDate()
+	    @Test
+	    public void testSetDate() {
+	        LocalDate date = LocalDate.of(2024, 12, 25);
+	        showtimeSpy.setDate(date);
+	        
+	        // Verify that the setDate method was called with the specified date
+	        verify(showtimeSpy, times(1)).setDate(date);
+	    }
+
+	    // Test for setNormalTicketPrice()
+	    @Test
+	    public void testSetNormalTicketPrice() {
+	        double ticketPrice = 12.0;
+	        showtimeSpy.setNormalTicketPrice(ticketPrice);
+	        
+	        // Verify that the setNormalTicketPrice method was called with the specified price
+	        verify(showtimeSpy, times(1)).setNormalTicketPrice(ticketPrice);
 	    }
 }
