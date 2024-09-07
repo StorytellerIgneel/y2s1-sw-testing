@@ -21,9 +21,8 @@ public class CinemaHall {
     }
 
     public static CinemaHall createCinemaHall(int hallNumber, int seats){
-        Validation.isNull(hallNumber,seats);
-        Validation.isNegativeNum(hallNumber, seats);
-        Validation.isInteger(hallNumber, seats);
+        if (hallNumber < 0 || seats < 0)
+            throw new IllegalArgumentException("Negative double passed");
         if (seats < 50)
             throw new IllegalArgumentException("Seat number cannot be less than 50");
         else
