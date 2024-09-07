@@ -26,7 +26,6 @@ public class Account {
 
   public static Account createAccount(String name, String email, int year, int month, int day) {
     Validation.isNull(name, email, year, month, day);
-    Validation.isNegativeNum(year, month, day); //redundant
     Validation.isValidDate(year, month, day);
     Validation.isAlphaNumerical(name);
     Validation.isValidEmail(email);

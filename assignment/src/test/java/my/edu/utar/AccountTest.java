@@ -69,7 +69,7 @@ public class AccountTest {
     
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getParamForCreateAccountInvalid")
-    public void createAccountInvalidTest(String name, String email, Integer birthday_year, Integer birthday_month, Integer birthday_day){
+    public void createAccountInvalidTest(String name, String email, int birthday_year, int birthday_month, int birthday_day){
     	assertNull(Account.createAccount(name, email, birthday_year, birthday_month, birthday_day));
         
     }
