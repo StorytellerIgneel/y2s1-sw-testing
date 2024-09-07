@@ -35,17 +35,9 @@ public class Showtime {
         return movie;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
     // Getter and Setter for status
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     // Getter and Setter for hallNumber
@@ -53,22 +45,30 @@ public class Showtime {
         return hallNumber;
     }
 
-    public void setHallNumber(CinemaHall hallNumber) {
-        this.hallNumber = hallNumber;
-    }
-
     // Getter and Setter for time
     public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
     // Getter and Setter for date
     public LocalDate getDate() {
         return date;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public void setHallNumber(CinemaHall hallNumber) {
+        this.hallNumber = hallNumber;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public void setDate(LocalDate date) {
