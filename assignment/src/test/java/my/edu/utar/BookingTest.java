@@ -1,50 +1,4 @@
-//package my.edu.utar;
-//
-//import junitparams.JUnitParamsRunner;
-//import junitparams.Parameters;
-//import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
-//
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//
-//import java.time.LocalDate;
-//import java.time.LocalTime;
-//import java.util.ArrayList;
-//
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.mockito.ArgumentMatchers.*;
-//import static org.mockito.Mockito.*;
-//
-//import org.junit.Before;
-//
-//@RunWith(JUnitParamsRunner.class)
-//public class BookingTest{
-//    private Object[] getParamsForIsExpensive(){
-//        return new Object[] {
-//            new Object[] {"3D", true},
-//            new Object[] {"IMAX", true},
-//            new Object[] {"Normal", false},
-//        };
-//    }
-//
-//    @Test
-//    private void createBookingTest(){
-//        Account accountMock = mock(Account.class);
-//        Movie movieMock = mock(Movie.class);
-//        Showtime showtimeMock = mock(Showtime.class);
-//
-//        ArrayList<Showtime> mockShowtimeArrayList = new ArrayList<Showtime>();
-//        mockShowtimeArrayList.add(showtimeMock);
-//        when(accountMock.getName()).thenReturn("Kira Yamato");
-//
-//        assertNotNull(Booking.createBooking("1", accountMock, movieMock, showtimeMock, 0, 0, 0, 0, 0));
-//    }
-//}
+
 
 package my.edu.utar;
 
@@ -111,33 +65,7 @@ public class BookingTest {
        
     }
     
-//    @Test
-//    @Parameters(method = "provideAccountParams")
-//    public void testGetAccount(Account account, Account expectedResult) {
-//        try {
-//            Field accountField = Booking.class.getDeclaredField("account");
-//            accountField.setAccessible(true);  // Make the field accessible to manipulate it
-//            
-//            accountField.set(bookingSpy, account);  // Set the value for the specific instance 
-//            
-//            accountField.setAccessible(false);  // Optionally, set it back to inaccessible
-//        } catch (NoSuchFieldException | IllegalAccessException e) {
-//            e.printStackTrace();  // Handle the exception appropriately
-//        }
-//        assertEquals(expectedResult, bookingSpy.getAccount());
-//    }
-//    
-// // Provide parameters for the test
-//    private Object[] provideAccountParams() {
-//        Account acc1 = new Account();
-//        Account acc2 = new Account();
-//
-//        // Customize the showtime objects as needed
-//        return new Object[]{
-//                new Object[]{acc1, acc1},
-//                new Object[]{acc2, acc2},
-//        };
-//    }
+
 
     
     
@@ -274,6 +202,33 @@ public class BookingTest {
         }
         assertEquals(ER, bookingSpy.getQuantityStudent());
     }
+//  @Test
+//  @Parameters(method = "provideAccountParams")
+//  public void testGetAccount(Account account, Account expectedResult) {
+//      try {
+//          Field accountField = Booking.class.getDeclaredField("account");
+//          accountField.setAccessible(true);  // Make the field accessible to manipulate it
+//          
+//          accountField.set(bookingSpy, account);  // Set the value for the specific instance 
+//          
+//          accountField.setAccessible(false);  // Optionally, set it back to inaccessible
+//      } catch (NoSuchFieldException | IllegalAccessException e) {
+//          e.printStackTrace();  // Handle the exception appropriately
+//      }
+//      assertEquals(expectedResult, bookingSpy.getAccount());
+//  }
+//  
+//// Provide parameters for the test
+//  private Object[] provideAccountParams() {
+//      Account acc1 = new Account();
+//      Account acc2 = new Account();
+//
+//      // Customize the showtime objects as needed
+//      return new Object[]{
+//              new Object[]{acc1, acc1},
+//              new Object[]{acc2, acc2},
+//      };
+//  }
     
     @Test
     @Parameters(method = "provideShowtimeParams")
@@ -565,6 +520,7 @@ public class BookingTest {
 //	        // Assert that the expected and actual values are equal
 //	        assertEquals(expectedTotalPrice, actualTotalPrice, 0.001);
 //	    }
+	 
 	 
 
 	  

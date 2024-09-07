@@ -25,7 +25,11 @@ public class Showtime {
         this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
     }
 
-    public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
+    public Showtime() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
         Validation.isNull(movie, hallNumber, time, date);
         return new Showtime(movie, hallNumber, "available", time, date);
     }
@@ -111,3 +115,4 @@ public class Showtime {
             return false; 
     }
 }
+
