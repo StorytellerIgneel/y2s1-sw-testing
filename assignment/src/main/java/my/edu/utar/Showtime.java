@@ -103,30 +103,51 @@ public class Showtime {
 
     // Getter and Setter for date
     public void setYear(int year) {
-    	this.year = year;
+        //need to check for valid year
+        if (year < 1900 || year > LocalDate.now().getYear())
+            throw new IllegalArgumentException("Invalid year");
+        else
+        	this.year = year;
     }
     
     public void setMonth(int month) {
-        this.month = month;
+        // Check for valid month
+        if (month < 1 || month > 12)
+            throw new IllegalArgumentException("Invalid month");
+        else
+        	this.month = month;
     }
     
     public void setDay(int day) {
-        this.day = day;
+        // Check for valid day in the given month and year
+        YearMonth yearMonth = YearMonth.of(year, month);
+        if (day <= 0 && day > yearMonth.lengthOfMonth())
+            throw new IllegalArgumentException("Invalid day");
+        else
+        	this.day = day;
     }
 
     public void setMovie(Movie movie) {
+    	if(movie == null)
+    		throw new IllegalArgumentException("Null param passed");
         this.movie = movie;
     }
 
     public void setStatus(String status) {
+    	if(status == null)
+    		throw new IllegalArgumentException("Null param passed");
         this.status = status;
     }
     
     public void setHallNumber(CinemaHall hallNumber) {
+    	if(hallNumber == null)
+    		throw new IllegalArgumentException("Null param passed");
         this.hallNumber = hallNumber;
     }
 
     public void setTime(LocalTime time) {
+    	if(time == null)
+    		throw new IllegalArgumentException("Null param passed");
         this.time = time;
     }
 
@@ -136,6 +157,7 @@ public class Showtime {
     }
 
     public void setNormalTicketPrice(double normalTicketPrice) {
+    	if (normalTicketPrice < 0)
         this.normalTicketPrice = normalTicketPrice;
     }
 
@@ -193,4 +215,5 @@ public class Showtime {
             return false; 
     }
 }
+
 
