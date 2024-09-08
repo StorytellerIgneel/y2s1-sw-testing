@@ -89,18 +89,42 @@ public class Showtime {
         this.normalTicketPrice = normalTicketPrice;
     }
 
-    private double determineTicketPrice(double normalTicketPrice){
+//    private double determineTicketPrice(double normalTicketPrice){
+//        Validation.isNegativeNum(normalTicketPrice);
+//        ArrayList<DayOfWeek> weekdays = new ArrayList<>(new ArrayList<>(List.of(DayOfWeek.values())).subList(0, 4)); //returns weekedays
+//        if (!weekdays.contains(date.getDayOfWeek())) //weekends
+//            normalTicketPrice += 2;
+//        else if (date.getDayOfWeek().equals("WEDNESDAY"))
+//            normalTicketPrice = 8;
+//        else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) //1pm weekedays
+//            normalTicketPrice = 9;  
+//
+//        return normalTicketPrice;
+//    }
+    
+    private double determineTicketPrice(double normalTicketPrice) {
         Validation.isNegativeNum(normalTicketPrice);
-        ArrayList<DayOfWeek> weekdays = new ArrayList<>(new ArrayList<>(List.of(DayOfWeek.values())).subList(0, 4)); //returns weekedays
-        if (!weekdays.contains(date.getDayOfWeek())) //weekends
+
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        int hour = time.getHour();
+
+        // Check if it's a weekend (Saturday or Sunday)
+        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
             normalTicketPrice += 2;
-        else if (date.getDayOfWeek().equals("WEDNESDAY"))
+        }
+        // Check if it's Wednesday for a special price
+        else if (dayOfWeek == DayOfWeek.WEDNESDAY) {
             normalTicketPrice = 8;
-        else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) //1pm weekedays
-            normalTicketPrice = 9;  
+        }
+        // Check if it's a weekday (Monday to Thursday) before 1pm
+        else if ((dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.TUESDAY ||
+                  dayOfWeek == DayOfWeek.THURSDAY || dayOfWeek == DayOfWeek.FRIDAY) && hour < 13) {
+            normalTicketPrice = 9;
+        }
 
         return normalTicketPrice;
     }
+
 
     public boolean showtimeAvailable(int totalTicketQuantity){
         if (hallNumber.hallAvailable(totalTicketQuantity)){
