@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Spy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.lang.reflect.Field;
@@ -66,11 +67,34 @@ public class ShowtimeTest {
 	
 
     private Showtime showtimeSpy;
+    private Account mockAccount;
+    private Movie mockMovie;
+    private Showtime mockShowtime;
+    private Booking mockBooking;
+    private Account account;
+    private Movie movie;
+    private Showtime showtime;
+    private LocalTime time;
+    private Booking bookingSpy;
+    private CinemaHall mockHallNumber;
     
 	 @Before
 	    public void setUp() {
 	        // Create mocks
-	        showtimeSpy = spy(new Showtime());       
+	        showtimeSpy = spy(new Showtime());   
+	        
+	        mockAccount = mock(Account.class);
+	        mockMovie = mock(Movie.class);
+	        mockShowtime = mock(Showtime.class);
+	        mockBooking = mock(Booking.class);
+	        mockHallNumber = mock(CinemaHall.class);
+	        bookingSpy = spy(new Booking());
+
+	        // Mock expected behaviors
+	        when(mockAccount.getName()).thenReturn("Kira Yamato");
+	        when(mockMovie.isExpensive()).thenReturn(false);
+	        when(mockShowtime.getNormalTicketPrice()).thenReturn(10.0);
+	        when(mockShowtime.getMovie()).thenReturn(mockMovie);
 	    }
 
 
@@ -240,5 +264,12 @@ public class ShowtimeTest {
 	        
 	        // Verify that the setNormalTicketPrice method was called with the specified price
 	        verify(showtimeSpy, times(1)).setNormalTicketPrice(ticketPrice);
+	    }
+	    
+	    
+	    @Test
+	    public void testCreateShowtime() {
+	    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, null);
+            assertNotNull(showtime);
 	    }
 }

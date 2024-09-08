@@ -1,9 +1,11 @@
 package my.edu.utar;
 
 
+import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,26 +15,57 @@ public class Showtime {
     private String status; //Available, Not Available, Fully Booked, Cancelled
     private CinemaHall hallNumber;
     private LocalTime time;
-    private LocalDate date;
+    private int year;
+    private int month;
+    private int day;
     private double normalTicketPrice;
     
-    public Showtime(Movie movie, CinemaHall hallNumber, String status, LocalTime time, LocalDate date){
+    public Showtime(Movie movie, CinemaHall hallNumber, String status, LocalTime time, int year, int month, int day){
         this.movie = movie;
         this.hallNumber = hallNumber;
         this.time = time;
-        this.date = date;
+//        this.date = date;
+        this.year = year;
+        this.month = month;
+        this.day = day;
         this.status = status;
         this.normalTicketPrice = 1.1;
-//        this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
+        this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
     }
 
     public Showtime() {
 		// TODO Auto-generated constructor stub
 	}
+    
+    public static void isValidDate(int year, int month, int day) {    
+        LocalDate birthday;    
+        
+        //need to check for valid year
+        if (year < 1900 || year > LocalDate.now().getYear())
+            throw new IllegalArgumentException("Invalid year");
+        
+        // Check for valid month
+        if (month < 1 || month > 12)
+            throw new IllegalArgumentException("Invalid month");
+        
+        // Check for valid day in the given month and year
+        YearMonth yearMonth = YearMonth.of(year, month);
+        if (day <= 0 && day > yearMonth.lengthOfMonth())
+            throw new IllegalArgumentException("Invalid day");
+        
+        try {
+            birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException("Invalid date value");
+        }
 
-	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
-        Validation.isNull(movie, hallNumber, time, date);
-        return new Showtime(movie, hallNumber, "available", time, date);
+        return;
+    }
+
+	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day){
+        Validation.isNull(movie, hallNumber, time, year, month, day);
+        isValidDate(year, month, day);
+        return new Showtime(movie, hallNumber, "available", time, year, month ,day);
     }
 
     //Getter and Setter for movie
@@ -56,8 +89,16 @@ public class Showtime {
     }
 
     // Getter and Setter for date
-    public LocalDate getDate() {
-        return date;
+    public void setYear(int year) {
+    	this.year = year;
+    }
+    
+    public void setMonth(int month) {
+        this.month = month;
+    }
+    
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public void setMovie(Movie movie) {
@@ -74,10 +115,6 @@ public class Showtime {
 
     public void setTime(LocalTime time) {
         this.time = time;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     // Getter and Setter for normalTicketPrice
@@ -105,7 +142,9 @@ public class Showtime {
     private double determineTicketPrice(double normalTicketPrice) {
         Validation.isNegativeNum(normalTicketPrice);
 
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        // Create a LocalDate object using the year, month, and day fields
+        LocalDate showDate = LocalDate.of(year, month, day);
+        DayOfWeek dayOfWeek = showDate.getDayOfWeek();
         int hour = time.getHour();
 
         // Check if it's a weekend (Saturday or Sunday)
@@ -124,6 +163,7 @@ public class Showtime {
 
         return normalTicketPrice;
     }
+
 
 
     public boolean showtimeAvailable(int totalTicketQuantity){
