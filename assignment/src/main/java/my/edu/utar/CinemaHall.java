@@ -58,6 +58,10 @@ public class CinemaHall {
         this.hallNumber = number;
     }
     
+    public void setAvailableSeats(int number) {
+    	this.availableSeats = number;
+    }
+    
     public void setHallStatus(String hallStatus) {
         if (!(hallStatus.equals("FullyBooked") && hallStatus.equals("Available") && hallStatus.equals("NotAvailable") && hallStatus.equals("Repair")))
             throw new IllegalArgumentException("Invalid hall status");

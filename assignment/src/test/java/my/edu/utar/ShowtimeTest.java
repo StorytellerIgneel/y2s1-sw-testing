@@ -9,6 +9,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Spy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.lang.reflect.Field;
@@ -66,11 +69,41 @@ public class ShowtimeTest {
 	
 
     private Showtime showtimeSpy;
+    private Account mockAccount;
+    private Movie mockMovie;
+    private Showtime mockShowtime;
+    private Booking mockBooking;
+    private Account account;
+    private Movie movie;
+    private Showtime showtime;
+    private LocalTime time;
+    private Booking bookingSpy;
+    private CinemaHall mockHallNumber;
     
 	 @Before
 	    public void setUp() {
 	        // Create mocks
-	        showtimeSpy = spy(new Showtime());       
+	        showtimeSpy = spy(new Showtime());   
+	        
+	        mockAccount = mock(Account.class);
+	        mockMovie = mock(Movie.class);
+	        mockShowtime = mock(Showtime.class);
+	        mockBooking = mock(Booking.class);
+	        mockHallNumber = mock(CinemaHall.class);
+	        bookingSpy = spy(new Booking());
+	        time = LocalTime.of(14, 0);
+
+	        // Create the Showtime instance
+	        showtime = new Showtime();
+	        showtime.setHallNumber(mockHallNumber);
+
+	        // Mock expected behaviors
+	        when(mockAccount.getName()).thenReturn("Kira Yamato");
+	        when(mockMovie.isExpensive()).thenReturn(false);
+	        when(mockShowtime.getNormalTicketPrice()).thenReturn(10.0);
+	        when(mockShowtime.getMovie()).thenReturn(mockMovie);
+	        when(mockHallNumber.checkOversell(0)).thenReturn(false);
+
 	    }
 
 
@@ -147,23 +180,58 @@ public class ShowtimeTest {
 	        assertEquals(LocalTime.parse(timeString), showtimeSpy.getTime());
 	    }
 
-	    // Test for getDate()
+	    // Test for getYear()
 	    @Test
-	    @Parameters("2024-12-25")
-	    public void testGetDate(String dateString) {
+	    @Parameters("2024, 2024")
+	    public void testGetYear(int year, int ER) {
 	        try {
-	            Field dateField = Showtime.class.getDeclaredField("date");
-	            dateField.setAccessible(true);
+	            Field yearField = Showtime.class.getDeclaredField("year");
+	            yearField.setAccessible(true);
 
-	            LocalDate date = LocalDate.parse(dateString);
-	            dateField.set(showtimeSpy, date);
+	            yearField.set(showtimeSpy, year);
 
-	            dateField.setAccessible(false);
+	            yearField.setAccessible(false);
 	        } catch (NoSuchFieldException | IllegalAccessException e) {
 	            e.printStackTrace();
 	        }
-	        assertEquals(LocalDate.parse(dateString), showtimeSpy.getDate());
+	        assertEquals(year, showtimeSpy.getYear());
 	    }
+	    
+	    //Test for getMonth()
+	    @Test
+	    @Parameters("1,1")
+	     public void testGetMonth(int month, int ER) {
+            try {
+                Field monthField = Showtime.class.getDeclaredField("month");
+                monthField.setAccessible(true);
+                
+                monthField.set(showtimeSpy, month);
+                
+                monthField.setAccessible(false);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            assertEquals(month, showtimeSpy.getMonth());
+	    }
+	    
+        // Test for getDay()
+        @Test
+        @Parameters("20, 20")
+        public void testGetDay(int day, int ER) {
+            try {
+                Field dayField = Showtime.class.getDeclaredField("day");
+                dayField.setAccessible(true);
+                
+                dayField.set(showtimeSpy, day);
+                
+                dayField.setAccessible(false);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            assertEquals(day, showtimeSpy.getDay());
+        }
+	    
+	    
 
 	    // Test for getNormalTicketPrice()
 	    @Test
@@ -224,12 +292,27 @@ public class ShowtimeTest {
 
 	    // Test for setDate()
 	    @Test
-	    public void testSetDate() {
-	        LocalDate date = LocalDate.of(2024, 12, 25);
-	        showtimeSpy.setDate(date);
+	    public void testSetYear() {
+	        showtimeSpy.setYear(1);
 	        
 	        // Verify that the setDate method was called with the specified date
-	        verify(showtimeSpy, times(1)).setDate(date);
+	        verify(showtimeSpy, times(1)).setYear(1);
+	    }
+	    
+	    @Test
+	    public void testSetMonth() {
+	        showtimeSpy.setMonth(1);
+	        
+	        // Verify that the setDate method was called with the specified date
+	        verify(showtimeSpy, times(1)).setMonth(1);
+	    }
+	    
+	    @Test
+	    public void testSetDay() {
+	        showtimeSpy.setDay(1);
+	        
+	        // Verify that the setDate method was called with the specified date
+	        verify(showtimeSpy, times(1)).setDay(1);
 	    }
 
 	    // Test for setNormalTicketPrice()
@@ -241,4 +324,77 @@ public class ShowtimeTest {
 	        // Verify that the setNormalTicketPrice method was called with the specified price
 	        verify(showtimeSpy, times(1)).setNormalTicketPrice(ticketPrice);
 	    }
+	    
+	    
+	    @Test
+	    public void testCreateShowtime() {
+	    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
+            assertNotNull(showtime);
+	    }
+	    
+	    // Test when hall is available but showtime status is in the reject list
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusNotAvailable() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to one of the reject statuses
+	        showtime.setStatus("Not Available");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is available and showtime status is "Available"
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusAvailable() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to "Available"
+	        showtime.setStatus("Available");
+
+	        // Verify that showtimeAvailable returns true
+	        assertTrue(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is not available (regardless of status)
+	    @Test
+	    public void testShowtimeAvailable_HallNotAvailable() {
+	        // Mock hall to return not available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(false);
+
+	        // Set the showtime status to anything
+	        showtime.setStatus("Available");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is available but showtime status is "Fully Booked"
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusFullyBooked() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to "Fully Booked"
+	        showtime.setStatus("Fully Booked");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is available but showtime status is "Cancelled"
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusCancelled() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to "Cancelled"
+	        showtime.setStatus("Cancelled");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+	    
 }
