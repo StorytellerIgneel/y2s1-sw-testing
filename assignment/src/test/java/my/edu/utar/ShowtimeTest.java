@@ -9,7 +9,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Spy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.lang.reflect.Field;
@@ -89,6 +91,11 @@ public class ShowtimeTest {
 	        mockBooking = mock(Booking.class);
 	        mockHallNumber = mock(CinemaHall.class);
 	        bookingSpy = spy(new Booking());
+	        time = LocalTime.of(14, 0);
+
+	        // Create the Showtime instance
+	        showtime = new Showtime();
+	        showtime.setHallNumber(mockHallNumber);
 
 	        // Mock expected behaviors
 	        when(mockAccount.getName()).thenReturn("Kira Yamato");
@@ -96,6 +103,7 @@ public class ShowtimeTest {
 	        when(mockShowtime.getNormalTicketPrice()).thenReturn(10.0);
 	        when(mockShowtime.getMovie()).thenReturn(mockMovie);
 	        when(mockHallNumber.checkOversell(0)).thenReturn(false);
+
 	    }
 
 
@@ -323,4 +331,70 @@ public class ShowtimeTest {
 	    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
             assertNotNull(showtime);
 	    }
+	    
+	    // Test when hall is available but showtime status is in the reject list
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusNotAvailable() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to one of the reject statuses
+	        showtime.setStatus("Not Available");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is available and showtime status is "Available"
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusAvailable() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to "Available"
+	        showtime.setStatus("Available");
+
+	        // Verify that showtimeAvailable returns true
+	        assertTrue(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is not available (regardless of status)
+	    @Test
+	    public void testShowtimeAvailable_HallNotAvailable() {
+	        // Mock hall to return not available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(false);
+
+	        // Set the showtime status to anything
+	        showtime.setStatus("Available");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is available but showtime status is "Fully Booked"
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusFullyBooked() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to "Fully Booked"
+	        showtime.setStatus("Fully Booked");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+
+	    // Test when hall is available but showtime status is "Cancelled"
+	    @Test
+	    public void testShowtimeAvailable_HallAvailable_StatusCancelled() {
+	        // Mock hall to return available
+	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
+
+	        // Set the showtime status to "Cancelled"
+	        showtime.setStatus("Cancelled");
+
+	        // Verify that showtimeAvailable returns false
+	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
+	    }
+	    
 }
