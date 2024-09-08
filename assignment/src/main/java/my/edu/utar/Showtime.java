@@ -152,7 +152,7 @@ public class Showtime {
 //        return normalTicketPrice;
 //    }
     
-    private double determineTicketPrice(double normalTicketPrice) {
+    double determineTicketPrice(double normalTicketPrice) {
         Validation.isNegativeNum(normalTicketPrice);
 
         // Create a LocalDate object using the year, month, and day fields
