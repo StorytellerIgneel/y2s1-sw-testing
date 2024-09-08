@@ -181,7 +181,7 @@ public class AccountTest {
     //Test method for setBirthday method with valid year, month, day
     @Test
     @Parameters(
-	    {"190 0, 6, 29",	//BVA year 1900
+	    {"1900, 6, 29",	//BVA year 1900
 	    "2024, 6, 30",	//BVA year 2024
 	    "2004, 1, 31",	//BVA month 1
 	    "2004, 12, 31",	//BVA month 12
