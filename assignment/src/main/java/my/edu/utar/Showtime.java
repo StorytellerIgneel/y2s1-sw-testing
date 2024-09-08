@@ -87,6 +87,19 @@ public class Showtime {
     public LocalTime getTime() {
         return time;
     }
+    
+    public int getYear() {
+    	return year;
+    }
+    
+    public int getMonth() {
+        return month;
+    }
+    
+    public int getDay() {
+        return day;
+    }
+    
 
     // Getter and Setter for date
     public void setYear(int year) {
