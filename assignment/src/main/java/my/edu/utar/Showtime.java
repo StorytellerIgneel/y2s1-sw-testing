@@ -24,6 +24,7 @@ public class Showtime {
         this.movie = movie;
         this.hallNumber = hallNumber;
         this.time = time;
+//        this.date = date;
         this.year = year;
         this.month = month;
         this.day = day;
@@ -138,40 +139,20 @@ public class Showtime {
         this.normalTicketPrice = normalTicketPrice;
     }
 
-//    double determineTicketPrice(double normalTicketPrice) {
-//        // Validate the normalTicketPrice is not negative
+//    private double determineTicketPrice(double normalTicketPrice){
 //        Validation.isNegativeNum(normalTicketPrice);
-//
-//        // Create a list of weekdays
-//        List<DayOfWeek> weekdays = Arrays.asList(
-//            DayOfWeek.MONDAY,
-//            DayOfWeek.TUESDAY,
-//            DayOfWeek.WEDNESDAY,
-//            DayOfWeek.THURSDAY,
-//            DayOfWeek.FRIDAY
-//        );
-//
-//        // Check if the current date is a weekend
-//        if (!weekdays.contains(date.getDayOfWeek())) {
+//        ArrayList<DayOfWeek> weekdays = new ArrayList<>(new ArrayList<>(List.of(DayOfWeek.values())).subList(0, 4)); //returns weekedays
+//        if (!weekdays.contains(date.getDayOfWeek())) //weekends
 //            normalTicketPrice += 2;
-//        } else if (date.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
+//        else if (date.getDayOfWeek().equals("WEDNESDAY"))
 //            normalTicketPrice = 8;
-//        } else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) {
-////    private double determineTicketPrice(double normalTicketPrice){
-////        Validation.isNegativeNum(normalTicketPrice);
-////        ArrayList<DayOfWeek> weekdays = new ArrayList<>(new ArrayList<>(List.of(DayOfWeek.values())).subList(0, 4)); //returns weekedays
-////        if (!weekdays.contains(date.getDayOfWeek())) //weekends
-////            normalTicketPrice += 2;
-////        else if (date.getDayOfWeek().equals("WEDNESDAY"))
-////            normalTicketPrice = 8;
-////        else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) //1pm weekedays
-////            normalTicketPrice = 9;  
-////
-////        return normalTicketPrice;
-////    }
-//        }
+//        else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) //1pm weekedays
+//            normalTicketPrice = 9;  
+//
+//        return normalTicketPrice;
+//    }
     
-    double determineTicketPrice(double normalTicketPrice) {
+    private double determineTicketPrice(double normalTicketPrice) {
         Validation.isNegativeNum(normalTicketPrice);
 
         // Create a LocalDate object using the year, month, and day fields

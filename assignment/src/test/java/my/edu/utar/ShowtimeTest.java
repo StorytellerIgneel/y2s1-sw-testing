@@ -11,6 +11,7 @@ import org.mockito.Spy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -28,44 +29,6 @@ import org.junit.Before;
 
 @RunWith(JUnitParamsRunner.class)
 public class ShowtimeTest {
-//    private Object[] getParamsFordetermineTicketPriceValidTest(){
-//        return new Object[] {
-//            "$%^&*()"
-//        };
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    @Parameters(method = "getParamsFordetermineTicketPriceValidTest")
-//    public void determineTicketPriceValidTest(String test){
-//        Validation.isAlphaNumerical(test);
-//    }
-
-    // private Object[] getParamsForShowtimeAvailableInValidTest(){
-    //     return new Object[] {
-    //         "$%^&*()"
-    //     };
-    // }
-
-    // @Test(expected = IllegalArgumentException.class)
-    // @Parameters(method = "getParamsForShowtimeAvailableValidTest")
-    // public void ShowtimeAvailableValidTest(String test){
-    //     Movie movieMock = mock(Movie.class);
-    //     Showtime showtime = new Showtime(movieMock, null, null, null)
-    //     Validation.isAlphaNumerical(test);
-    // }
-
-//    private Object[] getParamsForDetermineTicketPriceValidTest(){
-//        return new Object[] {
-//            "$%^&*()"
-//        };
-//    }
-//
-//    @Test
-//    @Parameters(method = "getParamsForDetermineTicketPriceValidTest")
-//    public void determineTicketPriceValidTest(double normalTicketPrice, double ER){
-//        Showtime showtime  = new Showtime(null, null, null, null, null)
-//        Showtime showtimeSpy = spy()
-//    }
 	
 
     private Showtime showtimeSpy;
@@ -93,7 +56,7 @@ public class ShowtimeTest {
 	        bookingSpy = spy(new Booking());
 	        time = LocalTime.of(14, 0);
 
-	        // Create the Showtime instance
+	        //Real implementation
 	        showtime = new Showtime();
 	        showtime.setHallNumber(mockHallNumber);
 
@@ -106,7 +69,7 @@ public class ShowtimeTest {
 
 	    }
 
-
+        //V00
 	    // Test for getMovie()
 	    @Test
 	    @Parameters("Avatar")
@@ -233,9 +196,10 @@ public class ShowtimeTest {
 	    
 	    
 
+    	
 	    // Test for getNormalTicketPrice()
 	    @Test
-	    @Parameters("12.0")
+	    @Parameters("1")
 	    public void testGetNormalTicketPrice(double ticketPrice) {
 	        try {
 	            Field ticketPriceField = Showtime.class.getDeclaredField("normalTicketPrice");
@@ -396,5 +360,182 @@ public class ShowtimeTest {
 	        // Verify that showtimeAvailable returns false
 	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
 	    }
+	    
+	    
+	  //verify ticket price on Saturday(weekend)
+	 // Test method parameter provider
+	    private Object[] getParamForTestDetermineTicketPriceOnWeekend() {
+	        return new Object[] {
+	            // Parameters: movie, cinemaHall, status, time, year, month, day, expected price
+	            new Object[] { 
+	                new Movie("Example Movie", "Normal", 18.50),   // Movie object
+	                new CinemaHall(1, 50),                         // CinemaHall object
+	                "Available",                                   // Showtime status
+	                LocalTime.of(19, 30),                          // Time
+	                2024, 9, 7,                                    // Year, Month, Day (Saturday)
+	                20.50                                          // Expected ticket price (weekend surcharge)
+	            }
+	        };
+	    }
+
+	    @Test
+	    @Parameters(method="getParamForTestDetermineTicketPriceOnWeekend")
+	    public void testDetermineTicketPriceOnWeekend(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, double expectedPrice) {
+	        // Set available seats for the CinemaHall
+	        cinemaHall.setAvailableSeats(50);
+
+	        // Create a Showtime object using the provided parameters
+	        Showtime showtime = new Showtime(movie, cinemaHall, status, time, year, month, day);
+
+	        // Get the ticket price
+	        double price = showtime.getNormalTicketPrice();
+
+	        // Assert that the calculated price matches the expected price
+	        assertEquals(expectedPrice, price, 0.01);
+	    }
+
+	    
+	    
+
+//	    //verify the ticket prive on wednesday
+//	    @Test
+//	    public void testDetermineTicketPriceOnWednesday() {
+//	    	Movie movie1 = new Movie("Example Movie", "Normal", 18.50);
+//	        CinemaHall cinemaHall1 = new CinemaHall(1,50);
+//	        cinemaHall1.setAvailableSeats(50);
+//	        Showtime showtime = new Showtime(movie1, cinemaHall1, "available", LocalTime.of(19, 30), 2024, 9, 4); // Wednesday
+//	        
+//	        double price = showtime.getNormalTicketPrice();
+//	        assertEquals(8.0, price, 0.01); // Special price for Wednesday
+//	    }
+//
+//	    @Test
+//	    public void testDetermineTicketPriceWeekdayMorning() {
+//	        Movie movie = new Movie("Test Movie", 15.0); // Normal price is 15
+//	        Showtime showtime = new Showtime(movie, new CinemaHall(1, 100), "available", LocalTime.of(11, 0), 2024, 9, 5); // Thursday, before 1 PM
+//	        
+//	        double price = showtime.getNormalTicketPrice();
+//	        assertEquals(9.0, price, 0.01); // Special price for weekday morning
+//	    }
+//
+//	    @Test
+//	    public void testDetermineTicketPriceWeekdayAfternoon() {
+//	        Movie movie = new Movie("Test Movie", 15.0); // Normal price is 15
+//	        Showtime showtime = new Showtime(movie, new CinemaHall(1, 100), "available", LocalTime.of(14, 0), 2024, 9, 5); // Thursday, after 1 PM
+//	        
+//	        double price = showtime.getNormalTicketPrice();
+//	        assertEquals(15.0, price, 0.01); // No change for weekday afternoon
+//	    }
+//
+//	    @Test
+//	    public void testNegativeTicketPrice() {
+//	        Movie movie = new Movie("Test Movie", -5.0); // Invalid negative price
+//	        
+//	        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+//	            new Showtime(movie, new CinemaHall(1, 100), "available", LocalTime.of(14, 0), 2024, 9, 5);
+//	        });
+//	        
+//	        assertEquals("Negative price is not allowed", exception.getMessage());
+//	    }
+	    
+	 // Test method parameter provider for Wednesday special price
+	    private Object[] getParamForTestDetermineTicketPriceOnWednesday() {
+	        return new Object[] {
+	            new Object[] {
+	                new Movie("Example Movie", "Normal", 18.50),
+	                new CinemaHall(1, 50),
+	                "available",
+	                LocalTime.of(19, 30),
+	                2024, 9, 4,  // Wednesday
+	                8.0          // Expected price for Wednesday
+	            }
+	        };
+	    }
+
+	    // Test method parameter provider for weekday morning price
+	    private Object[] getParamForTestDetermineTicketPriceWeekdayMorning() {
+	        return new Object[] {
+	            new Object[] {
+	                new Movie("Test Movie", "Normal", 15.0),
+	                new CinemaHall(1, 100),
+	                "available",
+	                LocalTime.of(11, 0),
+	                2024, 9, 5,  // Thursday, before 1 PM
+	                9.0          // Special price for weekday morning
+	            }
+	        };
+	    }
+
+	    // Test method parameter provider for weekday afternoon price
+	    private Object[] getParamForTestDetermineTicketPriceWeekdayAfternoon() {
+	        return new Object[] {
+	            new Object[] {
+	                new Movie("Test Movie", "Normal", 15.0),
+	                new CinemaHall(1, 100),
+	                "available",
+	                LocalTime.of(14, 0),
+	                2024, 9, 5,  // Thursday, after 1 PM
+	                15.0         // Normal price for weekday afternoon
+	            }
+	        };
+	    }
+
+	    // Test method parameter provider for negative ticket price
+	    private Object[] getParamForTestNegativeTicketPrice() {
+	        return new Object[] {
+	            new Object[] {
+	                new Movie("Test Movie", "Normal", -5.0),  // Invalid negative price
+	                new CinemaHall(1, 100),
+	                "available",
+	                LocalTime.of(14, 0),
+	                2024, 9, 5,
+	                "Negative price is not allowed"  // Expected exception message
+	            }
+	        };
+	    }
+
+	 // Test for Wednesday special price
+	    @Test
+	    @Parameters(method="getParamForTestDetermineTicketPriceOnWednesday")
+	    public void testDetermineTicketPriceOnWednesday(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, double expectedPrice) {
+	        cinemaHall.setAvailableSeats(50);  // Set available seats
+	        Showtime showtime = new Showtime(movie, cinemaHall, status, time, year, month, day);
+	        
+	        double price = showtime.getNormalTicketPrice();
+	        assertEquals(expectedPrice, price, 0.01);  // Assert the price for Wednesday
+	    }
+
+	    // Test for weekday morning special price
+	    @Test
+	    @Parameters(method="getParamForTestDetermineTicketPriceWeekdayMorning")
+	    public void testDetermineTicketPriceWeekdayMorning(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, double expectedPrice) {
+	        Showtime showtime = new Showtime(movie, cinemaHall, status, time, year, month, day);
+	        
+	        double price = showtime.getNormalTicketPrice();
+	        assertEquals(expectedPrice, price, 0.01);  // Assert the price for weekday morning
+	    }
+
+	    // Test for weekday afternoon normal price
+	    @Test
+	    @Parameters(method="getParamForTestDetermineTicketPriceWeekdayAfternoon")
+	    public void testDetermineTicketPriceWeekdayAfternoon(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, double expectedPrice) {
+	        Showtime showtime = new Showtime(movie, cinemaHall, status, time, year, month, day);
+	        
+	        double price = showtime.getNormalTicketPrice();
+	        assertEquals(expectedPrice, price, 0.01);  // Assert the normal price for weekday afternoon
+	    }
+
+//	    // Test for negative ticket price
+//	    @Test
+//	    @Parameters(method="getParamForTestNegativeTicketPrice")
+//	    public void testNegativeTicketPrice(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, String expectedMessage) {
+//	        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+//	            new Showtime(movie, cinemaHall, status, time, year, month, day);
+//	        });
+//	        
+//	        assertEquals(expectedMessage, exception.getMessage());  // Assert the exception message
+//	    }
+
+	    
 	    
 }

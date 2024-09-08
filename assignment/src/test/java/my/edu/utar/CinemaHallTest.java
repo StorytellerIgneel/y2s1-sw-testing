@@ -1,28 +1,16 @@
 package my.edu.utar;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
-import org.junit.Before;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class CinemaHallTest {
@@ -50,6 +38,12 @@ public class CinemaHallTest {
         };
     }
 
+    @Test
+    @Parameters(method = "getParamForCreateCinemaHallInvalidTest")
+    public void createCinemaHallInvalidTest(int hallNumber, int seats){
+        CinemaHall.createCinemaHall(hallNumber, seats);
+    }
+    
     private Object[] getParamForCheckOversellValid(){
         return new Object[] {
             new Object[] {10, 5, true},

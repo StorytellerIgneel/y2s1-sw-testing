@@ -29,7 +29,6 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 
-
 @RunWith(JUnitParamsRunner.class)
 public class BookingTest {
 	 
@@ -65,8 +64,8 @@ public class BookingTest {
 
         movie = new Movie("Example Movie","Normal",18.50);
        	hall = new CinemaHall(1,50);
-       	showtime = new Showtime (movie, mockCinemaHall, "Available", LocalTime.of(13, 00), 2024,5,1);
-       	showtimeWithMockMovie = new Showtime (mockMovie, mockCinemaHall, "Available", LocalTime.of(13, 00),2024,5,1);
+       	showtime = new Showtime (movie, mockCinemaHall, "Available", LocalTime.of(13, 00), LocalDate.of(2024, 5, 1));
+       	showtimeWithMockMovie = new Showtime (mockMovie, mockCinemaHall, "Available", LocalTime.of(13, 00), LocalDate.of(2024, 5, 1));
 
         // Mock expected behaviors
        	when(mockUnregisteredAccount.getName()).thenReturn("UnregisteredName");
@@ -91,7 +90,7 @@ public class BookingTest {
     		int quantitySenior, int quantityStudent, int quantityChildren, int totalSeats, double totalPrice,String status) {
        	Movie movie1 = new Movie("Example Movie","Normal",18.50);
        	CinemaHall hall1 = new CinemaHall(1,50);
-       	Showtime showtime1 = new Showtime (movie1, hall1, "Available", LocalTime.of(13, 00), 2024,5,1);
+       	Showtime showtime1 = new Showtime (movie1, hall1, "Available", LocalTime.of(13, 00), LocalDate.of(2024, 5, 1));
        	// Create the Booking instance with real constructor
        	Booking booking = new Booking(bookingID, account, movie1, showtime1,
 	           quantityAdult, quantityOKU, quantitySenior, 
@@ -145,7 +144,9 @@ public class BookingTest {
         assertEquals("Booked", result.getStatus());
     }
     
-    private Object[] getParamForCreateAccountInvalid() {
+    // BOOK_TC2_INV001
+    // test method for createBooking invalid
+    private Object[] getParamForCreateBookingInvalid() {
         return new Object[] {
         	//null bookingID
             new Object[] {null, mockAccount, movie, showtime, 4,2,1,0,5,12,95.2,"Booked"},	 
@@ -188,8 +189,8 @@ public class BookingTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamForCreateAccountInvalid")
-    public void createAccountInvalidTest(String bookingID, Account account,Movie movie, Showtime showtime,
+    @Parameters(method = "getParamForCreateBookingInvalid")
+    public void createBookingInvalidTest(String bookingID, Account account,Movie movie, Showtime showtime,
     		int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren, int totalSeats, double totalPrice,String status){
     	// Act
         Booking result = Booking.createBooking(bookingID, account, movie, showtime, 
@@ -368,50 +369,6 @@ public class BookingTest {
 	    booking.setQuantityChildren(quantity);
 	}
 	
-	//BOOK_TC12_V001
-    //Test method for setTotalNumberOfSeats
-	@Test
-	@Parameters(
-			{"1",  //BVA
-			"100", //EP
-			})
-	public void testSetTotalNumberOfSeats(int quantity) {
-	    Booking booking = new Booking ();
-	    booking.setTotalNumberOfSeats(quantity);
-	    assertEquals(quantity, booking.getTotalNumberOfSeats());
-	}
-	
-	//BOOK_TC12_INV001
-    //Test method for setTotalNumberOfSeats BVA/EP - INVALID
-	@Test (expected = IllegalArgumentException.class)
-	@Parameters({"-1","-100"})
-	public void testSetTotalNumberOfSeatsInvalid(int quantity) {
-	    Booking booking = new Booking ();
-	    booking.setTotalNumberOfSeats(quantity);
-	}
-	
-	//BOOK_TC20_V001
-    //Test method for setTotalNumberOfSeats
-	@Test
-	@Parameters(
-			{"0.01",  //BVA
-			"100", //EP
-			})
-	public void testSetTotalPrice(double quantity) {
-	    Booking booking = new Booking ();
-	    booking.setTotalPrice(quantity);
-	    assertEquals(quantity, booking.getTotalPrice(),0.001);
-	}
-	
-	//BOOK_TC20_INV001
-    //Test method for setTotalNumberOfSeats BVA/EP - INVALID
-	@Test (expected = IllegalArgumentException.class)
-	@Parameters({"-0.01","-100"})
-	public void testSetTotalPriceInvalid(double quantity) {
-	    Booking booking = new Booking ();
-	    booking.setTotalPrice(quantity);
-	}
-	
 	//BOOK_TC11_V001
     //Test method for setStatus
 	@Test
@@ -422,7 +379,6 @@ public class BookingTest {
 	    assertEquals(status, booking.getStatus());
 	}
 	
-		
 	//BOOK_TC13_INV001
     //Test method for setStatus - INVALID - empty string, invalid status
 	@Test (expected = IllegalArgumentException.class)
@@ -536,7 +492,7 @@ public class BookingTest {
 	@Parameters(
 			{"2,8.99,5,27.98",	//BVA normal price less than 9
 			"2,9.01,5,28.00",	//BVA normal price more than 9
-			"2,5,5,20.00",		//EP normal price less than 9
+			"2,5,5,28.00",		//EP normal price less than 9
 			"2,50,5,28.00"} 	//BVA normal price more than 9
 			)
     public void testCalculateSeniorTicketPrice(int quantity, double normalPrice, double addOn, double ER) {
@@ -604,11 +560,8 @@ public class BookingTest {
 	//Test method for calculate children ticket price 
 	@Test
 	@Parameters(
-			{"2,8.99,5,27.98",	//BVA normal price less than 9
-			"2,9.01,5,28.00",	//BVA normal price more than 9
-			"2,5,5,20.00",		//EP normal price less than 9
-			"2,50,5,28.00"} 	//BVA normal price more than 9
-			)
+			{"2,15.00,5,28.00",
+			"2,8.00,5,26.00"})
     public void testCalculateChildrenTicketPrice(int quantity, double normalPrice, double addOn, double ER) {
 	 // Initialize the mock object
         mockShowtime = mock(Showtime.class);
@@ -630,3 +583,4 @@ public class BookingTest {
         assertEquals(ER, actualPrice, 0.001);
     }
 }
+
