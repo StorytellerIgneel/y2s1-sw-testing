@@ -2,6 +2,8 @@ package my.edu.utar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -14,6 +16,22 @@ import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class CinemaHallTest {
+    @Test
+    public void CinemaHallConstructorTest(){
+        // 1. Arrange: Create a CinemaHall object with valid data
+        int hallNumber = 1;
+        int seats = 25;
+        CinemaHall cinemahall = new CinemaHall(hallNumber, seats);
+
+        // 2. Act & Assert: Verify the attributes of the CinemaHall object
+        assertNotNull(cinemahall);  // Ensure the object is not null
+        assertEquals(1, cinemahall.getHallNumber());  // Check hall number
+        assertEquals(25, cinemahall.getSeats());  // Check total number of seats
+        assertEquals(25, cinemahall.getAvailableSeats());  // Initially, all seats should be available
+        assertEquals(0, cinemahall.getBookedSeats());  // Initially, no seats should be booked
+        assertEquals("Available", cinemahall.getHallStatus());  // Initial status should be "Available"
+    }
+
     private Object[] getParamForCreateCinemaHallValidTest(){
         return new Object[] {
             new Object[] {10, 50},
