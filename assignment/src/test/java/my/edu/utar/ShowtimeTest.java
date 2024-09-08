@@ -11,6 +11,7 @@ import org.mockito.Spy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -69,225 +70,371 @@ public class ShowtimeTest {
 
 	    }
 
-        //V00
-	    // Test for getMovie()
-	    @Test
-	    @Parameters("Avatar")
-	    public void testGetMovie(String movieTitle) {
-	        try {
-	            Field movieField = Showtime.class.getDeclaredField("movie");
-	            movieField.setAccessible(true);
+//	    //BOOK_TC7_V001
+//	    //Test method for setQuantityAdult BVA/EP
+//	    @Test
+//	    @Parameters({"1","100"})
+//	    public void testSetQuantityAdult(int quantity) {
+//	        Booking booking = new Booking ();
+//	        booking.setQuantityAdult(quantity);
+//	        assertEquals(quantity, booking.getQuantityAdult());
+//	    }
+	 
+//        //V00
+//	    // Test for getMovie()
+//	    @Test
+//	    @Parameters("Avatar")
+//	    public void testSetMovie(String movieTitle) {
+//	    	Showtime showtime = new Showtime();
+//	    	showtime..setT
+//	        assertEquals(movieTitle, showtimeSpy.getMovie().getTitle());
+//	    }
+//
+//	    // Test for getStatus()
+//	    @Test
+//	    @Parameters("Available")
+//	    public void testGetStatus(String status) {
+//	        try {
+//	            Field statusField = Showtime.class.getDeclaredField("status");
+//	            statusField.setAccessible(true);
+//
+//	            statusField.set(showtimeSpy, status);
+//
+//	            statusField.setAccessible(false);
+//	        } catch (NoSuchFieldException | IllegalAccessException e) {
+//	            e.printStackTrace();
+//	        }
+//	        assertEquals(status, showtimeSpy.getStatus());
+//	    }
+//
+//	    // Test for getHallNumber()
+//	    @Test
+//	    @Parameters("5")
+//	    public void testGetHallNumber(int hallNumber) {
+//	        try {
+//	            Field hallNumberField = Showtime.class.getDeclaredField("hallNumber");
+//	            hallNumberField.setAccessible(true);
+//
+//	            CinemaHall mockHall = new CinemaHall();
+//	            mockHall.setHallNumber(hallNumber);
+//	            hallNumberField.set(showtimeSpy, mockHall);
+//
+//	            hallNumberField.setAccessible(false);
+//	        } catch (NoSuchFieldException | IllegalAccessException e) {
+//	            e.printStackTrace();
+//	        }
+//	        assertEquals(hallNumber, showtimeSpy.getHallNumber().getHallNumber());
+//	    }
+//
+//	    // Test for getTime()
+//	    @Test
+//	    @Parameters("14:30")
+//	    public void testGetTime(String timeString) {
+//	        try {
+//	            Field timeField = Showtime.class.getDeclaredField("time");
+//	            timeField.setAccessible(true);
+//
+//	            LocalTime time = LocalTime.parse(timeString);
+//	            timeField.set(showtimeSpy, time);
+//
+//	            timeField.setAccessible(false);
+//	        } catch (NoSuchFieldException | IllegalAccessException e) {
+//	            e.printStackTrace();
+//	        }
+//	        assertEquals(LocalTime.parse(timeString), showtimeSpy.getTime());
+//	    }
+//
+//	    // Test for getYear()
+//	    @Test
+//	    @Parameters("2024, 2024")
+//	    public void testGetYear(int year, int ER) {
+//	        try {
+//	            Field yearField = Showtime.class.getDeclaredField("year");
+//	            yearField.setAccessible(true);
+//
+//	            yearField.set(showtimeSpy, year);
+//
+//	            yearField.setAccessible(false);
+//	        } catch (NoSuchFieldException | IllegalAccessException e) {
+//	            e.printStackTrace();
+//	        }
+//	        assertEquals(year, showtimeSpy.getYear());
+//	    }
+//	    
+//	    //Test for getMonth()
+//	    @Test
+//	    @Parameters("1,1")
+//	     public void testGetMonth(int month, int ER) {
+//            try {
+//                Field monthField = Showtime.class.getDeclaredField("month");
+//                monthField.setAccessible(true);
+//                
+//                monthField.set(showtimeSpy, month);
+//                
+//                monthField.setAccessible(false);
+//                } catch (NoSuchFieldException | IllegalAccessException e) {
+//                    e.printStackTrace();
+//                }
+//            assertEquals(month, showtimeSpy.getMonth());
+//	    }
+//	    
+//        // Test for getDay()
+//        @Test
+//        @Parameters("20, 20")
+//        public void testGetDay(int day, int ER) {
+//            try {
+//                Field dayField = Showtime.class.getDeclaredField("day");
+//                dayField.setAccessible(true);
+//                
+//                dayField.set(showtimeSpy, day);
+//                
+//                dayField.setAccessible(false);
+//                } catch (NoSuchFieldException | IllegalAccessException e) {
+//                    e.printStackTrace();
+//                }
+//            assertEquals(day, showtimeSpy.getDay());
+//        }
+//	    
+//	    
+//
+//    	
+//	    // Test for getNormalTicketPrice()
+//	    @Test
+//	    @Parameters("1")
+//	    public void testGetNormalTicketPrice(double ticketPrice) {
+//	        try {
+//	            Field ticketPriceField = Showtime.class.getDeclaredField("normalTicketPrice");
+//	            ticketPriceField.setAccessible(true);
+//
+//	            ticketPriceField.set(showtimeSpy, ticketPrice);
+//
+//	            ticketPriceField.setAccessible(false);
+//	        } catch (NoSuchFieldException | IllegalAccessException e) {
+//	            e.printStackTrace();
+//	        }
+//	        assertEquals(ticketPrice, showtimeSpy.getNormalTicketPrice(), 0.01);
+//	    }
+//	    
+//	    // Test for setMovie()
+//	    @Test
+//	    public void testSetMovie() {
+//	        Movie mockMovie = mock(Movie.class);
+//	        showtimeSpy.setMovie(mockMovie);
+//	        
+//	        // Verify that the setMovie method was called with the specified movie
+//	        verify(showtimeSpy, times(1)).setMovie(mockMovie);
+//	    }
+//
+//	    // Test for setStatus()
+//	    @Test
+//	    public void testSetStatus() {
+//	        String status = "Available";
+//	        showtimeSpy.setStatus(status);
+//	        
+//	        // Verify that the setStatus method was called with the specified status
+//	        verify(showtimeSpy, times(1)).setStatus(status);
+//	    }
+//
+//	    // Test for setHallNumber()
+//	    @Test
+//	    public void testSetHallNumber() {
+//	        CinemaHall mockHall = mock(CinemaHall.class);
+//	        showtimeSpy.setHallNumber(mockHall);
+//	        
+//	        // Verify that the setHallNumber method was called with the specified hall
+//	        verify(showtimeSpy, times(1)).setHallNumber(mockHall);
+//	    }
+//
+//	    // Test for setTime()
+//	    @Test
+//	    public void testSetTime() {
+//	        LocalTime time = LocalTime.of(14, 30);
+//	        showtimeSpy.setTime(time);
+//	        
+//	        // Verify that the setTime method was called with the specified time
+//	        verify(showtimeSpy, times(1)).setTime(time);
+//	    }
+//
+//	    // Test for setDate()
+//	    @Test
+//	    public void testSetYear() {
+//	        showtimeSpy.setYear(1);
+//	        
+//	        // Verify that the setDate method was called with the specified date
+//	        verify(showtimeSpy, times(1)).setYear(1);
+//	    }
+//	    
+//	    @Test
+//	    public void testSetMonth() {
+//	        showtimeSpy.setMonth(1);
+//	        
+//	        // Verify that the setDate method was called with the specified date
+//	        verify(showtimeSpy, times(1)).setMonth(1);
+//	    }
+//	    
+//	    @Test
+//	    public void testSetDay() {
+//	        showtimeSpy.setDay(1);
+//	        
+//	        // Verify that the setDate method was called with the specified date
+//	        verify(showtimeSpy, times(1)).setDay(1);
+//	    }
+//
+//	    // Test for setNormalTicketPrice()
+//	    @Test
+//	    public void testSetNormalTicketPrice() {
+//	        double ticketPrice = 12.0;
+//	        showtimeSpy.setNormalTicketPrice(ticketPrice);
+//	        
+//	        // Verify that the setNormalTicketPrice method was called with the specified price
+//	        verify(showtimeSpy, times(1)).setNormalTicketPrice(ticketPrice);
+//	    }
+	 
+	//SHOWTIME_TC1_V001
+	//Test method for setTime
+	@Test
+	public void testSetTime() {
+	    Showtime showtime = new Showtime();
+	    LocalTime mockTime = LocalTime.of(14, 30); // Example time
+	    showtime.setTime(mockTime);
+	    assertSame(mockTime, showtime.getTime());
+	}
 
-	            Movie mockMovie = new Movie();
-	            mockMovie.setTitle(movieTitle);
-	            movieField.set(showtimeSpy, mockMovie);
+	//SHOWTIME_TC1_INV001
+	//Test method for setTime - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetTimeInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setTime(null); // Invalid input
+	}
 
-	            movieField.setAccessible(false);
-	        } catch (NoSuchFieldException | IllegalAccessException e) {
-	            e.printStackTrace();
-	        }
-	        assertEquals(movieTitle, showtimeSpy.getMovie().getTitle());
-	    }
+	//SHOWTIME_TC2_V001
+	//Test method for setMovie
+	@Test
+	public void testSetMovie() {
+	    Showtime showtime = new Showtime();
+	    Movie mockMovie = new Movie("Test Movie", "Action", 15.00); // Example movie
+	    showtime.setMovie(mockMovie);
+	    assertSame(mockMovie, showtime.getMovie());
+	}
 
-	    // Test for getStatus()
-	    @Test
-	    @Parameters("Available")
-	    public void testGetStatus(String status) {
-	        try {
-	            Field statusField = Showtime.class.getDeclaredField("status");
-	            statusField.setAccessible(true);
+	//SHOWTIME_TC2_INV001
+	//Test method for setMovie - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetMovieInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setMovie(null); // Invalid input
+	}
 
-	            statusField.set(showtimeSpy, status);
+	//SHOWTIME_TC3_V001
+	//Test method for setStatus
+	@Test
+	public void testSetStatus() {
+	    Showtime showtime = new Showtime();
+	    String mockStatus = "Available"; // Example status
+	    showtime.setStatus(mockStatus);
+	    assertEquals(mockStatus, showtime.getStatus());
+	}
 
-	            statusField.setAccessible(false);
-	        } catch (NoSuchFieldException | IllegalAccessException e) {
-	            e.printStackTrace();
-	        }
-	        assertEquals(status, showtimeSpy.getStatus());
-	    }
+	//SHOWTIME_TC3_INV001
+	//Test method for setStatus - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetStatusInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setStatus(null); // Invalid input
+	}
 
-	    // Test for getHallNumber()
-	    @Test
-	    @Parameters("5")
-	    public void testGetHallNumber(int hallNumber) {
-	        try {
-	            Field hallNumberField = Showtime.class.getDeclaredField("hallNumber");
-	            hallNumberField.setAccessible(true);
+	//SHOWTIME_TC4_V001
+	//Test method for setHallNumber
+	@Test
+	public void testSetHallNumber() {
+	    Showtime showtime = new Showtime();
+	    CinemaHall mockHall = new CinemaHall(1, 100); // Example cinema hall
+	    showtime.setHallNumber(mockHall);
+	    assertSame(mockHall, showtime.getHallNumber());
+	}
 
-	            CinemaHall mockHall = new CinemaHall();
-	            mockHall.setHallNumber(hallNumber);
-	            hallNumberField.set(showtimeSpy, mockHall);
+	//SHOWTIME_TC4_INV001
+	//Test method for setHallNumber - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetHallNumberInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setHallNumber(null); // Invalid input
+	}
 
-	            hallNumberField.setAccessible(false);
-	        } catch (NoSuchFieldException | IllegalAccessException e) {
-	            e.printStackTrace();
-	        }
-	        assertEquals(hallNumber, showtimeSpy.getHallNumber().getHallNumber());
-	    }
+	//SHOWTIME_TC5_V001
+	//Test method for setYear
+	@Test
+	public void testSetYear() {
+	    Showtime showtime = new Showtime();
+	    int mockYear = 2024; // Example year
+	    showtime.setYear(mockYear);
+	    assertEquals(mockYear, showtime.getYear());
+	}
 
-	    // Test for getTime()
-	    @Test
-	    @Parameters("14:30")
-	    public void testGetTime(String timeString) {
-	        try {
-	            Field timeField = Showtime.class.getDeclaredField("time");
-	            timeField.setAccessible(true);
+	//SHOWTIME_TC5_INV001
+	//Test method for setYear - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetYearInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setYear(1800); // Invalid input (year out of range)
+	}
 
-	            LocalTime time = LocalTime.parse(timeString);
-	            timeField.set(showtimeSpy, time);
+	//SHOWTIME_TC6_V001
+	//Test method for setMonth
+	@Test
+	public void testSetMonth() {
+	    Showtime showtime = new Showtime();
+	    int mockMonth = 9; // Example month (September)
+	    showtime.setMonth(mockMonth);
+	    assertEquals(mockMonth, showtime.getMonth());
+	}
 
-	            timeField.setAccessible(false);
-	        } catch (NoSuchFieldException | IllegalAccessException e) {
-	            e.printStackTrace();
-	        }
-	        assertEquals(LocalTime.parse(timeString), showtimeSpy.getTime());
-	    }
+	//SHOWTIME_TC6_INV001
+	//Test method for setMonth - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetMonthInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setMonth(13); // Invalid input (month out of range)
+	}
 
-	    // Test for getYear()
-	    @Test
-	    @Parameters("2024, 2024")
-	    public void testGetYear(int year, int ER) {
-	        try {
-	            Field yearField = Showtime.class.getDeclaredField("year");
-	            yearField.setAccessible(true);
+	//SHOWTIME_TC7_V001
+	//Test method for setDay
+	@Test
+	public void testSetDay() {
+	    Showtime showtime = new Showtime();
+	    int mockDay = 15; // Example day
+	    showtime.setDay(mockDay);
+	    assertEquals(mockDay, showtime.getDay());
+	}
 
-	            yearField.set(showtimeSpy, year);
+	//WELP!
+	//SHOWTIME_TC7_INV001
+	//Test method for setDay - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetDayInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setDay(32); // Invalid input (day out of range)
+	}
 
-	            yearField.setAccessible(false);
-	        } catch (NoSuchFieldException | IllegalAccessException e) {
-	            e.printStackTrace();
-	        }
-	        assertEquals(year, showtimeSpy.getYear());
-	    }
-	    
-	    //Test for getMonth()
-	    @Test
-	    @Parameters("1,1")
-	     public void testGetMonth(int month, int ER) {
-            try {
-                Field monthField = Showtime.class.getDeclaredField("month");
-                monthField.setAccessible(true);
-                
-                monthField.set(showtimeSpy, month);
-                
-                monthField.setAccessible(false);
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            assertEquals(month, showtimeSpy.getMonth());
-	    }
-	    
-        // Test for getDay()
-        @Test
-        @Parameters("20, 20")
-        public void testGetDay(int day, int ER) {
-            try {
-                Field dayField = Showtime.class.getDeclaredField("day");
-                dayField.setAccessible(true);
-                
-                dayField.set(showtimeSpy, day);
-                
-                dayField.setAccessible(false);
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            assertEquals(day, showtimeSpy.getDay());
-        }
-	    
-	    
+	//SHOWTIME_TC8_V001
+	//Test method for setNormalTicketPrice
+	@Test
+	public void testSetNormalTicketPrice() {
+	    Showtime showtime = new Showtime();
+	    double mockPrice = 15.00; // Example price
+	    showtime.setNormalTicketPrice(mockPrice);
+	    assertEquals(mockPrice, showtime.getNormalTicketPrice(), 0.01);
+	}
 
-    	
-	    // Test for getNormalTicketPrice()
-	    @Test
-	    @Parameters("1")
-	    public void testGetNormalTicketPrice(double ticketPrice) {
-	        try {
-	            Field ticketPriceField = Showtime.class.getDeclaredField("normalTicketPrice");
-	            ticketPriceField.setAccessible(true);
+	//SHOWTIME_TC8_INV001
+	//Test method for setNormalTicketPrice - INVALID
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetNormalTicketPriceInvalid() {
+	    Showtime showtime = new Showtime();
+	    showtime.setNormalTicketPrice(-10.00); // Invalid input (negative price)
+	}
 
-	            ticketPriceField.set(showtimeSpy, ticketPrice);
-
-	            ticketPriceField.setAccessible(false);
-	        } catch (NoSuchFieldException | IllegalAccessException e) {
-	            e.printStackTrace();
-	        }
-	        assertEquals(ticketPrice, showtimeSpy.getNormalTicketPrice(), 0.01);
-	    }
-	    
-	    // Test for setMovie()
-	    @Test
-	    public void testSetMovie() {
-	        Movie mockMovie = mock(Movie.class);
-	        showtimeSpy.setMovie(mockMovie);
-	        
-	        // Verify that the setMovie method was called with the specified movie
-	        verify(showtimeSpy, times(1)).setMovie(mockMovie);
-	    }
-
-	    // Test for setStatus()
-	    @Test
-	    public void testSetStatus() {
-	        String status = "Available";
-	        showtimeSpy.setStatus(status);
-	        
-	        // Verify that the setStatus method was called with the specified status
-	        verify(showtimeSpy, times(1)).setStatus(status);
-	    }
-
-	    // Test for setHallNumber()
-	    @Test
-	    public void testSetHallNumber() {
-	        CinemaHall mockHall = mock(CinemaHall.class);
-	        showtimeSpy.setHallNumber(mockHall);
-	        
-	        // Verify that the setHallNumber method was called with the specified hall
-	        verify(showtimeSpy, times(1)).setHallNumber(mockHall);
-	    }
-
-	    // Test for setTime()
-	    @Test
-	    public void testSetTime() {
-	        LocalTime time = LocalTime.of(14, 30);
-	        showtimeSpy.setTime(time);
-	        
-	        // Verify that the setTime method was called with the specified time
-	        verify(showtimeSpy, times(1)).setTime(time);
-	    }
-
-	    // Test for setDate()
-	    @Test
-	    public void testSetYear() {
-	        showtimeSpy.setYear(1);
-	        
-	        // Verify that the setDate method was called with the specified date
-	        verify(showtimeSpy, times(1)).setYear(1);
-	    }
-	    
-	    @Test
-	    public void testSetMonth() {
-	        showtimeSpy.setMonth(1);
-	        
-	        // Verify that the setDate method was called with the specified date
-	        verify(showtimeSpy, times(1)).setMonth(1);
-	    }
-	    
-	    @Test
-	    public void testSetDay() {
-	        showtimeSpy.setDay(1);
-	        
-	        // Verify that the setDate method was called with the specified date
-	        verify(showtimeSpy, times(1)).setDay(1);
-	    }
-
-	    // Test for setNormalTicketPrice()
-	    @Test
-	    public void testSetNormalTicketPrice() {
-	        double ticketPrice = 12.0;
-	        showtimeSpy.setNormalTicketPrice(ticketPrice);
-	        
-	        // Verify that the setNormalTicketPrice method was called with the specified price
-	        verify(showtimeSpy, times(1)).setNormalTicketPrice(ticketPrice);
-	    }
 	    
 	    
 	    @Test
