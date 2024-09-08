@@ -62,11 +62,28 @@ public class Showtime {
         return;
     }
 
-	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day){
-        Validation.isNull(movie, hallNumber, time, year, month, day);
-        isValidDate(year, month, day);
-        return new Showtime(movie, hallNumber, "available", time, year, month ,day);
+    public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day) {
+        // Check if any of the inputs are null
+        if (movie == null || hallNumber == null || time == null || year == 0 || month == 0 || day == 0) {
+            throw new IllegalArgumentException("Null or invalid parameter passed.");
+        }
+
+        // Validate the date
+        if (year < 1900 || year > LocalDate.now().getYear()) {
+            throw new IllegalArgumentException("Invalid year");
+        }
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("Invalid month");
+        }
+        YearMonth yearMonth = YearMonth.of(year, month);
+        if (day <= 0 || day > yearMonth.lengthOfMonth()) {
+            throw new IllegalArgumentException("Invalid day");
+        }
+
+        // If all validations pass, create and return a new Showtime instance
+        return new Showtime(movie, hallNumber, "available", time, year, month, day);
     }
+
 
     //Getter and Setter for movie
     public Movie getMovie() {
@@ -175,7 +192,10 @@ public class Showtime {
 //    }
     
     private double determineTicketPrice(double normalTicketPrice) {
-        Validation.isNegativeNum(normalTicketPrice);
+        // Check if the ticket price is negative
+        if (normalTicketPrice < 0) {
+            throw new IllegalArgumentException("Ticket price cannot be negative.");
+        }
 
         // Create a LocalDate object using the year, month, and day fields
         LocalDate showDate = LocalDate.of(year, month, day);
@@ -198,6 +218,7 @@ public class Showtime {
 
         return normalTicketPrice;
     }
+
 
 
 
