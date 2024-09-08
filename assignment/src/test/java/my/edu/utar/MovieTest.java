@@ -138,7 +138,7 @@ public class MovieTest {
     }
     
     //MVE_TC6_V001
-    //Test method for getTitle
+    //Test method for setTitle
     @Test
     @Parameters("Movie123, Movie123")
     public void setTitleValidTest(String title1, String ER){
