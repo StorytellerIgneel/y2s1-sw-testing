@@ -1,5 +1,6 @@
 package my.edu.utar;
 
+import java.util.ArrayList;
 
 /**
  * This class represents a booking made by a user.
@@ -40,17 +41,44 @@ public class Booking {
 	}
 
 	public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
-        Validation.isNull(bookingID, account, movie, showtime, quantityAdult, quantityChildren, quantityOKU, quantitySenior, quantityStudent);
+		if (bookingID == null || bookingID.isEmpty())
+			throw new IllegalArgumentException("Null param passed");
+		if (bookingID.equals(""))
+			throw new IllegalArgumentException("Null param passed");
+		if (account == null)
+			throw new IllegalArgumentException("Null param passed");
+		if (movie == null)
+			throw new IllegalArgumentException("Null param passed");
+		if (showtime == null)
+			throw new IllegalArgumentException("Null param passed");
         if (!showtime.getMovie().equals(movie))
             throw new IllegalArgumentException("Movie does not contain this showtime");
         if ((quantityAdult + quantityChildren + quantityOKU + quantitySenior + quantityStudent) == 0)
             throw new IllegalArgumentException("No tickets booked.");
-        Validation.isNegativeNum(quantityAdult);
-        Validation.isNegativeNum(quantityOKU);
-        Validation.isNegativeNum(quantitySenior);
-        Validation.isNegativeNum(quantityStudent);
-        Validation.isNegativeNum(quantityChildren);
-        Validation.isRegisteredUser(account.getName());
+        if (quantityAdult < 0 || quantityOKU < 0 || quantitySenior < 0 || quantityStudent < 0 || quantityChildren < 0)
+            throw new IllegalArgumentException("Negative double passed");
+       
+        boolean userIsRegistered = false;
+
+        Account kira = new Account("Kira Yamato", "kira.yamato@gundamseed.com", 2004, 5, 18);
+        Account lacus = new Account("Lacus Clyne", "lacus.clyne@gundamseed.com", 2004, 2, 29);
+        Account athrun = new Account("Athrun Zala", "athrun.zala@gundamseed.com", 2004, 10, 29);
+        Account cagalli = new Account("Cagalli Yula Athha", "cagalli.athha@gundamseed.com", 2004, 11, 18);
+
+        // Add them to an ArrayList
+        ArrayList<Account> accounts = new ArrayList<>();
+        accounts.add(kira);
+        accounts.add(lacus);
+        accounts.add(athrun);
+        accounts.add(cagalli);
+        
+        for (int i = 0; i < accounts.size(); i++) {
+            if (accounts.get(i).getName().equals(account.getName()))
+                userIsRegistered = true;
+        }
+        if (userIsRegistered == false)
+            throw new IllegalArgumentException("User not registered");
+        
         return new Booking(bookingID, account, movie, showtime, quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
     }
 
@@ -59,11 +87,21 @@ public class Booking {
         return bookingId;
     }
 
+	public void setBookingId(String bookingId) {
+		if(bookingId == null)
+			throw new IllegalArgumentException("Null param passed");
+        if (bookingId.equals("")||bookingId.isEmpty())
+        	throw new IllegalArgumentException("Empty string param passed");
+		this.bookingId = bookingId;
+	}
+	
     public Account getAccount() {
         return account;
     }
 
     public void setAccount(Account account) {
+    	if(account == null)
+    		throw new IllegalArgumentException("Null param passed");
         this.account = account;
     }
 
@@ -72,6 +110,8 @@ public class Booking {
     }
 
     public void setMovie(Movie movie) {
+    	if(movie == null)
+    		throw new IllegalArgumentException("Null param passed");
         this.movie = movie;
     }
 
@@ -80,6 +120,8 @@ public class Booking {
     }
 
     public void setShowtime(Showtime showtime) {
+    	if(showtime == null)
+    		throw new IllegalArgumentException("Null param passed");
         this.showtime = showtime;
     }
 
@@ -89,7 +131,8 @@ public class Booking {
     }
 
     public void setQuantityAdult(int quantityAdult) {
-        Validation.isNegativeNum(quantityAdult);
+        if(quantityAdult < 0)
+        	throw new IllegalArgumentException("Negative quantity passed");
         this.quantityAdult = quantityAdult;
     }
 
@@ -99,7 +142,8 @@ public class Booking {
     }
 
     public void setQuantityOKU(int quantityOKU) {
-        Validation.isNegativeNum(quantityOKU);
+    	if(quantityOKU < 0)
+        	throw new IllegalArgumentException("Negative quantity passed");
         this.quantityOKU = quantityOKU;
     }
 
@@ -109,7 +153,8 @@ public class Booking {
     }
 
     public void setQuantitySenior(int quantitySenior) {
-        Validation.isNegativeNum(quantitySenior);
+    	if(quantitySenior < 0)
+        	throw new IllegalArgumentException("Negative quantity passed");
         this.quantitySenior = quantitySenior;
     }
 
@@ -119,7 +164,8 @@ public class Booking {
     }
 
     public void setQuantityStudent(int quantityStudent) {
-        Validation.isNegativeNum(quantityStudent);
+    	if(quantityStudent < 0)
+        	throw new IllegalArgumentException("Negative quantity passed");
         this.quantityStudent = quantityStudent;
     }
 
@@ -129,7 +175,8 @@ public class Booking {
     }
 
     public void setQuantityChildren(int quantityChildren) {
-        Validation.isNegativeNum(quantityChildren);
+    	if(quantityChildren < 0)
+        	throw new IllegalArgumentException("Negative quantity passed");
         this.quantityChildren = quantityChildren;
     }
 
@@ -139,6 +186,8 @@ public class Booking {
     }
 
     public void setTotalNumberOfSeats(int totalNumberOfSeats) {
+    	if(totalNumberOfSeats < 0)
+        	throw new IllegalArgumentException("Negative quantity passed");
         this.totalNumberOfSeats = totalNumberOfSeats;
     }
 
@@ -148,6 +197,8 @@ public class Booking {
     }
 
     public void setTotalPrice(double totalPrice) {
+    	if(totalPrice < 0)
+        	throw new IllegalArgumentException("Negative quantity passed");
         this.totalPrice = totalPrice;
     }
 
@@ -157,6 +208,15 @@ public class Booking {
     }
 
     public void setStatus(String status) {
+    	if(status == null)
+        	throw new IllegalArgumentException("Null param passed"); 
+        if(status.equals(""))
+        	throw new IllegalArgumentException("Empty string param passed");
+        if(!status.equals("Booked") && 
+        		!status.equals("Payment Successful") &&
+        		!status.equals("Payment Unsuccessful") &&
+        		!status.equals("Cancelled"))
+        	throw new IllegalArgumentException ("invalid status passed");
         this.status = status;
     }
     /**

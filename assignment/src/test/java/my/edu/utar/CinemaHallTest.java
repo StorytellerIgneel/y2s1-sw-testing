@@ -50,12 +50,6 @@ public class CinemaHallTest {
         };
     }
 
-    @Test
-    @Parameters(method = "getParamForCreateCinemaHallInvalidTest")
-    public void createCinemaHallValidTest(int hallNumber, int seats){
-        CinemaHall.createCinemaHall(hallNumber, seats)
-    }
-    
     private Object[] getParamForCheckOversellValid(){
         return new Object[] {
             new Object[] {10, 5, true},
