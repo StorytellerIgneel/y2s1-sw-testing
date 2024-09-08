@@ -368,6 +368,50 @@ public class BookingTest {
 	    booking.setQuantityChildren(quantity);
 	}
 	
+	//BOOK_TC12_V001
+    //Test method for setTotalNumberOfSeats
+	@Test
+	@Parameters(
+			{"1",  //BVA
+			"100", //EP
+			})
+	public void testSetTotalNumberOfSeats(int quantity) {
+	    Booking booking = new Booking ();
+	    booking.setTotalNumberOfSeats(quantity);
+	    assertEquals(quantity, booking.getTotalNumberOfSeats());
+	}
+	
+	//BOOK_TC12_INV001
+    //Test method for setTotalNumberOfSeats BVA/EP - INVALID
+	@Test (expected = IllegalArgumentException.class)
+	@Parameters({"-1","-100"})
+	public void testSetTotalNumberOfSeatsInvalid(int quantity) {
+	    Booking booking = new Booking ();
+	    booking.setTotalNumberOfSeats(quantity);
+	}
+	
+	//BOOK_TC20_V001
+    //Test method for setTotalNumberOfSeats
+	@Test
+	@Parameters(
+			{"0.01",  //BVA
+			"100", //EP
+			})
+	public void testSetTotalPrice(double quantity) {
+	    Booking booking = new Booking ();
+	    booking.setTotalPrice(quantity);
+	    assertEquals(quantity, booking.getTotalPrice(),0.001);
+	}
+	
+	//BOOK_TC20_INV001
+    //Test method for setTotalNumberOfSeats BVA/EP - INVALID
+	@Test (expected = IllegalArgumentException.class)
+	@Parameters({"-0.01","-100"})
+	public void testSetTotalPriceInvalid(double quantity) {
+	    Booking booking = new Booking ();
+	    booking.setTotalPrice(quantity);
+	}
+	
 	//BOOK_TC11_V001
     //Test method for setStatus
 	@Test
@@ -378,6 +422,7 @@ public class BookingTest {
 	    assertEquals(status, booking.getStatus());
 	}
 	
+		
 	//BOOK_TC13_INV001
     //Test method for setStatus - INVALID - empty string, invalid status
 	@Test (expected = IllegalArgumentException.class)
@@ -559,8 +604,11 @@ public class BookingTest {
 	//Test method for calculate children ticket price 
 	@Test
 	@Parameters(
-			{"2,15.00,5,28.00",
-			"2,8.00,5,26.00"})
+			{"2,8.99,5,27.98",	//BVA normal price less than 9
+			"2,9.01,5,28.00",	//BVA normal price more than 9
+			"2,5,5,20.00",		//EP normal price less than 9
+			"2,50,5,28.00"} 	//BVA normal price more than 9
+			)
     public void testCalculateChildrenTicketPrice(int quantity, double normalPrice, double addOn, double ER) {
 	 // Initialize the mock object
         mockShowtime = mock(Showtime.class);
