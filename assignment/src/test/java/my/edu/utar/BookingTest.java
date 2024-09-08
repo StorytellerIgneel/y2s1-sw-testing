@@ -1,50 +1,4 @@
-//package my.edu.utar;
-//
-//import junitparams.JUnitParamsRunner;
-//import junitparams.Parameters;
-//import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
-//
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//
-//import java.time.LocalDate;
-//import java.time.LocalTime;
-//import java.util.ArrayList;
-//
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.mockito.ArgumentMatchers.*;
-//import static org.mockito.Mockito.*;
-//
-//import org.junit.Before;
-//
-//@RunWith(JUnitParamsRunner.class)
-//public class BookingTest{
-//    private Object[] getParamsForIsExpensive(){
-//        return new Object[] {
-//            new Object[] {"3D", true},
-//            new Object[] {"IMAX", true},
-//            new Object[] {"Normal", false},
-//        };
-//    }
-//
-//    @Test
-//    private void createBookingTest(){
-//        Account accountMock = mock(Account.class);
-//        Movie movieMock = mock(Movie.class);
-//        Showtime showtimeMock = mock(Showtime.class);
-//
-//        ArrayList<Showtime> mockShowtimeArrayList = new ArrayList<Showtime>();
-//        mockShowtimeArrayList.add(showtimeMock);
-//        when(accountMock.getName()).thenReturn("Kira Yamato");
-//
-//        assertNotNull(Booking.createBooking("1", accountMock, movieMock, showtimeMock, 0, 0, 0, 0, 0));
-//    }
-//}
+
 
 package my.edu.utar;
 
@@ -74,6 +28,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
+
 
 @RunWith(JUnitParamsRunner.class)
 public class BookingTest {
@@ -110,8 +65,8 @@ public class BookingTest {
 
         movie = new Movie("Example Movie","Normal",18.50);
        	hall = new CinemaHall(1,50);
-       	showtime = new Showtime (movie, mockCinemaHall, "Available", LocalTime.of(13, 00), LocalDate.of(2024, 5, 1));
-       	showtimeWithMockMovie = new Showtime (mockMovie, mockCinemaHall, "Available", LocalTime.of(13, 00), LocalDate.of(2024, 5, 1));
+       	showtime = new Showtime (movie, mockCinemaHall, "Available", LocalTime.of(13, 00), 2024,5,1);
+       	showtimeWithMockMovie = new Showtime (mockMovie, mockCinemaHall, "Available", LocalTime.of(13, 00),2024,5,1);
 
         // Mock expected behaviors
        	when(mockUnregisteredAccount.getName()).thenReturn("UnregisteredName");
@@ -136,7 +91,7 @@ public class BookingTest {
     		int quantitySenior, int quantityStudent, int quantityChildren, int totalSeats, double totalPrice,String status) {
        	Movie movie1 = new Movie("Example Movie","Normal",18.50);
        	CinemaHall hall1 = new CinemaHall(1,50);
-       	Showtime showtime1 = new Showtime (movie1, hall1, "Available", LocalTime.of(13, 00), LocalDate.of(2024, 5, 1));
+       	Showtime showtime1 = new Showtime (movie1, hall1, "Available", LocalTime.of(13, 00), 2024,5,1);
        	// Create the Booking instance with real constructor
        	Booking booking = new Booking(bookingID, account, movie1, showtime1,
 	           quantityAdult, quantityOKU, quantitySenior, 
@@ -190,11 +145,6 @@ public class BookingTest {
         assertEquals("Booked", result.getStatus());
     }
     
-    //BOOK_TC2_INV001
-    //Test method to test createAccount with invalid inputs including both BVA and EP
-    //	public static Booking createBooking(String bookingID, Account account, Movie movie,
-    //Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
-
     private Object[] getParamForCreateAccountInvalid() {
         return new Object[] {
         	//null bookingID
@@ -541,7 +491,7 @@ public class BookingTest {
 	@Parameters(
 			{"2,8.99,5,27.98",	//BVA normal price less than 9
 			"2,9.01,5,28.00",	//BVA normal price more than 9
-			"2,5,5,28.00",		//EP normal price less than 9
+			"2,5,5,20.00",		//EP normal price less than 9
 			"2,50,5,28.00"} 	//BVA normal price more than 9
 			)
     public void testCalculateSeniorTicketPrice(int quantity, double normalPrice, double addOn, double ER) {
@@ -632,4 +582,3 @@ public class BookingTest {
         assertEquals(ER, actualPrice, 0.001);
     }
 }
-
