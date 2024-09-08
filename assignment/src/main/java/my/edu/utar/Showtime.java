@@ -35,36 +35,69 @@ public class Showtime {
 		// TODO Auto-generated constructor stub
 	}
     
-    public static void isValidDate(int year, int month, int day) {    
-        LocalDate birthday;    
-        
-        //need to check for valid year
-        if (year < 1900 || year > LocalDate.now().getYear())
+//    public static void isValidDate(int year, int month, int day) {    
+//        LocalDate birthday;    
+//        
+//        //need to check for valid year
+//        if (year < 1900 || year > LocalDate.now().getYear())
+//            throw new IllegalArgumentException("Invalid year");
+//        
+//        // Check for valid month
+//        if (month < 1 || month > 12)
+//            throw new IllegalArgumentException("Invalid month");
+//        
+//        // Check for valid day in the given month and year
+//        YearMonth yearMonth = YearMonth.of(year, month);
+//        if (day <= 0 && day > yearMonth.lengthOfMonth())
+//            throw new IllegalArgumentException("Invalid day");
+//        
+//        try {
+//            birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
+//        } catch (DateTimeException e) {
+//            throw new IllegalArgumentException("Invalid date value");
+//        }
+//
+//        return;
+//    }
+
+//	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day){
+//        Validation.isNull(movie, hallNumber, time, year, month, day);
+//        isValidDate(year, month, day);
+//        return new Showtime(movie, hallNumber, "available", time, year, month ,day);
+//    }
+    
+    public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day) {
+        // Check for null values
+        Validation.isNull(movie, hallNumber, time, year, month, day);
+
+        // Validate the date
+        // Need to check for a valid year
+        if (year < 1900 || year > LocalDate.now().getYear()) {
             throw new IllegalArgumentException("Invalid year");
-        
+        }
+
         // Check for valid month
-        if (month < 1 || month > 12)
+        if (month < 1 || month > 12) {
             throw new IllegalArgumentException("Invalid month");
-        
+        }
+
         // Check for valid day in the given month and year
         YearMonth yearMonth = YearMonth.of(year, month);
-        if (day <= 0 && day > yearMonth.lengthOfMonth())
+        if (day <= 0 || day > yearMonth.lengthOfMonth()) {
             throw new IllegalArgumentException("Invalid day");
-        
+        }
+
+        // Try to create a LocalDate to ensure the date is valid
         try {
-            birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
+            LocalDate.of(year, month, day); // This may throw DateTimeException
         } catch (DateTimeException e) {
             throw new IllegalArgumentException("Invalid date value");
         }
 
-        return;
+        // Return the Showtime object if validation passes
+        return new Showtime(movie, hallNumber, "available", time, year, month, day);
     }
 
-	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day){
-        Validation.isNull(movie, hallNumber, time, year, month, day);
-        isValidDate(year, month, day);
-        return new Showtime(movie, hallNumber, "available", time, year, month ,day);
-    }
 
     //Getter and Setter for movie
     public Movie getMovie() {
@@ -137,7 +170,33 @@ public class Showtime {
         this.normalTicketPrice = normalTicketPrice;
     }
     
+//    private double determineTicketPrice(double normalTicketPrice) {
+//        Validation.isNegativeNum(normalTicketPrice);
+//
+//        // Create a LocalDate object using the year, month, and day fields
+//        LocalDate showDate = LocalDate.of(year, month, day);
+//        DayOfWeek dayOfWeek = showDate.getDayOfWeek();
+//        int hour = time.getHour();
+//
+//        // Check if it's a weekend (Saturday or Sunday)
+//        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+//            normalTicketPrice += 2;
+//        }
+//        // Check if it's Wednesday for a special price
+//        else if (dayOfWeek == DayOfWeek.WEDNESDAY) {
+//            normalTicketPrice = 8;
+//        }
+//        // Check if it's a weekday (Monday to Thursday) before 1pm
+//        else if ((dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.TUESDAY ||
+//                  dayOfWeek == DayOfWeek.THURSDAY || dayOfWeek == DayOfWeek.FRIDAY) && hour < 13) {
+//            normalTicketPrice = 9;
+//        }
+//
+//        return normalTicketPrice;
+//    }
+    
     private double determineTicketPrice(double normalTicketPrice) {
+        // Validate the normalTicketPrice is not negative
         Validation.isNegativeNum(normalTicketPrice);
 
         // Create a LocalDate object using the year, month, and day fields
@@ -147,20 +206,22 @@ public class Showtime {
 
         // Check if it's a weekend (Saturday or Sunday)
         if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
-            normalTicketPrice += 2;
-        }
+            normalTicketPrice += 2;  // Weekend surcharge
+        } 
         // Check if it's Wednesday for a special price
         else if (dayOfWeek == DayOfWeek.WEDNESDAY) {
-            normalTicketPrice = 8;
-        }
-        // Check if it's a weekday (Monday to Thursday) before 1pm
+            normalTicketPrice = 8;  // Wednesday special price
+        } 
+        // Check if it's a weekday (Monday to Thursday) before 1 PM
         else if ((dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.TUESDAY ||
                   dayOfWeek == DayOfWeek.THURSDAY || dayOfWeek == DayOfWeek.FRIDAY) && hour < 13) {
-            normalTicketPrice = 9;
+            normalTicketPrice = 9;  // Weekday morning special price
         }
 
+        // Return the adjusted ticket price
         return normalTicketPrice;
     }
+
 
 
 
