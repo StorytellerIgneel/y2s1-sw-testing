@@ -20,11 +20,13 @@ public class Showtime {
     private int day;
     private double normalTicketPrice;
 
-    public Showtime(Movie movie, CinemaHall hallNumber, String status, LocalTime time, LocalDate date){
+    public Showtime(Movie movie, CinemaHall hallNumber, String status, LocalTime time, int year, int month, int day){
         this.movie = movie;
         this.hallNumber = hallNumber;
         this.time = time;
-        this.date = date;
+        this.year = year;
+        this.month = month;
+        this.day = day;
         this.status = status; 
         this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
     }
@@ -134,31 +136,58 @@ public class Showtime {
     public void setNormalTicketPrice(double normalTicketPrice) {
         this.normalTicketPrice = normalTicketPrice;
     }
-
-    double determineTicketPrice(double normalTicketPrice) {
-        // Validate the normalTicketPrice is not negative
+    
+    private double determineTicketPrice(double normalTicketPrice) {
         Validation.isNegativeNum(normalTicketPrice);
 
-        // Create a list of weekdays
-        List<DayOfWeek> weekdays = Arrays.asList(
-            DayOfWeek.MONDAY,
-            DayOfWeek.TUESDAY,
-            DayOfWeek.WEDNESDAY,
-            DayOfWeek.THURSDAY,
-            DayOfWeek.FRIDAY
-        );
+        // Create a LocalDate object using the year, month, and day fields
+        LocalDate showDate = LocalDate.of(year, month, day);
+        DayOfWeek dayOfWeek = showDate.getDayOfWeek();
+        int hour = time.getHour();
 
-        // Check if the current date is a weekend
-        if (!weekdays.contains(date.getDayOfWeek())) {
+        // Check if it's a weekend (Saturday or Sunday)
+        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
             normalTicketPrice += 2;
-        } else if (date.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
+        }
+        // Check if it's Wednesday for a special price
+        else if (dayOfWeek == DayOfWeek.WEDNESDAY) {
             normalTicketPrice = 8;
-        } else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) {
+        }
+        // Check if it's a weekday (Monday to Thursday) before 1pm
+        else if ((dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.TUESDAY ||
+                  dayOfWeek == DayOfWeek.THURSDAY || dayOfWeek == DayOfWeek.FRIDAY) && hour < 13) {
             normalTicketPrice = 9;
         }
 
         return normalTicketPrice;
     }
+
+
+
+//    double determineTicketPrice(double normalTicketPrice) {
+//        // Validate the normalTicketPrice is not negative
+//        Validation.isNegativeNum(normalTicketPrice);
+//
+//        // Create a list of weekdays
+//        List<DayOfWeek> weekdays = Arrays.asList(
+//            DayOfWeek.MONDAY,
+//            DayOfWeek.TUESDAY,
+//            DayOfWeek.WEDNESDAY,
+//            DayOfWeek.THURSDAY,
+//            DayOfWeek.FRIDAY
+//        );
+//
+//        // Check if the current date is a weekend
+//        if (!weekdays.contains(date.getDayOfWeek())) {
+//            normalTicketPrice += 2;
+//        } else if (date.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
+//            normalTicketPrice = 8;
+//        } else if (time.getHour() < 13 && weekdays.contains(date.getDayOfWeek())) {
+//            normalTicketPrice = 9;
+//        }
+//
+//        return normalTicketPrice;
+//    }
 
 
 
