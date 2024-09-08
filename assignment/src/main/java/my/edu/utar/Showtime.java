@@ -191,7 +191,7 @@ public class Showtime {
 //        return normalTicketPrice;
 //    }
     
-    private double determineTicketPrice(double normalTicketPrice) {
+    public double determineTicketPrice(double normalTicketPrice) {
         // Check if the ticket price is negative
         if (normalTicketPrice < 0) {
             throw new IllegalArgumentException("Ticket price cannot be negative.");
