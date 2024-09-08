@@ -25,11 +25,16 @@ public class Showtime {
         this.normalTicketPrice = determineTicketPrice(movie.getNormalPrice());
     }
 
-    public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date){
-        Validation.isNull(movie, hallNumber, time, date);
+    public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, LocalDate date) {
+        // Null check for movie, hallNumber, time, and date
+        if (movie == null || hallNumber == null || time == null || date == null) {
+            throw new IllegalArgumentException("Null parameter passed");
+        }
+    
+        // Create and return a new Showtime object with status "available"
         return new Showtime(movie, hallNumber, "available", time, date);
     }
-
+    
     //Getter and Setter for movie
     public Movie getMovie() {
         return movie;

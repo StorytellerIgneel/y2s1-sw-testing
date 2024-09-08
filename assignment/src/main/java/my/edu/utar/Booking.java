@@ -18,17 +18,8 @@ public class Booking {
     private int totalNumberOfSeats;
     private double totalPrice;
     private String status;
+    private String paymentStatus;
 
-    /* Constructor */
-    /**
-     * This constructor creates a new booking.
-     * 
-     * @param movie
-     * @param cinema
-     * @param showtime
-     * @param quantityAdult
-     * @param quantityChildren
-     */
     public Booking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
         this.bookingId = bookingID;
         this.account = account;
@@ -197,4 +188,9 @@ public class Booking {
     public double calculateChildrenTicketPrice(double addOn){
         return quantityChildren * (((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
+
+    public String updatePaymentStatus (int bookingID, String paymentStatus){
+        this.paymentStatus = paymentStatus;
+    }
+
 }

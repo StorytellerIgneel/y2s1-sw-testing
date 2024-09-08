@@ -17,13 +17,27 @@ public class Movie {
         this.normalPrice = normalPrice;
     }
 
-    public static Movie createMovie(String title, String category, double normalPrice){
-        Validation.isNull(title, category, normalPrice);
-        Validation.comboValidMovie(title);
-        Validation.comboValidString(category);
-        Validation.isNegativeNum(normalPrice);
+    public static Movie createMovie(String title, String category, double normalPrice) {
+        // Null check for title, category, and normalPrice
+        if (title == null || category == null)
+            throw new IllegalArgumentException("Null parameter passed");
+    
+        // Validation for title (valid movie name)
+        if (!title.matches("[ '.,\\:\\-a-zA-Z0-9()\\s]+$"))
+            throw new IllegalArgumentException("Invalid movie name");
+    
+        // Validation for category (valid string check)
+        if (!category.matches("^[a-zA-Z0-9()\\s]+$"))
+            throw new IllegalArgumentException("Only alphanumerical value allowed");
+    
+        // Check for negative price
+        if (normalPrice < 0)
+            throw new IllegalArgumentException("Negative price passed");
+    
+        // Create and return a new Movie object
         return new Movie(title, category, normalPrice);
     }
+    
 
     // Getter and Setter methods
 

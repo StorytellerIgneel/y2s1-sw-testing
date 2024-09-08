@@ -25,10 +25,6 @@ public class Account {
 	  //empty constructor
   }
 
-  public Account() {
-	  //empty constructor
-  }
-
   public static Account createAccount(String name, String email, Integer year, Integer month, Integer day) {
     Validation.isNull(name, email, year, month, day);
     Validation.isNegativeNum(year, month, day); //redundant
@@ -109,3 +105,4 @@ public class Account {
   public LocalDate getBirthday(){
     return birthday;
   }
+}
