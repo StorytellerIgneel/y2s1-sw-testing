@@ -25,12 +25,40 @@ public class Account {
   }
 
   public static Account createAccount(String name, String email, int year, int month, int day) {
-    Validation.isNull(name, email, year, month, day);
-    Validation.isValidDate(year, month, day);
-    Validation.isAlphaNumerical(name);
-    Validation.isValidEmail(email);
-    return new Account(name, email, year, month, day);
-  }
+	    // Check if any of the inputs are null
+	    if (name == null || email == null || year == 0 || month == 0 || day == 0) {
+	        throw new IllegalArgumentException("Null or invalid parameter passed.");
+	    }
+
+	    // Validate the date
+	    if (year < 1900 || year > LocalDate.now().getYear()) {
+	        throw new IllegalArgumentException("Invalid year");
+	    }
+	    if (month < 1 || month > 12) {
+	        throw new IllegalArgumentException("Invalid month");
+	    }
+	    YearMonth yearMonth = YearMonth.of(year, month);
+	    if (day <= 0 || day > yearMonth.lengthOfMonth()) {
+	        throw new IllegalArgumentException("Invalid day");
+	    }
+
+	    // Validate if the name contains only alphanumerical characters
+	    if (!name.matches("^[a-zA-Z0-9()\\s]+$")) {
+	        throw new IllegalArgumentException("Only alphanumerical value allowed");
+	    }
+
+	    // Validate the email format
+	    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+	    Pattern pattern = Pattern.compile(emailRegex);
+	    Matcher matcher = pattern.matcher(email);
+	    if (!matcher.matches()) {
+	        throw new IllegalArgumentException("Invalid email");
+	    }
+
+	    // Return the new account after validation
+	    return new Account(name, email, year, month, day);
+	}
+
 
   // setter methods
   public void setName(String name) {

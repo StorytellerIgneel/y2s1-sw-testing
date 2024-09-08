@@ -2,6 +2,8 @@ package my.edu.utar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.Test;
@@ -32,6 +34,98 @@ public class CinemaHallTest {
         assertEquals("Available", cinemahall.getHallStatus());  // Initial status should be "Available"
     }
 
+	
+    // HALL_TC1_V001
+    // Test method for setHallNumber (Valid input)
+    @Test
+    public void testSetHallNumberValid() {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setHallNumber(3);
+        assertEquals(3, cinemaHall.getHallNumber());
+    }
+
+    // HALL_TC1_INV001
+    // Test method for setHallNumber (Invalid input)
+    @Test
+    public void testSetHallNumberInvalid() {
+        CinemaHall cinemaHall = new CinemaHall();
+        try {
+            cinemaHall.setHallNumber(0);
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Hall number must be more than 1", e.getMessage());
+        }
+    }
+
+    // HALL_TC2_V001
+    // Test method for setAvailableSeats (Valid input)
+    @Test
+    public void testSetAvailableSeatsValid() {
+        CinemaHall cinemaHall = new CinemaHall(1, 100);
+        cinemaHall.setAvailableSeats(80);
+        assertEquals(80, cinemaHall.getAvailableSeats());
+    }
+
+    // HALL_TC2_INV001
+    // Test method for setAvailableSeats (Invalid input)
+    @Test
+    public void testSetAvailableSeatsInvalid() {
+        CinemaHall cinemaHall = new CinemaHall(1, 100);
+        try {
+            cinemaHall.setAvailableSeats(-10);
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Invalid number of available seats", e.getMessage()); // Adjust the exception message accordingly
+        }
+    }
+
+    // HALL_TC3_V001
+    // Test method for setHallStatus (Valid input)
+    @Test
+    public void testSetHallStatusValid() {
+        CinemaHall cinemaHall = new CinemaHall(1, 100);
+        cinemaHall.setHallStatus("Available");
+        assertEquals("Available", cinemaHall.getHallStatus());
+    }
+
+    // HALL_TC3_INV001
+    // Test method for setHallStatus (Invalid input)
+    @Test
+    public void testSetHallStatusInvalid() {
+        CinemaHall cinemaHall = new CinemaHall(1, 100);
+        try {
+            cinemaHall.setHallStatus("InvalidStatus");
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Invalid hall status", e.getMessage());
+        }
+    }
+
+    // HALL_TC4_V001
+    // Test method for getHallNumber
+    @Test
+    public void testGetHallNumber() {
+        CinemaHall cinemaHall = new CinemaHall(2, 150);
+        assertEquals(2, cinemaHall.getHallNumber());
+    }
+
+    // HALL_TC5_V001
+    // Test method for getAvailableSeats
+    @Test
+    public void testGetAvailableSeats() {
+        CinemaHall cinemaHall = new CinemaHall(3, 120);
+        assertEquals(120, cinemaHall.getAvailableSeats());
+    }
+
+    // HALL_TC6_V001
+    // Test method for getHallStatus
+    @Test
+    public void testGetHallStatus() {
+        CinemaHall cinemaHall = new CinemaHall(4, 200);
+        cinemaHall.setHallStatus("NotAvailable");
+        assertEquals("NotAvailable", cinemaHall.getHallStatus());
+    }
+	
     private Object[] getParamForCreateCinemaHallValidTest(){
         return new Object[] {
             new Object[] {10, 50},
