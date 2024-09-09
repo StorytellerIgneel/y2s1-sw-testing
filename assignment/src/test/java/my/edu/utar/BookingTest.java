@@ -917,19 +917,35 @@ public class BookingTest {
 	 @Test
      @Parameters("dfghjk, payment successful")
 	    public void testUpdatePaymentStatus_SuccessfulPayment(String paymentStatus, String ER) {
-            Payment mockPayment = mock(Payment.class);
-            Email mockEmail = mock(Email.class);
+            String bookingID = "B001";
+            double totalPrice = 66.975d;
+            String accountEmail = "kira.yamato@gundamseed.com";
 
-            Booking bookingSpy = spy(Booking.class);
+            bookingSpy = spy(new Booking());
+            Movie mockMovie = mock(Movie.class);
+            Account mockAccount = mock(Account.class);
+            Showtime mockShowtime = mock(Showtime.class);
+            when(mockMovie.isExpensive()).thenReturn(true);
+            when(mockAccount.getEmail()).thenReturn("kira.yamato@gundamseed.com");
+            bookingSpy.setAccount(mockAccount);
+            bookingSpy.setMovie(mockMovie);
+            bookingSpy.setShowtime(mockShowtime);
 
-            when(mockPayment.makePayment(anyString(), anyDouble(), anyString())).thenReturn(paymentStatus);
+            when(mockShowtime.getNormalTicketPrice()).thenReturn(10.00);  // Ensure getNormalTicketPrice returns a valid value
+            when(bookingSpy.calculateTotalPrice()).thenReturn(66.975d);
+            when(mockShowtime.getTime()).thenReturn(LocalTime.of(14, 30));  // Mock a valid LocalTime
 
-	        String actualPaymentStatus = bookingSpy.updatePaymentStatus(anyString(), anyString(), mockPayment, mockEmail);
-
-            verify(mockPayment).makePayment(anyString(), anyDouble(), anyString());
-            verify(mockEmail).sendEmail(anyString(), anyString(), anyString());
-
-	        assertEquals(paymentStatus, actualPaymentStatus);
+            when(mockPayment.makePayment(eq(bookingID), eq(totalPrice), eq(accountEmail))).thenReturn(paymentStatus);
+            doNothing().when(mockEmail).sendEmail(eq(bookingID), eq(paymentStatus), eq(accountEmail));
+        
+            // When
+            String actualPaymentStatus = bookingSpy.updatePaymentStatus(bookingID, paymentStatus, mockPayment, mockEmail);
+    
+            // Then
+            verify(mockPayment).makePayment(eq(bookingID), eq(totalPrice), eq(accountEmail));
+            verify(mockEmail).sendEmail(eq(bookingID), eq(paymentStatus), eq(accountEmail));
+    
+            assertEquals(ER, actualPaymentStatus);
 	    }
 
 //	    @Test
