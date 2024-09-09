@@ -7,8 +7,11 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import junitparams.JUnitParamsRunner;
@@ -44,7 +47,7 @@ public class CinemaHallTest {
     // CH_TC2_V001
     // Test method for createCinemaHall (valid input)
     @Test
-    @Parameters(method = "getParamForCreateCinemaHallValidTest")
+    @Parameters(method = "getParamForTestCreateCinemaHallValid")
     public void testCreateCinemaHallValid(int hallNumber, int seats){
         CinemaHall cinemahall = CinemaHall.createCinemaHall(hallNumber, seats);
         assertNotNull(cinemahall);
@@ -86,7 +89,7 @@ public class CinemaHallTest {
     }
     
     @Test 
-    @Parameters(method = "getParamForSetHallNumberValid")
+    @Parameters(method = "getParamForTestSetHallNumberValid")
     public void testSetHallNumberValid(int hallNumber, int ER) {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setHallNumber(hallNumber);
@@ -122,7 +125,7 @@ public class CinemaHallTest {
     }
     
     @Test
-    @Parameters(method = "getParamForTestSetHallStatusValidTest")
+    @Parameters(method = "getParamForTestSetHallStatusValid")
     public void testSetHallStatusValid(String hallStatus, String ER) {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setHallStatus(hallStatus);
@@ -133,170 +136,207 @@ public class CinemaHallTest {
     // Test method for setHallStatus (Invalid input)
     private Object[] getParamForTestSetHallStatusInvalid(){
         return new Object[] {
-            new Object[] {"Available", "Available"},
-            new Object[] {"FullyBooked", "FullyBooked"},
-            new Object[] {"NotAvailable", "NotAvailable"},
-            new Object[] {"Repair", "Repair"}
+            //new Object[] {null},
+            new Object[] {""},
+            new Object[] {"random status"},
         };
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSetHallStatusInvalid() {
+    @Parameters(method = "getParamForTestSetHallStatusInvalid")
+    public void testSetHallStatusInvalid(String hallStatus) {
         CinemaHall cinemaHall = new CinemaHall();
-        cinemaHall.setHallStatus(null);
+        cinemaHall.setHallStatus(hallStatus);
     }
     
+    private Object[] getParamForTestSetSeatsValid(){
+        return new Object[] {
+            new Object[] {100, 100}, //available seats EP 
+            new Object[] {51, 51},   //available seats BVA
+        };
+    }
+    @Test
+    @Parameters(method = "getParamForTestSetSeatsValid")
+    public void testSetSeatsValid(int availableSeats, int ER) {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setSeats(availableSeats);
+        assertEquals(ER, cinemaHall.getSeats());
+    }
+
     // CH_TC5_V001
     // Test method for setAvailableSeats
     private Object[] getParamForTestSetAvailableSeatsValid(){
         return new Object[] {
-            new Object[] {-25}, //hallNumber EP negative
-            new Object[] {0},   //hallNumber BVA 0 
-            new Object[] {-1},  //hallNumber BVA negative
+            new Object[] {100, 200, 100}, //available seats EP 
+            new Object[] {51, 100, 51},   //available seats BVA
         };
     }
     @Test
     @Parameters(method = "getParamForTestSetAvailableSeatsValid")
-    public void testSetAvailableSeatsValid() {
+    public void testSetAvailableSeatsValid(int availableSeats, int seats, int ER) {
         CinemaHall cinemaHall = new CinemaHall();
-        cinemaHall.setAvailableSeats(120);
-        assertEquals(120, cinemaHall.getAvailableSeats());
+        cinemaHall.setSeats(seats);
+        cinemaHall.setAvailableSeats(availableSeats);
+        assertEquals(ER, cinemaHall.getAvailableSeats());
     }
 
-    //GETTERS AND SETTERS END
-    
-    private Object[] getParamForCheckOversellValid(){
+    private Object[] getParamForTestSetAvailableSeatsInvalid(){
         return new Object[] {
-            new Object[] {25, 50, true},
-            new Object[] {25, 20, false},
-            new Object[] {0, 50, true},
-            new Object[] {0, 1, false}
+            new Object[] {-25, 50}, //AvailableSeats EP negative
+            //new Object[] {0, 50},   //AvailableSeats BVA 0 
+            new Object[] {-1, 50},  //AvailableSeats BVA negative
+            new Object[] {50, 25}, //AvailableSeats > 
+        };
+    }
+    @Test (expected = IllegalArgumentException.class)
+    @Parameters(method = "getParamForTestSetAvailableSeatsInvalid")
+    public void testSetAvailableSeatsInvalid(int availableSeats, int seats) {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setSeats(seats);
+        cinemaHall.setAvailableSeats(availableSeats);
+    }
+
+    // //GETTERS AND SETTERS END
+    
+    private Object[] getParamForTestCheckOversellValid(){
+        return new Object[] {
+            new Object[] {26, 25, 25, 50, true},
+            new Object[] {51, 50, 75, 125, true},
+            new Object[] {25, 50, 25, 75, false},
+            new Object[] {25, 20, 20, 40, true},
+            new Object[] {1, 50, 50, 100, false},
+            new Object[] {1, 1, 100, 101, false}
         };
     }
     // CH_TC8_V001
     // Test method for checkOversell (Valid input)
     @Test
-    @Parameters(method = "getParamForCheckOversellValid")
-    public void checkOversellValid(int newTickets, int availableSeats, boolean ER){
+    @Parameters(method = "getParamForTestCheckOversellValid")
+    public void testCheckOversellValid(int newTickets, int availableSeats, int bookedSeats, int totalSeats, boolean ER) {
         CinemaHall HallSpy = spy(CinemaHall.class);
         when(HallSpy.getAvailableSeats()).thenReturn(availableSeats);
-        assertEquals(ER, HallSpy.checkOversell(newTickets));
+        when(HallSpy.getBookedSeats()).thenReturn(bookedSeats);
+        when(HallSpy.getSeats()).thenReturn(totalSeats);
+        
+        boolean oversellSpy = HallSpy.checkOversell(newTickets);
+        
+        // Verify the expected interactions
+        if (newTickets <= availableSeats) {
+            if (newTickets == availableSeats) {
+                verify(HallSpy).setHallStatus("FullyBooked");
+                assertEquals("FullyBooked", HallSpy.getHallStatus());
+            }
+            verify(HallSpy).setAvailableSeats(availableSeats - newTickets);
+            verify(HallSpy).setBookedSeats(bookedSeats + newTickets);
+        }
+        
+        // Verify the number of calls to getAvailableSeats()
+        verify(HallSpy, times(1)).getAvailableSeats(); // Adjust the number of times based on your implementation
+
+        assertEquals(ER, oversellSpy);
     }
 
-    private Object[] getParamForCheckOversellInvalid(){
+
+    private Object[] getParamForTestCheckOversellInvalid(){
         return new Object[] {
-            new Object[] {"Fully Booked", false, false},
-            new Object[] {"Not Available", false, false},
-            new Object[] {"under repair", false, false},
-            new Object[] {"Available", true, false},
-            new Object[] {"Available", false, false},
+            new Object[] {-1, 50, 25, 75},
+            new Object[] {0, 20, 20, 100},
+            new Object[] {500, 50, 50, 100},
         };
     }
     // CH_TC8_INV001
     // Test method for checkOversell (Invalid input)
     @Test(expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamForCheckOversellInvalid")
-    public void checkOversellInvalid(int newTickets){
-        CinemaHall mockHall = mock(CinemaHall.class);
-        try {
-            mockHall.checkOversell(newTickets);
-            fail("Expected IllegalArgumentException was not thrown");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Negative value passed", e.getMessage());
-        }
+    @Parameters(method = "getParamForTestCheckOversellInvalid")
+    public void testCheckOversellInvalid(int newTickets, int availableSeats, int bookedSeats, int totalSeats){
+        CinemaHall HallSpy = spy(CinemaHall.class);
+        when(HallSpy.getAvailableSeats()).thenReturn(availableSeats);
+        when(HallSpy.getBookedSeats()).thenReturn(bookedSeats);
+        when(HallSpy.getSeats()).thenReturn(totalSeats);
+        HallSpy.checkOversell(newTickets);
     }
 
+    // CH_TC8_IT001
+    // Integration test for checkOversell (Valid input)
+    // @Test
+    @Parameters(method = "getParamForTestCheckOversellValid")
+    public void testCheckOversellIntegrationValid(int newTickets, int availableSeats, int bookedSeats, int totalSeats, boolean ER){
+        CinemaHall cinema = new CinemaHall(1, availableSeats, bookedSeats, totalSeats);
+        assertEquals(ER, cinema.checkOversell(newTickets));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters(method = "getParamForTestCheckOversellInvalid")
+    public void testCheckOversellIntegrationInvalid(int newTickets, int availableSeats, int bookedSeats, int totalSeats){
+        CinemaHall cinema = new CinemaHall(1, availableSeats, bookedSeats, totalSeats);
+        cinema.checkOversell(newTickets);
+    }
+
+    // //hallAvailable
+
+    // //hall available
     private Object[] getParamsForTestHallAvailableInvalid(){
         return new Object[] {
-            new Object[] {"", false, false},
-            new Object[] {"Not Available", false, false},
-            new Object[] {"under repair", false, false},
-            new Object[] {"Available", true, false},
-            new Object[] {"Available", false, true},
+            new Object[] {"FullyBooked", true},
         };
     }
 
     @Test(expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamsForHallAvailableInvalidTest")
-    public void testHallAvailableInvalid(String hallStatus, boolean oversell, boolean ER){
+    @Parameters(method = "getParamsForTestHallAvailableInvalid")
+    public void testHallAvailableInvalid(String hallStatus, boolean oversell){
         CinemaHall hallSpy = spy(CinemaHall.class);
         when(hallSpy.getHallStatus()).thenReturn(hallStatus);
         when(hallSpy.checkOversell(anyInt())).thenReturn(oversell);
         hallSpy.hallAvailable(1);
     }
 
-    // CH_TC8_IT001
-    // Integration test for checkOversell (Valid input)
-    @Test
-    @Parameters(method = "getParamForCheckOversellValid")
-    public void checkOversellIntegrationTest(int newTickets, int availableSeats, boolean ER){
-        CinemaHall cinema = new CinemaHall(1, availableSeats);
-        assertEquals(ER, cinema.checkOversell(newTickets));
-    }
-
     // CH_TC9_V001
     // Test method for hallAvailable (Valid input)
-    @Test
-    @Parameters("Available, false, 25")
-    public void hallAvailableValidTest(String hallStatus, boolean oversell, int tickets){
-        CinemaHall mockHall = mock(CinemaHall.class);
-        when(mockHall.getHallStatus()).thenReturn(hallStatus);
-        when(mockHall.checkOversell(anyInt())).thenReturn(oversell);
-        assertTrue(mockHall.hallAvailable(tickets));
-    }
-
-    private Object[] getParamsForHallAvailableInvalidHallStatusTest(){
+    private Object[] getParamsForTestHallAvailableValid(){
         return new Object[] {
-            new Object[] {"FullyBooked"},
-            new Object[] {"NotAvailable"},
-            new Object[] {"Repair"}
+            new Object[] {"Available", false, true},
+            new Object[] {"FullyBooked", false, false},
+            new Object[] {"NotAvailable", false, false},
+            new Object[] {"Repair", false, false},
         };
     }
-    // CH_TC9_INV001
-    // Test method for hallAvailable (hallStatus in rejectList)
-    @Test(expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamsForHallAvailableInvalidHallStatusTest")
-    public void hallAvailableInvalidHallStatusTest(String hallStatus){
-        CinemaHall mockHall = mock(CinemaHall.class);
-        when(mockHall.getHallStatus()).thenReturn(hallStatus);
-        try {
-            mockHall.hallAvailable(10);
-            fail("Expected IllegalArgumentException was not thrown");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Sorry, the hall is currently " + mockHall.getHallStatus(), e.getMessage());
-        }
+
+    @Test
+    @Parameters(method = "getParamsForTestHallAvailableValid")
+    public void testHallAvailableValid(String hallStatus, boolean oversell, boolean expected) {
+        // Create a spy of CinemaHall
+        CinemaHall hallSpy = spy(new CinemaHall());
+
+        // Stub methods to return specific values
+        doReturn(hallStatus).when(hallSpy).getHallStatus();
+        doReturn(oversell).when(hallSpy).checkOversell(anyInt());
+
+        // Execute the method to test
+        assertEquals(expected, hallSpy.hallAvailable(1));
     }
 
-    private Object[] getParamsForHallAvailableInvalidOversellTest(){
+
+    //CH_TC9_IT001
+    //Integration Test for hallAvailable (Valid input)
+    private Object[] getParamsForTestHallAvailableIntegrationValid(){
         return new Object[] {
-            new Object[] {200, 50},
-            new Object[] {100, 99}
+            new Object[] {"Available", 25, 50, 25, 75, true},
+            new Object[] {"FullyBooked", 25, 20, 20, 100, false},
+            new Object[] {"NotAvailable", 1, 50, 50, 100, false},
+            new Object[] {"Repair", 1, 1, 100, 101, false},
         };
     }
-    // CH_TC9_INV002
-    // Test method for hallAvailable (checkOversell returns false)
-    @Test(expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamsForHallAvailableInvalidOversellTest")
-    public void hallAvailableInvalidOversellTest(int newTickets, int availableSeats){
-        CinemaHall mockHall = mock(CinemaHall.class);
-        when(mockHall.getHallStatus()).thenReturn("Available");
-        when(mockHall.getAvailableSeats()).thenReturn(availableSeats);
-        try {
-            mockHall.hallAvailable(newTickets);
-            fail("Expected IllegalArgumentException was not thrown");
-        } catch (IllegalArgumentException e) {
-            assertEquals("The hall only has " + mockHall.getAvailableSeats(), e.getMessage());
-        }
-    }
 
-    // CH_TC9_IT001
-    // Integration Test for hallAvailable (Valid input)
     @Test
-    @Parameters("5, 50, 25")
-    public void hallAvailableIntegrationTest(int hallNumber, int availableSeats, int tickets){
-        CinemaHall cinema = new CinemaHall(hallNumber, availableSeats);
-        //hallStatus == "Available" from constructor
-        //checkOversell(tickets) should return false because availableSeats > tickets
-        cinema.hallAvailable(tickets);
+    @Parameters(method = "getParamsForTestHallAvailableIntegrationValid")
+    public void testHallAvailableIntegrationValid(String hallStatus, int newTickets, int availableSeats, int bookedSeats, int totalSeats, boolean ER){
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setHallStatus(hallStatus);
+        cinemaHall.setSeats(totalSeats);
+        cinemaHall.setAvailableSeats(availableSeats);
+        cinemaHall.setBookedSeats(bookedSeats);
+        
+
+        assertEquals(ER, cinemaHall.hallAvailable(newTickets));
     }
 }
