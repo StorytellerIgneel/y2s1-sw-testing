@@ -1,5 +1,3 @@
-
-
 package my.edu.utar;
 
 import junitparams.JUnitParamsRunner;
@@ -78,17 +76,21 @@ public class BookingTest {
     
     // BOOK_TC1_V001
  	// Test method to test Booking constructor with valid inputs
-    private Object[] getParamForBookingConstructorValid() {
+    private Object[] getParamForBookingConstructorIntegrationTest() {
         return new Object[] {
             new Object[] {"B001",4,2,1,0,5,12,95.2,"Booked"},
         };
     }
     
+    @Test
+    public void testBookingConstructor(){
+    	
+    }
     
 
     //Integration test method to test Booking constructor
     @Test
-    @Parameters(method = "getParamForBookingConstructorValid")
+    @Parameters(method = "getParamForBookingConstructorIntegrationTest")
     public void BookingConstructorIntegrationTest(String bookingID,int quantityAdult, int quantityOKU, 
     		int quantitySenior, int quantityStudent, int quantityChildren, int totalSeats, double totalPrice,String status) {
        	Movie movie1 = new Movie("Example Movie","Normal",18.50);
@@ -138,6 +140,44 @@ public class BookingTest {
         assertEquals(mockAccount, result.getAccount());
         assertEquals(movie, result.getMovie());
         assertEquals(showtime, result.getShowtime());
+        assertEquals(12, result.getTotalNumberOfSeats());  // Total seats should be correct
+        assertEquals(quantityAdult, result.getQuantityAdult());
+        assertEquals(quantityOKU, result.getQuantityOKU());
+        assertEquals(quantitySenior, result.getQuantitySenior());
+        assertEquals(quantityStudent, result.getQuantityStudent());
+        assertEquals(quantityChildren, result.getQuantityChildren());
+        assertEquals(95.2, result.getTotalPrice(), 0.0);
+        assertEquals("Booked", result.getStatus());
+    }
+    
+    public void testCreateBookingIntegrationTest() {
+    	
+        // Arrange
+        String bookingID = "B002";
+       
+        int quantityAdult = 4;
+        int quantityOKU = 2;
+        int quantitySenior = 1;
+        int quantityStudent = 0;
+        int quantityChildren = 5;
+        // Arrange
+    	Movie movie1 = new Movie("Example Movie","Normal",18.50);
+       	CinemaHall hall1 = new CinemaHall(1,50);
+       	Showtime showtime1 = new Showtime (movie1, hall1, "Available", LocalTime.of(13, 00), 2024,5,1);
+       	Account account1 = new Account("AhHuAT", "HUAT@gmail.com", 2000, 1, 1);
+       	// Create the Booking instance with real constructor
+       	Booking booking = new Booking(bookingID, account1, movie1, showtime1,quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
+
+        // Act
+        Booking result = Booking.createBooking(bookingID, account1, movie, showtime, 
+        		quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
+
+        // Assert       
+        assertNotNull(result);
+        assertEquals(bookingID, result.getBookingId());
+        assertEquals(account1, result.getAccount());
+        assertEquals(movie1, result.getMovie());
+        assertEquals(showtime1, result.getShowtime());
         assertEquals(12, result.getTotalNumberOfSeats());  // Total seats should be correct
         assertEquals(quantityAdult, result.getQuantityAdult());
         assertEquals(quantityOKU, result.getQuantityOKU());
