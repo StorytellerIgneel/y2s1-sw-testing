@@ -2,13 +2,10 @@ package my.edu.utar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -149,19 +146,8 @@ public class CinemaHallTest {
         cinemaHall.setHallStatus(hallStatus);
     }
     
-    private Object[] getParamForTestSetSeatsValid(){
-        return new Object[] {
-            new Object[] {100, 100}, //available seats EP 
-            new Object[] {51, 51},   //available seats BVA
-        };
-    }
-    @Test
-    @Parameters(method = "getParamForTestSetSeatsValid")
-    public void testSetSeatsValid(int availableSeats, int ER) {
-        CinemaHall cinemaHall = new CinemaHall();
-        cinemaHall.setSeats(availableSeats);
-        assertEquals(ER, cinemaHall.getSeats());
-    }
+    
+    
 
     // CH_TC5_V001
     // Test method for setAvailableSeats
@@ -196,7 +182,21 @@ public class CinemaHallTest {
         cinemaHall.setAvailableSeats(availableSeats);
     }
 
-    // //GETTERS AND SETTERS END
+    //CH_TC6_V001
+    //Test method for setSeats (Valid Input)
+    private Object[] getParamForTestSetSeatsValid(){
+        return new Object[] {
+            new Object[] {100, 100}, //available seats EP 
+            new Object[] {51, 51},   //available seats BVA
+        };
+    }
+    @Test
+    @Parameters(method = "getParamForTestSetSeatsValid")
+    public void testSetSeatsValid(int availableSeats, int ER) {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setSeats(availableSeats);
+        assertEquals(ER, cinemaHall.getSeats());
+    }
     
     private Object[] getParamForTestCheckOversellValid(){
         return new Object[] {
