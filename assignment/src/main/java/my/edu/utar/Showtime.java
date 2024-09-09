@@ -181,13 +181,33 @@ public class Showtime {
             throw new IllegalArgumentException("Ticket price cannot be negative.");
         }
 
+        ArrayList<LocalDate> publicHolidays2024 = new ArrayList<>();
+
+        // Add public holidays in Malaysia for 2024
+        publicHolidays2024.add(LocalDate.of(2024, 1, 1));  // New Year's Day
+        publicHolidays2024.add(LocalDate.of(2024, 2, 10)); // Chinese New Year (Day 1)
+        publicHolidays2024.add(LocalDate.of(2024, 2, 11)); // Chinese New Year (Day 2)
+        publicHolidays2024.add(LocalDate.of(2024, 2, 29)); // Thaipusam
+        publicHolidays2024.add(LocalDate.of(2024, 3, 29)); // Good Friday (Sabah & Sarawak)
+        publicHolidays2024.add(LocalDate.of(2024, 4, 10)); // Awal Ramadan
+        publicHolidays2024.add(LocalDate.of(2024, 4, 22)); // Nuzul Quran
+        publicHolidays2024.add(LocalDate.of(2024, 4, 21)); // Hari Raya Aidilfitri (Day 1)
+        publicHolidays2024.add(LocalDate.of(2024, 4, 22)); // Hari Raya Aidilfitri (Day 2)
+        publicHolidays2024.add(LocalDate.of(2024, 5, 1));  // Labour Day
+        publicHolidays2024.add(LocalDate.of(2024, 5, 20)); // Wesak Day
+        publicHolidays2024.add(LocalDate.of(2024, 6, 17)); // Hari Raya Haji
+        publicHolidays2024.add(LocalDate.of(2024, 8, 31)); // National Day (Hari Merdeka)
+        publicHolidays2024.add(LocalDate.of(2024, 9, 16)); // Malaysia Day
+        publicHolidays2024.add(LocalDate.of(2024, 10, 31)); // Deepavali
+        publicHolidays2024.add(LocalDate.of(2024, 12, 25)); // Christmas Day
+
         // Create a LocalDate object using the year, month, and day fields
         LocalDate showDate = LocalDate.of(getYear(), getMonth(), getDay());
         DayOfWeek dayOfWeek = showDate.getDayOfWeek();
         int hour = getTime().getHour();
 
         // Check if it's a weekend (Saturday or Sunday)
-        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY || publicHolidays2024.contains(showDate)) {
             normalTicketPrice += 2;
         }
         // Check if it's Wednesday for a special price

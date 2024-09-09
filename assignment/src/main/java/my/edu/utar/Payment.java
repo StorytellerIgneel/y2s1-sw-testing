@@ -14,8 +14,4 @@ public class Payment {
         //should call the other 2
         return paymentStatus; //payment successful/unsuccessful
     }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
 }
