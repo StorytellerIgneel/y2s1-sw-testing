@@ -238,7 +238,7 @@ public class Booking {
     }
 
     public double calculateSeniorTicketPrice(double addOn){
-        return (quantitySenior * (((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn));
+        return quantitySenior * (((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 
     public double calculateStudentTicketPrice(double addOn){
