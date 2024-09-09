@@ -37,6 +37,8 @@ public class BookingTest {
     private Showtime mockShowtime;
     private Booking mockBooking;
     private CinemaHall mockCinemaHall;
+    private Payment mockPayment;
+    private Email mockEmail;
     private Showtime showtimeWithMockMovie;
     private Account account;
     private Movie movie;
@@ -44,6 +46,8 @@ public class BookingTest {
     private CinemaHall hall;
     private LocalTime time;
     private Booking bookingSpy;
+    private Booking booking;
+
     
 
     @Before
@@ -55,17 +59,19 @@ public class BookingTest {
         mockBooking = mock(Booking.class);
         mockCinemaHall = mock(CinemaHall.class);
         mockUnregisteredAccount = mock(Account.class);
+        mockPayment = mock(Payment.class);
+        mockEmail = mock(Email.class);
         
         bookingSpy = spy(new Booking());
         
         //Real implementation
         account = new Account("Kira Yamato","kira.yamato@gundamseed.com",2004,4,15);
-
         movie = new Movie("Example Movie","Normal",18.50);
        	hall = new CinemaHall(1,50);
        	showtime = new Showtime (movie, mockCinemaHall, "Available", LocalTime.of(13, 00), 2024,5,1);
        	showtimeWithMockMovie = new Showtime (mockMovie, mockCinemaHall, "Available", LocalTime.of(13, 00), 2024,5,1);
 
+        
         // Mock expected behaviors
        	when(mockUnregisteredAccount.getName()).thenReturn("UnregisteredName");
         when(mockAccount.getName()).thenReturn("Kira Yamato");
@@ -120,6 +126,7 @@ public class BookingTest {
         assertEquals(totalSeats, booking.getTotalNumberOfSeats());
         assertEquals(totalPrice, booking.getTotalPrice(), 0.0);
         assertEquals(status, booking.getStatus());
+        assertEquals(mockPayment, booking.getPayment());
     }
     
     // BOOK_TC2_V001
@@ -704,7 +711,7 @@ public class BookingTest {
 	@Parameters(
 			{"2,8.99,5,27.98",	//BVA normal price less than 9
 			"2,9.01,5,28.00",	//BVA normal price more than 9
-			"2,5.00,5,20.00",		//EP normal price less than 9
+			"2,5.00,5,20.00",	//EP normal price less than 9
 			"2,50.00,5,28.00"} 	//EP normal price more than 9
 			)
     public void testCalculateSeniorTicketPrice(int quantity, double normalPrice, double addOn, double ER) {
@@ -799,10 +806,10 @@ public class BookingTest {
 	// Integration test method for calculate student ticket price
 	@Test
 	@Parameters(method = "getParamForTestCalculateStudentPrice")
-	public void testCalculateStudentTicketPriceIntegration(int quantity, double normalPrice, double addOn, LocalTime showtimeTime, double expectedPrice) {
+	public void testCalculateStudentTicketPriceIntegrationTest(int quantity, double normalPrice, double addOn, LocalTime showtimeTime, double expectedPrice) {
 	    // Initialize real instances for integration test
 	    Booking booking = new Booking();  // Create real Booking instance
-	    Movie movie = new Movie("Sample Movie", "Category", normalPrice);  // Create real Movie instance with the normal price
+	    Movie movie = new Movie("Marvel Movie", "Category", normalPrice);  // Create real Movie instance with the normal price
 	    CinemaHall hall = new CinemaHall(1, 50);  // Create real CinemaHall instance
 	    Showtime showtime = new Showtime(movie, hall, "Available", showtimeTime, 2024, 9, 9);  // Create real Showtime instance with showtimeTime
 	    
@@ -846,5 +853,76 @@ public class BookingTest {
         // Assert that the expected and actual values are the same
         assertEquals(ER, actualPrice, 0.001);
     }
+	
+	// Integration test method for calculate children ticket price
+	@Test
+	@Parameters({
+	    "2,15.00,5,28.00",  // Test case 1: Normal price 15.00
+	    "2,8.00,5,26.00"    // Test case 2: Normal price 8.00
+	})
+	public void testCalculateChildrenTicketPriceIntegrationTest(int quantity, double normalPrice, double addOn, double expectedPrice) {
+	    // Initialize real instances for integration test
+	    Booking booking = new Booking();  // Create real Booking instance
+	    Movie movie = new Movie("Sample Movie", "Category", normalPrice);  // Create real Movie instance with the normal price
+	    CinemaHall hall = new CinemaHall(1, 50);  // Create real CinemaHall instance
+	    Showtime showtime = new Showtime(movie, hall, "Available", LocalTime.of(13, 0), 2024, 9, 9);  // Create real Showtime instance
+	    
+	    // Assign showtime to booking object
+	    booking.setShowtime(showtime);
+
+	    // Set quantity of children tickets
+	    booking.setQuantityChildren(quantity);
+
+	    // Call the method to test
+	    double actualPrice = booking.calculateChildrenTicketPrice(addOn);
+
+	    // Assert that the expected and actual values are the same
+	    assertEquals(expectedPrice, actualPrice, 0.001);
+	}
+	
+	@Parameters("successful, updated")
+	 @Test
+	    public void testUpdatePaymentStatus_SuccessfulPayment(String paymentStatus, String ER) {
+		//String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren
+		    booking = new Booking("B001",account,movie,showtime,1,1,1,1,1);
+	        // Define behavior of the mock Payment object
+	        when(mockPayment.makePayment(booking.getBookingId(), booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
+
+	        // Define behavior of the mock Email object
+	        doNothing().when(mockEmail).sendEmail(booking.getBookingId(), paymentStatus, account.getEmail());
+
+	        // Call the updatePaymentStatus method
+	        String actualPaymentStatus = booking.updatePaymentStatus(booking.getBookingId(), paymentStatus);
+
+	        // Verify the mock Payment and Email methods were called
+	        verify(mockPayment).makePayment(booking.getBookingId(), booking.getTotalPrice(), account.getEmail());
+	        verify(mockEmail).sendEmail(booking.getBookingId(), paymentStatus, account.getEmail());
+
+	        // Assert that the payment status is updated correctly
+	        assertEquals(paymentStatus, actualPaymentStatus);
+	    }
+
+//	    @Test
+//	    public void testUpdatePaymentStatus_UnsuccessfulPayment() {
+//	        String bookingID = booking.getBookingId();
+//	        String paymentStatus = "Payment Unsuccessful";
+//
+//	        // Define behavior of the mock Payment object
+//	        when(mockPayment.makePayment(bookingID, booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
+//
+//	        // Define behavior of the mock Email object
+//	        doNothing().when(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
+//
+//	        // Call the updatePaymentStatus method
+//	        String actualPaymentStatus = booking.updatePaymentStatus(bookingID, paymentStatus);
+//
+//	        // Verify the mock Payment and Email methods were called
+//	        verify(mockPayment).makePayment(bookingID, booking.getTotalPrice(), account.getEmail());
+//	        verify(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
+//
+//	        // Assert that the payment status is updated correctly
+//	        assertEquals(paymentStatus, actualPaymentStatus);
+//	    }
+
 }
 
