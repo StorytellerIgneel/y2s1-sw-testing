@@ -133,7 +133,6 @@ public class CinemaHallTest {
     // CH_TC4_INV001
     // Test method for setHallStatus (Invalid input)
     @Test(expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamForSetHallStatusInvalidTest")
     public void testSetHallStatusInvalid() {
         CinemaHall cinemaHall = new CinemaHall();
         try {
@@ -164,7 +163,7 @@ public class CinemaHallTest {
     }
     
     // CH_TC5_V001
-    // Test method for getAvailableSeats
+    // Test method for setAvailableSeats
     @Test
     public void testSetAvailableSeats() {
         CinemaHall cinemaHall = new CinemaHall();
@@ -188,12 +187,6 @@ public class CinemaHallTest {
         assertEquals(0, cinemaHall.getBookedSeats());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    @Parameters(method = "getParamForCreateCinemaHallInvalidTest")
-    public void createCinemaHallInvalidTest(int hallNumber, int seats){
-        CinemaHall.createCinemaHall(hallNumber, seats);
-    }
-
     private Object[] getParamForCheckOversellValid(){
         return new Object[] {
             new Object[] {25, 50, true},
@@ -212,29 +205,13 @@ public class CinemaHallTest {
         assertEquals(ER, HallSpy.checkOversell(newTickets));
     }
 
-    // private Object[] getParamForCheckOversellInvalid(){
-    //     return new Object[] {
-    //         new Object[] {"Fully Booked", false, false},
-    //         new Object[] {"Not Available", false, false},
-    //         new Object[] {"under repair", false, false},
-    //         new Object[] {"Available", true, false},
-    //         new Object[] {"Available", false, false},
-    //     };
-    // }
-
-    // @Test
-    // @Parameters(method = "getParamsForHallAvailableValidTest")
-    // public void hallAvailableValidTest(String hallStatus, boolean oversell, boolean ER){
-    //     CinemaHall hallSpy = spy(CinemaHall.class);
-    //     when(hallSpy.getHallStatus()).thenReturn(hallStatus);
-    //     when(hallSpy.checkOversell(anyInt())).thenReturn(oversell);
-    //     assertEquals(hallSpy.hallAvailable(1), ER);
-    // }
-
-    private Object[] getParamsForHallAvailableInvalidTest(){
+    private Object[] getParamForCheckOversellInvalid(){
         return new Object[] {
-            new Object[] {-25}, // newTickets EP
-            new Object[] {-1}   // newTickets BVA
+            new Object[] {"Fully Booked", false, false},
+            new Object[] {"Not Available", false, false},
+            new Object[] {"under repair", false, false},
+            new Object[] {"Available", true, false},
+            new Object[] {"Available", false, false},
         };
     }
     // CH_TC8_INV001

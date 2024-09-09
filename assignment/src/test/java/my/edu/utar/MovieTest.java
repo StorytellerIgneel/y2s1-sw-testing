@@ -5,6 +5,7 @@ import junitparams.Parameters;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized.Parameter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -129,13 +130,24 @@ public class MovieTest {
     }
     
     //MVE_TC6_INV001
-    //Test method for setTitle invalid
-    @Test (expected = IllegalArgumentException.class)
-    @Parameters("null,' ',Invalid^&%Movie")
-    public void setTitleInvalidTest(String title){
-    	 Movie movie = spy(new Movie());
-         movie.setTitle(title);
+    //Test method for setTitleInvalid
+	private Object[] getParamForSetTitleInvalidTest() {
+        return new Object[] {
+        	//isExpensive return true, all ticket price calculation return 10
+            new Object[] {null},
+            
+          //isExpensive return false, all ticket price calculation return 10
+            new Object[] {""},
+            new Object[] {"Invalid^&%Movie"}  // Invalid characters
+        };
     }
+    @Parameters(method="getParamForSetTitleInvalidTest")
+    @Test(expected = IllegalArgumentException.class)
+    public void setTitleInvalidTest(String title) {
+        Movie movieSpy = spy(new Movie());
+        movieSpy.setTitle(title);  // This should throw IllegalArgumentException for invalid inputs
+    }
+
     
     //MVE_TC7_V001
     //Test method for setCategory valid
@@ -166,6 +178,7 @@ public class MovieTest {
     	Movie movie = (new Movie());
         movie.setCategory(category);
     }
+
     
     //MVE_TC8_V001
     //Test method for setNormalPrice valid
@@ -210,8 +223,10 @@ public class MovieTest {
         assertEquals(ER, movieSpy.isExpensive());
     }
 
+    
     //IT for IsExpensive
     @Test
+    @Parameters(method = "getParamsForIsExpensive")
     public void isExpensiveIntegrationValidTest(String category, boolean ER){
         Movie movie = (new Movie());
         movie.setCategory(category);
