@@ -117,8 +117,7 @@ public class AccountTest {
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getInvalidCreateAccountData")
     public void createAccountInvalidTest(String name, String email, int birthday_year, int birthday_month, int birthday_day){
-    	assertNull(Account.createAccount(name, email, birthday_year, birthday_month, birthday_day));
-        
+    	Account.createAccount(name, email, birthday_year, birthday_month, birthday_day);
     }
     
     //ACC_TC2_V001
@@ -181,7 +180,7 @@ public class AccountTest {
     //Test method for setBirthday method with valid year, month, day
     @Test
     @Parameters(
-	    {"190 0, 6, 29",	//BVA year 1900
+	    {"1900, 6, 29",	//BVA year 1900
 	    "2024, 6, 30",	//BVA year 2024
 	    "2004, 1, 31",	//BVA month 1
 	    "2004, 12, 31",	//BVA month 12

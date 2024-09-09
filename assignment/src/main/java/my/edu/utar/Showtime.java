@@ -61,30 +61,28 @@ public class Showtime {
         return;
     }
 
-	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day){
-		 if (movie == null || hallNumber == null || time == null)
-	            throw new IllegalArgumentException("Null param passed");
-		// Check for valid year
-		if (year < 1900 || year > LocalDate.now().getYear())
-		    throw new IllegalArgumentException("Invalid year");
-		
-		// Check for valid month
-		if (month < 1 || month > 12)
-		    throw new IllegalArgumentException("Invalid month");
-		
-		// Check for valid day in the given month and year
-		YearMonth yearMonth = YearMonth.of(year, month);
-		if (day <= 0 || day > yearMonth.lengthOfMonth())
-		    throw new IllegalArgumentException("Invalid day");
-		
-		try {
-		    LocalDate.of(year, month, day); // This may throw DateTimeException
-		} catch (DateTimeException e) {
-		    throw new IllegalArgumentException("Invalid date value");
-		}
+    public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day) {
+        // Check if any of the inputs are null
+        if (movie == null || hallNumber == null || time == null || year == 0 || month == 0 || day == 0) {
+            throw new IllegalArgumentException("Null or invalid parameter passed.");
+        }
 
-		return new Showtime(movie, hallNumber, "available", time, year, month ,day);
+        // Validate the date
+        if (year < 1900 || year > LocalDate.now().getYear()) {
+            throw new IllegalArgumentException("Invalid year");
+        }
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("Invalid month");
+        }
+        YearMonth yearMonth = YearMonth.of(year, month);
+        if (day <= 0 || day > yearMonth.lengthOfMonth()) {
+            throw new IllegalArgumentException("Invalid day");
+        }
+
+        // If all validations pass, create and return a new Showtime instance
+        return new Showtime(movie, hallNumber, "available", time, year, month, day);
     }
+    
 
     //Getter and Setter for movie
     public Movie getMovie() {
@@ -197,9 +195,11 @@ public class Showtime {
 //        return normalTicketPrice;
 //    }
     
-    double determineTicketPrice(double normalTicketPrice) {
-    	if (normalTicketPrice < 0)
-    		throw new IllegalArgumentException("Negative num param passed");
+    public double determineTicketPrice(double normalTicketPrice) {
+        // Check if the ticket price is negative
+        if (normalTicketPrice < 0) {
+            throw new IllegalArgumentException("Ticket price cannot be negative.");
+        }
 
         // Create a LocalDate object using the year, month, and day fields
         LocalDate showDate = LocalDate.of(getYear(), getMonth(), getDay());
@@ -222,6 +222,7 @@ public class Showtime {
 
         return normalTicketPrice;
     }
+
 
 
 

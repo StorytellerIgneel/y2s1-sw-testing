@@ -78,26 +78,30 @@ public class BookingTest {
  	// Test method to test Booking constructor with valid inputs
     private Object[] getParamForBookingConstructorValid() {
         return new Object[] {
-            new Object[] {"B001", mockAccount,4,2,1,0,5,12,95.2,"Booked"},
+            new Object[] {"B001",4,2,1,0,5,12,95.2,"Booked"},
         };
     }
+    
+    
 
+    //Integration test method to test Booking constructor
     @Test
     @Parameters(method = "getParamForBookingConstructorValid")
-    public void BookingConstructorTest(String bookingID, Account account,int quantityAdult, int quantityOKU, 
+    public void BookingConstructorIntegrationTest(String bookingID,int quantityAdult, int quantityOKU, 
     		int quantitySenior, int quantityStudent, int quantityChildren, int totalSeats, double totalPrice,String status) {
        	Movie movie1 = new Movie("Example Movie","Normal",18.50);
        	CinemaHall hall1 = new CinemaHall(1,50);
        	Showtime showtime1 = new Showtime (movie1, hall1, "Available", LocalTime.of(13, 00), 2024,5,1);
+       	Account account1 = new Account("AhHuAT", "HUAT@gmail.com", 2000, 1, 1);
        	// Create the Booking instance with real constructor
-       	Booking booking = new Booking(bookingID, account, movie1, showtime1,
+       	Booking booking = new Booking(bookingID, account1, movie1, showtime1,
 	           quantityAdult, quantityOKU, quantitySenior, 
 	           quantityStudent, quantityChildren);
 
         // Verify state of the booking
         assertNotNull(booking);
         assertEquals(bookingID, booking.getBookingId());
-        assertEquals(account, booking.getAccount());
+        assertEquals(account1, booking.getAccount());
         assertEquals(movie1, booking.getMovie());
         assertEquals(showtime1, booking.getShowtime());
         assertEquals(quantityAdult, booking.getQuantityAdult());
@@ -490,8 +494,8 @@ public class BookingTest {
 	@Parameters(
 			{"2,8.99,5,27.98",	//BVA normal price less than 9
 			"2,9.01,5,28.00",	//BVA normal price more than 9
-			"2,5,5,20.00",		//EP normal price less than 9
-			"2,50,5,28.00"} 	//BVA normal price more than 9
+			"2,5.00,5,20.00",		//EP normal price less than 9
+			"2,50.00,5,28.00"} 	//EP normal price more than 9
 			)
     public void testCalculateSeniorTicketPrice(int quantity, double normalPrice, double addOn, double ER) {
 	 // Initialize the mock object

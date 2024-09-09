@@ -29,6 +29,7 @@ public class Movie {
              throw new IllegalArgumentException("Negative double passed");
         return new Movie(title, category, normalPrice);
     }
+    
 
     // Getter and Setter methods
 
