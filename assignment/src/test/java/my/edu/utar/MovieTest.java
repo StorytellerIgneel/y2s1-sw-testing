@@ -1,19 +1,15 @@
 package my.edu.utar;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized.Parameter;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Field;
-
-import static org.mockito.Mockito.*;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class MovieTest {
@@ -82,9 +78,8 @@ public class MovieTest {
     @Test
     @Parameters("Movie123, Movie123")
     public void setTitleValidTest(String title1, String ER){
-        Movie movie = spy(new Movie());
+        Movie movie = new Movie();
         movie.setTitle(title1);
-        verify(movie).setTitle(title1);
         assertEquals(ER, movie.getTitle());
     }
     
@@ -92,11 +87,8 @@ public class MovieTest {
     //Test method for setTitleInvalid
 	private Object[] getParamForSetTitleInvalidTest() {
         return new Object[] {
-        	//isExpensive return true, all ticket price calculation return 10
-            new Object[] {null},
-            
-          //isExpensive return false, all ticket price calculation return 10
-            new Object[] {""},
+            new Object[] {null},              // null
+            new Object[] {""},                // empty string
             new Object[] {"Invalid^&%Movie"}  // Invalid characters
         };
     }
