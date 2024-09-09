@@ -2,28 +2,20 @@ package my.edu.utar;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import java.lang.reflect.Field;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -73,7 +65,19 @@ public class ShowtimeTest {
 	    }
 	 
 	//ST_TC1_V001
+    private Object[] getParamForCreateShowtimeValid() {
+        return new Object[] {
+            new Object[] {"Example Movie", "Normal", 18.50},	// Valid title
+            new Object[] {"Example Movie", "Normal", 18.50},	// Valid "Normal" category movie
+            new Object[] {"Example Movie", "3D", 18.50},		// Valid "3D" category movie
+            new Object[] {"Example Movie", "IMAX", 18.50},		// Valid "IMAX" category movie
+            new Object[] {"Example Movie", "IMAX", 0.01},		// BVA normalPrice 0.01
+            new Object[] {"Example Movie", "IMAX", 100},		// EP normalPrice 100
+            new Object[] {"Example1234", "Normal", 18.50},		// Valid alphanumeric title
+        };
+    }
     @Test
+    @Parameters(method="getParamForCreateShowtimeValid")
     public void testCreateShowtime() {
     	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
      assertNotNull(showtime);
@@ -229,10 +233,10 @@ public class ShowtimeTest {
 				"10,2024,9,13,19,10",	//EP hour after 1pm + Friday
 				"10,2024,9,13,6,9",		//EP hour before 1 pm + Friday
 				
-				"10,2024,9,23,12,9",	//BVA hour before 1pm + Monday
-				"10,2024,9,23,14,10",	//BVA hour after 1 pm Monday
-				"10,2024,9,23,19,10",	//EP hour after 1pm + Monday
-				"10,2024,9,23,6,9",		//EP hour before 1 pm + Monday
+				"10,2024,9,16,12,9",	//BVA hour before 1pm + Monday
+				"10,2024,9,16,14,10",	//BVA hour after 1 pm Monday
+				"10,2024,9,16,19,10",	//EP hour after 1pm + Monday
+				"10,2024,9,16,6,9",		//EP hour before 1 pm + Monday
 				
 				"10,2024,9,17,12,9",	//BVA hour before 1pm + Tuesday
 				"10,2024,9,17,14,10",	//BVA hour after 1 pm Tuesday
@@ -249,7 +253,7 @@ public class ShowtimeTest {
 				"10,2024,9,14,19,12",	//EP Saturday
 				"10,2024,9,15,19,12",	//EP Sunday
 				"10,2024,9,18,19,8",	//EP Wednesday
-				
+
 				// Non-Saturday/Sunday public holidays in 2024
 				"10,2024,1,1,12,12",	// New Year's Day
 				"10,2024,12,25,14,12"	// Christmas Day
