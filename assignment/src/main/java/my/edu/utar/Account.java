@@ -67,26 +67,26 @@ public class Account {
   public void setBirthDay(int year, int month, int day) {
 	LocalDate birthday;
 	
-	// Check for valid year
-	if (year < 1900 || year > LocalDate.now().getYear())
-	    throw new IllegalArgumentException("Invalid year");
-	
-	// Check for valid month
-	if (month < 1 || month > 12)
-	    throw new IllegalArgumentException("Invalid month");
-	
-	// Check for valid day in the given month and year
-	YearMonth yearMonth = YearMonth.of(year, month);
-	if (day <= 0 || day > yearMonth.lengthOfMonth())
-	    throw new IllegalArgumentException("Invalid day");
-	
-	try {
-	    birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
-	} catch (DateTimeException e) {
-	    throw new IllegalArgumentException("Invalid date value");
-	}
-	
-	this.birthday = birthday;
+		// Check for valid year
+		if (year < 1900 || year > LocalDate.now().getYear())
+		    throw new IllegalArgumentException("Invalid year");
+		
+		// Check for valid month
+		if (month < 1 || month > 12)
+		    throw new IllegalArgumentException("Invalid month");
+		
+		// Check for valid day in the given month and year
+		YearMonth yearMonth = YearMonth.of(year, month);
+		if (day <= 0 || day > yearMonth.lengthOfMonth())
+		    throw new IllegalArgumentException("Invalid day");
+		
+		try {
+		    birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
+		} catch (DateTimeException e) {
+		    throw new IllegalArgumentException("Invalid date value");
+		}
+		
+		this.birthday = birthday;
 	}
 
 

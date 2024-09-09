@@ -38,8 +38,7 @@ public class Showtime {
 	}
     
     public static void isValidDate(int year, int month, int day) {    
-        LocalDate birthday;    
-        
+       
         //need to check for valid year
         if (year < 1900 || year > LocalDate.now().getYear())
             throw new IllegalArgumentException("Invalid year");
@@ -54,7 +53,7 @@ public class Showtime {
             throw new IllegalArgumentException("Invalid day");
         
         try {
-            birthday = LocalDate.of(year, month, day); // This may throw DateTimeException
+            LocalDate.of(year, month, day); // This may throw DateTimeException
         } catch (DateTimeException e) {
             throw new IllegalArgumentException("Invalid date value");
         }
@@ -63,9 +62,28 @@ public class Showtime {
     }
 
 	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day){
-        Validation.isNull(movie, hallNumber, time, year, month, day);
-        isValidDate(year, month, day);
-        return new Showtime(movie, hallNumber, "available", time, year, month ,day);
+		 if (movie == null || hallNumber == null || time == null)
+	            throw new IllegalArgumentException("Null param passed");
+		// Check for valid year
+		if (year < 1900 || year > LocalDate.now().getYear())
+		    throw new IllegalArgumentException("Invalid year");
+		
+		// Check for valid month
+		if (month < 1 || month > 12)
+		    throw new IllegalArgumentException("Invalid month");
+		
+		// Check for valid day in the given month and year
+		YearMonth yearMonth = YearMonth.of(year, month);
+		if (day <= 0 || day > yearMonth.lengthOfMonth())
+		    throw new IllegalArgumentException("Invalid day");
+		
+		try {
+		    LocalDate.of(year, month, day); // This may throw DateTimeException
+		} catch (DateTimeException e) {
+		    throw new IllegalArgumentException("Invalid date value");
+		}
+
+		return new Showtime(movie, hallNumber, "available", time, year, month ,day);
     }
 
     //Getter and Setter for movie
@@ -136,7 +154,10 @@ public class Showtime {
     public void setStatus(String status) {
     	if(status == null)
     		throw new IllegalArgumentException("Null param passed");
-        this.status = status;
+    	if(!status.equals("Available")&&!status.equals("Not Available")&&!status.equals("Fully Booked")&&!status.equals("Cancelled"))
+    		throw new IllegalArgumentException("Invalid param passed");
+
+    	this.status = status;
     }
     
     public void setHallNumber(CinemaHall hallNumber) {
@@ -148,7 +169,7 @@ public class Showtime {
     public void setTime(LocalTime time) {
     	if(time == null)
     		throw new IllegalArgumentException("Null param passed");
-        this.time = time;
+    	this.time = time;
     }
 
     // Getter and Setter for normalTicketPrice
@@ -158,6 +179,8 @@ public class Showtime {
 
     public void setNormalTicketPrice(double normalTicketPrice) {
     	if (normalTicketPrice < 0)
+    		throw new IllegalArgumentException("Negative num param passed");
+
         this.normalTicketPrice = normalTicketPrice;
     }
 
@@ -175,12 +198,13 @@ public class Showtime {
 //    }
     
     double determineTicketPrice(double normalTicketPrice) {
-        Validation.isNegativeNum(normalTicketPrice);
+    	if (normalTicketPrice < 0)
+    		throw new IllegalArgumentException("Negative num param passed");
 
         // Create a LocalDate object using the year, month, and day fields
-        LocalDate showDate = LocalDate.of(year, month, day);
+        LocalDate showDate = LocalDate.of(getYear(), getMonth(), getDay());
         DayOfWeek dayOfWeek = showDate.getDayOfWeek();
-        int hour = time.getHour();
+        int hour = getTime().getHour();
 
         // Check if it's a weekend (Saturday or Sunday)
         if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
@@ -202,9 +226,12 @@ public class Showtime {
 
 
     public boolean showtimeAvailable(int totalTicketQuantity){
-        if (hallNumber.hallAvailable(totalTicketQuantity)){
+    	if(totalTicketQuantity < 0)
+    		throw new IllegalArgumentException("Invalid totalTicketQuantity");
+    	
+        if (getHallNumber().hallAvailable(totalTicketQuantity)){
             ArrayList<String> rejectList = new ArrayList<>(Arrays.asList("Not Available", "Fully Booked", "Cancelled"));
-            if (rejectList.contains(status)){ //hall available but showtime not available
+            if (rejectList.contains(getStatus())){ //hall available but showtime not available
                 System.out.println("Sorry, the showtime is currently " + status);
                 return false;
             }
