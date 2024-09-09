@@ -64,10 +64,64 @@ public class ShowtimeTest {
 	    }
 	 
 	//ST_TC1_V001
+    private Object[] getParamForCreateShowtimeValid() {
+        return new Object[] {
+            new Object[] {1900,1,1},	// BVA year lower bound
+            new Object[] {2024,1,1},	// BVA year upper bound
+            new Object[] {1962,1,1},	// EP year
+            new Object[] {1962,1,1},	// BVA month lower bound
+            new Object[] {1962,12,1},	// BVA month upper bound
+            new Object[] {1962,1,1},	// BVA day lower bound
+            new Object[] {1962,1,31},	// BVA day upper bound at month with 31 days       
+            new Object[] {1962,4,30},	// BVA day upper bound at month with 30 days 
+            new Object[] {2023,2,28},	// BVA day upper bound at month with 28 days 
+            new Object[] {2024,2,29},	// BVA day upper bound at month with 29 days 
+            new Object[] {1962,1,15},	// EP day 
+        };
+    }
     @Test
-    public void testCreateShowtime() {
-    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
-     assertNotNull(showtime);
+    @Parameters(method="getParamForCreateShowtimeValid")
+    public void testCreateShowtime(int year, int month, int day) {
+    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, year,month,day);
+    	assertNotNull(showtime);
+    	assertEquals(year, showtime.getYear());
+        assertEquals(month, showtime.getMonth());
+        assertEquals(day, showtime.getDay());
+        assertEquals(time, showtime.getTime());
+        assertEquals(mockMovie, showtime.getMovie());
+        assertEquals(mockHallNumber, showtime.getHallNumber());
+    }
+    
+    //ST_TC1_INV001
+    private Object[] getParamForCreateShowtimeInvalid() {
+        return new Object[] {
+            new Object[] {1899,1,1},	// BVA year lower bound
+            new Object[] {2025,1,1},	// BVA year upper bound
+            new Object[] {100,1,1},		// EP year
+            new Object[] {3000,1,1},	// EP year
+            new Object[] {1962,0,1},	// BVA month lower bound
+            new Object[] {1962,13,1},	// BVA month upper bound
+            new Object[] {1962,1,0},	// BVA day lower bound
+            new Object[] {1962,1,32},	// BVA day upper bound at month with 31 days       
+            new Object[] {1962,4,31},	// BVA day upper bound at month with 30 days 
+            new Object[] {2023,2,29},	// BVA day upper bound at month with 28 days 
+            new Object[] {2024,2,30},	// BVA day upper bound at month with 29 days 
+            new Object[] {1962,1,-100},	// EP day 
+            new Object[] {1962,1,100},	// EP day 
+
+        };
+    }
+	@Test(expected = IllegalArgumentException.class)
+    @Parameters(method="getParamForCreateShowtimeInvalid")
+    public void testCreateShowtimeInvalid(int year, int month, int day) {
+    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, year,month,day);
+    	assertNotNull(showtime);
+    	assertEquals(year, showtime.getYear());
+        assertEquals(month, showtime.getMonth());
+        assertEquals(day, showtime.getDay());
+        assertEquals(time, showtime.getTime());
+        assertEquals(mockMovie, showtime.getMovie());
+        assertEquals(mockHallNumber, showtime.getHallNumber());
     }
 	    
 	//ST_TC2_V001
@@ -240,7 +294,7 @@ public class ShowtimeTest {
 				"10,2024,9,14,19,12",	//EP Saturday
 				"10,2024,9,15,19,12",	//EP Sunday
 				"10,2024,9,18,19,8",	//EP Wednesday
-				
+
 				// Non-Saturday/Sunday public holidays in 2024
 				"10,2024,1,1,12,12",	// New Year's Day
 				"10,2024,12,25,14,12"	// Christmas Day
