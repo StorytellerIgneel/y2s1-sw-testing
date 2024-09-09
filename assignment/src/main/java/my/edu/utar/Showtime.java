@@ -37,30 +37,6 @@ public class Showtime {
 		// TODO Auto-generated constructor stub
 	}
     
-    public static void isValidDate(int year, int month, int day) {    
-       
-        //need to check for valid year
-        if (year < 1900 || year > LocalDate.now().getYear())
-            throw new IllegalArgumentException("Invalid year");
-        
-        // Check for valid month
-        if (month < 1 || month > 12)
-            throw new IllegalArgumentException("Invalid month");
-        
-        // Check for valid day in the given month and year
-        YearMonth yearMonth = YearMonth.of(year, month);
-        if (day <= 0 && day > yearMonth.lengthOfMonth())
-            throw new IllegalArgumentException("Invalid day");
-        
-        try {
-            LocalDate.of(year, month, day); // This may throw DateTimeException
-        } catch (DateTimeException e) {
-            throw new IllegalArgumentException("Invalid date value");
-        }
-
-        return;
-    }
-
     public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day) {
         // Check if any of the inputs are null
         if (movie == null || hallNumber == null || time == null || year == 0 || month == 0 || day == 0) {
@@ -135,12 +111,16 @@ public class Showtime {
     }
     
     public void setDay(int day) {
-        // Check for valid day in the given month and year
-        YearMonth yearMonth = YearMonth.of(year, month);
-        if (day <= 0 && day > yearMonth.lengthOfMonth())
-            throw new IllegalArgumentException("Invalid day");
-        else
-        	this.day = day;
+    	try {
+	        // Check for valid day in the given month and year
+	        YearMonth yearMonth = YearMonth.of(getYear(), getMonth());
+	        if (day <= 0 || day > yearMonth.lengthOfMonth())
+	            throw new IllegalArgumentException("Invalid day");
+	        else
+	        	this.day = day;
+    	}catch(Exception e) {
+    		throw new IllegalArgumentException();
+    	}
     }
 
     public void setMovie(Movie movie) {

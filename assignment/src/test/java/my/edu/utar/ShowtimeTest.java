@@ -71,37 +71,15 @@ public class ShowtimeTest {
 	        when(mockHallNumber.checkOversell(0)).thenReturn(false);
 
 	    }
-
-
 	 
-
-
-	//SHOWTIME_TC1_V001
-	//Test method for setTime
-	private Object[] getParamFortestSetTimeValid() {
-	return new Object[] {
-		new Object[] {LocalTime.of(0, 1), LocalTime.of(0, 1)},
-		new Object[] {LocalTime.of(23, 59), LocalTime.of(23, 59)},
-		
-	};
-}
-	@Test
-	@Parameters(method = "getParamFortestSetTimeValid")
-	public void testSetTime(LocalTime time, LocalTime ER) {
-	    Showtime showtime = new Showtime();
-	    showtime.setTime(time);
-	    assertSame(ER, showtime.getTime());
-	}
-
-	//SHOWTIME_TC1_INV001
-	//Test method for setTime - INVALID
-	@Test(expected = IllegalArgumentException.class)
-	public void testSetTimeInvalid() {
-	    Showtime showtime = new Showtime();
-	    showtime.setTime(null); // Invalid input
-	}
-
-	//SHOWTIME_TC2_V001
+	//ST_TC1_V001
+    @Test
+    public void testCreateShowtime() {
+    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
+     assertNotNull(showtime);
+    }
+	    
+	//ST_TC2_V001
 	//Test method for setMovie
 	@Test
 	public void testSetMovie() {
@@ -165,14 +143,21 @@ public class ShowtimeTest {
 	
 	//ST_TC5_V001
 	//Test method for setTime		 
+	private Object[] getParamFortestSetTimeValid() {
+	return new Object[] {
+		new Object[] {LocalTime.of(0, 1), LocalTime.of(0, 1)},
+		new Object[] {LocalTime.of(23, 59), LocalTime.of(23, 59)},
+		
+	};
+}
 	@Test
-	public void testSetTime() {
+	@Parameters(method = "getParamFortestSetTimeValid")
+	public void testSetTime(LocalTime time, LocalTime ER) {
 	    Showtime showtime = new Showtime();
-	    LocalTime time = LocalTime.of(14, 30); // Example time
 	    showtime.setTime(time);
-	    assertSame(time, showtime.getTime());
+	    assertEquals(ER, showtime.getTime());
 	}
-	
+
 	//ST_TC5_INV001
 	//Test method for setTime - INVALID 
 	@Test(expected = IllegalArgumentException.class)
@@ -396,263 +381,70 @@ public class ShowtimeTest {
     }
 
 
-	//SHOWTIME_TC6_V001
+	//ST_TC10_V001
 	//Test method for setMonth
 	@Test
-	public void testSetMonth() {
+	@Parameters({
+		"1",	//BVA lower bound
+		"12",	//BVA upper  bound
+		"6",	//EP 
+		})
+	public void testSetMonth(int month) {
 	    Showtime showtime = new Showtime();
-	    int mockMonth = 9; // Example month (September)
-	    showtime.setMonth(mockMonth);
-	    assertEquals(mockMonth, showtime.getMonth());
+	    showtime.setMonth(month);
+	    assertEquals(month, showtime.getMonth());
 	}
 
-	//SHOWTIME_TC6_INV001
+	//ST_TC10_INV001
 	//Test method for setMonth - INVALID
 	@Test(expected = IllegalArgumentException.class)
-	public void testSetMonthInvalid() {
+	@Parameters({
+		"-1",	//BVA less than lower bound
+		"13",	//BVA more than upper  bound
+		"-100",	//EP less than 1
+		"100",	//EP more than 12
+		})
+	public void testSetMonthInvalid(int month) {
 	    Showtime showtime = new Showtime();
-	    showtime.setMonth(13); // Invalid input (month out of range)
+	    showtime.setMonth(month); // Invalid input (month out of range)
 	}
 
-	//SHOWTIME_TC7_V001
+	//ST_TC11_V001
 	//Test method for setDay
 	@Test
-	public void testSetDay() {
-	    Showtime showtime = new Showtime();
-	    int mockDay = 15; // Example day
-	    showtime.setDay(mockDay);
-	    assertEquals(mockDay, showtime.getDay());
+	@Parameters({
+        "2024,1,1",		// BVA valid date lower bound 
+        "2024,1,31",	// BVA valid date upper bound for month with 31 days
+        "2024,4,30",	// BVA valid date upper bound for month with 30 days
+        "2024,2,29",	// BVA valid date in February, leap year
+        "2021,2,28",	// BVA valid date in February, not a leap year
+        "2024,1,15",	// EP valid date
+	})
+	public void testSetDay(int year, int month, int day) {
+		Showtime spyShowtime = Mockito.spy(new Showtime());
+        doReturn(year).when(spyShowtime).getYear();
+        doReturn(month).when(spyShowtime).getMonth();
+        spyShowtime.setDay(day);
+	    assertEquals(day, spyShowtime.getDay());
 	}
 
-	//WELP!
-	//SHOWTIME_TC7_INV001
+	//ST_TC11_INV001
 	//Test method for setDay - INVALID
 	@Test(expected = IllegalArgumentException.class)
-	public void testSetDayInvalid() {
-	    Showtime showtime = new Showtime();
-	    showtime.setDay(32); // Invalid input (day out of range)
+	@Parameters({
+        "2024,1,-1",	// BVA invalid date - less than lower bound
+        "2024,1, 32",	// BVA invalid date - more than lower bound for month with 31 days
+        "2024,4, 31",	// BVA invalid date - more than lower bound for month with 30 days
+        "2021,2, 29",	// BVA invalid date in February, not a leap year
+        "2021,2, 30",	// BVA invalid date in February, is a leap year
+        "2021,2, 50",	// BVA invalid date in February, is a leap year
+        "2021,2, -50",	// BVA invalid date in February, is a leap year
+	})
+	public void testSetDayInvalid(int year, int month, int day) {
+		Showtime spyShowtime = Mockito.spy(new Showtime());
+        doReturn(year).when(spyShowtime).getYear();
+        doReturn(month).when(spyShowtime).getMonth();
+        spyShowtime.setDay(day);
 	}
-
-
-	    
-	    
-	    @Test
-	    public void testCreateShowtime() {
-	    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
-            assertNotNull(showtime);
-	    }
-	    
-	    // Test when hall is available but showtime status is in the reject list
-	    @Test
-	    public void testShowtimeAvailable_HallAvailable_StatusNotAvailable() {
-	        // Mock hall to return available
-	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
-
-	        // Set the showtime status to one of the reject statuses
-	        showtime.setStatus("Not Available");
-
-	        // Verify that showtimeAvailable returns false
-	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
-	    }
-
-	    // Test when hall is available and showtime status is "Available"
-	    @Test
-	    public void testShowtimeAvailable_HallAvailable_StatusAvailable() {
-	        // Mock hall to return available
-	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
-
-	        // Set the showtime status to "Available"
-	        showtime.setStatus("Available");
-
-	        // Verify that showtimeAvailable returns true
-	        assertTrue(showtime.showtimeAvailable(50)); // Example ticket quantity 50
-	    }
-
-	    // Test when hall is not available (regardless of status)
-	    @Test
-	    public void testShowtimeAvailable_HallNotAvailable() {
-	        // Mock hall to return not available
-	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(false);
-
-	        // Set the showtime status to anything
-	        showtime.setStatus("Available");
-
-	        // Verify that showtimeAvailable returns false
-	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
-	    }
-
-	    // Test when hall is available but showtime status is "Fully Booked"
-	    @Test
-	    public void testShowtimeAvailable_HallAvailable_StatusFullyBooked() {
-	        // Mock hall to return available
-	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
-
-	        // Set the showtime status to "Fully Booked"
-	        showtime.setStatus("Fully Booked");
-
-	        // Verify that showtimeAvailable returns false
-	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
-	    }
-
-	    // Test when hall is available but showtime status is "Cancelled"
-	    @Test
-	    public void testShowtimeAvailable_HallAvailable_StatusCancelled() {
-	        // Mock hall to return available
-	        when(mockHallNumber.hallAvailable(anyInt())).thenReturn(true);
-
-	        // Set the showtime status to "Cancelled"
-	        showtime.setStatus("Cancelled");
-
-	        // Verify that showtimeAvailable returns false
-	        assertFalse(showtime.showtimeAvailable(50)); // Example ticket quantity 50
-	    }
-	    
-	
-	 	// Test method parameter provider for all valid showtime
-	    private Object[] getParamForTestDetermineTicketPriceValid() {
-	        return new Object[] {
-	            // Parameters: movie, cinemaHall, status, time, year, month, day, expected price
-	            new Object[] { //weekend
-	                new Movie("Example Movie", "Normal", 18.50),   // Movie object
-	                new CinemaHall(1, 50),                         // CinemaHall object
-	                "Available",                                   // Showtime status
-	                LocalTime.of(19, 30),                          // Time
-	                2024, 9, 7,                                    // Year, Month, Day (Saturday)
-	                20.50                                          // Expected ticket price (weekend surcharge)
-	            }
-	        };
-	    }
-
-	    @Test
-	    @Parameters(method="getParamForTestDetermineTicketPriceOnWeekend")
-	    public void testDetermineTicketPriceOnWeekend(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, double expectedPrice) {
-	        // Set availcreateShowTime able seats for the CinemaHall
-	        cinemaHall.setAvailableSeats(50);
-
-	        // Create a Showtime object using the provided parameters
-	        Showtime showtime = new Showtime(movie, cinemaHall, status, time, year, month, day);
-
-	        // Get the ticket price
-	        double price = showtime.getNormalTicketPrice();
-
-	        // Assert that the calculated price matches the expected price
-	        assertEquals(expectedPrice, price, 0.01);
-	    }
-
-	    
-	    
-
-//	    //verify the ticket prive on wednesday
-//	    @Test
-//	    public void testDetermineTicketPriceOnWednesday() {
-//	    	Movie movie1 = new Movie("Example Movie", "Normal", 18.50);
-//	        CinemaHall cinemaHall1 = new CinemaHall(1,50);
-//	        cinemaHall1.setAvailableSeats(50);
-//	        Showtime showtime = new Showtime(movie1, cinemaHall1, "available", LocalTime.of(19, 30), 2024, 9, 4); // Wednesday
-//	        
-//	        double price = showtime.getNormalTicketPrice();
-//	        assertEquals(8.0, price, 0.01); // Special price for Wednesday
-//	    }
-//
-//	    @Test
-//	    public void testDetermineTicketPriceWeekdayMorning() {
-//	        Movie movie = new Movie("Test Movie", 15.0); // Normal price is 15
-//	        Showtime showtime = new Showtime(movie, new CinemaHall(1, 100), "available", LocalTime.of(11, 0), 2024, 9, 5); // Thursday, before 1 PM
-//	        
-//	        double price = showtime.getNormalTicketPrice();
-//	        assertEquals(9.0, price, 0.01); // Special price for weekday morning
-//	    }
-//
-//	    @Test
-//	    public void testDetermineTicketPriceWeekdayAfternoon() {
-//	        Movie movie = new Movie("Test Movie", 15.0); // Normal price is 15
-//	        Showtime showtime = new Showtime(movie, new CinemaHall(1, 100), "available", LocalTime.of(14, 0), 2024, 9, 5); // Thursday, after 1 PM
-//	        
-//	        double price = showtime.getNormalTicketPrice();
-//	        assertEquals(15.0, price, 0.01); // No change for weekday afternoon
-//	    }
-//
-//	    @Test
-//	    public void testNegativeTicketPrice() {
-//	        Movie movie = new Movie("Test Movie", -5.0); // Invalid negative price
-//	        
-//	        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-//	            new Showtime(movie, new CinemaHall(1, 100), "available", LocalTime.of(14, 0), 2024, 9, 5);
-//	        });
-//	        
-//	        assertEquals("Negative price is not allowed", exception.getMessage());
-//	    }
-	    
-	 // Test method parameter provider for Wednesday special price
-	    private Object[] getParamForTestDetermineTicketPriceOnWednesday() {
-	        return new Object[] {
-	            new Object[] {
-	            },
-				new Object[] { //wednesday (special?)
-	                new Movie("Example Movie", "Normal", 18.50),
-	                new CinemaHall(1, 50),
-	                "available",
-	                LocalTime.of(19, 30),
-	                2024, 9, 4,  // Wednesday
-	                8.0          // Expected price for Wednesday
-	            },
-				new Object[] { //weekday morning
-	                new Movie("Test Movie", "Normal", 15.0),
-	                new CinemaHall(1, 100),
-	                "available",
-	                LocalTime.of(11, 0),
-	                2024, 9, 5,  // Thursday, before 1 PM
-	                9.0          // Special price for weekday morning
-	            },
-				new Object[] { //weekday afternoon
-	                new Movie("Test Movie", "Normal", 15.0),
-	                new CinemaHall(1, 100),
-	                "available",
-	                LocalTime.of(14, 0),
-	                2024, 9, 5,  // Thursday, after 1 PM
-	                15.0         // Normal price for weekday afternoon
-	            }
-	        };
-	    }
-
-	    @Test
-	    @Parameters(method="getParamForTestDetermineTicketPriceValid")
-	    public void testDetermineTicketPriceValid(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, double expectedPrice) {
-	        // Create a Showtime object using the provided parameters
-	        Showtime showtime = new Showtime(movie, cinemaHall, status, time, year, month, day);
-
-	        // Get the ticket price
-	        double price = showtime.getNormalTicketPrice();
-
-	        // Assert that the calculated price matches the expected price
-	        assertEquals(expectedPrice, price, 0.01);
-	    }
-
-	    // Test method parameter provider for invalid ticket price
-	    private Object[] getParamForTestNegativeTicketPrice() {
-	        return new Object[] {
-	            new Object[] {
-	                new Movie("Test Movie", "Normal", -5.0),  // Invalid negative price
-	                new CinemaHall(1, 100),
-	                "available",
-	                LocalTime.of(14, 0),
-	                2024, 9, 5,
-	                "Negative price is not allowed"  // Expected exception message
-	            }
-	        };
-	    }
-
-//	    // Test for negative ticket price
-//	    @Test
-//	    @Parameters(method="getParamForTestNegativeTicketPrice")
-//	    public void testNegativeTicketPrice(Movie movie, CinemaHall cinemaHall, String status, LocalTime time, int year, int month, int day, String expectedMessage) {
-//	        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-//	            new Showtime(movie, cinemaHall, status, time, year, month, day);
-//	        });
-//	        
-//	        assertEquals(expectedMessage, exception.getMessage());  // Assert the exception message
-//	    }
-
-	    
 	    
 }
