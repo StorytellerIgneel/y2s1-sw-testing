@@ -67,20 +67,62 @@ public class ShowtimeTest {
 	//ST_TC1_V001
     private Object[] getParamForCreateShowtimeValid() {
         return new Object[] {
-            new Object[] {"Example Movie", "Normal", 18.50},	// Valid title
-            new Object[] {"Example Movie", "Normal", 18.50},	// Valid "Normal" category movie
-            new Object[] {"Example Movie", "3D", 18.50},		// Valid "3D" category movie
-            new Object[] {"Example Movie", "IMAX", 18.50},		// Valid "IMAX" category movie
-            new Object[] {"Example Movie", "IMAX", 0.01},		// BVA normalPrice 0.01
-            new Object[] {"Example Movie", "IMAX", 100},		// EP normalPrice 100
-            new Object[] {"Example1234", "Normal", 18.50},		// Valid alphanumeric title
+            new Object[] {1900,1,1},	// BVA year lower bound
+            new Object[] {2024,1,1},	// BVA year upper bound
+            new Object[] {1962,1,1},	// EP year
+            new Object[] {1962,1,1},	// BVA month lower bound
+            new Object[] {1962,12,1},	// BVA month upper bound
+            new Object[] {1962,1,1},	// BVA day lower bound
+            new Object[] {1962,1,31},	// BVA day upper bound at month with 31 days       
+            new Object[] {1962,4,30},	// BVA day upper bound at month with 30 days 
+            new Object[] {2023,2,28},	// BVA day upper bound at month with 28 days 
+            new Object[] {2024,2,29},	// BVA day upper bound at month with 29 days 
+            new Object[] {1962,1,15},	// EP day 
         };
     }
     @Test
     @Parameters(method="getParamForCreateShowtimeValid")
-    public void testCreateShowtime() {
-    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
-     assertNotNull(showtime);
+    public void testCreateShowtime(int year, int month, int day) {
+    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, year,month,day);
+    	assertNotNull(showtime);
+    	assertEquals(year, showtime.getYear());
+        assertEquals(month, showtime.getMonth());
+        assertEquals(day, showtime.getDay());
+        assertEquals(time, showtime.getTime());
+        assertEquals(mockMovie, showtime.getMovie());
+        assertEquals(mockHallNumber, showtime.getHallNumber());
+    }
+    
+    //ST_TC1_INV001
+    private Object[] getParamForCreateShowtimeInvalid() {
+        return new Object[] {
+            new Object[] {1899,1,1},	// BVA year lower bound
+            new Object[] {2025,1,1},	// BVA year upper bound
+            new Object[] {100,1,1},		// EP year
+            new Object[] {3000,1,1},	// EP year
+            new Object[] {1962,0,1},	// BVA month lower bound
+            new Object[] {1962,13,1},	// BVA month upper bound
+            new Object[] {1962,1,0},	// BVA day lower bound
+            new Object[] {1962,1,32},	// BVA day upper bound at month with 31 days       
+            new Object[] {1962,4,31},	// BVA day upper bound at month with 30 days 
+            new Object[] {2023,2,29},	// BVA day upper bound at month with 28 days 
+            new Object[] {2024,2,30},	// BVA day upper bound at month with 29 days 
+            new Object[] {1962,1,-100},	// EP day 
+            new Object[] {1962,1,100},	// EP day 
+
+        };
+    }
+	@Test(expected = IllegalArgumentException.class)
+    @Parameters(method="getParamForCreateShowtimeInvalid")
+    public void testCreateShowtimeInvalid(int year, int month, int day) {
+    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, year,month,day);
+    	assertNotNull(showtime);
+    	assertEquals(year, showtime.getYear());
+        assertEquals(month, showtime.getMonth());
+        assertEquals(day, showtime.getDay());
+        assertEquals(time, showtime.getTime());
+        assertEquals(mockMovie, showtime.getMovie());
+        assertEquals(mockHallNumber, showtime.getHallNumber());
     }
 	    
 	//ST_TC2_V001
@@ -233,10 +275,10 @@ public class ShowtimeTest {
 				"10,2024,9,13,19,10",	//EP hour after 1pm + Friday
 				"10,2024,9,13,6,9",		//EP hour before 1 pm + Friday
 				
-				"10,2024,9,16,12,9",	//BVA hour before 1pm + Monday
-				"10,2024,9,16,14,10",	//BVA hour after 1 pm Monday
-				"10,2024,9,16,19,10",	//EP hour after 1pm + Monday
-				"10,2024,9,16,6,9",		//EP hour before 1 pm + Monday
+				"10,2024,9,23,12,9",	//BVA hour before 1pm + Monday
+				"10,2024,9,23,14,10",	//BVA hour after 1 pm Monday
+				"10,2024,9,23,19,10",	//EP hour after 1pm + Monday
+				"10,2024,9,23,6,9",		//EP hour before 1 pm + Monday
 				
 				"10,2024,9,17,12,9",	//BVA hour before 1pm + Tuesday
 				"10,2024,9,17,14,10",	//BVA hour after 1 pm Tuesday
