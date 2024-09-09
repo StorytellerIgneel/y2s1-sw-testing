@@ -77,41 +77,32 @@ public class MovieTest {
     }
 
     //MVE_TC3_V001
-    //test method for gettTitle 
+    //test method for getTitle and setTitle
     @Test
     @Parameters("Example Movie, Example Movie")
-    public void getTitleTest(String title, String ER){
-        Movie movieSpy = spy(new Movie());
-        // Use reflection to set the private field 'title'
-        try {
-            Field titleField = Movie.class.getDeclaredField("title");
-            titleField.setAccessible(true);  // Make the field accessible to manipulate it
-        
-            titleField.set(movieSpy, title);  // Set the value for the specific instance (movieSpy)
-        
-            titleField.setAccessible(false);  // Optionally, set it back to inaccessible
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();  // Handle the exception appropriately
-        }
-        assertEquals(ER, movieSpy.getTitle());
+    public void setTitleTest(String title, String ER){
+        // Arrange
+        Movie movie = new Movie();
+        movie.setTitle(title);
+        assertEquals(ER, movie.getTitle());
     }
 
     //MVE_TC4_V001
-    //test method for getNormalPrice 
+    //test method for getNormalPrice and setNormalPrice
     @Test
     @Parameters("18.50, 18.50")
-    public void getNormalPriceTest(double normalPrice, double ER){
+    public void setNormalPriceTest(double normalPrice, double ER){
         // Arrange
         Movie movie = new Movie();
-
+        movie.setNormalPrice(normalPrice);
         assertEquals(ER, movie.getNormalPrice(), 0.0);
     }
 
     //MVE_TC5_V001
-    //test method for getCategory
+    //test method for getCategory and setCategory
     @Test
     @Parameters("Normal, Normal")
-    public void getCategoryTest(String category, String ER){
+    public void setCategoryTest(String category, String ER){
         // Arrange
         Movie movie = new Movie();
         movie.setCategory(category);
@@ -150,7 +141,7 @@ public class MovieTest {
 
     
     //MVE_TC7_V001
-    //Test method for setCategory valid
+    //Test method for setCategory invalid
     @Test
     @Parameters({
     	"3D,3D",
@@ -233,3 +224,4 @@ public class MovieTest {
         assertEquals(ER, movie.isExpensive());
     }
 }
+
