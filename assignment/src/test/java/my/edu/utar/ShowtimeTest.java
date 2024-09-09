@@ -229,10 +229,10 @@ public class ShowtimeTest {
 				"10,2024,9,13,19,10",	//EP hour after 1pm + Friday
 				"10,2024,9,13,6,9",		//EP hour before 1 pm + Friday
 				
-				"10,2024,9,16,12,9",	//BVA hour before 1pm + Monday
-				"10,2024,9,16,14,10",	//BVA hour after 1 pm Monday
-				"10,2024,9,16,19,10",	//EP hour after 1pm + Monday
-				"10,2024,9,16,6,9",		//EP hour before 1 pm + Monday
+				"10,2024,9,23,12,9",	//BVA hour before 1pm + Monday
+				"10,2024,9,23,14,10",	//BVA hour after 1 pm Monday
+				"10,2024,9,23,19,10",	//EP hour after 1pm + Monday
+				"10,2024,9,23,6,9",		//EP hour before 1 pm + Monday
 				
 				"10,2024,9,17,12,9",	//BVA hour before 1pm + Tuesday
 				"10,2024,9,17,14,10",	//BVA hour after 1 pm Tuesday
@@ -249,6 +249,10 @@ public class ShowtimeTest {
 				"10,2024,9,14,19,12",	//EP Saturday
 				"10,2024,9,15,19,12",	//EP Sunday
 				"10,2024,9,18,19,8",	//EP Wednesday
+				
+				// Non-Saturday/Sunday public holidays in 2024
+				"10,2024,1,1,12,12",	// New Year's Day
+				"10,2024,12,25,14,12"	// Christmas Day
 				
 			})
 	public void testDetermineTicketPrice(double price, 
