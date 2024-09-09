@@ -65,6 +65,8 @@ public class CinemaHall {
     }
 
     public void setAvailableSeats (int number) {
+        if (number <= 0)
+            throw new IllegalArgumentException("Negative value passed for avaiable seats");
         this.availableSeats = number;
     }
 

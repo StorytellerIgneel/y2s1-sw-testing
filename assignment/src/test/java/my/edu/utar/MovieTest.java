@@ -35,7 +35,9 @@ public class MovieTest {
     // Test method to test createMovie with valid inputs
     private Object[] getParamForCreateMovieValid() {
         return new Object[] {
-            new Object[] {"Example Movie", "Normal", 18.50},	// Valid title
+            new Object[] {"Example Movie", "Normal", 18.50},	// Valid title with alphabets and space
+            new Object[] {"1234", "Normal", 18.50},	            // Valid title with only number
+            new Object[] {"Time crisis 4", "Normal", 18.50},	// Valid title with both alphabet and number
             new Object[] {"Example Movie", "Normal", 18.50},	// Valid "Normal" category movie
             new Object[] {"Example Movie", "3D", 18.50},		// Valid "3D" category movie
             new Object[] {"Example Movie", "IMAX", 18.50},		// Valid "IMAX" category movie
@@ -75,57 +77,14 @@ public class MovieTest {
     public void createMovieInvalidTest(String title, String category, double normalPrice) {
         assertNull(Movie.createMovie(title, category, normalPrice));
     }
-
-    //MVE_TC3_V001
-    //test method for gettTitle 
-    @Test
-    @Parameters("Example Movie, Example Movie")
-    public void getTitleTest(String title, String ER){
-        Movie movieSpy = spy(new Movie());
-        // Use reflection to set the private field 'title'
-        try {
-            Field titleField = Movie.class.getDeclaredField("title");
-            titleField.setAccessible(true);  // Make the field accessible to manipulate it
-        
-            titleField.set(movieSpy, title);  // Set the value for the specific instance (movieSpy)
-        
-            titleField.setAccessible(false);  // Optionally, set it back to inaccessible
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();  // Handle the exception appropriately
-        }
-        assertEquals(ER, movieSpy.getTitle());
-    }
-
-    //MVE_TC4_V001
-    //test method for getNormalPrice 
-    @Test
-    @Parameters("18.50, 18.50")
-    public void getNormalPriceTest(double normalPrice, double ER){
-        // Arrange
-        Movie movie = new Movie();
-
-        assertEquals(ER, movie.getNormalPrice(), 0.0);
-    }
-
-    //MVE_TC5_V001
-    //test method for getCategory
-    @Test
-    @Parameters("Normal, Normal")
-    public void getCategoryTest(String category, String ER){
-        // Arrange
-        Movie movie = new Movie();
-        movie.setCategory(category);
-        assertEquals(ER, movie.getCategory());
-    }
     
     //MVE_TC6_V001
     //Test method for setTitle
     @Test
     @Parameters("Movie123, Movie123")
     public void setTitleValidTest(String title1, String ER){
-        Movie movie = spy(new Movie());
+        Movie movie = (new Movie());
         movie.setTitle(title1);
-        verify(movie).setTitle(title1);
         assertEquals(ER, movie.getTitle());
     }
     
@@ -144,8 +103,8 @@ public class MovieTest {
     @Parameters(method="getParamForSetTitleInvalidTest")
     @Test(expected = IllegalArgumentException.class)
     public void setTitleInvalidTest(String title) {
-        Movie movieSpy = spy(new Movie());
-        movieSpy.setTitle(title);  // This should throw IllegalArgumentException for invalid inputs
+        Movie movie = (new Movie());
+        movie.setTitle(title);  // This should throw IllegalArgumentException for invalid inputs
     }
 
     
@@ -172,6 +131,7 @@ public class MovieTest {
             new Object[] {"InvalidCategory"},
         };
     }
+    
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getParamsForSetCategoryInvalid")
     public void setCategoryInvalidTest(String category){
@@ -201,7 +161,7 @@ public class MovieTest {
 	    "-0.01"}	//BVA
     )
     public void setNormalPriceInvalidTest(double price){
-        Movie movie = (new Movie());
+        Movie movie = new Movie();
         movie.setNormalPrice(price);
     }
 

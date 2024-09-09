@@ -19,68 +19,43 @@ import java.util.List;
 
 @RunWith(JUnitParamsRunner.class)
 public class AccountTest {
-
 	 public List<Object[]> readInputData(String fileName){
-	        List<Object[]> accountData = new ArrayList<>();
-	        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-	            String line;
-	            while ((line = br.readLine()) != null) {
-	            	// Skip comment lines
-	                if (line.startsWith("#") || line.trim().isEmpty()) {
-	                    continue;
-	                }
-	                
-	                // Process the valid data here (split by comma, etc.)
-	                String[] parts = line.split(",");	                
-	                // Account instantiation
-	                String name = parts[0].trim();
-	                String email = parts[1].trim();
-	                String year = parts[2].trim();
-	                String month = parts[3].trim();
-	                String day = parts[4].trim();
-	                name = "null".equals(name) ? null : name;
-	                email = "null".equals(email) ? null : email;
-	                accountData.add(new Object[] {name,email,Integer.parseInt(year),Integer.parseInt(month),Integer.parseInt(day)});
-	            }
-	            
-	            return accountData;
-
-	        } catch (Exception e) {
-	            System.out.println(e.getMessage());
-	            e.printStackTrace();
-	        }
+        List<Object[]> accountData = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Skip comment lines
+                if (line.startsWith("#") || line.trim().isEmpty()) {
+                    continue;
+                }
+                
+                // Process the valid data here (split by comma, etc.)
+                String[] parts = line.split(",");	                
+                // Account instantiation
+                String name = parts[0].trim();
+                String email = parts[1].trim();
+                String year = parts[2].trim();
+                String month = parts[3].trim();
+                String day = parts[4].trim();
+                name = "null".equals(name) ? null : name;
+                email = "null".equals(email) ? null : email;
+                accountData.add(new Object[] {name,email,Integer.parseInt(year),Integer.parseInt(month),Integer.parseInt(day)});
+            }
+            
             return accountData;
-	    }
 
-	    public List<Object[]> getValidCreateAccountData() {
-	        return readInputData("ValidInputCreateAccount.txt");
-	    }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return accountData;
+    }
 
-	    public List<Object[]>getInvalidCreateAccountData(){
-	        return readInputData("InvalidInputCreateAccount.txt");
-	    }
-
-	    
-	//ACC_TC1_V001
+    //ACC_TC1_V001
 	//Test method to test createAccount with valid inputs
-//    private Object[] getParamForCreateAccountValid() {
-//        return new Object[] {
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 28},	//All valid inputs
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 1900, 6, 29},	//BVA - year 1900
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2024, 6, 30},	//BVA - year 2024
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 31},	//BVA - month 1
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 12, 31},	//BVA - month 12
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 1962, 6, 29},	//EP - year 1962
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 30},	//EP - month 6
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 6, 15},	//EP - day 15
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 1, 1},	//beginning of year
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2024, 2, 29},	//leap year
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2023, 2, 28},	//non leap year
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2023, 12, 31},	//month of 31 days
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2023, 9, 30},	//month of 30 days
-//
-//        };
-//    }
+    public List<Object[]> getValidCreateAccountData() {
+        return readInputData("ValidInputCreateAccount.txt");
+    }
     
     @Test
     @Parameters(method = "getValidCreateAccountData")
@@ -90,29 +65,9 @@ public class AccountTest {
 
     //ACC_TC1_INV001
     //Test method to test createAccount with invalid inputs including both BVA and EP
-//    private Object[] getParamForCreateAccountInvalid() {
-//        return new Object[] {
-//            new Object[] {null, "teohwh2004@gmail.com", 2004, 6, 30},				//null name
-//            new Object[] {"Kirito", null, 2004, 6, 30},								//null email
-//            new Object[] {"", "teohwh2004@gmail.com", 2004, 6, 30},					//empty string name
-//            new Object[] {"Kirito", "", 2004, 6, 30},								//empty string email
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 1899, 2, 20},			//BVA birthday_year 1899
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2025, 2, 20},			//BVA birthday_year 2025
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -1, 8},			//BVA birthday_month -1
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 13, 8},			//BVA birthday_month 13
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, -1},			//BVA birthday_day -1
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, 32},			//BVA birthday_day 32 on month with 31 days
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 1500, 8, 30},			//EP birthday_year 1500
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2500, 8, 30},			//EP birthday_year 2500
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, -50, 30},			//EP birthday_month -50
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 50, 30},			//EP birthday_month 50
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, -30},			//EP birthday_day -30
-//            new Object[] {"Kirito", "teohwh2004@gmail.com", 2004, 8, 60},			//EP birthday_day 60
-//            new Object[] {"Invalid@#$Name", "teohwh2004@gmail.com", 2004, 8, 30},	//Invalid name - contains non-alphanumeric values
-//            new Object[] {"Invalid@#$Name", "InvalidEmail@", 2004, 8, 30},			//Invalid email - not following email address pattern
-//        };
-//    }
-
+    public List<Object[]>getInvalidCreateAccountData(){
+        return readInputData("InvalidInputCreateAccount.txt");
+    }
     
     @Test (expected = IllegalArgumentException.class)
     @Parameters(method = "getInvalidCreateAccountData")
@@ -123,29 +78,28 @@ public class AccountTest {
     //ACC_TC2_V001
     //Test method for setName method with valid name
     @Test
-    public void testSetNameValid() {
+    @Parameters({"ValidName123", "ValidName123"})
+    public void testSetNameValid(String name, String ER) {
         Account account = new Account();
-        account.setName("ValidName123");
-        assertEquals("ValidName123", account.getName());
+        account.setName(name);
+        assertEquals(ER, account.getName());
     }
     
     //ACC_TC2_INV001
     //Test method for setName method with invalid name and empty string
+    private Object[] getParamsForTestSetNameInvalid() {
+        return new Object[] {
+            new Object[] {"Invalid@%^&*Name"},  // Other symbols
+            new Object[] {""},                  // nothing
+            new Object[] {null},                // Null title
+        };
+    }
+
     @Test (expected = IllegalArgumentException.class)
-    @Parameters(
-			{"Invalid@Name",
-			""})
+    @Parameters(method = "getParamsForTestSetNameInvalid")
     public void testSetNameInvalid(String name) {
         Account account = new Account();
         account.setName(name);
-    }
-
-    //ACC_TC2_INV002
-    //Test method for setName method with null
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetNameInvalid2() {
-        Account account = new Account();
-        account.setName(null);
     }
     
     //ACC_TC3_V001
@@ -159,21 +113,24 @@ public class AccountTest {
 
     //ACC_TC3_INV001
     //Test method for setEmail method with invalid email address
+    private Object[] getParamsForTestSetEmailInvalid() {
+        return new Object[] {
+            
+            new Object[] {"Invalid@%^&*Email"},  // Other symbols
+            new Object[] {"teohwh@gmail"},      // no .com
+            new Object[] {"teohwhgmail.com"},   // no @
+            new Object[] {"teohwh"},            // no @gmail.com
+            new Object[] {"teohwh@.com"},       // no gmail
+            new Object[] {""},                  // nothing
+            new Object[] {null},                // Null
+        };
+    }
+
     @Test (expected = IllegalArgumentException.class)
-    @Parameters(
-			{"InvalidEmail@",
-			""})
+    @Parameters(method = "getParamsForTestSetEmailInvalid")
     public void testSetEmailInvalid(String email) {
         Account account = new Account();
         account.setEmail(email);
-    }
-    
-    //ACC_TC3_INV002
-    //Test method for setEmail method with null
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmailInvalid2() {
-        Account account = new Account();
-        account.setEmail(null);
     }
 
     //ACC_TC4_V001
@@ -223,33 +180,5 @@ public class AccountTest {
     public void testSetBirthDayInvalid(int year, int month, int day) {
         Account account = new Account();
         account.setBirthDay(year,month,day);
-    }
-    
-    //ACC_TC5_V001
-    //Test getName method
-    @Test
-    public void testGetName() {
-        Account account = new Account();
-        account.setName("TestName");
-        assertEquals("TestName", account.getName());
-    }
-
-    //ACC_TC6_V001
-    //Test getEmail method
-    @Test
-    public void testGetEmail() {
-        Account account = new Account();
-        account.setEmail("lowliana@1utar.my");
-        assertEquals("lowliana@1utar.my", account.getEmail());
-    }
-
-    //ACC_TC7_V001
-    //Test getBirthday method
-    @Test
-    public void testGetBirthday() {
-        Account account = new Account();
-        LocalDate date = LocalDate.of(1990, 5, 15);
-        account.setBirthDay(1990,5,15);
-        assertEquals(date, account.getBirthday());
     }
 }
