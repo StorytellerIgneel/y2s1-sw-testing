@@ -102,19 +102,9 @@ public class MovieTest {
     @Parameters("18.50, 18.50")
     public void getNormalPriceTest(double normalPrice, double ER){
         // Arrange
-        Movie movieSpy = spy(new Movie());
-        // Use reflection to set the private field 'title'
-        try {
-            Field titleField = Movie.class.getDeclaredField("normalPrice");
-            titleField.setAccessible(true);  // Make the field accessible to manipulate it
-        
-            titleField.set(movieSpy, normalPrice);  // Set the value for the specific instance (movieSpy)
-        
-            titleField.setAccessible(false);  // Optionally, set it back to inaccessible
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();  // Handle the exception appropriately
-        }
-        assertEquals(ER, movieSpy.getNormalPrice(), 0.0);
+        Movie movie = new Movie();
+
+        assertEquals(ER, movie.getNormalPrice(), 0.0);
     }
 
     //MVE_TC5_V001
@@ -123,19 +113,9 @@ public class MovieTest {
     @Parameters("Normal, Normal")
     public void getCategoryTest(String category, String ER){
         // Arrange
-        Movie movieSpy = spy(new Movie());
-        // Use reflection to set the private field 'title'
-        try {
-            Field titleField = Movie.class.getDeclaredField("category");
-            titleField.setAccessible(true);  // Make the field accessible to manipulate it
-        
-            titleField.set(movieSpy, category);  // Set the value for the specific instance (movieSpy)
-        
-            titleField.setAccessible(false);  // Optionally, set it back to inaccessible
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();  // Handle the exception appropriately
-        }
-        assertEquals(ER, movieSpy.getCategory());
+        Movie movie = new Movie();
+        movie.setCategory(category);
+        assertEquals(ER, movie.getCategory());
     }
     
     //MVE_TC6_V001
@@ -143,10 +123,10 @@ public class MovieTest {
     @Test
     @Parameters("Movie123, Movie123")
     public void setTitleValidTest(String title1, String ER){
-        Movie movieSpy = spy(new Movie());
-        movieSpy.setTitle(title1);
-        verify(movieSpy).setTitle(title1);
-        assertEquals(ER, movieSpy.getTitle());
+        Movie movie = spy(new Movie());
+        movie.setTitle(title1);
+        verify(movie).setTitle(title1);
+        assertEquals(ER, movie.getTitle());
     }
     
     //MVE_TC6_INV001
@@ -184,15 +164,18 @@ public class MovieTest {
     }
 
     //MVE_TC7_INV001
-    //Test method for setCategoryInvalid
-    @Test(expected = IllegalArgumentException.class)
-    @Parameters({
-        "null", 
-        "", 
-        "InvalidCategory"
-    })
-    public void setCategoryInvalidTest(String category) {
-        Movie movie = new Movie();
+    //Test method for setCategory valid
+    private Object[] getParamsForSetCategoryInvalid() {
+        return new Object[] {
+            new Object[] {null},
+            new Object[] {" "},
+            new Object[] {"InvalidCategory"},
+        };
+    }
+    @Test (expected = IllegalArgumentException.class)
+    @Parameters(method = "getParamsForSetCategoryInvalid")
+    public void setCategoryInvalidTest(String category){
+    	Movie movie = (new Movie());
         movie.setCategory(category);
     }
 

@@ -1,4 +1,4 @@
-package my.edu.utar;
+    package my.edu.utar;
 
 
 import java.time.DateTimeException;
@@ -223,9 +223,6 @@ public class Showtime {
         return normalTicketPrice;
     }
 
-
-
-
     public boolean showtimeAvailable(int totalTicketQuantity){
     	if(totalTicketQuantity < 0)
     		throw new IllegalArgumentException("Invalid totalTicketQuantity");
@@ -243,5 +240,3 @@ public class Showtime {
             return false; 
     }
 }
-
-
