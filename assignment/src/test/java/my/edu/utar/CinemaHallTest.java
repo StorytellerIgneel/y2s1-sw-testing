@@ -22,7 +22,7 @@ public class CinemaHallTest {
     // CH_TC1_V001
     // Test method for CinemaHall constructor
     @Test
-    public void CinemaHallConstructorTest(){
+    public void testCinemaHallConstructor(){
         int hallNumber = 1;
         int seats = 50;
         CinemaHall cinemahall = new CinemaHall(hallNumber, seats);
