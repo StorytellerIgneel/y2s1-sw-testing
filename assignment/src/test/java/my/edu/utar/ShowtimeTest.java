@@ -1,33 +1,24 @@
 package my.edu.utar;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.Spy;
+import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
-import java.lang.reflect.Field;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class ShowtimeTest {
@@ -73,10 +64,64 @@ public class ShowtimeTest {
 	    }
 	 
 	//ST_TC1_V001
+    private Object[] getParamForCreateShowtimeValid() {
+        return new Object[] {
+            new Object[] {1900,1,1},	// BVA year lower bound
+            new Object[] {2024,1,1},	// BVA year upper bound
+            new Object[] {1962,1,1},	// EP year
+            new Object[] {1962,1,1},	// BVA month lower bound
+            new Object[] {1962,12,1},	// BVA month upper bound
+            new Object[] {1962,1,1},	// BVA day lower bound
+            new Object[] {1962,1,31},	// BVA day upper bound at month with 31 days       
+            new Object[] {1962,4,30},	// BVA day upper bound at month with 30 days 
+            new Object[] {2023,2,28},	// BVA day upper bound at month with 28 days 
+            new Object[] {2024,2,29},	// BVA day upper bound at month with 29 days 
+            new Object[] {1962,1,15},	// EP day 
+        };
+    }
     @Test
-    public void testCreateShowtime() {
-    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, 2000,1,1);
-     assertNotNull(showtime);
+    @Parameters(method="getParamForCreateShowtimeValid")
+    public void testCreateShowtime(int year, int month, int day) {
+    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, year,month,day);
+    	assertNotNull(showtime);
+    	assertEquals(year, showtime.getYear());
+        assertEquals(month, showtime.getMonth());
+        assertEquals(day, showtime.getDay());
+        assertEquals(time, showtime.getTime());
+        assertEquals(mockMovie, showtime.getMovie());
+        assertEquals(mockHallNumber, showtime.getHallNumber());
+    }
+    
+    //ST_TC1_INV001
+    private Object[] getParamForCreateShowtimeInvalid() {
+        return new Object[] {
+            new Object[] {1899,1,1},	// BVA year lower bound
+            new Object[] {2025,1,1},	// BVA year upper bound
+            new Object[] {100,1,1},		// EP year
+            new Object[] {3000,1,1},	// EP year
+            new Object[] {1962,0,1},	// BVA month lower bound
+            new Object[] {1962,13,1},	// BVA month upper bound
+            new Object[] {1962,1,0},	// BVA day lower bound
+            new Object[] {1962,1,32},	// BVA day upper bound at month with 31 days       
+            new Object[] {1962,4,31},	// BVA day upper bound at month with 30 days 
+            new Object[] {2023,2,29},	// BVA day upper bound at month with 28 days 
+            new Object[] {2024,2,30},	// BVA day upper bound at month with 29 days 
+            new Object[] {1962,1,-100},	// EP day 
+            new Object[] {1962,1,100},	// EP day 
+
+        };
+    }
+	@Test(expected = IllegalArgumentException.class)
+    @Parameters(method="getParamForCreateShowtimeInvalid")
+    public void testCreateShowtimeInvalid(int year, int month, int day) {
+    	Showtime showtime = Showtime.createShowtime(mockMovie, mockHallNumber, time, year,month,day);
+    	assertNotNull(showtime);
+    	assertEquals(year, showtime.getYear());
+        assertEquals(month, showtime.getMonth());
+        assertEquals(day, showtime.getDay());
+        assertEquals(time, showtime.getTime());
+        assertEquals(mockMovie, showtime.getMovie());
+        assertEquals(mockHallNumber, showtime.getHallNumber());
     }
 	    
 	//ST_TC2_V001
@@ -229,10 +274,10 @@ public class ShowtimeTest {
 				"10,2024,9,13,19,10",	//EP hour after 1pm + Friday
 				"10,2024,9,13,6,9",		//EP hour before 1 pm + Friday
 				
-				"10,2024,9,16,12,9",	//BVA hour before 1pm + Monday
-				"10,2024,9,16,14,10",	//BVA hour after 1 pm Monday
-				"10,2024,9,16,19,10",	//EP hour after 1pm + Monday
-				"10,2024,9,16,6,9",		//EP hour before 1 pm + Monday
+				"10,2024,9,23,12,9",	//BVA hour before 1pm + Monday
+				"10,2024,9,23,14,10",	//BVA hour after 1 pm Monday
+				"10,2024,9,23,19,10",	//EP hour after 1pm + Monday
+				"10,2024,9,23,6,9",		//EP hour before 1 pm + Monday
 				
 				"10,2024,9,17,12,9",	//BVA hour before 1pm + Tuesday
 				"10,2024,9,17,14,10",	//BVA hour after 1 pm Tuesday
@@ -249,6 +294,10 @@ public class ShowtimeTest {
 				"10,2024,9,14,19,12",	//EP Saturday
 				"10,2024,9,15,19,12",	//EP Sunday
 				"10,2024,9,18,19,8",	//EP Wednesday
+
+				// Non-Saturday/Sunday public holidays in 2024
+				"10,2024,1,1,12,12",	// New Year's Day
+				"10,2024,12,25,14,12"	// Christmas Day
 				
 			})
 	public void testDetermineTicketPrice(double price, 
@@ -285,12 +334,11 @@ public class ShowtimeTest {
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters(
 			{
-				"-0.01,2024,9,19,12,9",	//BVA price less than 0
-				"-100,2024,9,19,12,9",	//EP price less than 0
+				"-0.01,2024,9,19,12",	//BVA price less than 0
+				"-100,2024,9,19,12",	//EP price less than 0
 			})
 	public void testDetermineTicketPriceInvalid(double price, 
-			int year, int month, int day, int hour, 
-			double ER) {
+			int year, int month, int day, int hour) {
 		// Create a spy for the Showtime class
 	    Showtime spyShowtime = Mockito.spy(new Showtime());
 

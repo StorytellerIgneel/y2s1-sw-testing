@@ -75,7 +75,7 @@ public class MovieTest {
     }
     
     
-    //MVE_TC6_V001
+    //MVE_TC3_V001
     //Test method for setTitle
     @Test
     @Parameters("Movie123, Movie123")
@@ -85,7 +85,7 @@ public class MovieTest {
         assertEquals(ER, movie.getTitle());
     }
     
-    //MVE_TC6_INV001
+    //MVE_TC3_INV001
     //Test method for setTitleInvalid
 	private Object[] getParamForSetTitleInvalidTest() {
         return new Object[] {
@@ -102,7 +102,7 @@ public class MovieTest {
     }
 
 
-  //MVE_TC7_V001
+  //MVE_TC4_V001
     //Test method for setCategory valid
     @Test
     @Parameters({
@@ -116,7 +116,7 @@ public class MovieTest {
         assertEquals(ER, movie.getCategory());
     }
     
-    //MVE_TC7_INV001
+    //MVE_TC4_INV001
     //Test method for setCategory invalid
     private Object[] getParamsForSetCategoryInvalid() {
         return new Object[] {
@@ -134,7 +134,7 @@ public class MovieTest {
     }
 
     
-    //MVE_TC8_V001
+    //MVE_TC5_V001
     //Test method for setNormalPrice valid
 	@Test
     @Parameters({	
@@ -147,7 +147,7 @@ public class MovieTest {
         assertEquals(ER, movie.getNormalPrice(),0.0);
     }
 	
-	//MVE_TC8_INV001
+	//MVE_TC5_INV001
     //Test method for setNormalPrice valid
     @Test (expected = IllegalArgumentException.class)
     @Parameters({	
@@ -159,7 +159,7 @@ public class MovieTest {
         movie.setNormalPrice(price);
     }
 
-    //MVE_TC9_V001
+    //MVE_TC6_V001
     //Test method for isExpensive valid
     private Object[] getParamsForIsExpensive(){
         return new Object[] {
@@ -168,7 +168,6 @@ public class MovieTest {
             new Object[] {"Normal", false},
         };
     }
-
     @Test
     @Parameters(method = "getParamsForIsExpensive")
     public void isExpensiveTest(String category, boolean ER){
@@ -177,7 +176,7 @@ public class MovieTest {
         assertEquals(ER, movieSpy.isExpensive());
     }
 
-    
+    //MVE_TC6_IT001
     //IT for IsExpensive
     @Test
     @Parameters(method = "getParamsForIsExpensive")
