@@ -71,12 +71,13 @@ public class ShowtimeTest {
             new Object[] {1962,1,1},	// EP year
             new Object[] {1962,1,1},	// BVA month lower bound
             new Object[] {1962,12,1},	// BVA month upper bound
+			new Object[] {1962,6,1},	// EP month
             new Object[] {1962,1,1},	// BVA day lower bound
             new Object[] {1962,1,31},	// BVA day upper bound at month with 31 days       
             new Object[] {1962,4,30},	// BVA day upper bound at month with 30 days 
             new Object[] {2023,2,28},	// BVA day upper bound at month with 28 days 
             new Object[] {2024,2,29},	// BVA day upper bound at month with 29 days 
-            new Object[] {1962,1,15},	// EP day 
+            new Object[] {1962,1,15}	// EP day 
         };
     }
     @Test
