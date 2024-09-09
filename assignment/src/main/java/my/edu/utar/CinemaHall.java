@@ -71,7 +71,7 @@ public class CinemaHall {
     }
 
     public boolean hallAvailable(int totalTicketQuantity){
-        ArrayList<String> rejectList = new ArrayList<>(Arrays.asList("Fully Booked", "Not Available", "under repair"));
+        ArrayList<String> rejectList = new ArrayList<>(Arrays.asList("Fully Booked", "Not Available", "Under Repair"));
         if (rejectList.contains(this.getHallStatus()))
             throw new IllegalArgumentException("Sorry, the hall is currently " + this.getHallStatus());
         else if (checkOversell(totalTicketQuantity))

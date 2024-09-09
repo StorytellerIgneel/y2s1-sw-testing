@@ -13,6 +13,8 @@ public class Account {
   private String email;
   private LocalDate birthday;
 
+  public Account(){}
+  
   // constructor
   public Account(String name, String email,  int year, int month, int day ) {
     this.name = name;

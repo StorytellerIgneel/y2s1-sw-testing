@@ -61,7 +61,7 @@ public class Showtime {
     }
 
 	public static Showtime createShowtime(Movie movie, CinemaHall hallNumber, LocalTime time, int year, int month, int day){
-        if (movie == null || hallNumber == null || time == null || date == null) {
+        if (movie == null || hallNumber == null || time == null) {
             throw new IllegalArgumentException("Null parameter passed");
         }
         isValidDate(year, month, day);

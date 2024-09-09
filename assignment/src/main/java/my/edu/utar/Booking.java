@@ -116,7 +116,7 @@ public class Booking {
     }
 
     public Showtime getShowtime() {
-            return showtime;
+        return showtime;
     }
 
     public void setShowtime(Showtime showtime) {

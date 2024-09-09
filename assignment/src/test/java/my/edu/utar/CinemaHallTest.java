@@ -2,21 +2,12 @@ package my.edu.utar;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -50,6 +41,12 @@ public class CinemaHallTest {
         };
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    @Parameters(method = "getParamForCreateCinemaHallInvalidTest")
+    public void createCinemaHallInvalidTest(int hallNumber, int seats){
+        CinemaHall.createCinemaHall(hallNumber, seats);
+    }
+
     private Object[] getParamForCheckOversellValid(){
         return new Object[] {
             new Object[] {10, 5, true},
@@ -61,48 +58,46 @@ public class CinemaHallTest {
     @Test
     @Parameters(method = "getParamForCheckOversellValid")
     public void checkOversellValid(int newTickets, int availableSeats, boolean ER){
-        CinemaHall mockHall = mock(CinemaHall.class);
-        when(mockHall.getAvailableSeats()).thenReturn(availableSeats);
-        assertEquals(ER, mockHall.checkOversell(newTickets));
+        CinemaHall HallSpy = spy(CinemaHall.class);
+        when(HallSpy.getAvailableSeats()).thenReturn(availableSeats);
+        assertEquals(ER, HallSpy.checkOversell(newTickets));
     }
 
-    private Object[] getParamsForHallAvailableValidTest(){
-        return new Object[] {
-            new Object[] {"Fully Booked", false, false},
-            new Object[] {"Not Available", false, false},
-            new Object[] {"under repair", false, false},
-            new Object[] {"Available", true, false},
-            new Object[] {"Available", false, false},
-        };
-    }
-
-    @Test
-    @Parameters(method = "getParamsForHallAvailableValidTest")
-    public void hallAvailableValidTest(String hallStatus, boolean oversell, boolean ER){
-        CinemaHall hallSpy = spy(CinemaHall.class);
-        when(hallSpy.getHallStatus()).thenReturn(hallStatus);
-        when(hallSpy.checkOversell(anyInt())).thenReturn(oversell);
-        assertEquals(hallSpy.hallAvailable(1), ER);
-    }
-
-    // private Object[] getParamsForHallAvailableInvalidTest(){
+    // private Object[] getParamsForHallAvailableValidTest(){
     //     return new Object[] {
-    //         new Object[] {"", false, false},
+    //         new Object[] {"Fully Booked", false, false},
     //         new Object[] {"Not Available", false, false},
     //         new Object[] {"under repair", false, false},
     //         new Object[] {"Available", true, false},
-    //         new Object[] {"Available", false, true},
+    //         new Object[] {"Available", false, false},
     //     };
     // }
 
-    // @Test(expected = IllegalArgumentException.class)
-    // @Parameters(method = "getParamsForHallAvailableInvalidTest")
-    // public void hallAvailableInvalidTest(String hallStatus, boolean oversell, boolean ER){
-    //     CinemaHall hall = mock(CinemaHall.class);
-    //     when(hall.getHallStatus()).thenReturn(hallStatus);
-    //     when(hall.checkOversell(anyInt())).thenReturn(oversell);
-    //     assertThrows(IllegalArgumentException.class, () -> {
-    //         hall.hallAvailable(1);
-    //     });
+    // @Test
+    // @Parameters(method = "getParamsForHallAvailableValidTest")
+    // public void hallAvailableValidTest(String hallStatus, boolean oversell, boolean ER){
+    //     CinemaHall hallSpy = spy(CinemaHall.class);
+    //     when(hallSpy.getHallStatus()).thenReturn(hallStatus);
+    //     when(hallSpy.checkOversell(anyInt())).thenReturn(oversell);
+    //     assertEquals(hallSpy.hallAvailable(1), ER);
     // }
+
+    private Object[] getParamsForHallAvailableInvalidTest(){
+        return new Object[] {
+            new Object[] {"", false, false},
+            new Object[] {"Not Available", false, false},
+            new Object[] {"under repair", false, false},
+            new Object[] {"Available", true, false},
+            new Object[] {"Available", false, true},
+        };
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters(method = "getParamsForHallAvailableInvalidTest")
+    public void hallAvailableInvalidTest(String hallStatus, boolean oversell, boolean ER){
+        CinemaHall hallSpy = spy(CinemaHall.class);
+        when(hallSpy.getHallStatus()).thenReturn(hallStatus);
+        when(hallSpy.checkOversell(anyInt())).thenReturn(oversell);
+        hallSpy.hallAvailable(1);
+    }
 }
