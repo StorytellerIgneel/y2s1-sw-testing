@@ -1,33 +1,24 @@
 package my.edu.utar;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.Spy;
+import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
-import java.lang.reflect.Field;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class ShowtimeTest {
@@ -289,12 +280,11 @@ public class ShowtimeTest {
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters(
 			{
-				"-0.01,2024,9,19,12,9",	//BVA price less than 0
-				"-100,2024,9,19,12,9",	//EP price less than 0
+				"-0.01,2024,9,19,12",	//BVA price less than 0
+				"-100,2024,9,19,12",	//EP price less than 0
 			})
 	public void testDetermineTicketPriceInvalid(double price, 
-			int year, int month, int day, int hour, 
-			double ER) {
+			int year, int month, int day, int hour) {
 		// Create a spy for the Showtime class
 	    Showtime spyShowtime = Mockito.spy(new Showtime());
 
