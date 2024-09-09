@@ -6,6 +6,7 @@ import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -948,27 +949,29 @@ public class BookingTest {
             assertEquals(ER, actualPaymentStatus);
 	    }
 
-//	    @Test
-//	    public void testUpdatePaymentStatus_UnsuccessfulPayment() {
-//	        String bookingID = booking.getBookingId();
-//	        String paymentStatus = "Payment Unsuccessful";
-//
-//	        // Define behavior of the mock Payment object
-//	        when(mockPayment.makePayment(bookingID, booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
-//
-//	        // Define behavior of the mock Email object
-//	        doNothing().when(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
-//
-//	        // Call the updatePaymentStatus method
-//	        String actualPaymentStatus = booking.updatePaymentStatus(bookingID, paymentStatus);
-//
-//	        // Verify the mock Payment and Email methods were called
-//	        verify(mockPayment).makePayment(bookingID, booking.getTotalPrice(), account.getEmail());
-//	        verify(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
-//
-//	        // Assert that the payment status is updated correctly
-//	        assertEquals(paymentStatus, actualPaymentStatus);
-//	    }
+	    @Test
+	    public void testUpdatePaymentStatus_UnsuccessfulPayment() {
+	        String bookingID = booking.getBookingId();
+	        String paymentStatus = "Payment Unsuccessful";
+	        
+	        // Define behavior of the mock Payment object
+	        when(mockPayment.makePayment(bookingID, booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
+
+	        // Define behavior of the mock Email object
+	        doNothing().when(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
+	        doReturn("Unse")
+	        // Call the updatePaymentStatus method
+	        String actualPaymentStatus = booking.updatePaymentStatus(bookingID, paymentStatus);
+
+	        // Verify the mock Payment and Email methods were called
+	        verify(mockPayment).makePayment(bookingID, booking.getTotalPrice(), account.getEmail());
+	        verify(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
+
+	        // Assert that the payment status is updated correctly
+	        assertEquals(paymentStatus, actualPaymentStatus);
+	    }
+	    
+	    
 
 }
 

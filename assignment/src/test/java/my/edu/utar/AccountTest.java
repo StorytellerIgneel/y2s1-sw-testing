@@ -78,7 +78,7 @@ public class AccountTest {
     //ACC_TC2_V001
     //Test method for setName method with valid name
     @Test
-    @Parameters({"ValidName123", "ValidName123"})
+    @Parameters("ValidName123,ValidName123")
     public void testSetNameValid(String name, String ER) {
         Account account = new Account();
         account.setName(name);

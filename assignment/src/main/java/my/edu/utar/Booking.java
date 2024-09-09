@@ -19,9 +19,23 @@ public class Booking {
     private int totalNumberOfSeats;
     private double totalPrice;
     private String status;
-    private String paymentStatus;
 
-//    public Booking(String bookingID, Account account, Movie movie, Showtime showtime, Payment paymentStatus,int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
+    public Booking(String bookingID, Account account, Movie movie, Showtime showtime,int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
+        this.bookingId = bookingID;
+        this.account = account;
+        this.movie = movie;
+        this.showtime = showtime;
+        this.quantityAdult = quantityAdult;
+        this.quantityChildren = quantityChildren;
+        this.quantityOKU = quantityOKU;
+        this.quantitySenior = quantitySenior;
+        this.quantityStudent = quantityStudent;
+        this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
+        this.totalPrice = calculateTotalPrice();
+        this.status = "Booked";
+    }
+	
+//    public Booking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
 //        this.bookingId = bookingID;
 //        this.account = account;
 //        this.movie = movie;
@@ -114,7 +128,7 @@ public class Booking {
         }
         if (userIsRegistered == false)
             throw new IllegalArgumentException("User not registered");
-        
+       
         return new Booking(bookingID, account, movie, showtime, quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
     }
 

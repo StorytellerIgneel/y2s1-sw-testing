@@ -556,7 +556,7 @@ public class ShowtimeTest {
       	"NotAvailable, Available, 1",//BVA ticket quantity is more than 0
       	"NotAvailable, Available, 100",//EP ticket quantity is more than 0
       	
-      //Hall not available, status is not in rejectList
+      	//Hall not available, status is not in rejectList
       	"Repair, Available, 1",
       	
       	//Hall not available, status is in rejectList
