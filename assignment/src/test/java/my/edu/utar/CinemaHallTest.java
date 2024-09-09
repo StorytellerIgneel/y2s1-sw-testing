@@ -2,10 +2,8 @@ package my.edu.utar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -144,8 +142,17 @@ public class CinemaHallTest {
             assertEquals("Invalid hall status", e.getMessage());
         }
     }
-
+    
     // CH_TC5_V001
+    // Test method for getAvailableSeats
+    @Test
+    public void testSetAvailableSeats() {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setAvailableSeats(120);
+        assertEquals(120, cinemaHall.getAvailableSeats());
+    }
+
+    // CH_TC6_V001
     // Test method for getSeats
     @Test
     public void testGetSeats() {
@@ -153,14 +160,6 @@ public class CinemaHallTest {
         assertEquals(120, cinemaHall.getSeats());
     }
 	
-    // CH_TC6_V001
-    // Test method for getAvailableSeats
-    @Test
-    public void testGetAvailableSeats() {
-        CinemaHall cinemaHall = new CinemaHall(3, 120);
-        assertEquals(120, cinemaHall.getAvailableSeats());
-    }
-
     // CH_TC7_V001
     // Test method for getBookedSeats
     @Test

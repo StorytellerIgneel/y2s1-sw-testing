@@ -64,6 +64,10 @@ public class CinemaHall {
         this.hallStatus = hallStatus;
     }
 
+    public void setAvailableSeats (int number) {
+        this.availableSeats = number;
+    }
+
     //Methods
     public boolean checkOversell(int newTickets){
         if (newTickets < 0)
