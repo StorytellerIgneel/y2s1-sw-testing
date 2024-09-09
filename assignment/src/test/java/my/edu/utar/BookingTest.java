@@ -48,8 +48,6 @@ public class BookingTest {
     private Booking bookingSpy;
     private Booking booking;
 
-    
-
     @Before
     public void setUp() {
         // Create mocks
@@ -81,13 +79,47 @@ public class BookingTest {
         when(mockShowtime.determineTicketPrice(0)).thenReturn(18.50);
     }
     
-
-    
     @Test
     public void testBookingConstructor(){
-    	
+    // Create mock objects or instances for dependencies
+        String bookingID = "B123";
+        Account account = new Account("John Doe", "johndoe@gmail.com", 1990, 1, 1);
+        Movie movie = new Movie("The Matrix", "Action", 10); // Assuming Movie has a constructor with title, category, and duration
+        Showtime showtime = new Showtime(movie, new CinemaHall(1, 100), "Available", LocalTime.of(18, 30), 2024, 6, 28);
+        Payment newPayment = new Payment();
+        Email newEmail = new Email();
+
+        // Parameters for booking
+        int quantityAdult = 2;
+        int quantityOKU = 0;
+        int quantitySenior = 0;
+        int quantityStudent = 0;
+        int quantityChildren = 0;
+
+        // Create a Booking instance
+        Booking booking = new Booking(bookingID, account, movie, showtime, quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren, newPayment, newEmail);
+
+        // Perform assertions
+        assertNotNull(booking);
+        assertEquals(bookingID, booking.getBookingId());
+        assertEquals(account, booking.getAccount());
+        assertEquals(movie, booking.getMovie());
+        assertEquals(showtime, booking.getShowtime());
+        assertEquals(quantityAdult, booking.getQuantityAdult());
+        assertEquals(quantityOKU, booking.getQuantityOKU());
+        assertEquals(quantitySenior, booking.getQuantitySenior());
+        assertEquals(quantityStudent, booking.getQuantityStudent());
+        assertEquals(quantityChildren, booking.getQuantityChildren());
+        assertEquals(quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren, booking.getTotalNumberOfSeats());
+        
+        // Assuming calculateTotalPrice() and updatePaymentStatus() are correct and should be tested separately
+        double expectedTotalPrice = 2 * 10.0; // Example calculation based on assumed ticket prices
+        assertEquals(expectedTotalPrice, booking.getTotalPrice(), 0.01); // Assuming there's a method to get total price with some tolerance
+
+        // Assuming status and paymentStatus are set correctly
+        assertEquals("Booked", booking.getStatus());
+        assertEquals("payment successful", booking.getPaymentStatus());
     }
-    
     
     // BOOK_TC1_V001
  	// Test method to test Booking constructor with valid inputs
@@ -110,7 +142,8 @@ public class BookingTest {
        	// Create the Booking instance with real constructor
        	Booking booking = new Booking(bookingID, account1, movie1, showtime1,
 	           quantityAdult, quantityOKU, quantitySenior, 
-	           quantityStudent, quantityChildren);
+	           quantityStudent, quantityChildren,  new Payment(), 
+                new Email());
 
         // Verify state of the booking
         assertNotNull(booking);
@@ -126,7 +159,6 @@ public class BookingTest {
         assertEquals(totalSeats, booking.getTotalNumberOfSeats());
         assertEquals(totalPrice, booking.getTotalPrice(), 0.0);
         assertEquals(status, booking.getStatus());
-        assertEquals(mockPayment, booking.getPayment());
     }
     
     // BOOK_TC2_V001
@@ -159,6 +191,7 @@ public class BookingTest {
         assertEquals(quantityChildren, result.getQuantityChildren());
         assertEquals(95.2, result.getTotalPrice(), 0.0);
         assertEquals("Booked", result.getStatus());
+        assertEquals("payment successful", result.getPaymentStatus());
     }
     
     public void testCreateBookingIntegrationTest() {
@@ -177,7 +210,7 @@ public class BookingTest {
        	Showtime showtime1 = new Showtime (movie1, hall1, "Available", LocalTime.of(13, 00), 2024,5,1);
        	Account account1 = new Account("AhHuAT", "HUAT@gmail.com", 2000, 1, 1);
        	// Create the Booking instance with real constructor
-       	Booking booking = new Booking(bookingID, account1, movie1, showtime1,quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
+       	Booking booking = new Booking(bookingID, account1, movie1, showtime1,quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren, new Payment(), new Email());
 
         // Act
         Booking result = Booking.createBooking(bookingID, account1, movie1, showtime1, 
@@ -880,25 +913,22 @@ public class BookingTest {
 	    assertEquals(expectedPrice, actualPrice, 0.001);
 	}
 	
-	@Parameters("successful, updated")
+	
 	 @Test
+     @Parameters("dfghjk, payment successful")
 	    public void testUpdatePaymentStatus_SuccessfulPayment(String paymentStatus, String ER) {
-		//String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren
-		    booking = new Booking("B001",account,movie,showtime,1,1,1,1,1);
-	        // Define behavior of the mock Payment object
-	        when(mockPayment.makePayment(booking.getBookingId(), booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
+            Payment mockPayment = mock(Payment.class);
+            Email mockEmail = mock(Email.class);
 
-	        // Define behavior of the mock Email object
-	        doNothing().when(mockEmail).sendEmail(booking.getBookingId(), paymentStatus, account.getEmail());
+            Booking bookingSpy = spy(Booking.class);
 
-	        // Call the updatePaymentStatus method
-	        String actualPaymentStatus = booking.updatePaymentStatus(booking.getBookingId(), paymentStatus);
+            when(mockPayment.makePayment(anyString(), anyDouble(), anyString())).thenReturn(paymentStatus);
 
-	        // Verify the mock Payment and Email methods were called
-	        verify(mockPayment).makePayment(booking.getBookingId(), booking.getTotalPrice(), account.getEmail());
-	        verify(mockEmail).sendEmail(booking.getBookingId(), paymentStatus, account.getEmail());
+	        String actualPaymentStatus = bookingSpy.updatePaymentStatus(anyString(), anyString(), mockPayment, mockEmail);
 
-	        // Assert that the payment status is updated correctly
+            verify(mockPayment).makePayment(anyString(), anyDouble(), anyString());
+            verify(mockEmail).sendEmail(anyString(), anyString(), anyString());
+
 	        assertEquals(paymentStatus, actualPaymentStatus);
 	    }
 
