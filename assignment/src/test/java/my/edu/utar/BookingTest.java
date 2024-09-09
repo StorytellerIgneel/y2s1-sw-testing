@@ -19,7 +19,8 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -169,7 +170,7 @@ public class BookingTest {
        	Booking booking = new Booking(bookingID, account1, movie1, showtime1,quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
 
         // Act
-        Booking result = Booking.createBooking(bookingID, account1, movie, showtime, 
+        Booking result = Booking.createBooking(bookingID, account1, movie1, showtime1, 
         		quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
 
         // Assert       
@@ -240,9 +241,125 @@ public class BookingTest {
         Booking result = Booking.createBooking(bookingID, account, movie, showtime, 
         		quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
         // Assert       
+        assertNull(result); 
+    }
+    
+    private List<Object[]> getParamForCreateBookingInvalidIntegrationTest() {
+        return Arrays.asList(new Object[][] {
+            // null bookingID
+            new Object[] {null, new Account("user1", "user1@example.com", 1000, 2, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), "Available", 
+                    LocalTime.of(13, 00), 2024, 5, 1), 4, 2, 1, 0, 5, 12, 95.2, "Booked"},
+
+            // empty bookingID
+            new Object[] {"", new Account("user2", "user2@example.com", 2000, 1, 1), 
+                new Movie("Avatar", "Action", 18.50), 
+                new Showtime(new Movie("Avatar", "Action", 18.50), new CinemaHall(2, 60), "Available", 
+                    LocalTime.of(16, 00), 2024, 5, 1), 4, 2, 1, 0, 5, 12, 95.2, "Booked"},
+
+            // null account
+            new Object[] {"B001", null, new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, 1, 0, 5, 12, 95.2, "Booked"},
+
+            // null movie
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                null, new Showtime(new Movie("Inception", "Sci-Fi", 15.00), 
+                new CinemaHall(1, 50), "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, 1, 0, 5, 12, 95.2, "Booked"},
+
+            // null showtime
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), null, 
+                4, 2, 1, 0, 5, 12, 95.2, "Booked"},
+
+            // showtime doesn't contain the particular movie
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Avatar", "Action", 18.50), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, 1, 0, 5, 12, 95.2, "Booked"},
+
+            // total tickets is 0
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                0, 0, 0, 0, 0, 0, 0, "Booked"},
+
+            // ticket quantity is negative (BVA)
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                -1, 2, 1, 0, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, -1, 1, 0, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, -1, 0, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, 1, -1, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, 1, 0, -1, 12, 95.2, "Booked"},
+
+            // ticket quantity is negative (EP)
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                -100, 2, 1, 0, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, -100, 1, 0, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, -100, 0, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, 1, -100, 5, 12, 95.2, "Booked"},
+            new Object[] {"B001", new Account("johnDoe", "john@example.com", 1000, 1, 1), 
+                new Movie("Inception", "Sci-Fi", 15.00), 
+                new Showtime(new Movie("Inception", "Sci-Fi", 15.00), new CinemaHall(1, 50), 
+                "Available", LocalTime.of(13, 00), 2024, 5, 1), 
+                4, 2, 1, 0, -100, 12, 95.2, "Booked"},
+        });
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters(method="getParamForCreateBookingInvalidIntegrationTest")
+    public void createBookingInvalidTestIntegrationTest(String bookingID, Account account, Movie movie, Showtime showtime,
+        int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren, int totalSeats, double totalPrice, String status) {
+        
+        // Act
+        Booking result = Booking.createBooking(bookingID, account, movie, showtime, 
+            quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
+        
+        // Assert that the booking is null due to invalid input or throws an exception
         assertNull(result);
     }
     
+
     //BOOK_TC3_V001
     //Test method for setBookingId
     @Test
@@ -479,6 +596,75 @@ public class BookingTest {
 	    // Assert the expected total price matches the actual total price
 	    assertEquals(ER, actualTotalPrice, 0.001);
 	}
+	
+	private List<Object[]> getParamForTestCalculateTotalPriceIntegrationTest() {
+	    return Arrays.asList(new Object[][] {
+	        // isExpensive return true, actual ticket price values
+	        new Object[] {true, 15, 12, 10, 8, 5, 50}, // Example values for ticket prices
+
+	        // isExpensive return false, actual ticket price values
+	        new Object[] {false, 12, 10, 8, 6, 4, 40}, // Example values for ticket prices
+	    });
+	}
+
+	@Test
+	@Parameters(method = "getParamForTestCalculateTotalPriceIntegrationTest")
+	public void testCalculateTotalPriceIntegrationTest(boolean isExpensive, double adultPrice, double OKUPrice,
+	        double seniorPrice, double studentPrice, double childrenPrice, double expectedTotal) {
+
+	    // Create the actual Movie object and set its isExpensive behavior
+	    Movie movie = new Movie("Example Movie", "Drama", isExpensive ? 15.00 : 10.00);
+	    
+	    // Create the actual Booking object with the movie
+	    Booking booking = new Booking("B001", new Account("user1", "user1@example.com", 1000, 2, 1), movie,
+	            new Showtime(movie, new CinemaHall(1, 50), "Available", LocalTime.of(13, 00), 2024, 5, 1),
+	            2, 2, 1, 1, 1); // Example ticket quantities
+
+	    // Calculate actual total price based on the real interaction between objects
+	    double actualTotalPrice = booking.calculateTotalPrice();
+
+	    // Assert the expected total price matches the actual total price
+	    assertEquals(expectedTotal, actualTotalPrice, 0.001);
+	}
+
+	
+//	private Object[] getParamForTestCalculateTotalPriceIntegrationTest() {
+//        return new Object[] {
+//        	//isExpensive return true, all ticket price calculation return 10
+//            new Object[] {true, 10, 10, 10, 10, 10, 50},
+//            
+//          //isExpensive return false, all ticket price calculation return 10
+//            new Object[] {false, 10, 10, 10, 10, 10, 50},
+//        };
+//    }
+//
+//	@Test
+//	@Parameters(method = "getParamForTestCalculateTotalPriceIntegrationTest")
+//	public void testCalculateTotalPriceIntegrationTest(boolean isExpensive, double adult, double OKU,
+//	        double senior, double student, double children, double ER) {
+//
+//	    // Create a spy on the Booking object
+//	    Booking bookingSpy = spy(new Booking());
+//
+//	    // Set the mocked movie in the booking object
+//	    bookingSpy.setMovie(mockMovie);
+//
+//	    // Mock the movie's isExpensive method based on the test case parameter
+//	    when(mockMovie.isExpensive()).thenReturn(isExpensive);
+//
+//	    // Mock the individual ticket price calculations in the spy object
+//	    doReturn(adult).when(bookingSpy).calculateAdultTicketPrice(anyDouble());
+//	    doReturn(OKU).when(bookingSpy).calculateOKUTicketPrice(anyDouble());
+//	    doReturn(senior).when(bookingSpy).calculateSeniorTicketPrice(anyDouble());
+//	    doReturn(student).when(bookingSpy).calculateStudentTicketPrice(anyDouble());
+//	    doReturn(children).when(bookingSpy).calculateChildrenTicketPrice(anyDouble());
+//
+//	    // Call the calculateTotalPrice method on the spy object
+//	    double actualTotalPrice = bookingSpy.calculateTotalPrice();
+//
+//	    // Assert the expected total price matches the actual total price
+//	    assertEquals(ER, actualTotalPrice, 0.001);
+//	}
 
 	//BOOK_TC15_V001
 	//Test method for calculate adult ticket price 

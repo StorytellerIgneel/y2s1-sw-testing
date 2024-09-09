@@ -225,14 +225,24 @@ public class CinemaHallTest {
         hallSpy.hallAvailable(1);
     }
 
+    // CH_TC8_IT001
+    // Integration test for checkOversell (Valid input)
+    @Test
+    @Parameters(method = "getParamForCheckOversellValid")
+    public void checkOversellIntegrationTest(int newTickets, int availableSeats, boolean ER){
+        CinemaHall cinema = new CinemaHall(1, availableSeats);
+        assertEquals(ER, cinema.checkOversell(newTickets));
+    }
+
     // CH_TC9_V001
     // Test method for hallAvailable (Valid input)
     @Test
-    public void hallAvailableValidTest(){
+    @Parameters("Available, false, 25")
+    public void hallAvailableValidTest(String hallStatus, boolean oversell, int tickets){
         CinemaHall mockHall = mock(CinemaHall.class);
-        when(mockHall.getHallStatus()).thenReturn("Available");
-        when(mockHall.checkOversell(anyInt())).thenReturn(false);
-        assertTrue(mockHall.hallAvailable(25));
+        when(mockHall.getHallStatus()).thenReturn(hallStatus);
+        when(mockHall.checkOversell(anyInt())).thenReturn(oversell);
+        assertTrue(mockHall.hallAvailable(tickets));
     }
 
     private Object[] getParamsForHallAvailableInvalidHallStatusTest(){
@@ -277,5 +287,16 @@ public class CinemaHallTest {
         } catch (IllegalArgumentException e) {
             assertEquals("The hall only has " + mockHall.getAvailableSeats(), e.getMessage());
         }
+    }
+
+    // CH_TC9_IT001
+    // Integration Test for hallAvailable (Valid input)
+    @Test
+    @Parameters("5, 50, 25")
+    public void hallAvailableIntegrationTest(int hallNumber, int availableSeats, int tickets){
+        CinemaHall cinema = new CinemaHall(hallNumber, availableSeats);
+        //hallStatus == "Available" from constructor
+        //checkOversell(tickets) should return false because availableSeats > tickets
+        cinema.hallAvailable(tickets);
     }
 }

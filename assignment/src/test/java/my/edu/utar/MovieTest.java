@@ -1,19 +1,15 @@
 package my.edu.utar;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized.Parameter;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Field;
-
-import static org.mockito.Mockito.*;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class MovieTest {
@@ -78,12 +74,13 @@ public class MovieTest {
         assertNull(Movie.createMovie(title, category, normalPrice));
     }
     
+    
     //MVE_TC6_V001
     //Test method for setTitle
     @Test
     @Parameters("Movie123, Movie123")
     public void setTitleValidTest(String title1, String ER){
-        Movie movie = (new Movie());
+        Movie movie = new Movie();
         movie.setTitle(title1);
         assertEquals(ER, movie.getTitle());
     }
@@ -92,23 +89,20 @@ public class MovieTest {
     //Test method for setTitleInvalid
 	private Object[] getParamForSetTitleInvalidTest() {
         return new Object[] {
-        	//isExpensive return true, all ticket price calculation return 10
-            new Object[] {null},
-            
-          //isExpensive return false, all ticket price calculation return 10
-            new Object[] {""},
+            new Object[] {null},              // null
+            new Object[] {""},                // empty string
             new Object[] {"Invalid^&%Movie"}  // Invalid characters
         };
     }
     @Parameters(method="getParamForSetTitleInvalidTest")
     @Test(expected = IllegalArgumentException.class)
     public void setTitleInvalidTest(String title) {
-        Movie movie = (new Movie());
+        Movie movie = new Movie();
         movie.setTitle(title);  // This should throw IllegalArgumentException for invalid inputs
     }
 
-    
-    //MVE_TC7_V001
+
+  //MVE_TC7_V001
     //Test method for setCategory valid
     @Test
     @Parameters({
@@ -121,9 +115,9 @@ public class MovieTest {
         movie.setCategory(category);
         assertEquals(ER, movie.getCategory());
     }
-
+    
     //MVE_TC7_INV001
-    //Test method for setCategory valid
+    //Test method for setCategory invalid
     private Object[] getParamsForSetCategoryInvalid() {
         return new Object[] {
             new Object[] {null},
@@ -193,3 +187,4 @@ public class MovieTest {
         assertEquals(ER, movie.isExpensive());
     }
 }
+
