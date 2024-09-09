@@ -76,7 +76,7 @@ public class BookingTest {
     
     // BOOK_TC1_V001
  	// Test method to test Booking constructor with valid inputs
-    private Object[] getParamForBookingConstructorValid() {
+    private Object[] getParamForBookingConstructorIntegrationTest() {
         return new Object[] {
             new Object[] {"B001",4,2,1,0,5,12,95.2,"Booked"},
         };
@@ -86,7 +86,7 @@ public class BookingTest {
 
     //Integration test method to test Booking constructor
     @Test
-    @Parameters(method = "getParamForBookingConstructorValid")
+    @Parameters(method = "BookingConstructorIntegrationTest")
     public void BookingConstructorIntegrationTest(String bookingID,int quantityAdult, int quantityOKU, 
     		int quantitySenior, int quantityStudent, int quantityChildren, int totalSeats, double totalPrice,String status) {
        	Movie movie1 = new Movie("Example Movie","Normal",18.50);
