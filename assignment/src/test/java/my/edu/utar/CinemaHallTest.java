@@ -142,7 +142,7 @@ public class CinemaHallTest {
             assertEquals("Invalid hall status", e.getMessage());
         }
     }
-    
+
     // CH_TC5_V001
     // Test method for getAvailableSeats
     @Test
@@ -209,12 +209,11 @@ public class CinemaHallTest {
     // CH_TC9_V001
     // Test method for hallAvailable (Valid input)
     @Test
-    @Parameters(method = "getParamsForHallAvailableValidTest")
     public void hallAvailableValidTest(){
         CinemaHall mockHall = mock(CinemaHall.class);
         when(mockHall.getHallStatus()).thenReturn("Available");
         when(mockHall.checkOversell(anyInt())).thenReturn(false);
-        assertTrue(mockHall.checkOversell(25));
+        assertTrue(mockHall.hallAvailable(25));
     }
 
     private Object[] getParamsForHallAvailableInvalidHallStatusTest(){
