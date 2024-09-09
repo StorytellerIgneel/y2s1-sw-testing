@@ -145,9 +145,6 @@ public class CinemaHallTest {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setHallStatus(hallStatus);
     }
-    
-    
-    
 
     // CH_TC5_V001
     // Test method for setAvailableSeats
@@ -166,12 +163,13 @@ public class CinemaHallTest {
         assertEquals(ER, cinemaHall.getAvailableSeats());
     }
 
+    // CH_TC5_INV001
+    // Test method for setAvailableSeats
     private Object[] getParamForTestSetAvailableSeatsInvalid(){
         return new Object[] {
             new Object[] {-25, 50}, //AvailableSeats EP negative
-            //new Object[] {0, 50},   //AvailableSeats BVA 0 
             new Object[] {-1, 50},  //AvailableSeats BVA negative
-            new Object[] {50, 25}, //AvailableSeats > 
+            new Object[] {50, 25}, //AvailableSeats > Seats
         };
     }
     @Test (expected = IllegalArgumentException.class)
@@ -208,6 +206,41 @@ public class CinemaHallTest {
             new Object[] {1, 1, 100, 101, false}
         };
     }
+
+    // CH_TC7_V001
+    // Test method for setAvailableSeats
+    private Object[] getParamForTestSetBookedSeatsValid(){
+        return new Object[] {
+            new Object[] {100, 200, 100}, //available seats EP 
+            new Object[] {51, 100, 51},   //available seats BVA
+        };
+    }
+    @Test
+    @Parameters(method = "getParamForTestSetBookedSeatsValid")
+    public void testSetBookedSeatsValid(int availableSeats, int seats, int ER) {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setSeats(seats);
+        cinemaHall.setBookedSeats(availableSeats);
+        assertEquals(ER, cinemaHall.getBookedSeats());
+    }
+
+    // CH_TC7_INV001
+    // Test method for setBookedSeats
+    private Object[] getParamForTestSetBookedSeatsInvalid(){
+        return new Object[] {
+            new Object[] {-25, 50}, //BookedSeats EP negative
+            new Object[] {-1, 50},  //BookedSeats BVA negative
+            new Object[] {50, 25}, //BookedSeats > Seats
+        };
+    }
+    @Test (expected = IllegalArgumentException.class)
+    @Parameters(method = "getParamForTestSetBookedSeatsInvalid")
+    public void testSetBookedSeatsInvalid(int bookedSeats, int seats) {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setSeats(seats);
+        cinemaHall.setBookedSeats(bookedSeats);
+    }
+
     // CH_TC8_V001
     // Test method for checkOversell (Valid input)
     @Test
@@ -272,7 +305,6 @@ public class CinemaHallTest {
         cinema.checkOversell(newTickets);
     }
 
-    // //hallAvailable
 
     // //hall available
     private Object[] getParamsForTestHallAvailableInvalid(){
@@ -338,35 +370,5 @@ public class CinemaHallTest {
         
 
         assertEquals(ER, cinemaHall.hallAvailable(newTickets));
-    }
-    
-    //CH_TC10_V001
-    //Test method for setBookedSeats
-    @Test
-    @Parameters({
-        "0, 0", // BVA No seats booked
-        "10, 10", // Some seats booked
-        "50, 50"  // All seats booked
-    })
-    public void testSetBookedSeatsValid(int bookedSeats, int expected) {
-        CinemaHall cinemaHall = new CinemaHall(1, 50);
-        cinemaHall.setBookedSeats(bookedSeats);
-        assertEquals(expected, cinemaHall.getBookedSeats());
-    }
-    
-    //CH_TC10_INV001
-    //Test method for setBookedSeats - INVALID
-    @Test(expected = IllegalArgumentException.class)
-    @Parameters({
-        "-1, 50", // BVA Negative booked seats
-        "51, 50", // BVA More booked seats than total seats
-        "-50, 50", // EP booked seats than total seats
-        "100, 50", // EP booked seats than total seats
-
-    })
-    public void testSetBookedSeatsInvalid(int bookedSeats, int seats) {
-        CinemaHall cinemaHall = new CinemaHall(1, seats);
-        cinemaHall.setBookedSeats(bookedSeats);
-    }
-    
+    }    
 }
