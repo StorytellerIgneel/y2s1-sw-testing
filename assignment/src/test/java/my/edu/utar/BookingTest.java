@@ -6,6 +6,7 @@ import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -885,8 +886,14 @@ public class BookingTest {
 	    public void testUpdatePaymentStatus_SuccessfulPayment(String paymentStatus, String ER) {
 		//String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren
 		    booking = new Booking("B001",account,movie,showtime,1,1,1,1,1);
-	        // Define behavior of the mock Payment object
-	        when(mockPayment.makePayment(booking.getBookingId(), booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
+	        Booking bookingSpy = Mockito.spy(booking);
+	        
+	        when(mockShowtime.getNormalTicketPrice()).thenReturn(normalPrice);
+
+	        when(mockBooking.makePayment(bookingSpy.getBookingId(), bookingSpy.getTotalPrice(), bookingSpy.getEmail())).thenReturn(paymentStatus);
+	        verify(mockPayment).makePayment(booking.getBookingId(), booking.getTotalPrice(), account.getEmail());
+		    // Define behavior of the mock Payment object
+	        when(mockPayment.makePayment(bookingSpy.getBookingId(), bookingSpy.getTotalPrice(), bookingSpy.getEmail())).thenReturn(paymentStatus);
 
 	        // Define behavior of the mock Email object
 	        doNothing().when(mockEmail).sendEmail(booking.getBookingId(), paymentStatus, account.getEmail());
@@ -902,27 +909,29 @@ public class BookingTest {
 	        assertEquals(paymentStatus, actualPaymentStatus);
 	    }
 
-//	    @Test
-//	    public void testUpdatePaymentStatus_UnsuccessfulPayment() {
-//	        String bookingID = booking.getBookingId();
-//	        String paymentStatus = "Payment Unsuccessful";
-//
-//	        // Define behavior of the mock Payment object
-//	        when(mockPayment.makePayment(bookingID, booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
-//
-//	        // Define behavior of the mock Email object
-//	        doNothing().when(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
-//
-//	        // Call the updatePaymentStatus method
-//	        String actualPaymentStatus = booking.updatePaymentStatus(bookingID, paymentStatus);
-//
-//	        // Verify the mock Payment and Email methods were called
-//	        verify(mockPayment).makePayment(bookingID, booking.getTotalPrice(), account.getEmail());
-//	        verify(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
-//
-//	        // Assert that the payment status is updated correctly
-//	        assertEquals(paymentStatus, actualPaymentStatus);
-//	    }
+	    @Test
+	    public void testUpdatePaymentStatus_UnsuccessfulPayment() {
+	        String bookingID = booking.getBookingId();
+	        String paymentStatus = "Payment Unsuccessful";
+	        
+	        // Define behavior of the mock Payment object
+	        when(mockPayment.makePayment(bookingID, booking.getTotalPrice(), account.getEmail())).thenReturn(paymentStatus);
+
+	        // Define behavior of the mock Email object
+	        doNothing().when(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
+	        doReturn("Unse")
+	        // Call the updatePaymentStatus method
+	        String actualPaymentStatus = booking.updatePaymentStatus(bookingID, paymentStatus);
+
+	        // Verify the mock Payment and Email methods were called
+	        verify(mockPayment).makePayment(bookingID, booking.getTotalPrice(), account.getEmail());
+	        verify(mockEmail).sendEmail(bookingID, paymentStatus, account.getEmail());
+
+	        // Assert that the payment status is updated correctly
+	        assertEquals(paymentStatus, actualPaymentStatus);
+	    }
+	    
+	    
 
 }
 
