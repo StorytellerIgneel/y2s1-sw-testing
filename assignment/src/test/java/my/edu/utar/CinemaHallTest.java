@@ -19,7 +19,7 @@ public class CinemaHallTest {
     // CH_TC1_V001
     // Test method for CinemaHall constructor
     @Test
-    public void CinemaHallConstructorTest(){
+    public void testCinemaHallConstructor(){
         int hallNumber = 1;
         int seats = 50;
         CinemaHall cinemahall = new CinemaHall(hallNumber, seats);
@@ -339,4 +339,34 @@ public class CinemaHallTest {
 
         assertEquals(ER, cinemaHall.hallAvailable(newTickets));
     }
+    
+    //CH_TC10_V001
+    //Test method for setBookedSeats
+    @Test
+    @Parameters({
+        "0, 0", // BVA No seats booked
+        "10, 10", // Some seats booked
+        "50, 50"  // All seats booked
+    })
+    public void testSetBookedSeatsValid(int bookedSeats, int expected) {
+        CinemaHall cinemaHall = new CinemaHall(1, 50);
+        cinemaHall.setBookedSeats(bookedSeats);
+        assertEquals(expected, cinemaHall.getBookedSeats());
+    }
+    
+    //CH_TC10_INV001
+    //Test method for setBookedSeats - INVALID
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters({
+        "-1, 50", // BVA Negative booked seats
+        "51, 50", // BVA More booked seats than total seats
+        "-50, 50", // EP booked seats than total seats
+        "100, 50", // EP booked seats than total seats
+
+    })
+    public void testSetBookedSeatsInvalid(int bookedSeats, int seats) {
+        CinemaHall cinemaHall = new CinemaHall(1, seats);
+        cinemaHall.setBookedSeats(bookedSeats);
+    }
+    
 }

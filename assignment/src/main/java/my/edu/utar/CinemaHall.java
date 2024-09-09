@@ -13,7 +13,7 @@ public class CinemaHall {
     public CinemaHall(int hallNumber, int seats, int availableSeats, int bookedSeats) {
         this.hallNumber = hallNumber;
         this.seats = seats;
-        this.availableSeats = seats;
+        this.availableSeats = availableSeats;
         this.bookedSeats = bookedSeats;
         this.hallStatus = "Available"; //Fully Booked, Available, Not Available, Repair 
     }

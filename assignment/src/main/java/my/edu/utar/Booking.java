@@ -19,9 +19,23 @@ public class Booking {
     private int totalNumberOfSeats;
     private double totalPrice;
     private String status;
-    private String paymentStatus;
 
-//    public Booking(String bookingID, Account account, Movie movie, Showtime showtime, Payment paymentStatus,int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
+    public Booking(String bookingID, Account account, Movie movie, Showtime showtime,int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
+        this.bookingId = bookingID;
+        this.account = account;
+        this.movie = movie;
+        this.showtime = showtime;
+        this.quantityAdult = quantityAdult;
+        this.quantityChildren = quantityChildren;
+        this.quantityOKU = quantityOKU;
+        this.quantitySenior = quantitySenior;
+        this.quantityStudent = quantityStudent;
+        this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
+        this.totalPrice = calculateTotalPrice();
+        this.status = "Booked";
+    }
+	
+//    public Booking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
 //        this.bookingId = bookingID;
 //        this.account = account;
 //        this.movie = movie;
@@ -50,7 +64,28 @@ public class Booking {
         this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
         this.totalPrice = calculateTotalPrice();
         this.status = "Booked";
-        this.paymentStatus = updatePaymentStatus(bookingID, this.paymentStatus);
+
+        Payment newPayment = new Payment();
+        Email newEmail = new Email();
+
+        this.paymentStatus = updatePaymentStatus(bookingID, this.paymentStatus, newPayment, newEmail);
+    }
+
+    public Booking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren, Payment newPayment, Email newEmail) {
+        this.bookingId = bookingID;
+        this.account = account;
+        this.movie = movie;
+        this.showtime = showtime;
+        this.quantityAdult = quantityAdult;
+        this.quantityChildren = quantityChildren;
+        this.quantityOKU = quantityOKU;
+        this.quantitySenior = quantitySenior;
+        this.quantityStudent = quantityStudent;
+        this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
+        this.totalPrice = calculateTotalPrice();
+        this.status = "Booked";
+
+        this.paymentStatus = updatePaymentStatus(bookingID, this.paymentStatus, newPayment, newEmail);
     }
 
     public Booking() {}
@@ -93,7 +128,7 @@ public class Booking {
         }
         if (userIsRegistered == false)
             throw new IllegalArgumentException("User not registered");
-        
+       
         return new Booking(bookingID, account, movie, showtime, quantityAdult, quantityOKU, quantitySenior, quantityStudent, quantityChildren);
     }
 
@@ -217,6 +252,10 @@ public class Booking {
         this.totalPrice = totalPrice;
     }
 
+    public String getPaymentStatus(){
+        return paymentStatus;
+    }
+
 
     public String getStatus(){
         return status;
@@ -264,9 +303,7 @@ public class Booking {
         return quantityChildren * (((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 
-    public String updatePaymentStatus (String bookingID, String paymentStatus){
-        Payment newPayment = new Payment();
-        Email newEmail = new Email();
+    public String updatePaymentStatus (String bookingID, String paymentStatus, Payment newPayment, Email newEmail){
         String accountEmail = getAccount().getEmail();
 
         String newPaymentStatus = newPayment.makePayment(bookingID, getTotalPrice(), accountEmail);
