@@ -20,6 +20,7 @@ public class Booking {
     private double totalPrice;
     private String status;
     private String paymentStatus;
+    private static ArrayList<Booking> bookings = new ArrayList<>();
 
     public Booking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren) {
         this.bookingId = bookingID;
@@ -34,6 +35,9 @@ public class Booking {
         this.totalNumberOfSeats = quantityAdult + quantityOKU + quantitySenior + quantityStudent + quantityChildren;
         this.totalPrice = calculateTotalPrice();
         this.status = "Booked";
+
+        Payment newPayment = new Payment();
+        this.paymentStatus = newPayment.makePayment(this.bookingId, this.totalPrice, account.getEmail());
     }
 
     public Booking() {
@@ -249,8 +253,13 @@ public class Booking {
         return quantityChildren * (((showtime.getNormalTicketPrice() > 9)? 9 : showtime.getNormalTicketPrice()) + addOn);
     }
 
-    public String updatePaymentStatus (int bookingID, String paymentStatus){
-        this.paymentStatus = paymentStatus;
+    public String updatePaymentStatus (String bookingID, String paymentStatus){
+        for (Booking booking : bookings) {
+            if (booking.getBookingId() == bookingID) {
+                this.paymentStatus = paymentStatus;
+                return "Successfully updated";
+            }
+        }
+        return "Failed to find booking";
     }
-
 }

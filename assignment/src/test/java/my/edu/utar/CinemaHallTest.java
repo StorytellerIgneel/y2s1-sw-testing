@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import junitparams.JUnitParamsRunner;
@@ -143,6 +144,25 @@ public class CinemaHallTest {
         }
     }
 
+    private Object[] getParamsForHallAvailableInvalidTest(){
+        return new Object[] {
+            new Object[] {"", false, false},
+            new Object[] {"Not Available", false, false},
+            new Object[] {"under repair", false, false},
+            new Object[] {"Available", true, false},
+            new Object[] {"Available", false, true},
+        };
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters(method = "getParamsForHallAvailableInvalidTest")
+    public void hallAvailableInvalidTest(String hallStatus, boolean oversell, boolean ER){
+        CinemaHall hallSpy = spy(CinemaHall.class);
+        when(hallSpy.getHallStatus()).thenReturn(hallStatus);
+        when(hallSpy.checkOversell(anyInt())).thenReturn(oversell);
+        hallSpy.hallAvailable(1);
+    }
+    
     // CH_TC5_V001
     // Test method for getAvailableSeats
     @Test
