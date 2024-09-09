@@ -40,9 +40,7 @@ public class Booking {
         this.paymentStatus = newPayment.makePayment(this.bookingId, this.totalPrice, account.getEmail());
     }
 
-    public Booking() {
-		// TODO Auto-generated constructor stub
-	}
+    public Booking() {}
 
 	public static Booking createBooking(String bookingID, Account account, Movie movie, Showtime showtime, int quantityAdult, int quantityOKU, int quantitySenior, int quantityStudent, int quantityChildren){
 		if (bookingID == null || bookingID.isEmpty())
