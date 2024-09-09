@@ -75,39 +75,7 @@ public class MovieTest {
     public void createMovieInvalidTest(String title, String category, double normalPrice) {
         assertNull(Movie.createMovie(title, category, normalPrice));
     }
-
-    //MVE_TC3_V001
-    //test method for getTitle and setTitle
-    @Test
-    @Parameters("Example Movie, Example Movie")
-    public void setTitleTest(String title, String ER){
-        // Arrange
-        Movie movie = new Movie();
-        movie.setTitle(title);
-        assertEquals(ER, movie.getTitle());
-    }
-
-    //MVE_TC4_V001
-    //test method for getNormalPrice and setNormalPrice
-    @Test
-    @Parameters("18.50, 18.50")
-    public void setNormalPriceTest(double normalPrice, double ER){
-        // Arrange
-        Movie movie = new Movie();
-        movie.setNormalPrice(normalPrice);
-        assertEquals(ER, movie.getNormalPrice(), 0.0);
-    }
-
-    //MVE_TC5_V001
-    //test method for getCategory and setCategory
-    @Test
-    @Parameters("Normal, Normal")
-    public void setCategoryTest(String category, String ER){
-        // Arrange
-        Movie movie = new Movie();
-        movie.setCategory(category);
-        assertEquals(ER, movie.getCategory());
-    }
+    
     
     //MVE_TC6_V001
     //Test method for setTitle
@@ -135,13 +103,13 @@ public class MovieTest {
     @Parameters(method="getParamForSetTitleInvalidTest")
     @Test(expected = IllegalArgumentException.class)
     public void setTitleInvalidTest(String title) {
-        Movie movieSpy = spy(new Movie());
-        movieSpy.setTitle(title);  // This should throw IllegalArgumentException for invalid inputs
+        Movie movie = new Movie();
+        movie.setTitle(title);  // This should throw IllegalArgumentException for invalid inputs
     }
 
-    
-    //MVE_TC7_V001
-    //Test method for setCategory invalid
+
+  //MVE_TC7_V001
+    //Test method for setCategory valid
     @Test
     @Parameters({
     	"3D,3D",
@@ -153,9 +121,9 @@ public class MovieTest {
         movie.setCategory(category);
         assertEquals(ER, movie.getCategory());
     }
-
+    
     //MVE_TC7_INV001
-    //Test method for setCategory valid
+    //Test method for setCategory invalid
     private Object[] getParamsForSetCategoryInvalid() {
         return new Object[] {
             new Object[] {null},
